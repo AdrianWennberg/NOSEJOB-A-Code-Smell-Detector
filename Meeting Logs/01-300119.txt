@@ -1,0 +1,26 @@
+Fisrst official meeting log
+30. Jan 2019 16:00
+
+Present: Adrian, Will, Alessandro, Peter
+
+The main question we started considering was what sort of 
+user interface we use. The question came down to "do we mane a Web app or a desktop GUI?"
+
+We settled quickly on trying to go ahead with a web app, and Will suggested the Play Framework.
+Will agreed to test the framework over the weekend and next week, we'll have a plan of how to structure our porject.
+
+The idea of the framework will be that the user uploads their files and a server side java application does an 
+analysis and sens back the results. We all agreed that we want some sort of nice GUI for displaying our results and we
+will look into default statistics presentation tools to use.
+
+Since we are making both a Web interface and the back end logic for the code smell detector, we agreed to have a modular
+interface bsed structure where the logic part works as an API that the Web app can simply hook into. We also considered
+building a simple console fornt end for the API so that you can get the same results by using the application through
+the terminal.
+
+We had a few other ideas that we will consider as we get the spesifications and start figuring out how the code analysis
+is done.
+1. We could try suggesting fixes for the code smells and automatically implement the fixes for the user.
+2. If we manage to define the smells using JSON or XML, we could potentially let users define their own smells.
+3. Depending on how the logic/API works, we can see if it is possible to hook it into an IDE or intellisense.
+
