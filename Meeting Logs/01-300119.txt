@@ -1,4 +1,4 @@
-Fisrst official meeting log
+First official meeting log
 30. Jan 2019 16:00
 
 Present: Adrian, Will, Alessandro, Peter
@@ -7,9 +7,9 @@ The main question we started considering was what sort of
 user interface we use. The question came down to "do we make a Web app or a desktop GUI?"
 
 We settled quickly on trying to go ahead with a web app, and Will suggested the Play Framework.
-Will agreed to test the framework over the weekend and next week, we'll have a plan of how to structure our porject.
+Will agreed to test the framework over the weekend and next week, we'll have a plan of how to structure our project.
 
-The idea of the framework will be that the user uploads their files and a server side java application does an 
+The idea of the framework will be that the user uploads their files and a server side Java application does an 
 analysis and sends back the results. We all agreed that we want some sort of nice GUI for displaying our results and we
 will look into default statistics presentation tools to use.
 
@@ -18,7 +18,7 @@ interface based structure where the logic part works as an API that the Web app 
 building a simple console front end for the API so that you can get the same results by using the application through
 the terminal.
 
-We had a few other ideas that we will consider as we get the spesifications and start figuring out how the code analysis
+We had a few other ideas that we will consider as we get the specifications and start figuring out how the code analysis
 is done.
 1. We could try suggesting fixes for the code smells and automatically implement the fixes for the user.
 2. If we manage to define the smells using JSON or XML, we could potentially let users define their own smells.
