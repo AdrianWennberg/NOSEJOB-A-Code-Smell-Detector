@@ -1,0 +1,32 @@
+The Coding Rangers - Interim Report
+
+Team Members:
+Adrian Wennberg
+Peter Major
+Will Akinsanya
+Alessandro Baccin
+
+
+Planning to use Java Web Framework for front end and run the code "server-side"
+
+UI design
+
+Code-Smells
+
+Generate a roeport based on code analysis
+PDF?
+
+Javascript framework for visualization?
+
+
+Responsibilities
+UI Design
+Reflection API
+Web framework API
+Interface Design
+Code analysis
+Visualisation
+UX Design and implementation
+
+
+
