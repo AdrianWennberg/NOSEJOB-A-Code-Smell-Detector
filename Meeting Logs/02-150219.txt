@@ -1,0 +1,61 @@
+Second official meeting log
+15. Feb 2019 12:00
+
+Present: Adrian, Will, Alessandro, Peter
+
+Peter thinks it is a good idea to use a Java source code parser instead of the reflection API.
+He thinks it will be simpler to get the desired information out, and that there will be more information available.
+He will test the Java parser library he has found by next Wednesday, and we will leave the decision until then.
+
+We had a small discussion on the pros and cons of using passing on the data method by method, or all at once to the 
+analyzing part of the code base, and we decided on going for passing the data all at once stored in some sort of class
+tree structure that is passed on to the analyzers one at a time.
+
+Will is still pushing the Spring Boot web framework, and we all agree that it sound like a simple and good 
+way to set up the front end. That also means we will go with the standard MVP setup for the spring Framework which 
+some of the planning. 
+
+By the end of next week we need to figure out how were going to format our data. We'll be looking at how the parser stores 
+data and see what data we can get. We're going for the philosophy of storing as much data as possible so that
+we can easily see which smells we'll be able to detect form the data we have stored.
+
+The second thing we want  to have control over by next week is an outline of the smells we want to detect. 
+We can most likely get all the smells mentioned in the assignment notes to some extent. These include:
+	Bloated Methods
+	Feature Envy
+	Duplicated Code
+	Inappropriate Intimacy
+	Too many literals
+	Switch statements (especially big ones)
+	Bad Naming
+	Bequest Refused
+	
+We consider maybe organizing the smells by categories or combining them in some way. We'll see next wek.
+	
+Here's how we plan for the application to work:
+	Files are uploaded to a web page.
+	The files are sent to the server.
+	We use the Java Parser to get an object that stores all the relevant code data.
+	Pass the data over to the code analyzers one by one.
+	Send the resulting data back to the user.
+	Spring boot or some other framework presents the data in a user friendly way.
+	
+	
+Here's what we are doing Right away:
+	- Peter is testing out the Java parser and making a demo for next Wednesday.
+	- Adrian is writing this meeting log and setting up a develop branch on GitHub.
+	- We are all looking into the different code smells and thinking about the interfaces we are going to need.
+	- People are deciding on their own if they want to use GitFlow to simplify working with GitHub.
+	- We are starting the Interim Report as a word document following the template that was given.
+
+Our next meeting will be next Wednesday the 20th. Here's the current plan for that meeting:
+	We'll get the basis of our interfaces planned out.
+		Code Parser
+		Parsed Data Storage
+		Code "Sniffers" (classes that look for a certain smell in the code)
+		Code Smell Data
+	
+	Peter will be presenting what he has found on the Java parser. Maybe a demo.
+	We will note down which smells we will focus on.
+
+
