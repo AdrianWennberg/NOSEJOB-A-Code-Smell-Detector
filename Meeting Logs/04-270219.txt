@@ -1,0 +1,71 @@
+Fourth official meeting log
+27. Feb 2019 12:00
+
+Present: Adrian, Will, Alessandro, Peter
+
+We spent this meeting planning out the interim report. Here's the structure we decided upon.
+
+	1. Introduction
+		goals/visions
+		who writes this? - Alessandro
+		web front end, upload files.
+	
+	2. Formal specification - Will gets started on this part
+		Specify front end UI and features from and
+		user perspective
+		
+	3. Software overview 
+		Overview of:
+			Parser overview - Peter
+			Parsed data structures - Adrian
+			Code sniffers - Adrian
+			Spring boot structure - Will
+				client/server side - Will
+				
+			Do we try to have a CLI as well? - Yes
+				
+		UML Diagram - Adrian
+				
+	4. Main Responsibilities and work breakdown
+		Peter - Parsing
+		Adrian - Sniffers, parsed data structures, and server setup
+		Will - Front end lead, UI/UX design, spring boot
+		Alessandro - parsed Data structures and code smells
+		People do their own unit tests
+		
+		
+		Gnatt Chart
+		Split project into "sprints"
+		MVP
+		Decent level
+		Polish
+		
+	5. Team communication
+		GitHub with Git Flow
+		GitHub projects
+		Slack
+		Weekly meetings
+		How will we deal with conflicts?
+		
+	Disagreements will be solved with discussions, 
+	voting and coin flips
+		
+	6. Concluding Remarks
+		Philosophy
+			clean/user friendly?
+			Want to do it all
+			Store all the data we can and leave us open for changes.
+		
+		Risks
+			Java Parser - optionally fall-back to using Reflection
+			Spring boot web front-end - fall-back to CLI
+			using a server to host the program
+				- look into bundling the frameworks into a runnable thing (also CLI)
+			
+	Acknowledgements
+		credits for report
+		meniton who did what basically
+		
+	Refferances
+		citations
+
