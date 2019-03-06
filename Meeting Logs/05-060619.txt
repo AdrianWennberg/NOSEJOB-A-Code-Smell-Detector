@@ -1,0 +1,72 @@
+Fifth official meeting log
+06. Mar 2019 11:00
+
+Present: Adrian, Will, Alessandro, Peter
+
+
+Going over the report
+	Right now we're assuming the deadline for the report is at the end of the midterm break.
+	The intro part of the report is probably best left for closer to the deadline.
+	
+Alessandro will create a splash image for the report: 
+	A (bad) Photoshop of our faces onto a picture of the power rangers.
+
+Adrian will get to work this week on starting a simple UML diagram for the project that we can base parts
+of the report on. 
+
+Defining smells in software spec (3)
+We talked a lot about how we're defining our smells in the software spec. We'll be writing up a definition
+of each smell along with a plan for how to detect that smell. Potentially with examples and images for some smells.
+
+
+Here's the list of smells that we'll try to cover	:
+Bloated Code
+Feature Envy
+Inappropriate Intimacy
+Too many literals
+Primitive obsession
+God Complex
+Lazy Classes
+Arrowhead Indention
+Many/long switch statements
+Temporary fields (local variables created as fields)
+Refused Bequest (Overriding and not calling super)
+Violation of data privacy/public fields
+Data-only classes
+Dead code
+Message chaining
+Middle Man
+
+Everyone covers four smells in the report at a first come first serve basis.
+
+Define Sprints in more detail 3 sprints over about 6 weeks
+1. MVP
+	1 smell -> Primitive obsessions
+	Simples possible Data Structures and parsing
+	Simple front and
+	By end of Midterm break ideally
+
+2. Acceptable 
+	about 6 smells
+	Decent pressing and Data structures
+	Decently working front and
+	Potentially a Minimal CLI
+	2 weeks after midterm: 8 and 9
+	
+3. Last Features
+	specify expectations when we get there
+	2 Weeks:: 10 and 11
+	
+	
+	Use week 12 for cleaning up and making sure project works.
+	
+
+Other notes
+
+We need to somehow store every place a method/class/variable/etc, is used in code.
+For example:
+	A method call is listed in the class that the method is called on, and in the method itself.
+
+
+We'll try getting to export the report as a PDF
+
