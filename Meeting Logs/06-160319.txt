@@ -1,0 +1,42 @@
+Sixth official meeting log
+16. Mar 2019 13:00
+Using Google Meet for a remote meting.
+
+
+We started off figuring out what was needed to finish up the report. We ended up splitting the remaining tasks between us so that we can finish it soon. 
+Adrian starts off adding the last few smells that were his responsibility. Then he writes the interfaces for the MVP and adds them to the report and to the project in GitHub. He is also in charge of formatting and editing the report for the final submission.
+
+Will writes the introduction and the concluding remarks of the report.
+Alessandro writes up project responsibilities and the communication parts where we go into the tools we use for communication.
+
+Next, we got ready to start working on the project. We laid out the details of the MVP and gave ourselves a week to finish it. 
+
+Here's the details for the MVP sprint:
+	- deadline at the end of the break so around 25th of March.
+	- We will detect one smell: Primitive Obsession
+	- The user will be able to upload files using the web interface. Potentially using either a file explorer or drag and drop.
+	- The parser will need to store the basic class/method/variable structure using the data structures.
+	- The data structures need  methods to get the count of primitives and total variables.
+	- We need to decide how the sniffer quantifies the smelliness of primitive obsession.
+	- We want the structure in place for project analysis that gives an overall project report and can later run multiple sniffers.
+
+Suggested report Structure:
+	A simple report:
+		Primitive obsession
+		Smelliness 70/100
+		Instances:
+		class Foo {
+			int a, b, c;
+			float d, e;
+			boolean isTrue(int x, int y, int z) {
+				…
+			…
+		}
+		----------
+		class Bar { ...
+		
+Here's how we're distributing the work so far:
+	Peter - parser
+	William - Front-end
+	Allesandro - Data structures/analysis
+	Adrian - Help out where needed + interfaces
