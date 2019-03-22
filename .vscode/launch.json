@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - NosejobApplication",
+            "request": "launch",
+            "mainClass": "com.codingrangers.nosejob.NosejobApplication",
+            "projectName": "nosejob"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-.app-container {
+.upload-container {
 	text-align: center;
 	border-radius: 16px;
 	border: 1px solid grey;
@@ -9,11 +9,11 @@
 	top: 50%;
 	transform: translateY(-50%);
 	max-width: 500px;
-	width: 1 00%;
+	width: 100%;
 	margin: 0 auto;
 	left: 0;
 	right: 0;
-	transition: ease-in 125ms;
+	transition: ease-in-out 125ms;
 }
 
 .app-header {
@@ -47,19 +47,9 @@
 	cursor: pointer;
 }
 
-@keyframes pulsate {
-	0% {
-		box-shadow: 0 0 0 0px rgba(211, 211, 211, 0.5);
-	}
-
-	100% {
-		box-shadow: 0 0 0 24px rgba(211, 211, 211, 0);
-	}
-}
-
-.get-started-button {
-	margin-top: 20px;
-	animation: pulsate 2s infinite;
+.back-button {
+	margin-left: 30%;
+	margin-top: 10%;
 	border-radius: 25px;
 	border-style: solid;
 	border-color: transparent;
@@ -72,17 +62,18 @@
 	cursor: pointer;
 }
 
-.get-started-button:hover {
+.back-button:hover {
 	filter: brightness(120%);
 	outline: none;
 	animation: none;
 }
 
-.get-started-button:focus {
+.back-button:focus {
 	outline: none;
 }
 
 body {
+	color: white !important;
 	background-color: #39414d;
 }
 
@@ -112,6 +103,17 @@ p {
 	font-weight: 400;
 	line-height: 20px;
 }
+
+a {
+	text-decoration: none;
+	font-family: "Open Sans";
+	color: white;
+}
+
+li {
+	list-style-type: none;
+}
+
 
 blockquote {
 	font-family: "Open Sans";

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 
 <head>
-	<link href="../static/css/home.css" th:href="@{/css/home.css}" rel="stylesheet" />
+	<link href="../static/css/upload.css" th:href="@{/css/upload.css}" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<title>NOSEJOB: A Code Smell Detector</title>
 </head>
@@ -17,9 +17,20 @@
 				</svg></h1>
 		</button>
 	</div>
-	<div class="app-container">
-		<h1 th:text="${appName}"></h1>
-		<button onclick="location.href='/upload'" class="get-started-button">Get Started</button>
+	<button onclick="location.href='/'" class="back-button">Back</button>
+	<div class="upload-container">
+		<h1>Upload File</h1>
+		<form method="POST" enctype="multipart/form-data" action="/upload">
+			<input type="file" name="file" />
+			<input type="submit" value="Upload" />
+			<div>
+				<ul>
+					<h3>Code Store</h3>
+					<li th:each="file : ${files}">
+						<h3><a th:href="${file}" th:text="${file}" /></h3>
+					</li>
+				</ul>
+			</div>
 	</div>
 </body>
 
