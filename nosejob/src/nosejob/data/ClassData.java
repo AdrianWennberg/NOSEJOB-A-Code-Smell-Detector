@@ -7,5 +7,6 @@ public interface ClassData extends CodeData {
 	MethodData getMethod(String name);
 	List<String> getFieldsNames();
 	VariableData getField(String name);
+	
 }
 
