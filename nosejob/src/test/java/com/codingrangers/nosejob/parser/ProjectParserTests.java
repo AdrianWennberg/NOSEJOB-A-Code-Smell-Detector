@@ -1,4 +1,4 @@
-package parser;
+package com.codingrangers.nosejob.parser;
 
 import org.junit.*;
 

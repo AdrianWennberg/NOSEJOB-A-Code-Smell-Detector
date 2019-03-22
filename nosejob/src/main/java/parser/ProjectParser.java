@@ -1,9 +1,16 @@
 package parser;
 
-public class ProjectParser {
+import nosejob.data.*;
+import nosejob.parsing.*;
 
-	public void ParseProject(String ProjectRootPath) {
+public class ProjectParser implements CodeParser {
+	
+	public ProjectData parseProject(String ProjectRootPath) {
+		ProjectData ProjectData;
 		
+		
+		
+		return null;
 	}
 	
 }
