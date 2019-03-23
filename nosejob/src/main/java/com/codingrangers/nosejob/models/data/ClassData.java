@@ -1,11 +1,13 @@
-package nosejob.data;
+package com.codingrangers.nosejob.models.data;
 
 import java.util.List;
 
 public interface ClassData extends CodeData {
 	List<String> getMethodNames();
+
 	MethodData getMethod(String name);
+
 	List<String> getFieldsNames();
+
 	VariableData getField(String name);
 }
-
