@@ -6,6 +6,8 @@ import com.github.javaparser.ast.body.*;
 
 /**
  * parser for class level data
+ * enters project from ClassOrInterfaceDeclaration 
+ * and exits from FieldDeclaration and MethodDeclaration
  * @author peter
  *
  */
