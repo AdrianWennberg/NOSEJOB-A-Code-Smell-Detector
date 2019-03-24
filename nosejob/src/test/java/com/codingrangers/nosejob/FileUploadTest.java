@@ -58,7 +58,7 @@ public class FileUploadTest {
 		assertThat(response.getStatusCodeValue()).isEqualTo(200);
 		assertThat(response.getHeaders().getFirst(HttpHeaders.CONTENT_DISPOSITION))
 				.isEqualTo("attachment; filename=\"samplefileupload.txt\"");
-		assertThat(response.getBody()).isEqualTo("I am for testing!\n");
+		assertThat(response.getBody()).isEqualTo("I am for testing!");
 	}
 
 }
