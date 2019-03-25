@@ -1,7 +1,8 @@
-package com.codingrangers.nosejob.models.data;
+package com.codingrangers.nosejob.models.data.parsed;
 
 import java.util.*;
 
+import com.codingrangers.nosejob.models.data.*;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 
 /**
@@ -38,7 +39,7 @@ public class ParsedClass implements ClassData {
 
     @Override
     public String getName() {
-        return declaration.getName().asString();
+        return declaration.getNameAsString();
     }
 
     @Override

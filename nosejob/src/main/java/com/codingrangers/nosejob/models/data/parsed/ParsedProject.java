@@ -1,6 +1,7 @@
-package com.codingrangers.nosejob.models.data;
+package com.codingrangers.nosejob.models.data.parsed;
 
 import java.util.*;
+import com.codingrangers.nosejob.models.data.*;
 
 /**
  * ParsedProject
@@ -25,7 +26,5 @@ public class ParsedProject implements ProjectData {
     @Override
     public ClassData getClassData(String className) {
         return classes.get(className);
-    }
-
-    
+    } 
 }
