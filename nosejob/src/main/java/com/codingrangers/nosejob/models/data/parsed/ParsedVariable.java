@@ -4,46 +4,33 @@ import com.codingrangers.nosejob.models.data.VariableData;
 
 /**
  * ParsedVariable
+ * TODO: Need to unit test this
  */
-public class ParsedVariable implements VariableData {
+public class ParsedVariable extends ParsedCodeUnit implements VariableData {
 
-    @Override
-    public String getName() {
-        return null;
+    private String type;
+    private boolean isPrimitive;
+
+    public ParsedVariable(ParsedCodeUnit variableScope, String variableName, String variableType) {
+        super(variableScope.getFullyQualifiedName(), variableName, variableScope.getFilePath());
+        isPrimitive = false;
     }
 
-    @Override
-    public String getFullyQualifiedName() {
-        return null;
+    public void SetIsPrimitive() {
+        isPrimitive = true;
     }
 
-    @Override
-    public String getFilePath() {
-        return null;
-    }
-
-    @Override
-    public int getStartLineNumber() {
-        return 0;
-    }
-
-    @Override
-    public int getEndLineNumber() {
-        return 0;
-    }
-
-    @Override
-    public int getLineCount() {
-        return 0;
+    public void setVariableType(String variableType) {
+        type = variableType;
     }
 
     @Override
     public String getType() {
-        return null;
+        return type;
     }
 
     @Override
     public boolean isPrimitive() {
-        return false;
+        return isPrimitive;
     }
 }

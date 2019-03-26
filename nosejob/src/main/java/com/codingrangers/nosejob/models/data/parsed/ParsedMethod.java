@@ -1,86 +1,67 @@
 package com.codingrangers.nosejob.models.data.parsed;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.codingrangers.nosejob.models.data.MethodData;
-import com.codingrangers.nosejob.models.data.VariableData;
-import com.github.javaparser.ast.body.MethodDeclaration;
+import com.codingrangers.nosejob.models.data.*;
 
 /**
  * ParsedMethod
+ * TODO: Need to unit test this
  */
-public class ParsedMethod implements MethodData {
-    
-    MethodDeclaration declaration;
-    String path;
+public class ParsedMethod extends ParsedCodeUnit implements MethodData {
 
-    ParsedMethod(MethodDeclaration methodDeclaration, String filePath){
-        declaration = methodDeclaration;
-        path = filePath;
+    private VariableData returnType;
+    private String className;
+    private List<VariableData> parameters;
+    private List<VariableData> localVariables;
+
+    ParsedMethod(ClassData methodClass, String methodName, VariableData methodReturnType) {
+        super(methodClass.getFullyQualifiedName(), methodName, methodClass.getFilePath());
+        returnType = methodReturnType; 
+        className = methodClass.getName();
+        parameters = new ArrayList<VariableData>();
     }
 
-    @Override
-    public String getName() {
-        return declaration.getNameAsString();
+    public void addParameter(VariableData newParameter){
+        parameters.add(newParameter);
     }
 
-    @Override
-    public String getFullyQualifiedName() {
-        return null;
-    }
-
-    @Override
-    public String getFilePath() {
-        return path;
-    }
-
-    @Override
-    public int getStartLineNumber() {
-        return declaration.getBegin().get().line;
-    }
-
-    @Override
-    public int getEndLineNumber() {
-        return declaration.getEnd().get().line;
-    }
-
-    @Override
-    public int getLineCount() {
-        return getEndLineNumber() - getStartLineNumber();
+    public void addVariable(VariableData newVariable){
+        localVariables.add(newVariable);
     }
 
     @Override
     public String getClassName() {
-        return declaration.asClassOrInterfaceDeclaration().getNameAsString();
+        return className;
     }
 
     @Override
-    public String getReturnType() {
-        return declaration.getTypeAsString();
+    public VariableData getReturnType() {
+        return returnType;
     }
 
     @Override
     public boolean hasPrimitiveReturnType() {
-        return declaration.getType().isPrimitiveType();
+        return returnType.isPrimitive();
     }
 
     @Override
     public List<VariableData> getParameters() {
-        return null;
+        return new ArrayList<VariableData>(parameters);
     }
 
     @Override
     public List<VariableData> getLocalVariables() {
-        return null;
+        return new ArrayList<VariableData>(localVariables);
     }
 
     @Override
     public int getPrimitiveParameterCount() {
-        return 0;
+        return DataStructureHelpers.countPrimitives(parameters);
     }
 
     @Override
     public int getPrimitiveLocalCount() {
-        return 0;
+        return DataStructureHelpers.countPrimitives(localVariables);
     }
 }

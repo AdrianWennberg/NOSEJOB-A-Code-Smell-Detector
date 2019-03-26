@@ -3,28 +3,19 @@ package com.codingrangers.nosejob.models.data.parsed;
 import java.util.*;
 
 import com.codingrangers.nosejob.models.data.*;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 
 /**
  * ParsedClass
  * TODO: Need to unit test this
  */
-public class ParsedClass implements ClassData {
+public class ParsedClass extends ParsedCodeUnit implements ClassData {
 
-    ClassOrInterfaceDeclaration declaration;
-    String path;
-    Map<String, MethodData> classMethods;
-    Map<String, VariableData> classVariables;
+    private Map<String, MethodData> classMethods;
+    private Map<String, VariableData> classVariables;
 
 
-    /* Uses the ClassOrInterfaceDeclaration from the Java Parser to get most of the class data.
-     * I don't know if this will work, but I'm trying it for now. Not good for Unit Testing so it will
-     * probably have to change. 
-     * TODO: make this not depend on JavaParser.
-     */ 
-    public ParsedClass(ClassOrInterfaceDeclaration classDeclaration, String filePath) {
-        declaration = classDeclaration;
-        path = filePath;
+    public ParsedClass(String classNamePrefix, String className, String filePath) {
+        super(classNamePrefix, className, filePath);
         classMethods = new HashMap<>();
         classVariables = new HashMap<>();
     }
@@ -35,37 +26,6 @@ public class ParsedClass implements ClassData {
 
     public void addVariable(VariableData newVariable){
         classVariables.put(newVariable.getName(), newVariable);
-    }
-
-    @Override
-    public String getName() {
-        return declaration.getNameAsString();
-    }
-
-    @Override
-    public String getFullyQualifiedName() {
-        // TODO
-        return null;
-    }
-
-    @Override
-    public String getFilePath() {
-        return path;
-    }
-
-    @Override
-    public int getStartLineNumber() {
-        return declaration.getBegin().get().line;
-    }
-
-    @Override
-    public int getEndLineNumber() {
-        return declaration.getEnd().get().line;
-    }
-
-    @Override
-    public int getLineCount() {
-        return getEndLineNumber() - getStartLineNumber();
     }
 
     @Override

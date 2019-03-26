@@ -5,10 +5,11 @@ import com.codingrangers.nosejob.models.data.*;
 
 /**
  * ParsedProject
+ * TODO: Need to unit test this
  */
 public class ParsedProject implements ProjectData {
 
-    Map<String, ClassData> classes;
+    private Map<String, ClassData> classes;
 
     ParsedProject(){
         classes = new HashMap<>();
