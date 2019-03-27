@@ -1,6 +1,6 @@
 package com.codingrangers.nosejob.models.parsing;
 
-import com.codingrangers.nosejob.models.data.*;
+import com.codingrangers.nosejob.models.data.parsing.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.expr.*;
@@ -11,12 +11,14 @@ import com.github.javaparser.ast.expr.*;
  * @author peter
  *
  */
-public class MethodVisitor extends VoidVisitorAdapter<MethodData>{
+public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod>{
 
-	public void visit(VariableDeclarationExpr varaible, MethodData methodData) {
+	public void visit(VariableDeclarator variable, ParsedMethod methodData) {
 		VariableVisitor visitor = new VariableVisitor();
-		VariableData variableData = null;
-		visitor.visit(varaible, variableData);
+		ParsedVariable variableData = new ParsedVariable(methodData, 
+				variable.getNameAsString(), 
+				variable.getTypeAsString());
+		visitor.visit(variable, variableData);
 	}
 	
 }

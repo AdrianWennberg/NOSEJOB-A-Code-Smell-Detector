@@ -3,6 +3,7 @@ package com.codingrangers.nosejob.models.parsing;
 import com.github.javaparser.*;
 import com.github.javaparser.ast.*;
 import com.codingrangers.nosejob.models.data.ProjectData;
+import com.codingrangers.nosejob.models.data.parsing.*;
 
 /**
  * entry point into code parsing system
@@ -17,7 +18,7 @@ public class ProjectParser implements CodeParser {
 	 */
 	public ProjectData parseProject(String path) {
 		CompilationUnit compilationUnit = JavaParser.parse(path);
-		ProjectData projectData = null;
+		ParsedProject projectData = null;
 		
 		ProjectVisitor visitor = new ProjectVisitor();
 		visitor.visit(compilationUnit, projectData);

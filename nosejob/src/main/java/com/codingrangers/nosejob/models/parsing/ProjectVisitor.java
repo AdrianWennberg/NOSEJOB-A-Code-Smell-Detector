@@ -1,6 +1,6 @@
 package com.codingrangers.nosejob.models.parsing;
 
-import com.codingrangers.nosejob.models.data.*;
+import com.codingrangers.nosejob.models.data.parsing.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.ast.body.*;
 
@@ -10,14 +10,18 @@ import com.github.javaparser.ast.body.*;
  * @author peter
  *
  */
-public class ProjectVisitor extends VoidVisitorAdapter<ProjectData>{
+public class ProjectVisitor extends VoidVisitorAdapter<ParsedProject>{
 
 	@Override
-	public void visit(ClassOrInterfaceDeclaration classOrInterface, ProjectData projectData) {
+	public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedProject parsedProject) {
 		if(classOrInterface.isInterface() == false) {
 			ClassVisitor visitor = new ClassVisitor();
-			ClassData classData = null;
-			visitor.visit(classOrInterface, classData);
+			ParsedClass parsedClass = new ParsedClass(
+					"",
+					classOrInterface.getNameAsString(),
+					"PathGoesHere");
+
+			visitor.visit(classOrInterface, parsedClass);
 		}
 	}
 	
