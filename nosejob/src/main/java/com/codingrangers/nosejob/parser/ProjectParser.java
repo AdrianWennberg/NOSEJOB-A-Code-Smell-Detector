@@ -4,8 +4,7 @@ import com.github.javaparser.*;
 import com.github.javaparser.ast.*;
 import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.models.CodeParser;
-
-import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 /**
  * entry point into code parsing system
@@ -14,6 +13,7 @@ import org.springframework.context.annotation.Bean;
  *
  */
 
+@Component
 public class ProjectParser implements CodeParser {
 
 	/**
@@ -21,7 +21,6 @@ public class ProjectParser implements CodeParser {
 	 *             it are parse
 	 */
 
-	@Bean
 	public ProjectParser getProjectParser() {
 		return new ProjectParser();
 	}
