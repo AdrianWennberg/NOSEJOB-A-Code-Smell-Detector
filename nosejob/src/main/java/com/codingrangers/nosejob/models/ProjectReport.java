@@ -1,4 +1,4 @@
-package com.codingrangers.nosejob.models.smells;
+package com.codingrangers.nosejob.models;
 
 import java.util.List;
 

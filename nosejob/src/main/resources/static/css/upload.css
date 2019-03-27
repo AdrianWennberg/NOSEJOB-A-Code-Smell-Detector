@@ -117,6 +117,16 @@
 	}
 }
 
+.analyse-btn {
+	background-color: teal;
+	border-radius: 25px;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-weight: 400;
+	line-height: 4rem;
+	padding: 12px 20px;
+}
+
 body {
 	color: white !important;
 	background-color: #39414d;
