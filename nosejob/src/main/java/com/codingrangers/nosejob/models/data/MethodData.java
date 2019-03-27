@@ -5,7 +5,7 @@ import java.util.List;
 public interface MethodData extends CodeData {
 	String getClassName();
 
-	String getReturnType();
+	VariableData getReturnType();
 
 	boolean hasPrimitiveReturnType();
 
