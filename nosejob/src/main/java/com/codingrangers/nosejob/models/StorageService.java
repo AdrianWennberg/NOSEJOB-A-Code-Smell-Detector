@@ -1,4 +1,4 @@
-package com.codingrangers.nosejob.storage;
+package com.codingrangers.nosejob.models;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
