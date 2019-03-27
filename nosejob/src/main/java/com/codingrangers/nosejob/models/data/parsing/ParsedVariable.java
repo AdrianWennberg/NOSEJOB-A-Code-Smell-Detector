@@ -1,10 +1,9 @@
-package com.codingrangers.nosejob.models.data.parsed;
+package com.codingrangers.nosejob.models.data.parsing;
 
 import com.codingrangers.nosejob.models.data.VariableData;
 
 /**
- * ParsedVariable
- * TODO: Need to unit test this
+ * ParsedVariable TODO: Need to unit test this
  */
 public class ParsedVariable extends ParsedCodeUnit implements VariableData {
 

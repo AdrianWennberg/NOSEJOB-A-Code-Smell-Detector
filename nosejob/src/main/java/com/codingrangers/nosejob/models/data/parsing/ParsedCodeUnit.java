@@ -1,10 +1,9 @@
-package com.codingrangers.nosejob.models.data.parsed;
+package com.codingrangers.nosejob.models.data.parsing;
 
 import com.codingrangers.nosejob.models.data.CodeData;
 
 /**
- * NamedBlock
- * TODO: Need to unit test this
+ * NamedBlock TODO: Need to unit test this
  */
 public abstract class ParsedCodeUnit implements CodeData {
 
@@ -23,7 +22,7 @@ public abstract class ParsedCodeUnit implements CodeData {
     public void setStartLine(int lineNumber) {
         startLine = lineNumber;
     }
-    
+
     public void setEndLine(int lineNumber) {
         endLine = lineNumber;
     }

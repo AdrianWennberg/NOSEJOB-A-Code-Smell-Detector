@@ -1,18 +1,16 @@
-package com.codingrangers.nosejob.models.data.parsed;
+package com.codingrangers.nosejob.models.data.parsing;
 
 import java.util.*;
 
 import com.codingrangers.nosejob.models.data.*;
 
 /**
- * ParsedClass
- * TODO: Need to unit test this
+ * ParsedClass TODO: Need to unit test this
  */
 public class ParsedClass extends ParsedCodeUnit implements ClassData {
 
     private Map<String, MethodData> classMethods;
     private Map<String, VariableData> classVariables;
-
 
     public ParsedClass(String classNamePrefix, String className, String filePath) {
         super(classNamePrefix, className, filePath);
@@ -20,11 +18,11 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData {
         classVariables = new HashMap<>();
     }
 
-    public void addMethod(MethodData newMethod){
+    public void addMethod(MethodData newMethod) {
         classMethods.put(newMethod.getName(), newMethod);
     }
 
-    public void addVariable(VariableData newVariable){
+    public void addVariable(VariableData newVariable) {
         classVariables.put(newVariable.getName(), newVariable);
     }
 

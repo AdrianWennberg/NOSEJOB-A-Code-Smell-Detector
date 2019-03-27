@@ -1,12 +1,11 @@
-package com.codingrangers.nosejob.models.data.parsed;
+package com.codingrangers.nosejob.models.data.parsing;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.codingrangers.nosejob.models.data.*;
 
 /**
- * ParsedMethod
- * TODO: Need to unit test this
+ * ParsedMethod TODO: Need to unit test this
  */
 public class ParsedMethod extends ParsedCodeUnit implements MethodData {
 
@@ -15,18 +14,21 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData {
     private List<VariableData> parameters;
     private List<VariableData> localVariables;
 
-    ParsedMethod(ClassData methodClass, String methodName, VariableData methodReturnType) {
+    ParsedMethod(ClassData methodClass, String methodName) {
         super(methodClass.getFullyQualifiedName(), methodName, methodClass.getFilePath());
-        returnType = methodReturnType; 
         className = methodClass.getName();
         parameters = new ArrayList<VariableData>();
     }
 
-    public void addParameter(VariableData newParameter){
+    public void AddReturnType(VariableData methodReturnType) {
+        returnType = methodReturnType;
+    }
+
+    public void addParameter(VariableData newParameter) {
         parameters.add(newParameter);
     }
 
-    public void addVariable(VariableData newVariable){
+    public void addVariable(VariableData newVariable) {
         localVariables.add(newVariable);
     }
 
