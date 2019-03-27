@@ -1,4 +1,4 @@
-package com.codingrangers.nosejob.models.data;
+package com.codingrangers.nosejob.models;
 
 import java.util.List;
 

@@ -1,20 +1,35 @@
 package com.codingrangers.nosejob.web;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.codingrangers.nosejob.parser.ProjectParser;
+import com.codingrangers.nosejob.models.ProjectData;
+import com.codingrangers.nosejob.storage.StorageProperties;
 
-import org.springframework.beans.factory.annotation.Value;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ProjectAnalyserController {
 
-	@Value("${spring.application.name}")
-	String appName;
+	@Autowired
+	private final ProjectParser projectParser;
 
-	@RequestMapping("/analyse")
-	public String analysePage(Model model) {
-		return "analyse";
+	private ProjectData projectData;
+	private final Path rootLocation;
+
+	@Autowired
+	public ProjectAnalyserController(ProjectParser parser, StorageProperties properties) {
+		this.projectParser = parser;
+		this.rootLocation = Paths.get(properties.getLocation());
+	}
+
+	@GetMapping("/analyse")
+	public String analyseProject() {
+		this.projectData = this.projectParser.parseProject(this.rootLocation.toString());
+		return "dashboard";
 	}
 
 }

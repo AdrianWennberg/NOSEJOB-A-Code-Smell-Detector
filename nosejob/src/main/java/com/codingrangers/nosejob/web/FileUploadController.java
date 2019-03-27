@@ -1,7 +1,7 @@
 package com.codingrangers.nosejob.web;
 
 import com.codingrangers.nosejob.storage.StorageFileNotFoundException;
-import com.codingrangers.nosejob.storage.StorageService;
+import com.codingrangers.nosejob.models.StorageService;
 
 import java.io.IOException;
 import java.util.stream.Collectors;

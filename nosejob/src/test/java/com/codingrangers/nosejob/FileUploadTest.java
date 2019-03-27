@@ -1,6 +1,6 @@
 package com.codingrangers.nosejob;
 
-import com.codingrangers.nosejob.storage.StorageService;
+import com.codingrangers.nosejob.models.StorageService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
