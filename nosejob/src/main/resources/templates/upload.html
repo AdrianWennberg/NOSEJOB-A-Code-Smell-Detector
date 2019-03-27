@@ -25,12 +25,14 @@
 			<label for="file" id="fileLabel"><span>choose a file</span></label>
 			<input type="submit" value="Upload" id="submit" />
 			<label for="submit"><span>upload</span></label>
-			<button onclick="location.href='/analyse'" class="analyse-btn">analyse</button>
+			<button class="analyse-button" onclick="location.href='/dashboard'" disabled><span>analyse</span></button>
 	</div>
 	<script>
-		let fileInput = document.getElementById('file');
-		let label = document.getElementById('fileLabel');
-		let labelValue = label.innerHTML;
+		const initialized = false;
+		const fileInput = document.getElementById('file');
+		const label = document.getElementById('fileLabel');
+		const labelValue = label.innerHTML;
+		const analyseButton = document.getElementsByClassName('analyse-button');
 		fileInput.addEventListener('change', (event$) => {
 			let fileName = '';
 			if (this.files && this.files.length > 1) {
@@ -44,6 +46,13 @@
 				label.querySelector('span').innerHTML = fileName;
 			} else {
 				label.innerHTML = labelValue;
+			}
+
+			if (!initialized) {
+				initialized = true;
+				if (this.files) {
+					analyseButton.removeAttribute(disabled);
+				}
 			}
 		});
 
