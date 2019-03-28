@@ -15,13 +15,14 @@ public class ProjectVisitor extends VoidVisitorAdapter<ParsedProject>{
 	@Override
 	public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedProject parsedProject) {
 		if(classOrInterface.isInterface() == false) {
-			ClassVisitor visitor = new ClassVisitor();
 			ParsedClass parsedClass = new ParsedClass(
 					"",
 					classOrInterface.getNameAsString(),
 					"PathGoesHere");
 
+			ClassVisitor visitor = new ClassVisitor();
 			visitor.visit(classOrInterface, parsedClass);
+			parsedProject.addClass(parsedClass);
 		}
 	}
 	

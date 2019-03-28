@@ -17,25 +17,27 @@ import com.codingrangers.nosejob.models.data.parsing.*;
 public class ProjectParser implements CodeParser {
 
 	/**
+	 * method currently only works for single files that the path point to
 	 * @param path is taken as root of the project to be parsed,
 	 * 			all files beneath it are parse
+	 * 
 	 */
 	public ProjectData parseProject(String path) {
-		File file = new File(path);
-		
-		
+		File file = new File(path);	
 		CompilationUnit compilationUnit = null;
+		
 		try {
 			compilationUnit = JavaParser.parse(file);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		ParsedProject projectData = new ParsedProject();
+		
+		ParsedProject parsedProject = new ParsedProject();
 		
 		ProjectVisitor visitor = new ProjectVisitor();
-		visitor.visit(compilationUnit, projectData);
+		visitor.visit(compilationUnit, parsedProject);
 		
-		return projectData;
+		return parsedProject;
 	}
 
 }

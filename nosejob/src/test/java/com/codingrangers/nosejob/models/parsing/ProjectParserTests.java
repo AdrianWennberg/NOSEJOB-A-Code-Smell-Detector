@@ -1,12 +1,8 @@
 package com.codingrangers.nosejob.models.parsing;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
 import org.junit.*;
 
-import com.github.javaparser.JavaParser;
-import com.github.javaparser.ast.CompilationUnit;
+import com.codingrangers.nosejob.models.data.*;
 
 public class ProjectParserTests {
 
@@ -14,7 +10,21 @@ public class ProjectParserTests {
 	public void parseProjectTest() {
 		CodeParser parser = new ProjectParser();
 
-		parser.parseProject("src/test/java/com/codingrangers/nosejob/models/parsing/testTargets/VariableIdentificationTarget.java");
+		ProjectData projectdata = parser.parseProject("src/test/java/com/codingrangers/nosejob/models/parsing/testTargets/VariableIdentificationTarget.java");
+		ClassData classData = projectdata.getClassData("VariableIdentificationTarget");
+		
+		System.out.println("start");
+		for(String name : classData.getFieldsNames()) {
+			System.out.println("field:" + name);
+		}
+		System.out.println("done");
+		for(String methodName : classData.getMethodNames()) {
+			System.out.println("method:" + methodName);
+			for(VariableData variable : classData.getMethod(methodName).getLocalVariables()) {
+				System.out.println("instance var:" + variable.getName());
+			}
+		}
+		
 	}
 	
 }
