@@ -10,7 +10,7 @@ public class ParsedProject implements ProjectData {
 
     private Map<String, ClassData> classes;
 
-    ParsedProject() {
+    public ParsedProject() {
         classes = new HashMap<>();
     }
 

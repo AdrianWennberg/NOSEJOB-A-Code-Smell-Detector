@@ -2,6 +2,10 @@ package com.codingrangers.nosejob.models.parsing;
 
 import com.github.javaparser.*;
 import com.github.javaparser.ast.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import com.codingrangers.nosejob.models.data.ProjectData;
 import com.codingrangers.nosejob.models.data.parsing.*;
 
@@ -17,8 +21,16 @@ public class ProjectParser implements CodeParser {
 	 * 			all files beneath it are parse
 	 */
 	public ProjectData parseProject(String path) {
-		CompilationUnit compilationUnit = JavaParser.parse(path);
-		ParsedProject projectData = null;
+		File file = new File(path);
+		
+		
+		CompilationUnit compilationUnit = null;
+		try {
+			compilationUnit = JavaParser.parse(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		ParsedProject projectData = new ParsedProject();
 		
 		ProjectVisitor visitor = new ProjectVisitor();
 		visitor.visit(compilationUnit, projectData);
