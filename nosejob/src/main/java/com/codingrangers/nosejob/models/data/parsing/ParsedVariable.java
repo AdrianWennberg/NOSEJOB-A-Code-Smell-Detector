@@ -15,8 +15,8 @@ public class ParsedVariable extends ParsedCodeUnit implements VariableData {
         isPrimitive = false;
     }
 
-    public void SetIsPrimitive() {
-        isPrimitive = true;
+    public void SetIsPrimitive(boolean value) {
+        isPrimitive = value;
     }
 
     public void setVariableType(String variableType) {

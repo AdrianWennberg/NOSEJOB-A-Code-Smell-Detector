@@ -14,23 +14,20 @@ import com.github.javaparser.ast.expr.VariableDeclarationExpr;
  */
 public class ClassVisitor extends VoidVisitorAdapter<ParsedClass>{
 
-	int a,b,c;
-	
-	public void visit(VariableDeclarator variable, ParsedClass classData) {
+	public void visit(VariableDeclarator variable, ParsedClass parsedClass) {
 		VariableVisitor visitor = new VariableVisitor();
 		
-		
-		ParsedVariable variableData = new ParsedVariable(classData,
+		ParsedVariable variableData = new ParsedVariable(parsedClass,
 				variable.getNameAsString(), 
 				variable.getTypeAsString());
 				
 		visitor.visit(variable,variableData);
 	}	
 	
-	public void visit(MethodDeclaration method, ParsedClass classData) {
+	public void visit(MethodDeclaration method, ParsedClass parsedClass) {
 		MethodVisitor visitor = new MethodVisitor();
-		ParsedMethod methodData = new ParsedMethod(classData, method.getNameAsString());
-		visitor.visit(method,methodData);
+		ParsedMethod parsedMethod = new ParsedMethod(parsedClass, method.getNameAsString());
+		visitor.visit(method,parsedMethod);
 	}
 	
 }

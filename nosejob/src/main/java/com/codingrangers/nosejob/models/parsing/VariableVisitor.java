@@ -14,7 +14,10 @@ import com.github.javaparser.ast.body.*;
 public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 
 	public void visit(VariableDeclarator variable, ParsedVariable parsedVariable) {
-		System.out.println(variable.getNameAsString() + " " + variable.getTypeAsString());
+		parsedVariable.setVariableType(variable.getTypeAsString());
+		parsedVariable.SetIsPrimitive(variable.getType().isPrimitiveType());
+		parsedVariable.setStartLine(variable.getRange().get().begin.line);
+		parsedVariable.setEndLine(variable.getRange().get().end.line);
 	}
 	
 }
