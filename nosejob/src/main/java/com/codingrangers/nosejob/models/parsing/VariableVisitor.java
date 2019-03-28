@@ -15,9 +15,11 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 
 	public void visit(VariableDeclarator variable, ParsedVariable parsedVariable) {
 		parsedVariable.setVariableType(variable.getTypeAsString());
-		parsedVariable.SetIsPrimitive(variable.getType().isPrimitiveType());
 		parsedVariable.setStartLine(variable.getRange().get().begin.line);
 		parsedVariable.setEndLine(variable.getRange().get().end.line);
+		
+		if(variable.getType().isPrimitiveType())
+			parsedVariable.SetIsPrimitive();
 	}
 	
 }
