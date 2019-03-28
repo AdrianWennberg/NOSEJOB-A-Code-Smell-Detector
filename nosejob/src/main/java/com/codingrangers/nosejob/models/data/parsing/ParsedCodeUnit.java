@@ -7,53 +7,71 @@ import com.codingrangers.nosejob.models.data.CodeData;
  */
 public abstract class ParsedCodeUnit implements CodeData {
 
-    private String namePrefix;
-    private String name;
-    private String path;
-    private int startLine = 0;
-    private int endLine = 0;
+	private String namePrefix;
+	private String name;
+	private String path;
+	private int startLine = -1;
+	private int endLine = -1;
 
-    public ParsedCodeUnit(String blockNamePrefix, String blockName, String filePath) {
-        namePrefix = blockNamePrefix;
-        name = blockName;
-        path = filePath;
-    }
+	public ParsedCodeUnit(String blockNamePrefix, String blockName, String filePath) {
+		namePrefix = blockNamePrefix;
+		name = blockName;
+		path = filePath;
+	}
 
-    public void setStartLine(int lineNumber) {
-        startLine = lineNumber;
-    }
+	public void setStartLine(int lineNumber) {
+		if (lineNumber < 0)
+			throw new IllegalArgumentException("Start line number must be positive");
 
-    public void setEndLine(int lineNumber) {
-        endLine = lineNumber;
-    }
+		if (endLine != -1 && lineNumber > endLine)
+			throw new IllegalArgumentException("Start line must be less than end line");
 
-    @Override
-    public String getName() {
-        return name;
-    }
+		if (startLine != -1)
+			throw new IllegalStateException("Start line has allready been set");
 
-    @Override
-    public String getFullyQualifiedName() {
-        return namePrefix + "." + name;
-    }
+		startLine = lineNumber;
+	}
 
-    @Override
-    public String getFilePath() {
-        return path;
-    }
+	public void setEndLine(int lineNumber) {
+		if (lineNumber < 0)
+			throw new IllegalArgumentException("End line number must be positive");
 
-    @Override
-    public int getStartLineNumber() {
-        return startLine;
-    }
+		if (startLine != -1 && lineNumber < startLine)
+			throw new IllegalArgumentException("End line must be less than start line");
 
-    @Override
-    public int getEndLineNumber() {
-        return endLine;
-    }
+		if (endLine != -1)
+			throw new IllegalStateException("End line has allready been set");
 
-    @Override
-    public int getLineCount() {
-        return endLine - startLine;
-    }
+		endLine = lineNumber;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public String getFullyQualifiedName() {
+		return namePrefix + "." + name;
+	}
+
+	@Override
+	public String getFilePath() {
+		return path;
+	}
+
+	@Override
+	public int getStartLineNumber() {
+		return startLine;
+	}
+
+	@Override
+	public int getEndLineNumber() {
+		return endLine;
+	}
+
+	@Override
+	public int getLineCount() {
+		return endLine - startLine + 1;
+	}
 }
