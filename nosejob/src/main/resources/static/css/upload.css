@@ -13,7 +13,7 @@
 	margin: 0 auto;
 	left: 0;
 	right: 0;
-	transition: ease-in-out 125ms;
+	animation: fadeIn 300ms;
 }
 
 .app-header {
@@ -47,29 +47,74 @@
 	cursor: pointer;
 }
 
-.back-button {
-	margin-left: 30%;
-	margin-top: 10%;
-	border-radius: 25px;
-	border-style: solid;
-	border-color: transparent;
-	padding: 12px 20px;
-	font-weight: 400;
-	text-transform: uppercase;
-	text-align: center;
-	background-color: #63bc92;
-	color: white;
-	cursor: pointer;
+.back-link {
+	float: left;
+	text-decoration: underline;
+	font-style: italic;
 }
 
-.back-button:hover {
+.back-link:hover {
+	cursor: pointer;
+	color: #63bc92;
+}
+
+[type="file"],
+[type="submit"] {
+	border: 0;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	white-space: nowrap;
+	width: 1px;
+}
+
+[type="file"]+label,
+[type="submit"]+label {
+	background-color: #63bc92;
+	border-radius: 25px;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-weight: 400;
+	line-height: 4rem;
+	padding: 12px 20px;
+}
+
+[type="file"]:focus+label,
+[type="file"]+label:hover,
+[type="submit"]:focus+label,
+[type="submit"]+label:hover {
 	filter: brightness(120%);
 	outline: none;
-	animation: none;
 }
 
-.back-button:focus {
-	outline: none;
+@-webkit-keyframes fadeIn {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, -50%, 0);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, -50%, 0);
+	}
 }
 
 body {
@@ -84,6 +129,15 @@ h1 {
 	font-variant: normal;
 	font-weight: 700;
 	line-height: 26.4px;
+}
+
+h2 {
+	font-family: "Open Sans";
+	font-size: 18px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 20px;
 }
 
 h3 {
@@ -102,6 +156,10 @@ p {
 	font-variant: normal;
 	font-weight: 400;
 	line-height: 20px;
+}
+
+label {
+	font-family: "Open Sans";
 }
 
 a {

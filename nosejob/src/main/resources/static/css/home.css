@@ -13,7 +13,7 @@
 	margin: 0 auto;
 	left: 0;
 	right: 0;
-	transition: ease-in 125ms;
+	animation: fadeIn 300ms;
 }
 
 .app-header {
@@ -54,6 +54,34 @@
 
 	100% {
 		box-shadow: 0 0 0 24px rgba(211, 211, 211, 0);
+	}
+}
+
+@-webkit-keyframes fadeIn {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, -50%, 0);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, -50%, 0);
 	}
 }
 

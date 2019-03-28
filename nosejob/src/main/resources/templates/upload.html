@@ -1,5 +1,5 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" class="no-js">
 
 <head>
 	<link href="../static/css/upload.css" th:href="@{/css/upload.css}" rel="stylesheet" />
@@ -17,21 +17,36 @@
 				</svg></h1>
 		</button>
 	</div>
-	<button onclick="location.href='/'" class="back-button">Back</button>
 	<div class="upload-container">
+		<a onclick="location.href='/'" class="back-link">back</a>
 		<h1>Upload File</h1>
 		<form method="POST" enctype="multipart/form-data" action="/upload">
-			<input type="file" name="file" />
-			<input type="submit" value="Upload" />
-			<div>
-				<ul>
-					<h3>Code Store</h3>
-					<li th:each="file : ${files}">
-						<h3><a th:href="${file}" th:text="${file}" /></h3>
-					</li>
-				</ul>
-			</div>
+			<input type="file" name="file" id="file" data-multiple-caption="{fileCount} files selected" multiple />
+			<label for="file" id="fileLabel"><span>choose a file</span></label>
+			<input type="submit" value="Upload" id="submit" />
+			<label for="submit"><span>upload</span></label>
 	</div>
+	<script>
+		let fileInput = document.getElementById('file');
+		let label = document.getElementById('fileLabel');
+		let labelValue = label.innerHTML;
+		fileInput.addEventListener('change', (event$) => {
+			let fileName = '';
+			if (this.files && this.files.length > 1) {
+				fileName = (this.getAttribute('data-multiple-caption') || '')
+					.replace('{fileCount}', this.files.length);
+			} else {
+				fileName = event$.target.value.split('\\').pop();
+			}
+
+			if (fileName) {
+				label.querySelector('span').innerHTML = fileName;
+			} else {
+				label.innerHTML = labelValue;
+			}
+		});
+
+	</script>
 </body>
 
 </html>

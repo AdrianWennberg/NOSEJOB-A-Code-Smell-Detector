@@ -67,4 +67,5 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData {
 	public int getPrimitiveLocalCount() {
 		return DataStructureHelpers.countPrimitives(localVariables);
 	}
+
 }
