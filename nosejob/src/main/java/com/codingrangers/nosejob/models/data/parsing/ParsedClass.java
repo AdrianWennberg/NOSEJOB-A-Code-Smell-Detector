@@ -27,13 +27,13 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData {
     }
 
     @Override
-    public List<String> getMethodNames() {
+    public List<String> getMethodSignatures() {
         return new ArrayList<String>(classMethods.keySet());
     }
 
     @Override
-    public MethodData getMethod(String name) {
-        return classMethods.get(name);
+    public MethodData getMethod(String signature) {
+        return classMethods.get(signature);
     }
 
     @Override
