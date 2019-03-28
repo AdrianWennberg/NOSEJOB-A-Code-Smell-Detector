@@ -27,7 +27,7 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData {
 	}
 
 	@Override
-	public List<String> getMethodNames() {
+	public List<String> getMethodSignatures() {
 		return new ArrayList<String>(classMethods.keySet());
 	}
 

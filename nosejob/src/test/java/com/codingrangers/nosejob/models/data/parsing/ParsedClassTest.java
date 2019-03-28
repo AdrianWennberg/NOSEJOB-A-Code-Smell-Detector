@@ -128,7 +128,7 @@ public class ParsedClassTest {
 
 		parsedClass.addMethod(mockedMethod);
 
-		List<String> methods = parsedClass.getMethodNames();
+		List<String> methods = parsedClass.getMethodSignatures();
 
 		assertEquals(1, methods.size());
 		assertEquals(methodSignature, methods.get(0));
@@ -150,7 +150,7 @@ public class ParsedClassTest {
 		parsedClass.addMethod(firstMockedMethod);
 		parsedClass.addMethod(secondMockedMethod);
 
-		List<String> methods = parsedClass.getMethodNames();
+		List<String> methods = parsedClass.getMethodSignatures();
 
 		assertEquals(2, methods.size());
 		assertThat(methods, containsInAnyOrder(firstMethodSignature, secondMethodSignature));

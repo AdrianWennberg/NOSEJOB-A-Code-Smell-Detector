@@ -19,7 +19,7 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 		parsedVariable.setEndLine(variable.getRange().get().end.line);
 		
 		if(variable.getType().isPrimitiveType())
-			parsedVariable.SetIsPrimitive();
+			parsedVariable.setIsPrimitive();
 	}
 	
 }

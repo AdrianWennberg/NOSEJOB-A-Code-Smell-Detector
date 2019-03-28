@@ -1,4 +1,4 @@
-package com.codingrangers.nosejob.models.parsing;
+package com.codingrangers.nosejob.models.parsing.testTargets;
 
 public class VariableIdentificationTarget {
 	

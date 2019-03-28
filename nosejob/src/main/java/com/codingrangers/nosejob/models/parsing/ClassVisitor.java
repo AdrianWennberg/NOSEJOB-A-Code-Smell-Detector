@@ -16,13 +16,12 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass>{
 
 	public void visit(VariableDeclarator variable, ParsedClass parsedClass) {
 		ParsedVariable parsedVariable = new ParsedVariable(parsedClass,
-															variable.getNameAsString(), 
-															variable.getTypeAsString());
+															variable.getNameAsString());
 				
 		VariableVisitor visitor = new VariableVisitor();
 		visitor.visit(variable,parsedVariable);
 		
-		parsedClass.addVariable(parsedVariable);
+		parsedClass.addField(parsedVariable);
 	}	
 	
 	public void visit(MethodDeclaration method, ParsedClass parsedClass) {
