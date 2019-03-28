@@ -14,8 +14,9 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData {
     private List<VariableData> parameters;
     private List<VariableData> localVariables;
 
-    ParsedMethod(ClassData methodClass, String methodName) {
-        super(methodClass.getFullyQualifiedName(), methodName, methodClass.getFilePath());
+    // Name of a method is the signature. getName returns the signature.
+    ParsedMethod(ClassData methodClass, String methodSignature) {
+        super(methodClass.getFullyQualifiedName(), methodSignature, methodClass.getFilePath());
         className = methodClass.getName();
         parameters = new ArrayList<VariableData>();
     }
