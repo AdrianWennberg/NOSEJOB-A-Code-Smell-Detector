@@ -79,6 +79,7 @@
 	font-weight: 400;
 	line-height: 4rem;
 	padding: 12px 20px;
+	color: white;
 }
 
 [type="file"]:focus+label,
@@ -88,6 +89,40 @@
 	filter: brightness(120%);
 	outline: none;
 }
+
+.analyse-button {
+	margin-top: 20px;
+	animation: pulsate 2s infinite;
+	border-radius: 25px;
+	border-style: solid;
+	border-color: transparent;
+	padding: 12px 20px;
+	font-weight: 400;
+	text-transform: uppercase;
+	text-align: center;
+	background-color: #0facf3 !important;
+	color: white;
+	cursor: pointer;
+}
+
+.analyse-button:hover {
+	filter: brightness(120%);
+	outline: none;
+}
+
+.analyse-button:focus {
+	outline: none;
+}
+
+.analyse-button:disabled {
+	filter: brightness(80%);
+}
+
+.analyse-button:disabled:hover {
+	filter: brightness(80%);
+	cursor: not-allowed;
+}
+
 
 @-webkit-keyframes fadeIn {
 	from {
@@ -116,6 +151,33 @@
 		transform: translate3d(0, -50%, 0);
 	}
 }
+
+.analyse-button {
+	font-size: 17px !important;
+	margin-top: 20px;
+	border-radius: 25px;
+	border-style: solid;
+	border-color: transparent;
+	padding: 12px 20px;
+	font-weight: 400;
+	text-transform: uppercase;
+	text-align: center;
+	background-color: #63bc92;
+	color: white;
+	cursor: pointer;
+
+}
+
+.analyse-button:hover {
+	filter: brightness(120%);
+	outline: none;
+	animation: none;
+}
+
+.analyse-button:focus {
+	outline: none;
+}
+
 
 body {
 	color: white !important;
