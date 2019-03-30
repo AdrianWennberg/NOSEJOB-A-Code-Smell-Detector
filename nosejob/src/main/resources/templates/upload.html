@@ -43,6 +43,9 @@
 			}
 
 			if (fileName) {
+				if (fileName.length > 10) {
+					fileName = `${fileName.substring(0, 10)}...`;
+				}
 				label.querySelector('span').innerHTML = fileName;
 			} else {
 				label.innerHTML = labelValue;

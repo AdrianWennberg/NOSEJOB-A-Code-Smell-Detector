@@ -1,8 +1,11 @@
-package com.codingrangers.nosejob.models.data.parsing;
+package com.codingrangers.nosejob.parser;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.codingrangers.nosejob.models.data.*;
+import com.codingrangers.nosejob.models.MethodData;
+import com.codingrangers.nosejob.models.VariableData;
+import com.codingrangers.nosejob.helpers.DataStructureHelpers;
+import com.codingrangers.nosejob.models.ClassData;
 
 /**
  * ParsedMethod TODO: Need to unit test this

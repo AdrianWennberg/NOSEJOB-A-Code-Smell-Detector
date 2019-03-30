@@ -1,4 +1,4 @@
-package com.codingrangers.nosejob;
+package com.codingrangers.nosejob.storage;
 
 import com.codingrangers.nosejob.models.StorageService;
 
