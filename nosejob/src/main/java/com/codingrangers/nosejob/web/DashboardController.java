@@ -17,8 +17,6 @@ public class DashboardController {
 
 	private final ProjectParser projectParser;
 
-	private ProjectData projectData;
-
 	private final Path rootLocation;
 
 	@Autowired
@@ -29,8 +27,8 @@ public class DashboardController {
 
 	@GetMapping("/dashboard")
 	public String analyseProject(Model model) {
-		this.projectData = this.projectParser.parseProject(this.rootLocation.toString());
-		model.addAttribute("projectData", this.projectData);
+		ProjectData projectData = this.projectParser.parseProject(this.rootLocation.toString());
+		// model.addAttribute("projectData", this.projectData);
 		return "dashboard";
 	}
 
