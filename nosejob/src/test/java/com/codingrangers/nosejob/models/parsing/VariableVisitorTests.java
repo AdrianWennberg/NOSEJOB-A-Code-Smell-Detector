@@ -10,9 +10,5 @@ import com.github.javaparser.ast.*;
 
 public class VariableVisitorTests {
 
-	@Test
-	public void typeExtractionTest() {
-
-	}
 	
 }
