@@ -1,4 +1,4 @@
 package com.codingrangers.nosejob.sniffers;
 
-public class ClassAnalyzer {
+public class PrimitiveObsessionSniffer {
 }

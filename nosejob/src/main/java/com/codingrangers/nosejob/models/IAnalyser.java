@@ -2,10 +2,12 @@ package com.codingrangers.nosejob.models;
 
 import java.util.List;
 
-public interface SmellReport {
+public interface IAnalyzer {
+	void setCodeData(ICodeData codeData);
+
 	String getSmellName();
 
 	int getTotalSmellSeverity();
 
-	List<SmellInstance> getSmellInstances();
+	List<ISmell> getSmellInstances();
 }
