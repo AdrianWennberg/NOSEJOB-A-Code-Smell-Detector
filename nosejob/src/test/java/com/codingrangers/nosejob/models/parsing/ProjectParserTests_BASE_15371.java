@@ -14,14 +14,11 @@ public class ProjectParserTests {
 		ClassData classData = projectdata.getClassData("VariableIdentificationTarget");
 		
 		System.out.println("start");
-		
 		for(String name : classData.getFieldsNames()) {
 			System.out.println("field:" + name);
 		}
-		
 		System.out.println("done");
-
-		for(String methodName : classData.getMethodSignatures()) {
+		for(String methodName : classData.getMethodNames()) {
 			System.out.println("method:" + methodName);
 			for(VariableData variable : classData.getMethod(methodName).getLocalVariables()) {
 				System.out.println("instance var:" + variable.getName());

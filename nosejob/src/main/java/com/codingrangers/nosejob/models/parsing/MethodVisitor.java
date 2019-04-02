@@ -15,8 +15,7 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod>{
 
 	public void visit(Parameter paramater, ParsedMethod parsedMethod) {
 		ParsedVariable parsedVariable = new ParsedVariable(parsedMethod, 
-				paramater.getNameAsString(), 
-				paramater.getTypeAsString());
+				paramater.getNameAsString());
 		
 		VariableVisitor visitor = new VariableVisitor();
 		visitor.visit(paramater, parsedVariable);
@@ -26,7 +25,6 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod>{
 	
 	public void visit(VariableDeclarator variableDeclarator, ParsedMethod parsedMethod) {
 		ParsedVariable parsedVariable = new ParsedVariable(parsedMethod, 
-				variableDeclarator.getNameAsString(), 
 				variableDeclarator.getNameAsString());
 		
 		VariableVisitor visitor = new VariableVisitor();

@@ -20,8 +20,8 @@ public class ProjectParserTests {
 		}
 		
 		System.out.println("done");
-
-		for(String methodName : classData.getMethodSignatures()) {
+		
+		for(String methodName : classData.getMethodNames()) {
 			System.out.println("method:" + methodName);
 			for(VariableData variable : classData.getMethod(methodName).getLocalVariables()) {
 				System.out.println("instance var:" + variable.getName());
