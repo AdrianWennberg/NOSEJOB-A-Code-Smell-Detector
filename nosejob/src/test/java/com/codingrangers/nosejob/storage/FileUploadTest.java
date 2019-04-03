@@ -1,6 +1,6 @@
 package com.codingrangers.nosejob.storage;
 
-import com.codingrangers.nosejob.models.StorageService;
+import com.codingrangers.nosejob.models.IStorageService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,7 @@ public class FileUploadTest {
 	private TestRestTemplate restTemplate = new TestRestTemplate();
 
 	@MockBean
-	private StorageService storageService;
+	private IStorageService IStorageService;
 
 	@LocalServerPort
 	private int port;
@@ -45,13 +45,13 @@ public class FileUploadTest {
 
 		assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.FOUND);
 		assertThat(response.getHeaders().getLocation().toString()).startsWith("http://localhost:" + this.port + "/");
-		then(storageService).should().store(any(MultipartFile.class));
+		then(IStorageService).should().store(any(MultipartFile.class));
 	}
 
 	@Test
 	public void shouldDownloadFile() throws Exception {
 		ClassPathResource resource = new ClassPathResource("samplefileupload.txt", getClass());
-		given(this.storageService.loadAsResource("samplefileupload.txt")).willReturn(resource);
+		given(this.IStorageService.loadAsResource("samplefileupload.txt")).willReturn(resource);
 		ResponseEntity<String> response = this.restTemplate.getForEntity("/files/{filename}", String.class,
 				"samplefileupload.txt");
 

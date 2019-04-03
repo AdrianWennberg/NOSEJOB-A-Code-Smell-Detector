@@ -4,9 +4,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.codingrangers.nosejob.parser.ParsedCodeUnit;
-import com.codingrangers.nosejob.parser.ParsedVariable;
-
 import org.junit.Test;
 
 public class ParsedVariableTest {

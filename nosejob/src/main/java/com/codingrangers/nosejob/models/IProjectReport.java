@@ -2,10 +2,10 @@ package com.codingrangers.nosejob.models;
 
 import java.util.List;
 
-public interface ProjectReport {
+public interface IProjectReport {
 	int getProjectScore();
 
 	List<String> getSmellNames();
 
-	SmellReport getSmellReport(String smellName);
+	IAnalyser getSmellReport(String smellName);
 }

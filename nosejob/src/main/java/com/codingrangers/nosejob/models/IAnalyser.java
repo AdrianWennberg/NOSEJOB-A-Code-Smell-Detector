@@ -2,7 +2,7 @@ package com.codingrangers.nosejob.models;
 
 import java.util.List;
 
-public interface IAnalyzer {
+public interface IAnalyser {
 	void setCodeData(ICodeData codeData);
 
 	String getSmellName();

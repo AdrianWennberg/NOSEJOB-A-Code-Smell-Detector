@@ -1,5 +1,7 @@
 package com.codingrangers.nosejob.models;
 
-public interface CodeSniffer {
-	SmellReport analyzeCode(ProjectData data);
+import java.util.List;
+
+public interface ICodeSniffer {
+	List<ISmell> analyzeCode(IProjectData data);
 }
