@@ -1,4 +1,4 @@
-package com.codingrangers.nosejob.parser;
+package com.codingrangers.nosejob.parser.visitors;
 
 import com.codingrangers.nosejob.models.ClassData;
 import com.codingrangers.nosejob.models.VariableData;

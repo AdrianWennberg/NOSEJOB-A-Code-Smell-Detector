@@ -1,4 +1,4 @@
-package com.codingrangers.nosejob.parser;
+package com.codingrangers.nosejob.parser.visitors;
 
 import com.codingrangers.nosejob.models.VariableData;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
