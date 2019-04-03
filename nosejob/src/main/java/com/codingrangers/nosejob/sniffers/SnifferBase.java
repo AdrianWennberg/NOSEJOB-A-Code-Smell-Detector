@@ -16,13 +16,13 @@ public abstract class SnifferBase implements ICodeSniffer{
     }
 
     @Override
-    public List<ISmell> analyzeCode(IProjectData currentProject) {
-        List<ISmell> result = new ArrayList<>();
+    public List<ISmellReport> analyzeCode(IProjectData currentProject) {
+        List<ISmellReport> result = new ArrayList<>();
 
         for(IAnalyser analyzer: analysers.values()) {
             for(String className : currentProject.getClassNames()) {
                 analyzer.setCodeData(currentProject.getClassData(className));
-                result.addAll(analyzer.getSmellInstances());
+                result.add(analyzer.getSmellReport());
             }
         }
 

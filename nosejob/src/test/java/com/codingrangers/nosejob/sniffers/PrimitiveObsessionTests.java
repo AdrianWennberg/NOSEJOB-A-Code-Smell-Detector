@@ -9,7 +9,7 @@ public class PrimitiveObsessionTests {
     }
 
     public PrimitiveObsessionTests() {
-        ICodeSniffer test = new PrimitiveObsessionSniffer();
+        ICodeSniffer test = new GlobalSniffer();
         //test.analyzeCode()
     }
 }

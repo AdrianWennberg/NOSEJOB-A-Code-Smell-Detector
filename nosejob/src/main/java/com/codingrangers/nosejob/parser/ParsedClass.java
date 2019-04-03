@@ -28,11 +28,6 @@ public class ParsedClass extends ParsedCodeUnit implements IClassData {
 		classVariables.put(newVariable.getName(), newVariable);
 	}
 
-	// @Override
-	// public List<String> getMethodNames() {
-	// return new ArrayList<String>(classMethods.keySet());
-	// }
-
 	@Override
 	public IMethodData getMethod(String name) {
 		return classMethods.get(name);
@@ -50,6 +45,6 @@ public class ParsedClass extends ParsedCodeUnit implements IClassData {
 
 	@Override
 	public List<String> getMethodSignatures() {
-		return null;
+		return new ArrayList<String>(classMethods.keySet());
 	}
 }
