@@ -5,6 +5,7 @@ import com.codingrangers.nosejob.models.IProjectReport;
 
 import java.util.List;
 
+/**TODO*/
 public class PrimitiveObsessionSniffer extends SnifferBase implements IProjectReport {
     public PrimitiveObsessionSniffer(){
         this.analyzers.add(new PrimitiveObsessionAnalyser());
