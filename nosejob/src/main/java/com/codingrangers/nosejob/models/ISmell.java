@@ -5,5 +5,5 @@ public interface ISmell {
 
 	ICodeData getLocation();
 
-	int getSmellSeverity();
+	float getSmellSeverity();
 }

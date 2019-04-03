@@ -7,7 +7,7 @@ public interface IAnalyser {
 
 	String getSmellName();
 
-	int getTotalSmellSeverity();
+	float getTotalSmellSeverity();
 
 	List<ISmell> getSmellInstances();
 }

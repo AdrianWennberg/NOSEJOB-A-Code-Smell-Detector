@@ -3,7 +3,7 @@ package com.codingrangers.nosejob.models;
 import java.util.List;
 
 public interface IProjectReport {
-	int getProjectScore();
+	float getProjectScore();
 
 	List<String> getSmellNames();
 

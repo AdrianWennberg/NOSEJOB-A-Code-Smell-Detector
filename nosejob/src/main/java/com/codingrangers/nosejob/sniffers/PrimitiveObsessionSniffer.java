@@ -3,26 +3,37 @@ package com.codingrangers.nosejob.sniffers;
 import com.codingrangers.nosejob.models.IAnalyser;
 import com.codingrangers.nosejob.models.IProjectReport;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**TODO*/
+/**TODO change name to something more appropriate when more analysers are added*/
 public class PrimitiveObsessionSniffer extends SnifferBase implements IProjectReport {
     public PrimitiveObsessionSniffer(){
-        this.analyzers.add(new PrimitiveObsessionAnalyser());
+        PrimitiveObsessionAnalyser primitiveObsessionAnalyser = new PrimitiveObsessionAnalyser();
+        this.analysers.put(primitiveObsessionAnalyser.getSmellName(), primitiveObsessionAnalyser);
     }
 
     @Override
-    public int getProjectScore() {
-        return 0;
+    /**TODO Maybe an average?*/
+    public float getProjectScore() {
+        int projectScore = 0;
+        for(IAnalyser analyser : analysers.values()){
+            projectScore += analyser.getTotalSmellSeverity();
+        }
+        return projectScore;
     }
 
     @Override
     public List<String> getSmellNames() {
-        return null;
+        List<String> smellNames = new ArrayList<>();
+        for(IAnalyser analyser : analysers.values()){
+            smellNames.add(analyser.getSmellName());
+        }
+        return smellNames;
     }
 
     @Override
     public IAnalyser getSmellReport(String smellName) {
-        return null;
+        return analysers.get(smellName);
     }
 }

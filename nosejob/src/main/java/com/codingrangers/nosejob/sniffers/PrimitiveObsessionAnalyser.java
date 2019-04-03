@@ -15,7 +15,7 @@ public class PrimitiveObsessionAnalyser implements IAnalyser {
 
         private MethodDiagnosis() { }
 
-        public int countSeverityInMethodsParametersTypes() {
+        public float countSeverityInMethodsParametersTypes() {
             return currentMethodToAnalyze.getPrimitiveParameterCount();
         }
 
@@ -23,19 +23,22 @@ public class PrimitiveObsessionAnalyser implements IAnalyser {
             return currentMethodToAnalyze.getPrimitiveLocalCount();
         }
 
-        public int countSeverityInMethodsReturnTypes() {
+        public float countSeverityInMethodsReturnTypes() {
             return (currentMethodToAnalyze.hasPrimitiveReturnType()) ? 1 : 0;
         }
 
+        @Override
         public void setCodeData(ICodeData codeData) {
             currentMethodToAnalyze = (IMethodData) codeData;
         }
 
+        @Override
         public ICodeData getLocation() {
             return currentMethodToAnalyze;
         }
 
-        public int getSmellSeverity() {
+        @Override
+        public float getSmellSeverity() {
             return countSeverityInMethodsParametersTypes() +
                     countSeverityInMethodsLocalTypes() +
                     countSeverityInMethodsReturnTypes();
@@ -47,7 +50,7 @@ public class PrimitiveObsessionAnalyser implements IAnalyser {
 
         private FieldsDiagnosis() { }
 
-        public int measureSeverityInClassFieldsTypes() {
+        public float measureSeverityInClassFieldsTypes() {
             ArrayList<IVariableData> fields = new ArrayList<>();
 
             for (String fieldName : currentClassAnalysed.getFieldsNames()) {
@@ -56,15 +59,19 @@ public class PrimitiveObsessionAnalyser implements IAnalyser {
 
             return DataStructureHelpers.countPrimitives(fields);
         }
+
+        @Override
         public void setCodeData(ICodeData codeData) {
             currentClassToAnalyze = (IClassData) codeData;
         }
 
+        @Override
         public ICodeData getLocation() {
             return currentClassAnalysed;
         }
 
-        public int getSmellSeverity() {
+        @Override
+        public float getSmellSeverity() {
             return measureSeverityInClassFieldsTypes();
         }
     }
@@ -83,15 +90,18 @@ public class PrimitiveObsessionAnalyser implements IAnalyser {
         return methodsSmells;
     }
 
+    @Override
     public void setCodeData(ICodeData codeData) {
         this.currentClassAnalysed = (IClassData) codeData;
     }
 
+    @Override
     public String getSmellName() {
         return NAME;
     }
 
-    public int getTotalSmellSeverity() {
+    @Override
+    public float getTotalSmellSeverity() {
         int totalSeverity = 0;
 
         for(ISmell smells : getSmellInstances()){
@@ -101,6 +111,7 @@ public class PrimitiveObsessionAnalyser implements IAnalyser {
         return totalSeverity;
     }
 
+    @Override
     public List<ISmell> getSmellInstances() {
         List<ISmell> result = new ArrayList<>();
 
