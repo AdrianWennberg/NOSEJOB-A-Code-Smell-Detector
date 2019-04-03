@@ -1,0 +1,45 @@
+Sixth Official Meeting Log
+03. Apr 2019 11:00
+
+The basic website is up and running on the netsoc servers: http://thecodingrangers.netsoc.com/
+
+So, Alessandro has changed the interfaces for the project analysis. There was a lot of discussion and 
+some conflict on which way to go about it. Alessandro who had been working on it wanted to remove the 
+"Report" classes as they were mainly data storage and seemed redundant. Will argued that clean data storage
+classes would be very simple to use from a front end perspective. We discussed it and eventually agreed to
+go back to something closer to the interfaces that we originally designed.
+
+The only change to the original interfaces that we agreed on is that the ProjectReport interface will also
+have a method to get a list of Smells directly:
+List<SmellReport> getSmellReports();
+
+
+We still have a bit to do before the MVP is done even though we're coming up to the deadline for sprint 2.
+What need to be done to finish MVP:
+	Test primitive obsession.
+	Reactivate analyze button and displaying uploaded files.
+	Parsing is done.
+	Dode data is done.
+	Need to set up dashboard to display smell
+	
+Will takes care of putting things together by this time next week. 
+
+
+Heres what we agreed to cover for the next sprint. 
+Six smells to do next
+	- Violation of Data Privacy
+	- Bloated Code
+	- Feature Envy
+	- Inappropriate Intimacy
+	- God Complex
+	- Data-Only Classes
+	
+Other features sprint 2
+	- Upload projects (zip files)
+	- Prettify front end
+	- Add exceptions to parser
+	- Extend project data interface to store data about what has been correctly parsed.
+	
+
+	
+	
