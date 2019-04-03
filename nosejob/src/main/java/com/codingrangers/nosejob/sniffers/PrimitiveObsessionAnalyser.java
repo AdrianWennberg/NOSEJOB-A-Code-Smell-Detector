@@ -104,7 +104,7 @@ public class PrimitiveObsessionAnalyser implements IAnalyser {
     public List<ISmell> getSmellInstances() {
         List<ISmell> result = new ArrayList<>();
 
-        ISmell fieldsDiagnosis = new MethodDiagnosis();
+        ISmell fieldsDiagnosis = new FieldsDiagnosis();
         fieldsDiagnosis.setCodeData(currentClassAnalysed);
         if (fieldsDiagnosis.getSmellSeverity() > 0) result.add(fieldsDiagnosis);
 
