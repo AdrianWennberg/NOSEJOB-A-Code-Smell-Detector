@@ -1,5 +1,6 @@
 package com.codingrangers.nosejob.web;
 
+import com.codingrangers.nosejob.parser.ParseFailedException;
 import com.codingrangers.nosejob.parser.ProjectParser;
 import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.storage.StorageProperties;
@@ -27,7 +28,12 @@ public class DashboardController {
 
 	@GetMapping("/dashboard")
 	public String analyseProject(Model model) {
+		try {
 		ProjectData projectData = this.projectParser.parseProject(this.rootLocation.toString());
+		}
+		catch(ParseFailedException e) {
+			
+		}
 		// model.addAttribute("projectData", this.projectData);
 		return "dashboard";
 	}
