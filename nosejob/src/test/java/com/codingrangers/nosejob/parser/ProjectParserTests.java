@@ -50,7 +50,7 @@ public class ProjectParserTests {
 			e.printStackTrace();
 		}
 	
-		verify(mockParsedProject, times(2)).addClass(any(ParsedClass.class));
+		verify(mockParsedProject, times(3)).addClass(any(ParsedClass.class));
 		
 	}
 	
