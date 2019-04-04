@@ -1,7 +1,7 @@
 package com.codingrangers.nosejob.models;
 
-public interface ICodeDataAnalyser {
-	void setCodeDataToAnalyse(ICodeData codeData);
+public interface ISniffer {
+	void setProjectToAnalyse(IProjectData codeData);
 
-	ISmellReport retrieveSmellReport();
+	ISmellReport getSmellReport();
 }

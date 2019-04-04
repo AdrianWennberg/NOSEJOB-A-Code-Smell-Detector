@@ -7,5 +7,7 @@ public interface IProjectReport {
 
 	List<String> getSmellNames();
 
-	ISmellReport getSmellReport(String smellName);
+	List<ISmellReport> getSmellReports();
+
+	ISmellReport getReportForSpecifiedSmell(String smellName);
 }

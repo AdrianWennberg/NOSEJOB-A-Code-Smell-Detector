@@ -1,6 +1,7 @@
-package com.codingrangers.nosejob.sniffers;
+package com.codingrangers.nosejob.reports;
 
 import com.codingrangers.nosejob.models.IProjectReport;
+import com.codingrangers.nosejob.models.ISmell;
 import com.codingrangers.nosejob.models.ISmellReport;
 
 import java.util.ArrayList;
@@ -16,13 +17,23 @@ public class GlobalReport implements IProjectReport {
     }
 
     public void addSmellReportToProjectReport(ISmellReport smellReport){
+        if(smellReport.equals(null))
+            throw new NullPointerException("Cannot add a null as a SmellReport.");
+
         smellReports.put(smellReport.getSmellName(), smellReport);
     }
 
     @Override
-    /**TODO How are we gonna calculate the total score?*/
     public float getProjectScore() {
-        return 0;
+        if (getSmellReports().size() == 0) return 0;
+
+        float severity_avg = 0f;
+        for(ISmellReport report : getSmellReports()){
+            severity_avg += report.getTotalSmellSeverity();
+        }
+        severity_avg /= getSmellReports().size();
+
+        return severity_avg;
     }
 
     @Override

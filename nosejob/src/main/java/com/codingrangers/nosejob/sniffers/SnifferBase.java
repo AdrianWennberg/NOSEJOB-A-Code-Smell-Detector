@@ -1,29 +1,32 @@
 package com.codingrangers.nosejob.sniffers;
 
 import com.codingrangers.nosejob.models.*;
+import com.codingrangers.nosejob.reports.GlobalReport;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public abstract class SnifferBase implements ICodeSniffer{
+public abstract class SnifferBase implements IProjectAnalyser{
 
-    protected Map<String, IAnalyser> analysers;
+    protected List<ISniffer> analysers;
+    private IProjectData projectToAnalyze;
 
     public SnifferBase() {
-        analysers = new HashMap<>();
+        analysers = new ArrayList<>();
     }
 
     @Override
-    public List<ISmellReport> analyzeCode(IProjectData currentProject) {
-        List<ISmellReport> result = new ArrayList<>();
+    public void setProjectToAnalyse(IProjectData projectData) {
+        projectToAnalyze = projectData;
+    }
 
-        for(IAnalyser analyzer: analysers.values()) {
-            for(String className : currentProject.getClassNames()) {
-                analyzer.setCodeData(currentProject.getClassData(className));
-                result.add(analyzer.getSmellReport());
-            }
+    @Override
+    public IProjectReport getProjectReport() {
+        IProjectReport result = new GlobalReport();
+
+        for(ISniffer analyser: analysers) {
+            analyser.setProjectToAnalyse(projectToAnalyze);
+            ((GlobalReport) result).addSmellReportToProjectReport(analyser.getSmellReport());
         }
 
         return result;

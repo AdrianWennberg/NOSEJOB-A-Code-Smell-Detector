@@ -1,4 +1,4 @@
-package com.codingrangers.nosejob.sniffers;
+package com.codingrangers.nosejob.reports;
 
 import com.codingrangers.nosejob.models.ISmell;
 import com.codingrangers.nosejob.models.ISmellReport;
@@ -26,11 +26,17 @@ public class SmellReport implements ISmellReport {
 
     @Override
     public void addSmell(ISmell smell) {
+        if(smell.equals(null))
+            throw new NullPointerException("Cannot add a null as a smell.");
+
         smells.add(smell);
     }
 
     @Override
     public void addSmells(List<ISmell> retrievedSmells) {
+        if(retrievedSmells.equals(null))
+            throw new NullPointerException("Cannot add a null list of smells.");
+
         smells.addAll(retrievedSmells);
     }
 
@@ -40,13 +46,16 @@ public class SmellReport implements ISmellReport {
     }
 
     @Override
+    /**TODO*/
     public float getTotalSmellSeverity() {
-        int totalSeverity = 0;
+        if (smells.size() == 0) return 0;
 
-        for(ISmell smells : getSmells()){
-            totalSeverity += smells.getSmellSeverity();
+        float severity_avg = 0f;
+        for(ISmell smell : smells){
+            severity_avg += smell.getSmellSeverity();
         }
+        severity_avg /= smells.size();
 
-        return totalSeverity;
+        return severity_avg;
     }
 }

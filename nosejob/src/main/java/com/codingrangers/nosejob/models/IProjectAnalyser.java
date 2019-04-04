@@ -1,4 +1,7 @@
 package com.codingrangers.nosejob.models;
 
-public class IProjectAnalyser {
+public interface IProjectAnalyser {
+    void setProjectToAnalyse(IProjectData projectData);
+
+    IProjectReport getProjectReport();
 }

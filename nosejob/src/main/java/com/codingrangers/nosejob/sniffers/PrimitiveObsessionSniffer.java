@@ -7,7 +7,7 @@ import com.codingrangers.nosejob.reports.SmellReport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrimitiveObsessionAnalyser implements ISniffer {
+public class PrimitiveObsessionSniffer implements ISniffer {
     private IProjectData currentProjectToAnalyse;
     private static final String NAME = "Primitive Obsession";
     private List<ISmell> smells;
@@ -57,6 +57,8 @@ public class PrimitiveObsessionAnalyser implements ISniffer {
         private FieldsDiagnosis() { }
 
         public float measureSeverityInClassFieldsTypes() {
+            if(currentClassToAnalyze.getFieldsNames().size() == 0) return 0f;
+
             ArrayList<IVariableData> fields = new ArrayList<>();
 
             for (String fieldName : currentClassToAnalyze.getFieldsNames()) {
@@ -82,7 +84,7 @@ public class PrimitiveObsessionAnalyser implements ISniffer {
         }
     }
 
-    public PrimitiveObsessionAnalyser() {
+    public PrimitiveObsessionSniffer() {
         smells = new ArrayList<>();
     }
 
