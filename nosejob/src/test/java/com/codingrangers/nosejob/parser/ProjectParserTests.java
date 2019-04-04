@@ -22,7 +22,7 @@ public class ProjectParserTests {
 	@Test
 	public void parseProjectTest() {
 		try {
-			target.parseProject("ParserTestTargets/ProjectParserTestsFolderTarget/dumyClass1.java");
+			target.parseProject("src/test/ParserTestTargets/ProjectParserTestsFolderTarget/dumyClass1.java");
 		}
 		catch(ParseFailedException e) {
 			assert(false);
@@ -45,7 +45,7 @@ public class ProjectParserTests {
 	@Test
 	public void DirectoryExplorationTest() {
 		try {
-			target.parseProject("ParserTestTargets/ProjectParserTestsFolderTarget");
+			target.parseProject("src/test/ParserTestTargets/ProjectParserTestsFolderTarget");
 		} catch (ParseFailedException e) {
 			e.printStackTrace();
 		}
