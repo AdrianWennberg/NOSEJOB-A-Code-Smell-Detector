@@ -3,6 +3,8 @@ package com.codingrangers.nosejob.parser.visitors;
 import com.codingrangers.nosejob.models.ClassData;
 import com.codingrangers.nosejob.models.VariableData;
 import com.codingrangers.nosejob.parser.ParsedClass;
+import com.codingrangers.nosejob.parser.ParsedMethod;
+import com.codingrangers.nosejob.parser.ParsedVariable;
 import com.codingrangers.nosejob.models.MethodData;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.ast.body.*;
@@ -15,21 +17,23 @@ import com.github.javaparser.ast.*;
  * @author peter
  *
  */
-public class ClassVisitor extends VoidVisitorAdapter<ClassData> {
+public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 
-	public void visit(FieldDeclaration field, ClassData classData) {
-		VariableVisitor visitor = new VariableVisitor();
-		VariableData variableData = null;
-		visitor.visit(field, variableData);
+	public void visit(FieldDeclaration field, ParsedClass classData) {
+		for(VariableDeclarator varailbe : field.getVariables()) {
+			VariableVisitor visitor = new VariableVisitor();
+			ParsedVariable variableData = new ParsedVariable(classData, varailbe.getNameAsString());
+			visitor.visit(varailbe, variableData);
+		}
 	}
 
-	public void visit(MethodDeclaration method, ClassData classData) {
+	public void visit(MethodDeclaration method, ParsedClass classData) {
 		MethodVisitor visitor = new MethodVisitor();
-		MethodData methodData = null;
+		ParsedMethod methodData = new ParsedMethod(classData, method.getNameAsString());
 		visitor.visit(method, methodData);
 	}
 
-	public void visit(CompilationUnit cu, ClassData classData) {
+	public void visit(CompilationUnit cu, ParsedClass classData) {
 		super.visit(cu, classData);
 	}
 

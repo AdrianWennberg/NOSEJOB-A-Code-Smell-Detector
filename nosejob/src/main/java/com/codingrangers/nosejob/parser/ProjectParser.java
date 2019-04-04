@@ -4,7 +4,6 @@ import com.github.javaparser.*;
 import com.github.javaparser.ast.*;
 import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.parser.visitors.ClassVisitor;
-import com.codingrangers.nosejob.parser.visitors.ProjectVisitor;
 import com.codingrangers.nosejob.models.CodeParser;
 
 import java.io.File;
