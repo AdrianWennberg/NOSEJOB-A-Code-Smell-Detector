@@ -6,9 +6,9 @@ import com.codingrangers.nosejob.models.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrimitiveObsessionAnalyser implements IAnalyser, ISmellReport {
-    private static final String NAME = "Primitive Obsession";
+public class PrimitiveObsessionAnalyser implements IAnalyser {
     private IClassData currentClassAnalysed;
+    private static final String NAME = "Primitive Obsession";
 
     private class MethodDiagnosis implements ISmell {
         private IMethodData currentMethodToAnalyze;
@@ -101,18 +101,7 @@ public class PrimitiveObsessionAnalyser implements IAnalyser, ISmellReport {
     }
 
     @Override
-    public float getTotalSmellSeverity() {
-        int totalSeverity = 0;
-
-        for(ISmell smells : getSmellsWithinProject()){
-            totalSeverity += smells.getSmellSeverity();
-        }
-
-        return totalSeverity;
-    }
-
-    @Override
-    public List<ISmell> getSmellsWithinProject() {
+    public List<ISmell> getSmells() {
         List<ISmell> result = new ArrayList<>();
 
         ISmell fieldsDiagnosis = new FieldsDiagnosis();
