@@ -5,6 +5,7 @@ import com.codingrangers.nosejob.parser.ProjectParser;
 import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.storage.StorageProperties;
 
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -29,9 +30,9 @@ public class DashboardController {
 	@GetMapping("/dashboard")
 	public String analyseProject(Model model) {
 		try {
-		ProjectData projectData = this.projectParser.parseProject(this.rootLocation.toString());
+			ProjectData projectData = this.projectParser.parseProject(this.rootLocation.toString());
 		}
-		catch(ParseFailedException e) {
+		catch(FileNotFoundException e) {
 			
 		}
 		// model.addAttribute("projectData", this.projectData);

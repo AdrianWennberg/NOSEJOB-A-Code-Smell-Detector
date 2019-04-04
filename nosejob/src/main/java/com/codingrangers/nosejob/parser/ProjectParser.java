@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * entry point into code parsing system
- *
+ * Each instance can parse one project at a time, thus is not thread safe
  * @author peter
  *
  */
@@ -41,17 +41,19 @@ public class ProjectParser implements CodeParser {
 	}
 	
 	/**
-	 * @param path is taken as root of the project to be parsed, all files beneath
-	 *             it are parse
+	 * @param path is taken as root of the project, all files beneath it are parse
 	 */
-	public ProjectData parseProject(String path) throws ParseFailedException{
+	public ProjectData parseProject(String path) throws FileNotFoundException{
 		File root = new File(path);
 		if(root.exists() == false) 
-			throw new ParseFailedException("Could not open file with path:" + path);
+			throw new FileNotFoundException();
 				
 		directoryOrFile(root);
 		
-		return parsedProject;
+		ParsedProject returnValue = parsedProject;
+		parsedProject = new ParsedProject();
+		
+		return returnValue;
 	}
 	
 	private void directoryOrFile(File file) {
