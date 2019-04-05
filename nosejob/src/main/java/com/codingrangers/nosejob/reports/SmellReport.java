@@ -48,7 +48,7 @@ public class SmellReport implements ISmellReport {
     @Override
     /**TODO*/
     public float getTotalSmellSeverity() {
-        if (smells.size() == 0) return 0;
+        if (smells.size() == 0) return 0f;
 
         float severity_avg = 0f;
         for(ISmell smell : smells){

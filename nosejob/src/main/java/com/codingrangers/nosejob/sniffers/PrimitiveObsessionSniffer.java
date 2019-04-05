@@ -4,6 +4,7 @@ import com.codingrangers.nosejob.helpers.DataStructureHelpers;
 import com.codingrangers.nosejob.models.*;
 import com.codingrangers.nosejob.reports.SmellReport;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class PrimitiveObsessionSniffer implements ISniffer {
                 fields.add(currentClassToAnalyze.getField(fieldName));
             }
 
-            return DataStructureHelpers.countPrimitives(fields)/currentClassToAnalyze.getFieldsNames().size();
+            return (float) DataStructureHelpers.countPrimitives(fields)/currentClassToAnalyze.getFieldsNames().size();
         }
 
         @Override
