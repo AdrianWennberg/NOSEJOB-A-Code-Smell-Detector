@@ -23,14 +23,14 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 	public void visit(FieldDeclaration field, ParsedClass classData) {
 		for(VariableDeclarator varailbe : field.getVariables()) {
 			VariableVisitor visitor = new VariableVisitor();
-			ParsedVariable variableData = new ParsedVariable(classData, varailbe.getNameAsString());
+			ParsedVariable variableData = classData.createField(varailbe.getNameAsString());
 			visitor.visit(varailbe, variableData);
 		}
 	}
 
 	public void visit(MethodDeclaration method, ParsedClass classData) {
 		MethodVisitor visitor = new MethodVisitor();
-		ParsedMethod methodData = new ParsedMethod(classData, method.getNameAsString());
+		ParsedMethod methodData = classData.createMethod(method.getNameAsString());
 		visitor.visit(method, methodData);
 	}
 	
