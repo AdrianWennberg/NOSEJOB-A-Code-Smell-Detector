@@ -1,14 +1,8 @@
 package com.codingrangers.nosejob.parser.visitors;
 
-import com.codingrangers.nosejob.models.ClassData;
-import com.codingrangers.nosejob.models.VariableData;
-import com.codingrangers.nosejob.parser.ParsedClass;
-import com.codingrangers.nosejob.parser.ParsedMethod;
-import com.codingrangers.nosejob.parser.ParsedVariable;
-import com.codingrangers.nosejob.models.MethodData;
+import com.codingrangers.nosejob.parser.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.ast.body.*;
-import com.github.javaparser.ast.expr.FieldAccessExpr;
 import com.github.javaparser.ast.*;
 
 /**
@@ -28,26 +22,35 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 		this.feildVisitor = feildVisitor;		
 	}
 	
+	@Override
 	public void visit(FieldDeclaration field, ParsedClass classData) {
-		for(VariableDeclarator varailbe : field.getVariables()) {
-			ParsedVariable variableData = classData.createField(varailbe.getNameAsString());
-			feildVisitor.visit(varailbe, variableData);
+		for(VariableDeclarator variable : field.getVariables()) {
+			ParsedVariable variableData = classData.createField(variable.getNameAsString());
+			feildVisitor.visit(variable, variableData);
 		}
 	}
 
+	@Override
 	public void visit(MethodDeclaration method, ParsedClass classData) {
 		ParsedMethod methodData = classData.createMethod(method.getNameAsString());
 		methodVisitor.visit(method, methodData);
 	}
 	
+	@Override
 	public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedClass classData) {
-		System.out.println("class length: " + classOrInterface.getBegin().get().line + "-" 
-								+ classOrInterface.getEnd().get().line);
-		super.visit(classOrInterface, classData);
+		if(classOrInterface.isInterface() == false) {
+				System.out.println("class length: " + classOrInterface.getBegin().get().line + "-" 
+										+ classOrInterface.getEnd().get().line);
+				super.visit(classOrInterface, classData);
+		}
 	}
-
-	public void visit(CompilationUnit cu, ParsedClass classData) {
-		super.visit(cu, classData);
+	
+	/**
+	 * Class Visitor entry point
+	 */
+	@Override
+	public void visit(CompilationUnit compilationUnit, ParsedClass classData) {
+		super.visit(compilationUnit, classData);
 	}
 
 }
