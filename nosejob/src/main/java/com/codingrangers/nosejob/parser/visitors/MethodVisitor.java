@@ -20,6 +20,9 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 	public void visit(VariableDeclarator varaible, ParsedMethod methodData) {
 		VariableVisitor visitor = new VariableVisitor();
 		ParsedVariable variableData = new ParsedVariable(methodData, "");
+		
+		
+		
 		visitor.visit(varaible, variableData);
 	}
 

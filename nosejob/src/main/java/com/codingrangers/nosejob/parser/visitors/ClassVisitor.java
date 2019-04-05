@@ -8,6 +8,7 @@ import com.codingrangers.nosejob.parser.ParsedVariable;
 import com.codingrangers.nosejob.models.MethodData;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.ast.body.*;
+import com.github.javaparser.ast.expr.FieldAccessExpr;
 import com.github.javaparser.ast.*;
 
 /**
