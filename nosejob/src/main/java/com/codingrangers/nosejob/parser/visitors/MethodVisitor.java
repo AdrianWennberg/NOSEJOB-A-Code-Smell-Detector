@@ -20,13 +20,14 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 	public void visit(VariableDeclarator varaible, ParsedMethod methodData) {
 		VariableVisitor visitor = new VariableVisitor();
 		ParsedVariable variableData = new ParsedVariable(methodData, "");
-		
-		
-		
 		visitor.visit(varaible, variableData);
 	}
 
+	/**
+	 * entry point to MethodVisitor
+	 */
 	public void visit(MethodDeclaration method, ParsedMethod methodData) {
+		System.out.println("method length: " + method.getBegin().get().line +"-"+method.getEnd().get().line);
 		super.visit(method,methodData);
 	}
 	

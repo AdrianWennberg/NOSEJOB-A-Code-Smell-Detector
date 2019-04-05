@@ -1,6 +1,5 @@
 package com.codingrangers.nosejob.parser.visitors;
 
-import java.lang.reflect.Modifier;
 import java.util.EnumSet;
 
 import com.codingrangers.nosejob.models.VariableData;
@@ -27,11 +26,11 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 		
 		if(varaible.getParentNode().get() instanceof FieldDeclaration) {
 			FieldDeclaration parent = (FieldDeclaration)varaible.getParentNode().get();
-			if(parent.getModifiers().contains(com.github.javaparser.ast.Modifier.PUBLIC))
+			if(parent.getModifiers().contains(Modifier.PUBLIC))
 				System.out.println("is public");
-			else if(parent.getModifiers().contains(com.github.javaparser.ast.Modifier.PRIVATE))
+			else if(parent.getModifiers().contains(Modifier.PRIVATE))
 				System.out.println("is private");
-			else if(parent.getModifiers().contains(com.github.javaparser.ast.Modifier.PROTECTED))
+			else if(parent.getModifiers().contains(Modifier.PROTECTED))
 				System.out.println("is protected");
 			else 
 				System.out.println("is Default");

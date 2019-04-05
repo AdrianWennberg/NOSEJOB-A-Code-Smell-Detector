@@ -33,6 +33,12 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 		ParsedMethod methodData = new ParsedMethod(classData, method.getNameAsString());
 		visitor.visit(method, methodData);
 	}
+	
+	public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedClass classData) {
+		System.out.println("class length: " + classOrInterface.getBegin().get().line + "-" 
+								+ classOrInterface.getEnd().get().line);
+		super.visit(classOrInterface, classData);
+	}
 
 	public void visit(CompilationUnit cu, ParsedClass classData) {
 		super.visit(cu, classData);
