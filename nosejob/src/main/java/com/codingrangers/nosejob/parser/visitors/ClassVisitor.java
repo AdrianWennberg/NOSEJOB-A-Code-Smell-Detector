@@ -20,18 +20,24 @@ import com.github.javaparser.ast.*;
  */
 public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 
+	VoidVisitorAdapter<ParsedMethod> methodVisitor;
+	VoidVisitorAdapter<ParsedVariable> feildVisitor;
+	
+	public ClassVisitor(VoidVisitorAdapter<ParsedMethod> methodVisitor, VoidVisitorAdapter<ParsedVariable> feildVisitor) {
+		this.methodVisitor = methodVisitor;
+		this.feildVisitor = feildVisitor;		
+	}
+	
 	public void visit(FieldDeclaration field, ParsedClass classData) {
 		for(VariableDeclarator varailbe : field.getVariables()) {
-			VariableVisitor visitor = new VariableVisitor();
 			ParsedVariable variableData = classData.createField(varailbe.getNameAsString());
-			visitor.visit(varailbe, variableData);
+			feildVisitor.visit(varailbe, variableData);
 		}
 	}
 
 	public void visit(MethodDeclaration method, ParsedClass classData) {
-		MethodVisitor visitor = new MethodVisitor();
 		ParsedMethod methodData = classData.createMethod(method.getNameAsString());
-		visitor.visit(method, methodData);
+		methodVisitor.visit(method, methodData);
 	}
 	
 	public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedClass classData) {

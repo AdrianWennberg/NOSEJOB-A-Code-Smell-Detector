@@ -17,10 +17,15 @@ import com.github.javaparser.ast.expr.*;
  */
 public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 
+	VoidVisitorAdapter<ParsedVariable> varibleVisitor;
+	
+	public MethodVisitor(VoidVisitorAdapter<ParsedVariable> variableVistor) {
+		this.varibleVisitor = variableVistor;
+	}
+	
 	public void visit(VariableDeclarator varaible, ParsedMethod methodData) {
-		VariableVisitor visitor = new VariableVisitor();
 		ParsedVariable variableData = methodData.createVariable(varaible.getNameAsString());
-		visitor.visit(varaible, variableData);
+		varibleVisitor.visit(varaible, variableData);
 	}
 
 	/**

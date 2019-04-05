@@ -3,12 +3,13 @@ package com.codingrangers.nosejob.parser;
 import com.github.javaparser.*;
 import com.github.javaparser.ast.*;
 import com.codingrangers.nosejob.models.ProjectData;
-import com.codingrangers.nosejob.parser.visitors.ClassVisitor;
+import com.codingrangers.nosejob.parser.visitors.*;
 import com.codingrangers.nosejob.models.CodeParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import org.hibernate.validator.internal.metadata.aggregated.ValidatableParametersMetaData;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,11 +23,13 @@ import org.springframework.stereotype.Component;
 public class ProjectParser implements CodeParser {
 
 	ParsedProject parsedProject;
-	ClassVisitor visitor;
+	ClassVisitor ClassVisitor;
 
 	public ProjectParser() {
+		VariableVisitor variableVisitor = new VariableVisitor();
+		MethodVisitor methodVisitor = new MethodVisitor(variableVisitor);
+		ClassVisitor = new ClassVisitor(methodVisitor, variableVisitor);
 		parsedProject = new ParsedProject();
-		visitor = new ClassVisitor();
 	}
 	
 	/**
@@ -36,7 +39,7 @@ public class ProjectParser implements CodeParser {
 	 */
 	public ProjectParser(ParsedProject injectedProjectData,ClassVisitor injectedClassVisitor) {
 		parsedProject = injectedProjectData;
-		visitor = injectedClassVisitor;
+		ClassVisitor = injectedClassVisitor;
 	}
 	
 	/**
@@ -78,7 +81,7 @@ public class ProjectParser implements CodeParser {
 		}
 		
 		ParsedClass parsedClass = new ParsedClass("packageNameGoesHere", file.getName(), file.getPath());
-		visitor.visit(compilationUnit, parsedClass);
+		ClassVisitor.visit(compilationUnit, parsedClass);
 		parsedProject.addClass(parsedClass);
 	}
 	
