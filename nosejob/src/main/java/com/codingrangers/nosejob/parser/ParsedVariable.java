@@ -1,5 +1,6 @@
 package com.codingrangers.nosejob.parser;
 
+import com.codingrangers.nosejob.models.AccessSpecifier;
 import com.codingrangers.nosejob.models.VariableData;
 
 /**
@@ -31,5 +32,11 @@ public class ParsedVariable extends ParsedCodeUnit implements VariableData {
 	@Override
 	public boolean isPrimitive() {
 		return isPrimitive;
+	}
+
+	@Override
+	public AccessSpecifier getAccessSpecifier() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
