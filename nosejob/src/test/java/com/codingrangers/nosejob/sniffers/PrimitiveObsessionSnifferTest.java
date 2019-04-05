@@ -202,7 +202,115 @@ public class PrimitiveObsessionSnifferTest {
         }
     }
 
-//    public static class retrieveSmellFromClasses {
-//
-//    }
+    public static class retrieveSmellsFromClasses {
+        @Test
+        public void retrieveSmellsFromClassesEmptyFieldsNotInMethods() {
+            IProjectData projectTest = new ParsedProject();
+
+            IClassData firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
+            IClassData secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+
+            ((ParsedProject) projectTest).addClass(firstTestClass);
+            ((ParsedProject) projectTest).addClass(secondTestClass);
+
+            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
+            prObsSnifferTest.setProjectToAnalyse(projectTest);
+
+            assertEquals(0f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+        }
+
+        @Test
+        public void retrieveSmellsFromClassesNoFields() {
+            IProjectData projectTest = new ParsedProject();
+
+            IClassData firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
+            IClassData secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+
+            IMethodData firstTestMethod = new ParsedMethod(firstTestClass, "firstTestMethod");
+            IMethodData secondTestMethod = new ParsedMethod(secondTestClass, "secondTestMethod");
+
+            IVariableData firstTestField = new ParsedVariable((ParsedMethod) firstTestMethod, "firstTestField");
+            ((ParsedVariable) firstTestField).setIsPrimitive();
+            IVariableData secondTestField = new ParsedVariable((ParsedMethod) secondTestMethod, "secondTestField");
+
+            ((ParsedProject) projectTest).addClass(firstTestClass);
+            ((ParsedProject) projectTest).addClass(secondTestClass);
+            ((ParsedClass) firstTestClass).addMethod(firstTestMethod);
+            ((ParsedClass) secondTestClass).addMethod(secondTestMethod);
+
+            ((ParsedMethod) firstTestMethod).addReturnType(firstTestField);
+            ((ParsedMethod) secondTestMethod).addReturnType(secondTestField);
+
+            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
+            prObsSnifferTest.setProjectToAnalyse(projectTest);
+
+            assertEquals(1f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+        }
+
+        @Test
+        public void retrieveSmellsFromClassesNoMethods() {
+            IProjectData projectTest = new ParsedProject();
+
+            IClassData firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
+            IClassData secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+
+            IVariableData firstTestField = new ParsedVariable((ParsedClass) firstTestClass, "firstTestField");
+            ((ParsedVariable) firstTestField).setIsPrimitive();
+            IVariableData secondTestField = new ParsedVariable((ParsedClass) secondTestClass, "secondTestField");
+            ((ParsedVariable) secondTestField).setIsPrimitive();
+
+            ((ParsedProject) projectTest).addClass(firstTestClass);
+            ((ParsedProject) projectTest).addClass(secondTestClass);
+            ((ParsedClass) firstTestClass).addField(firstTestField);
+            ((ParsedClass) secondTestClass).addField(secondTestField);
+
+            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
+            prObsSnifferTest.setProjectToAnalyse(projectTest);
+
+            assertEquals(1f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+        }
+
+        @Test
+        public void retrieveSmellsFromClasses() {
+            IProjectData projectTest = new ParsedProject();
+
+            IClassData firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
+            IClassData secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+
+            IMethodData firstTestMethod = new ParsedMethod(firstTestClass, "firstTestMethod");
+            IMethodData secondTestMethod = new ParsedMethod(secondTestClass, "secondTestMethod");
+
+            IVariableData firstTestField = new ParsedVariable((ParsedClass) firstTestClass, "firstTestField");
+            ((ParsedVariable) firstTestField).setIsPrimitive();
+            IVariableData secondTestField = new ParsedVariable((ParsedClass) secondTestClass, "secondTestField");
+            ((ParsedVariable) secondTestField).setIsPrimitive();
+            IVariableData thirdTestField = new ParsedVariable((ParsedMethod) firstTestMethod, "thirdTestField");
+            IVariableData fourthTestField = new ParsedVariable((ParsedMethod) firstTestMethod, "fourthTestField");
+            IVariableData fifthTestField = new ParsedVariable((ParsedMethod) firstTestMethod, "fifthTestField");
+            ((ParsedVariable) fifthTestField).setIsPrimitive();
+            IVariableData sixthTestField = new ParsedVariable((ParsedMethod) secondTestMethod, "sixthTestField");
+            IVariableData seventhTestField = new ParsedVariable((ParsedMethod) secondTestMethod, "seventhTestField");
+            IVariableData eighthTestField = new ParsedVariable((ParsedMethod) secondTestMethod, "eighthTestField");
+            ((ParsedVariable) eighthTestField).setIsPrimitive();
+
+            ((ParsedProject) projectTest).addClass(firstTestClass);
+            ((ParsedProject) projectTest).addClass(secondTestClass);
+            ((ParsedClass) firstTestClass).addField(firstTestField);
+            ((ParsedClass) secondTestClass).addField(secondTestField);
+            ((ParsedClass) firstTestClass).addMethod(firstTestMethod);
+            ((ParsedClass) secondTestClass).addMethod(secondTestMethod);
+
+            ((ParsedMethod) firstTestMethod).addParameter(thirdTestField);
+            ((ParsedMethod) firstTestMethod).addVariable(fourthTestField);
+            ((ParsedMethod) firstTestMethod).addReturnType(fifthTestField);
+            ((ParsedMethod) secondTestMethod).addParameter(sixthTestField);
+            ((ParsedMethod) secondTestMethod).addVariable(seventhTestField);
+            ((ParsedMethod) secondTestMethod).addReturnType(eighthTestField);
+
+            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
+            prObsSnifferTest.setProjectToAnalyse(projectTest);
+
+            assertEquals(0.66f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+        }
+    }
 }
