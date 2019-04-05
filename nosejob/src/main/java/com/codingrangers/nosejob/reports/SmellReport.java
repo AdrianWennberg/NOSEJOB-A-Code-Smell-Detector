@@ -42,7 +42,13 @@ public class SmellReport implements ISmellReport {
 
     @Override
     public List<ISmell> getSmells() {
-        return smells;
+        List<ISmell> smellySmells = new ArrayList<>();
+
+        for (ISmell smell : smells){
+            if(smell.isSmelly()) smellySmells.add(smell);
+        }
+
+        return smellySmells;
     }
 
     @Override

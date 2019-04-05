@@ -41,6 +41,11 @@ public class PrimitiveObsessionSniffer implements ISniffer {
         }
 
         @Override
+        public boolean isSmelly() {
+            return (getSmellSeverity() > 0) ? true : false;
+        }
+
+        @Override
         public float getSmellSeverity() {
             return (countSeverityInMethodsParametersTypes() +
                    countSeverityInMethodsLocalTypes() +
@@ -80,6 +85,11 @@ public class PrimitiveObsessionSniffer implements ISniffer {
         }
 
         @Override
+        public boolean isSmelly() {
+            return (getSmellSeverity() > 0) ? true : false;
+        }
+
+        @Override
         public float getSmellSeverity() {
             return measureSeverityInClassFieldsTypes();
         }
@@ -96,7 +106,7 @@ public class PrimitiveObsessionSniffer implements ISniffer {
         for (String methodSignature : currentClassAnalysed.getMethodSignatures()) {
             ISmell methodDiagnosis = new MethodDiagnosis();
             methodDiagnosis.setCodeData(currentClassAnalysed.getMethod(methodSignature));
-            if (methodDiagnosis.getSmellSeverity() > 0) smells.add(methodDiagnosis);
+            smells.add(methodDiagnosis);
         }
     }
 
@@ -104,9 +114,11 @@ public class PrimitiveObsessionSniffer implements ISniffer {
         if(currentClassAnalysed.equals(null))
             throw new NullPointerException("Cannot analyse methods of a null.");
 
-        ISmell fieldsDiagnosis = new FieldsDiagnosis();
-        fieldsDiagnosis.setCodeData(currentClassAnalysed);
-        if (fieldsDiagnosis.getSmellSeverity() > 0) smells.add(fieldsDiagnosis);
+        if(currentClassAnalysed.getFieldsNames().size() > 0) {
+            ISmell fieldsDiagnosis = new FieldsDiagnosis();
+            fieldsDiagnosis.setCodeData(currentClassAnalysed);
+            smells.add(fieldsDiagnosis);
+        }
     }
 
     public void retrieveSmellsFromClasses(){

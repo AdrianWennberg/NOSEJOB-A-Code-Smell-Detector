@@ -184,7 +184,7 @@ public class PrimitiveObsessionSnifferTest {
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
 
-            assertEquals(0.5f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.25f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -209,6 +209,7 @@ public class PrimitiveObsessionSnifferTest {
 
             IClassData firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
             IClassData secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+
 
             ((ParsedProject) projectTest).addClass(firstTestClass);
             ((ParsedProject) projectTest).addClass(secondTestClass);
@@ -244,7 +245,7 @@ public class PrimitiveObsessionSnifferTest {
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
 
-            assertEquals(1f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test

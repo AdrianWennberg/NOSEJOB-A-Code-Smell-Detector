@@ -1,7 +1,6 @@
 package com.codingrangers.nosejob.reports;
 
 import com.codingrangers.nosejob.models.IProjectReport;
-import com.codingrangers.nosejob.models.ISmell;
 import com.codingrangers.nosejob.models.ISmellReport;
 
 import java.util.ArrayList;
