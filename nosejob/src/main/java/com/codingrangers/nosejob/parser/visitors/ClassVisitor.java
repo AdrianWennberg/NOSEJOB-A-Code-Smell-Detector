@@ -32,15 +32,13 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 
 	@Override
 	public void visit(MethodDeclaration method, ParsedClass classData) {
-		ParsedMethod methodData = classData.createMethod(method.getNameAsString());
+		ParsedMethod methodData = classData.createMethod(method.getSignature().asString());
 		methodVisitor.visit(method, methodData);
 	}
 	
 	@Override
 	public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedClass classData) {
 		if(classOrInterface.isInterface() == false) {
-				System.out.println("class length: " + classOrInterface.getBegin().get().line + "-" 
-										+ classOrInterface.getEnd().get().line);
 				super.visit(classOrInterface, classData);
 		}
 	}

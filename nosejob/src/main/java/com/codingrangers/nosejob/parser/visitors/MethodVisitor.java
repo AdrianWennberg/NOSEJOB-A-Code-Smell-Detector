@@ -30,7 +30,6 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 	 */
 	@Override
 	public void visit(MethodDeclaration method, ParsedMethod methodData) {
-		System.out.println("method length: " + method.getBegin().get().line +"-"+method.getEnd().get().line);
 		super.visit(method,methodData);
 	}
 	

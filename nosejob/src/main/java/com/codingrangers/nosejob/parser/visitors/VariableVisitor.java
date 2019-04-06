@@ -19,7 +19,16 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 	 */
 	@Override
 	public void visit(VariableDeclarator variable, ParsedVariable variableData) {
-		System.out.println(variable.getNameAsString());
+		variableData.setStartLine(variable.getBegin().get().line);
+		variableData.setEndLine(variable.getEnd().get().line);
+		variableData.setVariableType(variable.getTypeAsString());
+		if(variable.getType().isPrimitiveType())
+			variableData.setIsPrimitive();
+		
+		//the commeted code bellow is temporarly documenting how to get the various values
+		//that will be needed in the near future
+		
+		/*System.out.println(variable.getNameAsString());
 		
 		if(variable.getParentNode().get() instanceof FieldDeclaration) {
 			FieldDeclaration parent = (FieldDeclaration)variable.getParentNode().get();
@@ -35,7 +44,7 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 		
 		Type type = variable.getType();
 		System.out.println(type.asString() +" is prim: "+ type.isPrimitiveType());
-		System.out.println(variable.getBegin().get().line);
+		System.out.println(variable.getBegin().get().line);*/
 	}
 	
 }
