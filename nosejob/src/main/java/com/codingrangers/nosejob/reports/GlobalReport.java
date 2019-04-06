@@ -24,7 +24,7 @@ public class GlobalReport implements IProjectReport {
 
     @Override
     public float getProjectScore() {
-        if (getSmellReports().size() == 0) return 0;
+        if (getSmellReports().size() == 0) return 0f;
 
         float severity_avg = 0f;
         for(ISmellReport report : getSmellReports()){

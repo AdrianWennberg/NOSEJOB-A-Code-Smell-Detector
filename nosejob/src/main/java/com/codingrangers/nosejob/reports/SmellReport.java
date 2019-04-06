@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SmellReport implements ISmellReport {
-    public String smellName;
+    private String smellName;
     private List<ISmell> smells;
 
     public SmellReport(){
