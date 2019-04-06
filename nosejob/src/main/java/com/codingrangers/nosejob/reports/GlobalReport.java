@@ -48,7 +48,7 @@ public class GlobalReport implements IProjectReport {
 
     @Override
     public List<ISmellReport> getSmellReports() {
-        return ((List<ISmellReport>) smellReports);
+        return new ArrayList<ISmellReport>(smellReports.values());
     }
 
     @Override
