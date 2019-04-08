@@ -1,7 +1,7 @@
 package com.codingrangers.nosejob.web;
 
 import com.codingrangers.nosejob.storage.StorageFileNotFoundException;
-import com.codingrangers.nosejob.models.IStorageService;
+import com.codingrangers.nosejob.models.StorageService;
 
 import java.io.IOException;
 import java.util.stream.Collectors;
@@ -25,18 +25,18 @@ import org.springframework.ui.Model;
 @Controller
 public class FileUploadController {
 
-	private final IStorageService IStorageService;
+	private final StorageService StorageService;
 
 	@Autowired
-	public FileUploadController(IStorageService IStorageService) {
-		this.IStorageService = IStorageService;
+	public FileUploadController(StorageService StorageService) {
+		this.StorageService = StorageService;
 	}
 
 	@GetMapping("/upload")
 	public String listUploadedFiles(Model model) throws IOException {
 
 		model.addAttribute("files",
-				IStorageService.loadAll()
+				StorageService.loadAll()
 						.map(path -> MvcUriComponentsBuilder
 								.fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
 								.build().toString())
@@ -48,7 +48,7 @@ public class FileUploadController {
 	@GetMapping("/files/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-		Resource file = IStorageService.loadAsResource(filename);
+		Resource file = StorageService.loadAsResource(filename);
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
 				.body(file);
@@ -56,7 +56,7 @@ public class FileUploadController {
 
 	@PostMapping("/upload")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-		IStorageService.store(file);
+		StorageService.store(file);
 		redirectAttributes.addFlashAttribute("message", "Successfully uploaded " + file.getOriginalFilename() + "!");
 		return "redirect:/upload";
 	}

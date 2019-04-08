@@ -1,11 +1,11 @@
 package com.codingrangers.nosejob.parser;
 
-import com.codingrangers.nosejob.models.IVariableData;
+import com.codingrangers.nosejob.models.VariableData;
 
 /**
  * ParsedVariable TODO: Need to unit test this
  */
-public class ParsedVariable extends ParsedCodeUnit implements IVariableData {
+public class ParsedVariable extends ParsedCodeUnit implements VariableData {
 
 	private String type;
 	private boolean isPrimitive;

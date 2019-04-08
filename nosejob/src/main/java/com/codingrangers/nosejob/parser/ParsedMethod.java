@@ -2,38 +2,50 @@ package com.codingrangers.nosejob.parser;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.codingrangers.nosejob.models.IMethodData;
-import com.codingrangers.nosejob.models.IVariableData;
+import com.codingrangers.nosejob.models.MethodData;
+import com.codingrangers.nosejob.models.VariableData;
 import com.codingrangers.nosejob.helpers.DataStructureHelpers;
-import com.codingrangers.nosejob.models.IClassData;
+import com.codingrangers.nosejob.models.ClassData;
 
 /**
  * ParsedMethod TODO: Need to unit test this
  */
-public class ParsedMethod extends ParsedCodeUnit implements IMethodData {
+public class ParsedMethod extends ParsedCodeUnit implements MethodData {
 
-	private IVariableData returnType;
+	private VariableData returnType;
 	private String className;
-	private List<IVariableData> parameters;
-	private List<IVariableData> localVariables;
+	private List<VariableData> parameters;
+	private List<VariableData> localVariables;
 
-	public ParsedMethod(IClassData methodClass, String methodName) {
+	public ParsedMethod(ClassData methodClass, String methodName) {
 		super(methodClass.getFullyQualifiedName(), methodName, methodClass.getFilePath());
 		className = methodClass.getName();
-		parameters = new ArrayList<IVariableData>();
-		localVariables = new ArrayList<IVariableData>();
+		parameters = new ArrayList<VariableData>();
+		localVariables = new ArrayList<VariableData>();
 	}
 
-	public void addReturnType(IVariableData methodReturnType) {
+	public void addReturnType(VariableData methodReturnType) {
 		returnType = methodReturnType;
 	}
 
-	public void addParameter(IVariableData newParameter) {
+	public void addParameter(VariableData newParameter) {
 		parameters.add(newParameter);
 	}
 
-	public void addVariable(IVariableData newVariable) {
+	public void addVariable(VariableData newVariable) {
 		localVariables.add(newVariable);
+	}
+
+	public ParsedVariable createParameter(String name) {
+		ParsedVariable variable = new ParsedVariable(this, name);
+		parameters.add(variable);
+		return variable;
+	}
+
+	public ParsedVariable createVariable(String name) {
+		ParsedVariable variable = new ParsedVariable(this, name);
+		localVariables.add(variable);
+		return variable;
 	}
 
 	@Override
@@ -42,7 +54,7 @@ public class ParsedMethod extends ParsedCodeUnit implements IMethodData {
 	}
 
 	@Override
-	public IVariableData getReturnType() {
+	public VariableData getReturnType() {
 		return returnType;
 	}
 
@@ -52,13 +64,13 @@ public class ParsedMethod extends ParsedCodeUnit implements IMethodData {
 	}
 
 	@Override
-	public List<IVariableData> getParameters() {
-		return new ArrayList<IVariableData>(parameters);
+	public List<VariableData> getParameters() {
+		return new ArrayList<VariableData>(parameters);
 	}
 
 	@Override
-	public List<IVariableData> getLocalVariables() {
-		return new ArrayList<IVariableData>(localVariables);
+	public List<VariableData> getLocalVariables() {
+		return new ArrayList<VariableData>(localVariables);
 	}
 
 	@Override

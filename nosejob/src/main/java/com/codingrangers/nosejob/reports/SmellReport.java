@@ -1,67 +1,72 @@
 package com.codingrangers.nosejob.reports;
 
-import com.codingrangers.nosejob.models.ISmell;
-import com.codingrangers.nosejob.models.ISmellReport;
+import com.codingrangers.nosejob.models.Smell;
+import com.codingrangers.nosejob.models.SmellReportBody;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SmellReport implements ISmellReport {
-    private String smellName;
-    private List<ISmell> smells;
+public class SmellReport implements SmellReportBody {
+	private String smellName;
+	private List<Smell> smells;
 
-    public SmellReport(){
-        smells = new ArrayList<>();
-    }
+	public SmellReport() {
+		smells = new ArrayList<>();
+	}
 
-    @Override
-    public void setSmellName(String smellName) {
-        this.smellName = smellName;
-    }
+	@Override
+	public void setSmellName(String smellName) {
+		this.smellName = smellName;
+	}
 
-    @Override
-    public String getSmellName() {
-        return smellName;
-    }
+	@Override
+	public String getSmellName() {
+		return smellName;
+	}
 
-    @Override
-    public void addSmell(ISmell smell) {
-        if(smell.equals(null))
-            throw new NullPointerException("Cannot add a null as a smell.");
+	@Override
+	public void addSmell(Smell smell) {
+		if (smell.equals(null))
+			throw new NullPointerException("Cannot add a null as a smell.");
 
-        smells.add(smell);
-    }
+		smells.add(smell);
+	}
 
-    @Override
-    public void addSmells(List<ISmell> retrievedSmells) {
-        if(retrievedSmells.equals(null))
-            throw new NullPointerException("Cannot add a null list of smells.");
+	@Override
+	public void addSmells(List<Smell> retrievedSmells) {
+		if (retrievedSmells.equals(null))
+			throw new NullPointerException("Cannot add a null list of smells.");
 
-        smells.addAll(retrievedSmells);
-    }
+		smells.addAll(retrievedSmells);
+	}
 
-    @Override
-    public List<ISmell> getSmells() {
-        List<ISmell> smellySmells = new ArrayList<>();
+	@Override
+	public List<Smell> getSmells() {
+		List<Smell> smellySmells = new ArrayList<>();
 
-        for (ISmell smell : smells){
-            if(smell.isSmelly()) smellySmells.add(smell);
-        }
+		for (Smell smell : smells) {
+			if (smell.isSmelly())
+				smellySmells.add(smell);
+		}
 
-        return smellySmells;
-    }
+		return smellySmells;
+	}
 
-    @Override
-    /**TODO*/
-    public float getTotalSmellSeverity() {
-        if (smells.size() == 0) return 0f;
+	@Override
+	// TODO
+	public float getTotalSmellSeverity() {
+		if (smells.size() == 0) {
+			return 0f;
+		}
 
-        float severity_avg = 0f;
-        for(ISmell smell : smells){
-            severity_avg += smell.getSmellSeverity();
-        }
-        severity_avg /= smells.size();
+		// int averageSeverity = smells.stream().reduce(0, (v.getSmellSeverity(), _v) ->
+		// v.getSmellSeverity() + _v.getSmellSeverity()).collect();
+		float averageSeverity = 0;
+		for (Smell smell : smells) {
+			averageSeverity += smell.getSmellSeverity();
+		}
+		averageSeverity /= smells.size();
 
-        return severity_avg;
-    }
+		return averageSeverity;
+	}
 }

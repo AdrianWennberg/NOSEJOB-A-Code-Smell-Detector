@@ -2,17 +2,17 @@ package com.codingrangers.nosejob.parser;
 
 import java.util.*;
 
-import com.codingrangers.nosejob.models.IVariableData;
-import com.codingrangers.nosejob.models.IClassData;
-import com.codingrangers.nosejob.models.IMethodData;
+import com.codingrangers.nosejob.models.VariableData;
+import com.codingrangers.nosejob.models.ClassData;
+import com.codingrangers.nosejob.models.MethodData;
 
 /**
  * ParsedClass TODO: Need to unit test this
  */
-public class ParsedClass extends ParsedCodeUnit implements IClassData {
+public class ParsedClass extends ParsedCodeUnit implements ClassData {
 
-	private Map<String, IMethodData> classMethods;
-	private Map<String, IVariableData> classVariables;
+	private Map<String, MethodData> classMethods;
+	private Map<String, VariableData> classVariables;
 
 	public ParsedClass(String classNamePrefix, String className, String filePath) {
 		super(classNamePrefix, className, filePath);
@@ -20,16 +20,28 @@ public class ParsedClass extends ParsedCodeUnit implements IClassData {
 		classVariables = new HashMap<>();
 	}
 
-	public void addMethod(IMethodData newMethod) {
+	public void addMethod(MethodData newMethod) {
 		classMethods.put(newMethod.getName(), newMethod);
 	}
 
-	public void addField(IVariableData newVariable) {
+	public void addField(VariableData newVariable) {
 		classVariables.put(newVariable.getName(), newVariable);
 	}
 
+	public ParsedMethod createMethod(String name) {
+		ParsedMethod method = new ParsedMethod(this, name);
+		classMethods.put(method.getName(), method);
+		return method;
+	}
+
+	public ParsedVariable createField(String name) {
+		ParsedVariable variable = new ParsedVariable(this, name);
+		classVariables.put(variable.getName(), variable);
+		return variable;
+	}
+
 	@Override
-	public IMethodData getMethod(String name) {
+	public MethodData getMethod(String name) {
 		return classMethods.get(name);
 	}
 
@@ -39,7 +51,7 @@ public class ParsedClass extends ParsedCodeUnit implements IClassData {
 	}
 
 	@Override
-	public IVariableData getField(String name) {
+	public VariableData getField(String name) {
 		return classVariables.get(name);
 	}
 

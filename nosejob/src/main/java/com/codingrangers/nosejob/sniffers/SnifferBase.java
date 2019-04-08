@@ -6,30 +6,29 @@ import com.codingrangers.nosejob.reports.GlobalReport;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SnifferBase implements IProjectAnalyser{
+public abstract class SnifferBase implements ProjectAnalyser {
 
-    protected List<ISniffer> analysers;
-    private IProjectData projectToAnalyze;
+	protected List<Sniffer> analysers;
+	private ProjectData projectToAnalyze;
 
-    public SnifferBase() {
-        analysers = new ArrayList<>();
-    }
+	public SnifferBase() {
+		analysers = new ArrayList<>();
+	}
 
-    @Override
-    public void setProjectToAnalyse(IProjectData projectData) {
-        projectToAnalyze = projectData;
-    }
+	@Override
+	public void setProjectToAnalyse(ProjectData projectData) {
+		projectToAnalyze = projectData;
+	}
 
-    @Override
-    public IProjectReport getProjectReport() {
-        IProjectReport result = new GlobalReport();
+	@Override
+	public ProjectReport getProjectReport() {
+		ProjectReport result = new GlobalReport();
 
-        for(ISniffer analyser: analysers) {
-            analyser.setProjectToAnalyse(projectToAnalyze);
-            ((GlobalReport) result).addSmellReportToProjectReport(analyser.getSmellReport());
-        }
+		for (Sniffer analyser : analysers) {
+			analyser.setProjectToAnalyse(projectToAnalyze);
+			((GlobalReport) result).addSmellReportToProjectReport(analyser.getSmellReport());
+		}
 
-        return result;
-    }
+		return result;
+	}
 }
-

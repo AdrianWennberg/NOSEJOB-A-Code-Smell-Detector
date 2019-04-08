@@ -1,6 +1,6 @@
 package com.codingrangers.nosejob.models;
 
-public interface IVariableData extends ICodeData {
+public interface VariableData extends CodeData {
 	String getType();
 
 	boolean isPrimitive();

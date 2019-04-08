@@ -7,29 +7,29 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-import com.codingrangers.nosejob.models.IClassData;
+import com.codingrangers.nosejob.models.ClassData;
 import org.junit.Test;
 
-import com.codingrangers.nosejob.models.ICodeData;
-import com.codingrangers.nosejob.models.IVariableData;
+import com.codingrangers.nosejob.models.CodeData;
+import com.codingrangers.nosejob.models.VariableData;
 
 public class ParsedMethodTest {
 	@Test
 	public void nameIsSetCorrectly() {
 		String fullyQualifiedClassName = "name.prefix.ClassName";
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		when(mockedClass.getFullyQualifiedName()).thenReturn(fullyQualifiedClassName);
 
 		String methodSignature = "methodName(int)";
 		String fullyQuallifiedMethodName = "name.prefix.ClassName.methodName(int)";
 
-		ICodeData parsedMethod = new ParsedMethod(mockedClass, methodSignature);
+		CodeData parsedMethod = new ParsedMethod(mockedClass, methodSignature);
 
 		assertEquals(methodSignature, parsedMethod.getName());
 		assertEquals(fullyQuallifiedMethodName, parsedMethod.getFullyQualifiedName());
 
 		fullyQualifiedClassName = "other.name.prefix.OtherClassName";
-		mockedClass = mock(IClassData.class);
+		mockedClass = mock(ClassData.class);
 		when(mockedClass.getFullyQualifiedName()).thenReturn(fullyQualifiedClassName);
 
 		methodSignature = "otherMethodName(int, float)";
@@ -44,15 +44,15 @@ public class ParsedMethodTest {
 	@Test
 	public void pathSetCorrectly() {
 		String path = "C:/File/path.java";
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		when(mockedClass.getFilePath()).thenReturn(path);
 
-		ICodeData parsedMethod = new ParsedMethod(mockedClass, "");
+		CodeData parsedMethod = new ParsedMethod(mockedClass, "");
 
 		assertEquals(path, parsedMethod.getFilePath());
 
 		path = "C:/File/other/path.java";
-		mockedClass = mock(IClassData.class);
+		mockedClass = mock(ClassData.class);
 		when(mockedClass.getFilePath()).thenReturn(path);
 
 		parsedMethod = new ParsedMethod(mockedClass, "");
@@ -66,7 +66,7 @@ public class ParsedMethodTest {
 		int endLine = 100;
 		int lineCount = 96;
 
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 
 		parsedMethod.setStartLine(startLine);
@@ -91,21 +91,21 @@ public class ParsedMethodTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeStartLine() {
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 		parsedMethod.setStartLine(-5);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeEndLine() {
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 		parsedMethod.setEndLine(-4);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void startLineGreaterThanEndLine() {
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 		parsedMethod.setEndLine(5);
 		parsedMethod.setStartLine(6);
@@ -113,7 +113,7 @@ public class ParsedMethodTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void endLineLessThanstartLine() {
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 		parsedMethod.setStartLine(10);
 		parsedMethod.setEndLine(9);
@@ -121,7 +121,7 @@ public class ParsedMethodTest {
 
 	@Test(expected = IllegalStateException.class)
 	public void startLineAllreadySet() {
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 		parsedMethod.setStartLine(10);
 		parsedMethod.setStartLine(10);
@@ -129,7 +129,7 @@ public class ParsedMethodTest {
 
 	@Test(expected = IllegalStateException.class)
 	public void endLineAllreadySet() {
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 		parsedMethod.setEndLine(12);
 		parsedMethod.setEndLine(12);
@@ -138,7 +138,7 @@ public class ParsedMethodTest {
 	@Test
 	public void canGetClassName() {
 		String className = "testClass";
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		when(mockedClass.getName()).thenReturn(className);
 
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
@@ -148,10 +148,10 @@ public class ParsedMethodTest {
 
 	@Test
 	public void canAddReturnType() {
-		IVariableData mockedReturnType = mock(IVariableData.class);
+		VariableData mockedReturnType = mock(VariableData.class);
 		when(mockedReturnType.isPrimitive()).thenReturn(true);
 
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 
 		parsedMethod.addReturnType(mockedReturnType);
@@ -159,10 +159,10 @@ public class ParsedMethodTest {
 		assertEquals(mockedReturnType, parsedMethod.getReturnType());
 		assertTrue(parsedMethod.hasPrimitiveReturnType());
 
-		mockedReturnType = mock(IVariableData.class);
+		mockedReturnType = mock(VariableData.class);
 		when(mockedReturnType.isPrimitive()).thenReturn(false);
 
-		mockedClass = mock(IClassData.class);
+		mockedClass = mock(ClassData.class);
 		parsedMethod = new ParsedMethod(mockedClass, "");
 
 		parsedMethod.addReturnType(mockedReturnType);
@@ -173,15 +173,15 @@ public class ParsedMethodTest {
 
 	@Test
 	public void canAddParameter() {
-		IVariableData mockedParameter = mock(IVariableData.class);
+		VariableData mockedParameter = mock(VariableData.class);
 		when(mockedParameter.isPrimitive()).thenReturn(true);
 
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 
 		parsedMethod.addParameter(mockedParameter);
 
-		List<IVariableData> parameters = parsedMethod.getParameters();
+		List<VariableData> parameters = parsedMethod.getParameters();
 
 		assertEquals(1, parameters.size());
 		assertEquals(mockedParameter, parameters.get(0));
@@ -190,19 +190,19 @@ public class ParsedMethodTest {
 
 	@Test
 	public void canAddMultipleParameters() {
-		IVariableData firstMockedParameter = mock(IVariableData.class);
+		VariableData firstMockedParameter = mock(VariableData.class);
 		when(firstMockedParameter.isPrimitive()).thenReturn(false);
 
-		IVariableData secondMockedParameter = mock(IVariableData.class);
+		VariableData secondMockedParameter = mock(VariableData.class);
 		when(secondMockedParameter.isPrimitive()).thenReturn(true);
 
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 
 		parsedMethod.addParameter(firstMockedParameter);
 		parsedMethod.addParameter(secondMockedParameter);
 
-		List<IVariableData> parameters = parsedMethod.getParameters();
+		List<VariableData> parameters = parsedMethod.getParameters();
 
 		assertEquals(2, parameters.size());
 		assertThat(parameters, containsInAnyOrder(firstMockedParameter, secondMockedParameter));
@@ -211,15 +211,15 @@ public class ParsedMethodTest {
 
 	@Test
 	public void canAddLocalVariable() {
-		IVariableData mockedVariable = mock(IVariableData.class);
+		VariableData mockedVariable = mock(VariableData.class);
 		when(mockedVariable.isPrimitive()).thenReturn(true);
 
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 
 		parsedMethod.addVariable(mockedVariable);
 
-		List<IVariableData> localVariables = parsedMethod.getLocalVariables();
+		List<VariableData> localVariables = parsedMethod.getLocalVariables();
 
 		assertEquals(1, localVariables.size());
 		assertEquals(mockedVariable, localVariables.get(0));
@@ -228,19 +228,19 @@ public class ParsedMethodTest {
 
 	@Test
 	public void canAddMultipleLocalVariables() {
-		IVariableData firstMockedVariable = mock(IVariableData.class);
+		VariableData firstMockedVariable = mock(VariableData.class);
 		when(firstMockedVariable.isPrimitive()).thenReturn(false);
 
-		IVariableData secondMockedVariable = mock(IVariableData.class);
+		VariableData secondMockedVariable = mock(VariableData.class);
 		when(secondMockedVariable.isPrimitive()).thenReturn(true);
 
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedMethod parsedMethod = new ParsedMethod(mockedClass, "");
 
 		parsedMethod.addVariable(firstMockedVariable);
 		parsedMethod.addVariable(secondMockedVariable);
 
-		List<IVariableData> localVariables = parsedMethod.getLocalVariables();
+		List<VariableData> localVariables = parsedMethod.getLocalVariables();
 
 		assertEquals(2, localVariables.size());
 		assertThat(localVariables, containsInAnyOrder(firstMockedVariable, secondMockedVariable));

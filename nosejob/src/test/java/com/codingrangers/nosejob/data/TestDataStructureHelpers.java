@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 
 import com.codingrangers.nosejob.helpers.DataStructureHelpers;
-import com.codingrangers.nosejob.models.IVariableData;
+import com.codingrangers.nosejob.models.VariableData;
 
 import org.junit.Test;
 
@@ -15,23 +15,23 @@ public class TestDataStructureHelpers {
 
 	@Test
 	public void testCountPrimitives() {
-		ArrayList<IVariableData> variables = new ArrayList<IVariableData>();
+		ArrayList<VariableData> variables = new ArrayList<VariableData>();
 
 		assertEquals(0, DataStructureHelpers.countPrimitives(variables));
 
-		IVariableData testVariable = mock(IVariableData.class);
+		VariableData testVariable = mock(VariableData.class);
 		when(testVariable.isPrimitive()).thenReturn(true);
 		variables.add(testVariable);
 
 		assertEquals(1, DataStructureHelpers.countPrimitives(variables));
 
-		testVariable = mock(IVariableData.class);
+		testVariable = mock(VariableData.class);
 		when(testVariable.isPrimitive()).thenReturn(true);
 		variables.add(testVariable);
 
 		assertEquals(2, DataStructureHelpers.countPrimitives(variables));
 
-		testVariable = mock(IVariableData.class);
+		testVariable = mock(VariableData.class);
 		when(testVariable.isPrimitive()).thenReturn(false);
 		variables.add(testVariable);
 

@@ -7,14 +7,14 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-import com.codingrangers.nosejob.models.IClassData;
+import com.codingrangers.nosejob.models.ClassData;
 import org.junit.Test;
 
 public class ParsedProjectTest {
 	@Test
 	public void canAddClass() {
 		String className = "TestClass";
-		IClassData mockedClass = mock(IClassData.class);
+		ClassData mockedClass = mock(ClassData.class);
 		ParsedProject parsedProject = new ParsedProject();
 
 		when(mockedClass.getName()).thenReturn(className);
@@ -31,11 +31,11 @@ public class ParsedProjectTest {
 	@Test
 	public void canAddMultipleClasses() {
 		String firstClassName = "testClassOne";
-		IClassData firstMockedClass = mock(IClassData.class);
+		ClassData firstMockedClass = mock(ClassData.class);
 		when(firstMockedClass.getName()).thenReturn(firstClassName);
 
 		String secondClassName = "testClassTwo";
-		IClassData secondMockedClass = mock(IClassData.class);
+		ClassData secondMockedClass = mock(ClassData.class);
 		when(secondMockedClass.getName()).thenReturn(secondClassName);
 
 		ParsedProject parsedProject = new ParsedProject();

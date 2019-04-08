@@ -1,9 +1,9 @@
 package com.codingrangers.nosejob.models;
 
-public interface ISmell {
-	void setCodeData(ICodeData codeData);
+public interface Smell {
+	void setCodeData(CodeData codeData);
 
-	ICodeData getLocation();
+	CodeData getLocation();
 
 	boolean isSmelly();
 

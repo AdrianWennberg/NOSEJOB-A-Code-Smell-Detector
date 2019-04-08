@@ -3,9 +3,9 @@ package com.codingrangers.nosejob.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-import com.codingrangers.nosejob.models.ICodeData;
-import com.codingrangers.nosejob.models.IMethodData;
-import com.codingrangers.nosejob.models.IVariableData;
+import com.codingrangers.nosejob.models.CodeData;
+import com.codingrangers.nosejob.models.MethodData;
+import com.codingrangers.nosejob.models.VariableData;
 
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
@@ -24,7 +24,7 @@ public class ParsedClassTest {
 		String className = "ClassName";
 		String namePrefix = "name.prefix";
 		String fullyQualifiedName = "name.prefix.ClassName";
-		ICodeData parsedClass = new ParsedClass(namePrefix, className, "");
+		CodeData parsedClass = new ParsedClass(namePrefix, className, "");
 
 		assertEquals(className, parsedClass.getName());
 		assertEquals(fullyQualifiedName, parsedClass.getFullyQualifiedName());
@@ -41,7 +41,7 @@ public class ParsedClassTest {
 	@Test
 	public void pathSetCorrectly() {
 		String path = "C:/File/path.java";
-		ICodeData parsedClass = new ParsedClass("", "", path);
+		CodeData parsedClass = new ParsedClass("", "", path);
 
 		assertEquals(path, parsedClass.getFilePath());
 
@@ -121,7 +121,7 @@ public class ParsedClassTest {
 	@Test
 	public void canAddMethod() {
 		String methodSignature = "testMethod";
-		IMethodData mockedMethod = mock(IMethodData.class);
+		MethodData mockedMethod = mock(MethodData.class);
 		ParsedClass parsedClass = new ParsedClass("", "", "");
 
 		when(mockedMethod.getName()).thenReturn(methodSignature);
@@ -138,11 +138,11 @@ public class ParsedClassTest {
 	@Test
 	public void canAddMultipleMethods() {
 		String firstMethodSignature = "testMethodOne";
-		IMethodData firstMockedMethod = mock(IMethodData.class);
+		MethodData firstMockedMethod = mock(MethodData.class);
 		when(firstMockedMethod.getName()).thenReturn(firstMethodSignature);
 
 		String secondMethodSignature = "testMethodTwo";
-		IMethodData secondMockedMethod = mock(IMethodData.class);
+		MethodData secondMockedMethod = mock(MethodData.class);
 		when(secondMockedMethod.getName()).thenReturn(secondMethodSignature);
 
 		ParsedClass parsedClass = new ParsedClass("", "", "");
@@ -162,7 +162,7 @@ public class ParsedClassTest {
 	@Test
 	public void canAddField() {
 		String fieldName = "testField";
-		IVariableData mockedField = mock(IVariableData.class);
+		VariableData mockedField = mock(VariableData.class);
 		ParsedClass parsedClass = new ParsedClass("", "", "");
 
 		when(mockedField.getName()).thenReturn(fieldName);
@@ -179,11 +179,11 @@ public class ParsedClassTest {
 	@Test
 	public void canAddMultipleFields() {
 		String firstFieldName = "testFieldOne";
-		IVariableData firstMockedField = mock(IVariableData.class);
+		VariableData firstMockedField = mock(VariableData.class);
 		when(firstMockedField.getName()).thenReturn(firstFieldName);
 
 		String secondFieldName = "testFieldTwo";
-		IVariableData secondMockedField = mock(IVariableData.class);
+		VariableData secondMockedField = mock(VariableData.class);
 		when(secondMockedField.getName()).thenReturn(secondFieldName);
 
 		ParsedClass parsedClass = new ParsedClass("", "", "");

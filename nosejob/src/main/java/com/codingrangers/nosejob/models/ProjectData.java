@@ -2,8 +2,8 @@ package com.codingrangers.nosejob.models;
 
 import java.util.List;
 
-public interface IProjectData {
+public interface ProjectData {
 	List<String> getClassNames();
 
-	IClassData getClassData(String className);
+	ClassData getClassData(String className);
 }

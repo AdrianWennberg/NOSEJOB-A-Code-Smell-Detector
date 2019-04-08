@@ -2,21 +2,21 @@ package com.codingrangers.nosejob.parser;
 
 import java.util.*;
 
-import com.codingrangers.nosejob.models.IProjectData;
-import com.codingrangers.nosejob.models.IClassData;
+import com.codingrangers.nosejob.models.ProjectData;
+import com.codingrangers.nosejob.models.ClassData;
 
 /**
  * ParsedProject TODO: Need to unit test this
  */
-public class ParsedProject implements IProjectData {
+public class ParsedProject implements ProjectData {
 
-	private Map<String, IClassData> classes;
+	private Map<String, ClassData> classes;
 
 	public ParsedProject() {
 		classes = new HashMap<>();
 	}
 
-	public void addClass(IClassData newClass) {
+	public void addClass(ClassData newClass) {
 		classes.put(newClass.getName(), newClass);
 	}
 
@@ -26,7 +26,7 @@ public class ParsedProject implements IProjectData {
 	}
 
 	@Override
-	public IClassData getClassData(String className) {
+	public ClassData getClassData(String className) {
 		return classes.get(className);
 	}
 }

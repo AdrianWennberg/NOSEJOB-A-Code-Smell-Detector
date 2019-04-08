@@ -1,6 +1,6 @@
 package com.codingrangers.nosejob.sniffers;
 
-import com.codingrangers.nosejob.models.IClassData;
+import com.codingrangers.nosejob.models.ClassData;
 import com.codingrangers.nosejob.parser.*;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Enclosed.class)
 public class PrimitiveObsessionSnifferTest {
 
-    public static class retrieveSmellsFromMethodTests{
+    public static class retrieveSmellsFromMethodTests {
 
         @Test
         public void retrieveSmellsFromMethodTest() {
@@ -118,7 +118,7 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromNoMethodsTest() {
             ParsedProject projectTest = new ParsedProject();
 
-            IClassData testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
+            ClassData testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
 
             projectTest.addClass(testClass);
 
@@ -206,7 +206,6 @@ public class PrimitiveObsessionSnifferTest {
 
             ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
-
 
             projectTest.addClass(firstTestClass);
             projectTest.addClass(secondTestClass);

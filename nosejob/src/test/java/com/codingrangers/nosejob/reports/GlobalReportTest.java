@@ -1,6 +1,6 @@
 package com.codingrangers.nosejob.reports;
 
-import com.codingrangers.nosejob.models.ISmellReport;
+import com.codingrangers.nosejob.models.SmellReportBody;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -19,166 +19,165 @@ import static org.mockito.Mockito.when;
 
 @RunWith(Enclosed.class)
 public class GlobalReportTest {
-    public static class addSmellReportToProjectReportTest{
-        @Test
-        public void AddSmellReportTest(){
-            String reportName = "firstTestName";
-            ISmellReport mockedReport = mock(ISmellReport.class);
-            when(mockedReport.getSmellName()).thenReturn(reportName);
+	public static class addSmellReportToProjectReportTest {
+		@Test
+		public void AddSmellReportTest() {
+			String reportName = "firstTestName";
+			SmellReport mockedReport = mock(SmellReport.class);
+			when(mockedReport.getSmellName()).thenReturn(reportName);
 
-            GlobalReport globalReport = new GlobalReport();
+			GlobalReport globalReport = new GlobalReport();
 
-            globalReport.addSmellReportToProjectReport(mockedReport);
+			globalReport.addSmellReportToProjectReport(mockedReport);
 
-            assertEquals(1, globalReport.getSmellReports().size());
-            assertEquals(reportName, globalReport.getSmellReports().get(0).getSmellName());
-            assertThat(globalReport.getSmellReports(), containsInAnyOrder(mockedReport));
-        }
-    }
+			assertEquals(1, globalReport.getSmellReports().size());
+			assertEquals(reportName, globalReport.getSmellReports().get(0).getSmellName());
+			assertThat(globalReport.getSmellReports(), containsInAnyOrder(mockedReport));
+		}
+	}
 
-    public static class getProjectScoreTest{
-        @Parameterized.Parameter()
-        public float average;
-        @Parameterized.Parameter(1)
-        public List<ISmellReport> testSmellReports = new ArrayList<>();
+	public static class getProjectScoreTest {
+		@Parameterized.Parameter()
+		public float average;
+		@Parameterized.Parameter(1)
+		public List<SmellReport> testSmellReports = new ArrayList<>();
 
-        @Parameterized.Parameters
-        public static Collection<Object[]> testData() {
-            ISmellReport one = mock(ISmellReport.class);
-            ISmellReport two = mock(ISmellReport.class);
-            ISmellReport three = mock(ISmellReport.class);
+		@Parameterized.Parameters
+		public static Collection<Object[]> testData() {
+			SmellReport one = mock(SmellReport.class);
+			SmellReport two = mock(SmellReport.class);
+			SmellReport three = mock(SmellReport.class);
 
-            when(one.getTotalSmellSeverity()).thenReturn(0f);
-            when(two.getTotalSmellSeverity()).thenReturn(0f);
-            when(three.getTotalSmellSeverity()).thenReturn(1f);
+			when(one.getTotalSmellSeverity()).thenReturn(0f);
+			when(two.getTotalSmellSeverity()).thenReturn(0f);
+			when(three.getTotalSmellSeverity()).thenReturn(1f);
 
-            List<ISmellReport> firstList = new ArrayList<>();
-            firstList.add(one);
-            firstList.add(two);
-            firstList.add(three);
+			List<SmellReport> firstList = new ArrayList<>();
+			firstList.add(one);
+			firstList.add(two);
+			firstList.add(three);
 
-            ISmellReport four = mock(ISmellReport.class);
-            ISmellReport five = mock(ISmellReport.class);
-            ISmellReport six = mock(ISmellReport.class);
+			SmellReport four = mock(SmellReport.class);
+			SmellReport five = mock(SmellReport.class);
+			SmellReport six = mock(SmellReport.class);
 
-            when(four.getTotalSmellSeverity()).thenReturn(1f);
-            when(five.getTotalSmellSeverity()).thenReturn(0f);
-            when(six.getTotalSmellSeverity()).thenReturn(0.5f);
+			when(four.getTotalSmellSeverity()).thenReturn(1f);
+			when(five.getTotalSmellSeverity()).thenReturn(0f);
+			when(six.getTotalSmellSeverity()).thenReturn(0.5f);
 
-            List<ISmellReport> secondList = new ArrayList<>();
-            secondList.add(four);
-            secondList.add(five);
-            secondList.add(six);
+			List<SmellReport> secondList = new ArrayList<>();
+			secondList.add(four);
+			secondList.add(five);
+			secondList.add(six);
 
-            ISmellReport seven = mock(ISmellReport.class);
-            ISmellReport eight = mock(ISmellReport.class);
-            ISmellReport nine = mock(ISmellReport.class);
+			SmellReport seven = mock(SmellReport.class);
+			SmellReport eight = mock(SmellReport.class);
+			SmellReport nine = mock(SmellReport.class);
 
-            when(seven.getTotalSmellSeverity()).thenReturn(0.25f);
-            when(eight.getTotalSmellSeverity()).thenReturn(0.5f);
-            when(nine.getTotalSmellSeverity()).thenReturn(0.75f);
+			when(seven.getTotalSmellSeverity()).thenReturn(0.25f);
+			when(eight.getTotalSmellSeverity()).thenReturn(0.5f);
+			when(nine.getTotalSmellSeverity()).thenReturn(0.75f);
 
-            List<ISmellReport> thirdList = new ArrayList<>();
-            thirdList.add(seven);
-            thirdList.add(eight);
-            thirdList.add(nine);
+			List<SmellReport> thirdList = new ArrayList<>();
+			thirdList.add(seven);
+			thirdList.add(eight);
+			thirdList.add(nine);
 
-            ISmellReport ten = mock(ISmellReport.class);
-            ISmellReport eleven = mock(ISmellReport.class);
-            ISmellReport twelve = mock(ISmellReport.class);
+			SmellReport ten = mock(SmellReport.class);
+			SmellReport eleven = mock(SmellReport.class);
+			SmellReport twelve = mock(SmellReport.class);
 
-            when(ten.getTotalSmellSeverity()).thenReturn(0.33f);
-            when(eleven.getTotalSmellSeverity()).thenReturn(0.33f);
-            when(twelve.getTotalSmellSeverity()).thenReturn(0.16f);
+			when(ten.getTotalSmellSeverity()).thenReturn(0.33f);
+			when(eleven.getTotalSmellSeverity()).thenReturn(0.33f);
+			when(twelve.getTotalSmellSeverity()).thenReturn(0.16f);
 
-            List<ISmellReport> fourthList = new ArrayList<>();
-            fourthList.add(ten);
-            fourthList.add(eleven);
-            fourthList.add(twelve);
+			List<SmellReport> fourthList = new ArrayList<>();
+			fourthList.add(ten);
+			fourthList.add(eleven);
+			fourthList.add(twelve);
 
-            ISmellReport thirteen = mock(ISmellReport.class);
-            ISmellReport fourteen = mock(ISmellReport.class);
-            ISmellReport fifteen = mock(ISmellReport.class);
+			SmellReport thirteen = mock(SmellReport.class);
+			SmellReport fourteen = mock(SmellReport.class);
+			SmellReport fifteen = mock(SmellReport.class);
 
-            when(thirteen.getTotalSmellSeverity()).thenReturn(0.10f);
-            when(fourteen.getTotalSmellSeverity()).thenReturn(0.20f);
-            when(fifteen.getTotalSmellSeverity()).thenReturn(0f);
+			when(thirteen.getTotalSmellSeverity()).thenReturn(0.10f);
+			when(fourteen.getTotalSmellSeverity()).thenReturn(0.20f);
+			when(fifteen.getTotalSmellSeverity()).thenReturn(0f);
 
-            List<ISmellReport> fifthList = new ArrayList<>();
-            fifthList.add(thirteen);
-            fifthList.add(fourteen);
-            fifthList.add(fifteen);
+			List<SmellReport> fifthList = new ArrayList<>();
+			fifthList.add(thirteen);
+			fifthList.add(fourteen);
+			fifthList.add(fifteen);
 
-            Object[][] data = new Object[][]{{0.33f, firstList},
-                    {0.5f, secondList},
-                    {0.5f, thirdList},
-                    {0.273f, fourthList},
-                    {0.15f, fifthList}};
-            return Arrays.asList(data);
-        }
-        @Test
-        public void parametrizedGetTotalSmellSeverityTest(){
-            GlobalReport globalReport = new GlobalReport();
-            for (ISmellReport report : testSmellReports) {
-                globalReport.addSmellReportToProjectReport(report);
-            }
-            assertEquals(average, globalReport.getProjectScore(), 0.01);
-        }
-    }
+			Object[][] data = new Object[][] { { 0.33f, firstList }, { 0.5f, secondList }, { 0.5f, thirdList },
+					{ 0.273f, fourthList }, { 0.15f, fifthList } };
+			return Arrays.asList(data);
+		}
 
-    public static class getSmellNamesTest{
-        @Test
-        public void getSmellNamesTest(){
-            String firstReportName = "firstTestName";
-            String secondReportName = "secondTestName";
-            ISmellReport firstMockedReport = mock(ISmellReport.class);
-            ISmellReport secondMockedReport = mock(ISmellReport.class);
-            when(firstMockedReport.getSmellName()).thenReturn(firstReportName);
-            when(secondMockedReport.getSmellName()).thenReturn(secondReportName);
+		@Test
+		public void parametrizedGetTotalSmellSeverityTest() {
+			GlobalReport globalReport = new GlobalReport();
+			for (SmellReport report : testSmellReports) {
+				globalReport.addSmellReportToProjectReport(report);
+			}
+			assertEquals(average, globalReport.getProjectScore(), 0.01);
+		}
+	}
 
-            GlobalReport globalReport = new GlobalReport();
+	public static class getSmellNamesTest {
+		@Test
+		public void getSmellNamesTest() {
+			String firstReportName = "firstTestName";
+			String secondReportName = "secondTestName";
+			SmellReport firstMockedReport = mock(SmellReport.class);
+			SmellReport secondMockedReport = mock(SmellReport.class);
+			when(firstMockedReport.getSmellName()).thenReturn(firstReportName);
+			when(secondMockedReport.getSmellName()).thenReturn(secondReportName);
 
-            globalReport.addSmellReportToProjectReport(firstMockedReport);
-            globalReport.addSmellReportToProjectReport(secondMockedReport);
+			GlobalReport globalReport = new GlobalReport();
 
-            assertEquals(2, globalReport.getSmellNames().size());
-            assertEquals(firstReportName, globalReport.getReportForSpecifiedSmell(firstReportName).getSmellName());
-            assertThat(globalReport.getSmellNames(), containsInAnyOrder(firstMockedReport.getSmellName(), secondMockedReport.getSmellName()));
-        }
-    }
+			globalReport.addSmellReportToProjectReport(firstMockedReport);
+			globalReport.addSmellReportToProjectReport(secondMockedReport);
 
-    public static class getSmellReportsTest{
-        @Test
-        public void getSmellReportsTest(){
-            String firstReportName = "firstTestName";
-            String secondReportName = "secondTestName";
-            ISmellReport firstMockedReport = mock(ISmellReport.class);
-            ISmellReport secondMockedReport = mock(ISmellReport.class);
-            when(firstMockedReport.getSmellName()).thenReturn(firstReportName);
-            when(secondMockedReport.getSmellName()).thenReturn(secondReportName);
+			assertEquals(2, globalReport.getSmellNames().size());
+			assertEquals(firstReportName, globalReport.getReportForSpecifiedSmell(firstReportName).getSmellName());
+			assertThat(globalReport.getSmellNames(),
+					containsInAnyOrder(firstMockedReport.getSmellName(), secondMockedReport.getSmellName()));
+		}
+	}
 
-            GlobalReport globalReport = new GlobalReport();
+	public static class getSmellReportsTest {
+		@Test
+		public void getSmellReportsTest() {
+			String firstReportName = "firstTestName";
+			String secondReportName = "secondTestName";
+			SmellReport firstMockedReport = mock(SmellReport.class);
+			SmellReport secondMockedReport = mock(SmellReport.class);
+			when(firstMockedReport.getSmellName()).thenReturn(firstReportName);
+			when(secondMockedReport.getSmellName()).thenReturn(secondReportName);
 
-            globalReport.addSmellReportToProjectReport(firstMockedReport);
-            globalReport.addSmellReportToProjectReport(secondMockedReport);
+			GlobalReport globalReport = new GlobalReport();
 
-            assertEquals(2, globalReport.getSmellReports().size());
-            assertThat(globalReport.getSmellReports(), containsInAnyOrder(firstMockedReport, secondMockedReport));
-        }
-    }
+			globalReport.addSmellReportToProjectReport(firstMockedReport);
+			globalReport.addSmellReportToProjectReport(secondMockedReport);
 
-    public static class getReportForSpecifiedSmellTest{
-        @Test
-        public void getReportForSpecifiedSmellTest(){
-            String firstReportName = "firstTestName";
-            ISmellReport firstMockedReport = mock(ISmellReport.class);
-            when(firstMockedReport.getSmellName()).thenReturn(firstReportName);
+			assertEquals(2, globalReport.getSmellReports().size());
+			assertThat(globalReport.getSmellReports(), containsInAnyOrder(firstMockedReport, secondMockedReport));
+		}
+	}
 
-            GlobalReport globalReport = new GlobalReport();
+	public static class getReportForSpecifiedSmellTest {
+		@Test
+		public void getReportForSpecifiedSmellTest() {
+			String firstReportName = "firstTestName";
+			SmellReport firstMockedReport = mock(SmellReport.class);
+			when(firstMockedReport.getSmellName()).thenReturn(firstReportName);
 
-            globalReport.addSmellReportToProjectReport(firstMockedReport);
+			GlobalReport globalReport = new GlobalReport();
 
-            assertEquals(firstReportName, globalReport.getReportForSpecifiedSmell(firstReportName).getSmellName());
-        }
-    }
+			globalReport.addSmellReportToProjectReport(firstMockedReport);
+
+			assertEquals(firstReportName, globalReport.getReportForSpecifiedSmell(firstReportName).getSmellName());
+		}
+	}
 }

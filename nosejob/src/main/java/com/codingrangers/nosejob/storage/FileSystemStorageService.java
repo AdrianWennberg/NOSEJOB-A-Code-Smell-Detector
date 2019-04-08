@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import com.codingrangers.nosejob.models.IStorageService;
+import com.codingrangers.nosejob.models.StorageService;
 
 @Service
-public class FileSystemStorageService implements IStorageService {
+public class FileSystemStorageService implements StorageService {
 
 	private final Path rootLocation;
 
