@@ -16,15 +16,16 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 
 	VoidVisitorAdapter<ParsedMethod> methodVisitor;
 	VoidVisitorAdapter<ParsedVariable> feildVisitor;
-	
-	public ClassVisitor(VoidVisitorAdapter<ParsedMethod> methodVisitor, VoidVisitorAdapter<ParsedVariable> feildVisitor) {
+
+	public ClassVisitor(VoidVisitorAdapter<ParsedMethod> methodVisitor,
+			VoidVisitorAdapter<ParsedVariable> feildVisitor) {
 		this.methodVisitor = methodVisitor;
-		this.feildVisitor = feildVisitor;		
+		this.feildVisitor = feildVisitor;
 	}
-	
+
 	@Override
 	public void visit(FieldDeclaration field, ParsedClass classData) {
-		for(VariableDeclarator variable : field.getVariables()) {
+		for (VariableDeclarator variable : field.getVariables()) {
 			ParsedVariable variableData = classData.createField(variable.getNameAsString());
 			feildVisitor.visit(variable, variableData);
 		}
@@ -35,14 +36,14 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 		ParsedMethod methodData = classData.createMethod(method.getSignature().asString());
 		methodVisitor.visit(method, methodData);
 	}
-	
+
 	@Override
 	public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedClass classData) {
-		if(classOrInterface.isInterface() == false) {
-				super.visit(classOrInterface, classData);
+		if (classOrInterface.isInterface() == false) {
+			super.visit(classOrInterface, classData);
 		}
 	}
-	
+
 	/**
 	 * Class Visitor entry point
 	 */

@@ -27,23 +27,18 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData {
 	public void addField(VariableData newVariable) {
 		classVariables.put(newVariable.getName(), newVariable);
 	}
-	
+
 	public ParsedMethod createMethod(String name) {
-		ParsedMethod method = new ParsedMethod(this,name);
+		ParsedMethod method = new ParsedMethod(this, name);
 		classMethods.put(method.getName(), method);
 		return method;
 	}
-	
+
 	public ParsedVariable createField(String name) {
-		ParsedVariable variable = new ParsedVariable(this,name);
+		ParsedVariable variable = new ParsedVariable(this, name);
 		classVariables.put(variable.getName(), variable);
 		return variable;
 	}
-
-	// @Override
-	// public List<String> getMethodNames() {
-	// return new ArrayList<String>(classMethods.keySet());
-	// }
 
 	@Override
 	public MethodData getMethod(String name) {
@@ -62,6 +57,6 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData {
 
 	@Override
 	public List<String> getMethodSignatures() {
-		return null;
+		return new ArrayList<String>(classMethods.keySet());
 	}
 }

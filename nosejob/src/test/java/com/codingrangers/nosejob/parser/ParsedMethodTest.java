@@ -7,9 +7,9 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import com.codingrangers.nosejob.models.ClassData;
 import org.junit.Test;
 
-import com.codingrangers.nosejob.models.ClassData;
 import com.codingrangers.nosejob.models.CodeData;
 import com.codingrangers.nosejob.models.VariableData;
 

@@ -37,17 +37,17 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData {
 	}
 
 	public ParsedVariable createParameter(String name) {
-		ParsedVariable variable = new ParsedVariable(this,name);
+		ParsedVariable variable = new ParsedVariable(this, name);
 		parameters.add(variable);
 		return variable;
 	}
-	
+
 	public ParsedVariable createVariable(String name) {
-		ParsedVariable variable = new ParsedVariable(this,name);
+		ParsedVariable variable = new ParsedVariable(this, name);
 		localVariables.add(variable);
 		return variable;
 	}
-	
+
 	@Override
 	public String getClassName() {
 		return className;

@@ -3,9 +3,11 @@ package com.codingrangers.nosejob.models;
 import java.util.List;
 
 public interface ProjectReport {
-	int getProjectScore();
+	float getProjectScore();
 
 	List<String> getSmellNames();
 
-	SmellReport getSmellReport(String smellName);
+	List<SmellReportBody> getSmellReports();
+
+	SmellReportBody getReportForSpecifiedSmell(String smellName);
 }

@@ -7,10 +7,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-import org.junit.Test;
-
 import com.codingrangers.nosejob.models.ClassData;
-import com.codingrangers.nosejob.parser.ParsedProject;
+import org.junit.Test;
 
 public class ParsedProjectTest {
 	@Test
