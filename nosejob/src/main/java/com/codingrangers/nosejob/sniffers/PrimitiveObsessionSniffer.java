@@ -6,10 +6,8 @@ import com.codingrangers.nosejob.reports.SmellReport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrimitiveObsessionSniffer implements Sniffer {
-	private ProjectData currentProjectToAnalyse;
+public class PrimitiveObsessionSniffer extends GeneralSniffer{
 	private static final String NAME = "Primitive Obsession";
-	private List<Smell> smells;
 
 	private class MethodDiagnosis implements Smell {
 		private MethodData currentMethodToAnalyze;
@@ -93,10 +91,6 @@ public class PrimitiveObsessionSniffer implements Sniffer {
 		}
 	}
 
-	public PrimitiveObsessionSniffer() {
-		smells = new ArrayList<>();
-	}
-
 	public void retrieveSmellsFromMethods(ClassData currentClassAnalysed) {
 		if (currentClassAnalysed.equals(null))
 			throw new NullPointerException("Cannot analyse fields of a null.");
@@ -124,11 +118,6 @@ public class PrimitiveObsessionSniffer implements Sniffer {
 			retrieveSmellsFromMethods(currentProjectToAnalyse.getClassData(className));
 			retrieveSmellFromFields(currentProjectToAnalyse.getClassData(className));
 		}
-	}
-
-	@Override
-	public void setProjectToAnalyse(ProjectData projectData) {
-		this.currentProjectToAnalyse = projectData;
 	}
 
 	@Override
