@@ -4,7 +4,6 @@ import com.codingrangers.nosejob.helpers.DataStructureHelpers;
 import com.codingrangers.nosejob.models.*;
 import com.codingrangers.nosejob.reports.SmellReport;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
