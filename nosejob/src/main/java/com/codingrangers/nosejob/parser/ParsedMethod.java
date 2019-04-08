@@ -17,7 +17,7 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData {
 	private List<VariableData> parameters;
 	private List<VariableData> localVariables;
 
-	ParsedMethod(ClassData methodClass, String methodName) {
+	public ParsedMethod(ClassData methodClass, String methodName) {
 		super(methodClass.getFullyQualifiedName(), methodName, methodClass.getFilePath());
 		className = methodClass.getName();
 		parameters = new ArrayList<VariableData>();
@@ -36,6 +36,18 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData {
 		localVariables.add(newVariable);
 	}
 
+	public ParsedVariable createParameter(String name) {
+		ParsedVariable variable = new ParsedVariable(this,name);
+		parameters.add(variable);
+		return variable;
+	}
+	
+	public ParsedVariable createVariable(String name) {
+		ParsedVariable variable = new ParsedVariable(this,name);
+		localVariables.add(variable);
+		return variable;
+	}
+	
 	@Override
 	public String getClassName() {
 		return className;
