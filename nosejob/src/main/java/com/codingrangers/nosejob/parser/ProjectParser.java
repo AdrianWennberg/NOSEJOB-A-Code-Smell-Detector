@@ -1,9 +1,9 @@
 package com.codingrangers.nosejob.parser;
 
+import com.codingrangers.nosejob.models.IProjectData;
 import com.github.javaparser.*;
 import com.github.javaparser.ast.*;
-import com.codingrangers.nosejob.models.ProjectData;
-import com.codingrangers.nosejob.models.CodeParser;
+import com.codingrangers.nosejob.models.ICodeParser;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ProjectParser implements CodeParser {
+public class ProjectParser implements ICodeParser {
 
 	/**
 	 * @param path is taken as root of the project to be parsed, all files beneath
@@ -25,14 +25,14 @@ public class ProjectParser implements CodeParser {
 		return new ProjectParser();
 	}
 
-	public ProjectData parseProject(String path) {
+	public IProjectData parseProject(String path) {
 		CompilationUnit compilationUnit = JavaParser.parse(path);
-		ProjectData projectData = null;
+		IProjectData IProjectData = null;
 
 		ProjectVisitor visitor = new ProjectVisitor();
-		visitor.visit(compilationUnit, projectData);
+		visitor.visit(compilationUnit, IProjectData);
 
-		return projectData;
+		return IProjectData;
 	}
 
 }

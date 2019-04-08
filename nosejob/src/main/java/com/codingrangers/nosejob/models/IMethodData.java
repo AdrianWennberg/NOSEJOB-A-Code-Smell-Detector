@@ -2,16 +2,16 @@ package com.codingrangers.nosejob.models;
 
 import java.util.List;
 
-public interface MethodData extends CodeData {
+public interface IMethodData extends ICodeData {
 	String getClassName();
 
-	VariableData getReturnType();
+	IVariableData getReturnType();
 
 	boolean hasPrimitiveReturnType();
 
-	List<VariableData> getParameters();
+	List<IVariableData> getParameters();
 
-	List<VariableData> getLocalVariables();
+	List<IVariableData> getLocalVariables();
 
 	int getPrimitiveParameterCount();
 

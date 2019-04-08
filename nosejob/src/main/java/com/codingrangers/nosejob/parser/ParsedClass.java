@@ -2,17 +2,17 @@ package com.codingrangers.nosejob.parser;
 
 import java.util.*;
 
-import com.codingrangers.nosejob.models.VariableData;
-import com.codingrangers.nosejob.models.ClassData;
-import com.codingrangers.nosejob.models.MethodData;
+import com.codingrangers.nosejob.models.IVariableData;
+import com.codingrangers.nosejob.models.IClassData;
+import com.codingrangers.nosejob.models.IMethodData;
 
 /**
  * ParsedClass TODO: Need to unit test this
  */
-public class ParsedClass extends ParsedCodeUnit implements ClassData {
+public class ParsedClass extends ParsedCodeUnit implements IClassData {
 
-	private Map<String, MethodData> classMethods;
-	private Map<String, VariableData> classVariables;
+	private Map<String, IMethodData> classMethods;
+	private Map<String, IVariableData> classVariables;
 
 	public ParsedClass(String classNamePrefix, String className, String filePath) {
 		super(classNamePrefix, className, filePath);
@@ -20,21 +20,16 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData {
 		classVariables = new HashMap<>();
 	}
 
-	public void addMethod(MethodData newMethod) {
+	public void addMethod(IMethodData newMethod) {
 		classMethods.put(newMethod.getName(), newMethod);
 	}
 
-	public void addField(VariableData newVariable) {
+	public void addField(IVariableData newVariable) {
 		classVariables.put(newVariable.getName(), newVariable);
 	}
 
-	// @Override
-	// public List<String> getMethodNames() {
-	// return new ArrayList<String>(classMethods.keySet());
-	// }
-
 	@Override
-	public MethodData getMethod(String name) {
+	public IMethodData getMethod(String name) {
 		return classMethods.get(name);
 	}
 
@@ -44,12 +39,12 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData {
 	}
 
 	@Override
-	public VariableData getField(String name) {
+	public IVariableData getField(String name) {
 		return classVariables.get(name);
 	}
 
 	@Override
 	public List<String> getMethodSignatures() {
-		return null;
+		return new ArrayList<String>(classMethods.keySet());
 	}
 }

@@ -2,12 +2,12 @@ package com.codingrangers.nosejob.models;
 
 import java.util.List;
 
-public interface ClassData extends CodeData {
+public interface IClassData extends ICodeData {
 	List<String> getMethodSignatures();
 
-	MethodData getMethod(String signature);
+	IMethodData getMethod(String signature);
 
 	List<String> getFieldsNames();
 
-	VariableData getField(String name);
+	IVariableData getField(String name);
 }

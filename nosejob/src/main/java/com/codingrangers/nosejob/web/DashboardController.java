@@ -1,7 +1,7 @@
 package com.codingrangers.nosejob.web;
 
+import com.codingrangers.nosejob.models.IProjectData;
 import com.codingrangers.nosejob.parser.ProjectParser;
-import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.storage.StorageProperties;
 
 import java.nio.file.Path;
@@ -27,8 +27,8 @@ public class DashboardController {
 
 	@GetMapping("/dashboard")
 	public String analyseProject(Model model) {
-		ProjectData projectData = this.projectParser.parseProject(this.rootLocation.toString());
-		// model.addAttribute("projectData", this.projectData);
+		IProjectData IProjectData = this.projectParser.parseProject(this.rootLocation.toString());
+		// model.addAttribute("IProjectData", this.IProjectData);
 		return "dashboard";
 	}
 

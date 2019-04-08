@@ -2,37 +2,37 @@ package com.codingrangers.nosejob.parser;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.codingrangers.nosejob.models.MethodData;
-import com.codingrangers.nosejob.models.VariableData;
+import com.codingrangers.nosejob.models.IMethodData;
+import com.codingrangers.nosejob.models.IVariableData;
 import com.codingrangers.nosejob.helpers.DataStructureHelpers;
-import com.codingrangers.nosejob.models.ClassData;
+import com.codingrangers.nosejob.models.IClassData;
 
 /**
  * ParsedMethod TODO: Need to unit test this
  */
-public class ParsedMethod extends ParsedCodeUnit implements MethodData {
+public class ParsedMethod extends ParsedCodeUnit implements IMethodData {
 
-	private VariableData returnType;
+	private IVariableData returnType;
 	private String className;
-	private List<VariableData> parameters;
-	private List<VariableData> localVariables;
+	private List<IVariableData> parameters;
+	private List<IVariableData> localVariables;
 
-	ParsedMethod(ClassData methodClass, String methodName) {
+	public ParsedMethod(IClassData methodClass, String methodName) {
 		super(methodClass.getFullyQualifiedName(), methodName, methodClass.getFilePath());
 		className = methodClass.getName();
-		parameters = new ArrayList<VariableData>();
-		localVariables = new ArrayList<VariableData>();
+		parameters = new ArrayList<IVariableData>();
+		localVariables = new ArrayList<IVariableData>();
 	}
 
-	public void addReturnType(VariableData methodReturnType) {
+	public void addReturnType(IVariableData methodReturnType) {
 		returnType = methodReturnType;
 	}
 
-	public void addParameter(VariableData newParameter) {
+	public void addParameter(IVariableData newParameter) {
 		parameters.add(newParameter);
 	}
 
-	public void addVariable(VariableData newVariable) {
+	public void addVariable(IVariableData newVariable) {
 		localVariables.add(newVariable);
 	}
 
@@ -42,7 +42,7 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData {
 	}
 
 	@Override
-	public VariableData getReturnType() {
+	public IVariableData getReturnType() {
 		return returnType;
 	}
 
@@ -52,13 +52,13 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData {
 	}
 
 	@Override
-	public List<VariableData> getParameters() {
-		return new ArrayList<VariableData>(parameters);
+	public List<IVariableData> getParameters() {
+		return new ArrayList<IVariableData>(parameters);
 	}
 
 	@Override
-	public List<VariableData> getLocalVariables() {
-		return new ArrayList<VariableData>(localVariables);
+	public List<IVariableData> getLocalVariables() {
+		return new ArrayList<IVariableData>(localVariables);
 	}
 
 	@Override

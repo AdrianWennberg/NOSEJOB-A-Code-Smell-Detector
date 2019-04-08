@@ -1,6 +1,6 @@
 package com.codingrangers.nosejob.models;
 
-public interface CodeData {
+public interface ICodeData {
 	String getName();
 
 	String getFullyQualifiedName();

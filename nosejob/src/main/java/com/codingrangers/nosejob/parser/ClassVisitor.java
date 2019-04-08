@@ -1,8 +1,8 @@
 package com.codingrangers.nosejob.parser;
 
-import com.codingrangers.nosejob.models.ClassData;
-import com.codingrangers.nosejob.models.VariableData;
-import com.codingrangers.nosejob.models.MethodData;
+import com.codingrangers.nosejob.models.IClassData;
+import com.codingrangers.nosejob.models.IVariableData;
+import com.codingrangers.nosejob.models.IMethodData;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.ast.body.*;
 
@@ -13,17 +13,17 @@ import com.github.javaparser.ast.body.*;
  * @author peter
  *
  */
-public class ClassVisitor extends VoidVisitorAdapter<ClassData> {
+public class ClassVisitor extends VoidVisitorAdapter<IClassData> {
 
-	public void visit(FieldDeclaration field, ClassData classData) {
+	public void visit(FieldDeclaration field, IClassData iClassData) {
 		VariableVisitor visitor = new VariableVisitor();
-		VariableData variableData = null;
+		IVariableData variableData = null;
 		visitor.visit(field, variableData);
 	}
 
-	public void visit(MethodDeclaration method, ClassData classData) {
+	public void visit(MethodDeclaration method, IClassData iClassData) {
 		MethodVisitor visitor = new MethodVisitor();
-		MethodData methodData = null;
+		IMethodData methodData = null;
 		visitor.visit(method, methodData);
 	}
 
