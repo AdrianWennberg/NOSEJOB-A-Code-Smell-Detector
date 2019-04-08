@@ -1,8 +1,22 @@
 package com.codingrangers.nosejob.sniffers;
 
-public class GlobalSniffer extends SnifferBase {
-	public GlobalSniffer() {
+import java.util.Arrays;
+
+public class ProjectSniffer extends SnifferBase {
+	public ProjectSniffer() {
 		PrimitiveObsessionSniffer primitiveObsessionAnalyser = new PrimitiveObsessionSniffer();
-		this.analysers.add(primitiveObsessionAnalyser);
+		BloatedCodeSniffer bloatedCodeSniffer = new BloatedCodeSniffer();
+		ViolationOfDataPrivacySniffer violationOfDataPrivacySniffer = new ViolationOfDataPrivacySniffer();
+		InappropriateIntimacySniffer inappropriateIntimacySniffer = new InappropriateIntimacySniffer();
+		FeatureEnvySniffer featureEnvySniffer = new FeatureEnvySniffer();
+		GodComplexSniffer godComplexSniffer = new GodComplexSniffer();
+		DataOnlyClassesSniffer dataOnlyClassesSniffer = new DataOnlyClassesSniffer();
+		this.analysers.addAll(Arrays.asList(primitiveObsessionAnalyser,
+				bloatedCodeSniffer,
+				violationOfDataPrivacySniffer,
+				inappropriateIntimacySniffer,
+				featureEnvySniffer,
+				godComplexSniffer,
+				dataOnlyClassesSniffer));
 	}
 }
