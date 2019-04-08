@@ -3,7 +3,6 @@ package com.codingrangers.nosejob.parser;
 import com.codingrangers.nosejob.models.ProjectData;
 import com.github.javaparser.*;
 import com.github.javaparser.ast.*;
-import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.parser.visitors.*;
 import com.codingrangers.nosejob.models.CodeParser;
 
@@ -49,11 +48,11 @@ public class ProjectParser implements CodeParser {
 	 */
 	public ProjectData parseProject(String path) throws FileNotFoundException {
 		File root = new File(path);
-		if (root.exists() == false) {
+		if (!root.exists()) {
 			throw new FileNotFoundException();
 		}
 
-		directoryOrFile(root);
+		resolveParse(root);
 
 		ParsedProject returnValue = parsedProject;
 		parsedProject = new ParsedProject();
@@ -61,16 +60,18 @@ public class ProjectParser implements CodeParser {
 		return returnValue;
 	}
 
-	private void directoryOrFile(File file) {
-		if (file.isDirectory())
+	private void resolveParse(File file) {
+		if (file.isDirectory()) {
 			parseDirectory(file);
-		else if (file.isFile() && file.getName().endsWith(".java"))
+		} else if (file.isFile() && file.getName().endsWith(".java")) {
 			parseFile(file);
+		}
 	}
 
 	private void parseDirectory(File Directory) {
-		for (File file : Directory.listFiles())
-			directoryOrFile(file);
+		for (File file : Directory.listFiles()) {
+			resolveParse(file);
+		}
 	}
 
 	private void parseFile(File file) {

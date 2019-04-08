@@ -31,7 +31,7 @@ public class FileUploadTest {
 	private TestRestTemplate restTemplate = new TestRestTemplate();
 
 	@MockBean
-	private StorageService StorageService;
+	private StorageService storageService;
 
 	@LocalServerPort
 	private int port;
@@ -45,13 +45,13 @@ public class FileUploadTest {
 
 		assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.FOUND);
 		assertThat(response.getHeaders().getLocation().toString()).startsWith("http://localhost:" + this.port + "/");
-		then(StorageService).should().store(any(MultipartFile.class));
+		then(storageService).should().store(any(MultipartFile.class));
 	}
 
 	@Test
 	public void shouldDownloadFile() throws Exception {
 		ClassPathResource resource = new ClassPathResource("samplefileupload.txt", getClass());
-		given(this.StorageService.loadAsResource("samplefileupload.txt")).willReturn(resource);
+		given(this.storageService.loadAsResource("samplefileupload.txt")).willReturn(resource);
 		ResponseEntity<String> response = this.restTemplate.getForEntity("/files/{filename}", String.class,
 				"samplefileupload.txt");
 

@@ -7,5 +7,5 @@ public class ParseFailedException extends Exception {
 	public ParseFailedException(String message) {
 		super(message);
 	}
-	
+
 }
