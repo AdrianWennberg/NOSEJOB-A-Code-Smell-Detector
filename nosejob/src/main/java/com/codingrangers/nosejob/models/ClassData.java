@@ -6,13 +6,16 @@ public interface ClassData extends CodeData {
 	int countPublicFields();
 	
 	int countInternalMethodCalls();
-	List<MethodReference> getInternalMethodCalls();
 
-	int countMethodCallsTo(String fullyQualifedClassName);
-	List<MethodReference> getMethodCallsTo(String fullyQualifedClassName);
-	
-	int countFieldReferencesTo(String fullyQualifedClassName);
-	List<FieldReferance> getFieldReferancesTo(String fullyQualifedClassName);
+    Iterable<MethodReference> getInternalMethodCalls();
+
+    int countMethodCallsTo(String fullyQualifiedClassName);
+
+    Iterable<MethodReference> getMethodCallsTo(String fullyQualifiedClassName);
+
+    int countFieldReferencesTo(String fullyQualifiedClassName);
+
+    Iterable<FieldReference> getFieldReferencesTo(String fullyQualifiedClassName);
 	
 	int countMethods();
 	List<String> getMethodSignatures();

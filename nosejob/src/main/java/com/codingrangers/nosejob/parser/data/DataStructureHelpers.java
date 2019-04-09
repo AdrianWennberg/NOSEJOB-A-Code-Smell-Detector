@@ -1,9 +1,9 @@
-package com.codingrangers.nosejob.helpers;
+package com.codingrangers.nosejob.parser.data;
 
 import com.codingrangers.nosejob.models.VariableData;
 
-public class DataStructureHelpers {
-	public static int countPrimitives(Iterable<VariableData> variables) {
+class DataStructureHelpers {
+	static int countPrimitives(Iterable<VariableData> variables) {
 		int primitiveCount = 0;
 		for (VariableData var : variables) {
 			if (var.isPrimitive())

@@ -1,0 +1,144 @@
+package com.codingrangers.nosejob.parser.data;
+
+import com.codingrangers.nosejob.models.*;
+import com.google.common.collect.Iterables;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * ParsedClass TODO: Need to unit test this
+ */
+public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable {
+
+    private final Map<String, MethodData> classMethods;
+    private final Map<String, VariableData> classVariables;
+    private ParsedMethod methodPrototype;
+    private ParsedVariable fieldPrototype;
+
+    ParsedClass(String classNamePrefix, String className, String filePath) {
+        super(classNamePrefix, className, filePath);
+        classMethods = new HashMap<>();
+        classVariables = new HashMap<>();
+        methodPrototype = new ParsedMethod(getFullyQualifiedName(), "", filePath, className);
+        fieldPrototype = new ParsedVariable(getFullyQualifiedName(), "", filePath);
+    }
+
+    void setMethodPrototype(ParsedMethod newPrototype) {
+        methodPrototype = newPrototype;
+    }
+
+    ParsedMethod createMethod(String name) {
+        ParsedMethod method = methodPrototype.clone();
+        method.setName(name);
+        classMethods.put(method.getName(), method);
+        return method;
+    }
+
+
+    @Override
+    public int countMethods() {
+        return classMethods.size();
+    }
+
+    @Override
+    public List<String> getMethodSignatures() {
+        return new ArrayList<>(classMethods.keySet());
+    }
+
+    @Override
+    public MethodData getMethod(String name) {
+        return classMethods.get(name);
+    }
+
+    void setFieldPrototype(ParsedVariable newPrototype) {
+        fieldPrototype = newPrototype;
+    }
+
+    ParsedVariable createField(String name) {
+        ParsedVariable variable = fieldPrototype.clone();
+        classVariables.put(variable.getName(), variable);
+        return variable;
+    }
+
+    @Override
+    public int countFields() {
+        return getFieldsNames().size();
+    }
+
+    @Override
+    public int countPublicFields() {
+        int count = 0;
+        for (String fieldName : getFieldsNames()) {
+            if (getField(fieldName).getAccessSpecifier() == AccessSpecifier.PUBLIC) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public List<String> getFieldsNames() {
+        return new ArrayList<>(classVariables.keySet());
+    }
+
+    @Override
+    public VariableData getField(String name) {
+        return classVariables.get(name);
+    }
+
+    @Override
+    public int countInternalMethodCalls() {
+        return countMethodCallsTo(getFullyQualifiedName());
+    }
+
+    @Override
+    public Iterable<MethodReference> getInternalMethodCalls() {
+        return getMethodCallsTo(getFullyQualifiedName());
+    }
+
+    @Override
+    public int countMethodCallsTo(String fullyQualifiedClassName) {
+        return Iterables.size(getMethodCallsTo(fullyQualifiedClassName));
+    }
+
+    @Override
+    public Iterable<MethodReference> getMethodCallsTo(String fullyQualifiedClassName) {
+        return ReferenceStorage.get().getMethodReference(getFullyQualifiedName(), fullyQualifiedClassName);
+    }
+
+    @Override
+    public int countFieldReferencesTo(String fullyQualifiedClassName) {
+        return Iterables.size(getFieldReferencesTo(fullyQualifiedClassName));
+    }
+
+    @Override
+    public Iterable<FieldReference> getFieldReferencesTo(String fullyQualifiedClassName) {
+        return ReferenceStorage.get().getFieldReference(getFullyQualifiedName(), fullyQualifiedClassName);
+    }
+
+    public ParsedMethodReference addReferenceToMethod(String fullyQualifiedClassName, String methodSignature) {
+        ParsedMethodReference methodRef = new ParsedMethodReference(getFilePath(), getFullyQualifiedName(),
+                fullyQualifiedClassName, methodSignature);
+        ReferenceStorage.get().add(methodRef);
+        return methodRef;
+    }
+
+    public ParsedFieldReference addReferenceToField(String fullyQualifiedClassName, String fieldName) {
+        ParsedFieldReference fieldRef = new ParsedFieldReference(getFilePath(), getFullyQualifiedName(),
+                fullyQualifiedClassName, fieldName);
+        ReferenceStorage.get().add(fieldRef);
+        return fieldRef;
+    }
+
+    @Override
+    protected final ParsedClass clone() {
+        try {
+            return (ParsedClass) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException();
+        }
+    }
+}

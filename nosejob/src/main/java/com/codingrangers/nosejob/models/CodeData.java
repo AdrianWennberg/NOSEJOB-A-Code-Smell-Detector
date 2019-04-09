@@ -1,15 +1,7 @@
 package com.codingrangers.nosejob.models;
 
-public interface CodeData {
+public interface CodeData extends CodeLocation {
 	String getName();
 
 	String getFullyQualifiedName();
-
-	String getFilePath();
-
-	int getStartLineNumber();
-
-	int getEndLineNumber();
-
-	int getLineCount();
 }

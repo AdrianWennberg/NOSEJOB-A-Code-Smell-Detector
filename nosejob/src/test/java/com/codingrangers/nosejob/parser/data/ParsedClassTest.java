@@ -1,18 +1,17 @@
-package com.codingrangers.nosejob.parser;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+package com.codingrangers.nosejob.parser.data;
 
 import com.codingrangers.nosejob.models.CodeData;
 import com.codingrangers.nosejob.models.MethodData;
 import com.codingrangers.nosejob.models.VariableData;
-
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 
 import java.util.List;
+
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * ParsedClassTest
@@ -98,104 +97,127 @@ public class ParsedClassTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void endLineLessThanstartLine() {
+	public void endLineLessThanStartLine() {
 		ParsedClass parsedClass = new ParsedClass("", "", "");
 		parsedClass.setStartLine(10);
 		parsedClass.setEndLine(9);
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void startLineAllreadySet() {
+	public void startLineAlreadySet() {
 		ParsedClass parsedClass = new ParsedClass("", "", "");
 		parsedClass.setStartLine(10);
 		parsedClass.setStartLine(10);
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void endLineAllreadySet() {
+	public void endLineAlreadySet() {
 		ParsedClass parsedClass = new ParsedClass("", "", "");
 		parsedClass.setEndLine(12);
 		parsedClass.setEndLine(12);
 	}
 
 	@Test
-	public void canAddMethod() {
+	public void canCreateMethod() {
+		ParsedMethod mockedPrototype = mock(ParsedMethod.class);
+		ParsedMethod mockedClone = mock(ParsedMethod.class);
 		String methodSignature = "testMethod";
-		MethodData mockedMethod = mock(MethodData.class);
+
+		when(mockedPrototype.clone()).thenReturn(mockedClone);
+		when(mockedClone.getName()).thenReturn(methodSignature);
+
 		ParsedClass parsedClass = new ParsedClass("", "", "");
+		parsedClass.setMethodPrototype(mockedPrototype);
+		MethodData methodData = parsedClass.createMethod(methodSignature);
 
-		when(mockedMethod.getName()).thenReturn(methodSignature);
+		List<String> methods = parsedClass.getMethodSignatures();
 
-		parsedClass.addMethod(mockedMethod);
-
-		// List<String> methods = parsedClass.getMethodNames();
-
-		// assertEquals(1, methods.size());
-		// assertEquals(methodSignature, methods.get(0));
-		assertEquals(mockedMethod, parsedClass.getMethod(methodSignature));
+		assertEquals(1, methods.size());
+		assertEquals(methodSignature, methods.get(0));
+		assertEquals(methodData, parsedClass.getMethod(methodSignature));
+		assertEquals(mockedClone, methodData);
 	}
 
 	@Test
-	public void canAddMultipleMethods() {
+	public void canCreateMultipleMethods() {
+		ParsedMethod mockedPrototype = mock(ParsedMethod.class);
+
 		String firstMethodSignature = "testMethodOne";
-		MethodData firstMockedMethod = mock(MethodData.class);
+		ParsedMethod firstMockedMethod = mock(ParsedMethod.class);
 		when(firstMockedMethod.getName()).thenReturn(firstMethodSignature);
 
 		String secondMethodSignature = "testMethodTwo";
-		MethodData secondMockedMethod = mock(MethodData.class);
+		ParsedMethod secondMockedMethod = mock(ParsedMethod.class);
 		when(secondMockedMethod.getName()).thenReturn(secondMethodSignature);
 
 		ParsedClass parsedClass = new ParsedClass("", "", "");
+		parsedClass.setMethodPrototype(mockedPrototype);
 
-		parsedClass.addMethod(firstMockedMethod);
-		parsedClass.addMethod(secondMockedMethod);
+		when(mockedPrototype.clone()).thenReturn(firstMockedMethod);
+		MethodData firstMethodData = parsedClass.createMethod(firstMethodSignature);
+		when(mockedPrototype.clone()).thenReturn(secondMockedMethod);
+		MethodData secondMethodData = parsedClass.createMethod(secondMethodSignature);
 
-		// List<String> methods = parsedClass.getMethodNames();
+		List<String> methods = parsedClass.getMethodSignatures();
 
-		// assertEquals(2, methods.size());
-		// assertThat(methods, containsInAnyOrder(firstMethodSignature,
-		// secondMethodSignature));
+		assertEquals(2, methods.size());
+		assertThat(methods, containsInAnyOrder(firstMethodSignature, secondMethodSignature));
 		assertEquals(firstMockedMethod, parsedClass.getMethod(firstMethodSignature));
 		assertEquals(secondMockedMethod, parsedClass.getMethod(secondMethodSignature));
+		assertEquals(firstMockedMethod, firstMethodData);
+		assertEquals(secondMockedMethod, secondMethodData);
 	}
 
 	@Test
-	public void canAddField() {
+	public void canCreateField() {
+
+		ParsedVariable mockedPrototype = mock(ParsedVariable.class);
+		ParsedVariable mockedClone = mock(ParsedVariable.class);
 		String fieldName = "testField";
-		VariableData mockedField = mock(VariableData.class);
+
+		when(mockedPrototype.clone()).thenReturn(mockedClone);
+		when(mockedClone.getName()).thenReturn(fieldName);
+
 		ParsedClass parsedClass = new ParsedClass("", "", "");
-
-		when(mockedField.getName()).thenReturn(fieldName);
-
-		parsedClass.addField(mockedField);
+		parsedClass.setFieldPrototype(mockedPrototype);
+		VariableData fieldData = parsedClass.createField(fieldName);
 
 		List<String> fields = parsedClass.getFieldsNames();
 
 		assertEquals(1, fields.size());
 		assertEquals(fieldName, fields.get(0));
-		assertEquals(mockedField, parsedClass.getField(fieldName));
+		assertEquals(mockedClone, parsedClass.getField(fieldName));
+		assertEquals(mockedClone, fieldData);
 	}
 
 	@Test
 	public void canAddMultipleFields() {
+		ParsedVariable mockedPrototype = mock(ParsedVariable.class);
+
 		String firstFieldName = "testFieldOne";
-		VariableData firstMockedField = mock(VariableData.class);
+		ParsedVariable firstMockedField = mock(ParsedVariable.class);
 		when(firstMockedField.getName()).thenReturn(firstFieldName);
 
 		String secondFieldName = "testFieldTwo";
-		VariableData secondMockedField = mock(VariableData.class);
+		ParsedVariable secondMockedField = mock(ParsedVariable.class);
 		when(secondMockedField.getName()).thenReturn(secondFieldName);
 
 		ParsedClass parsedClass = new ParsedClass("", "", "");
+		parsedClass.setFieldPrototype(mockedPrototype);
 
-		parsedClass.addField(firstMockedField);
-		parsedClass.addField(secondMockedField);
 
-		List<String> fields = parsedClass.getFieldsNames();
+		when(mockedPrototype.clone()).thenReturn(firstMockedField);
+		ParsedVariable firstFieldData = parsedClass.createField(firstFieldName);
+		when(mockedPrototype.clone()).thenReturn(secondMockedField);
+		ParsedVariable secondFieldData = parsedClass.createField(secondFieldName);
 
-		assertEquals(2, fields.size());
-		assertThat(fields, containsInAnyOrder(firstFieldName, secondFieldName));
+		List<String> fieldsNames = parsedClass.getFieldsNames();
+
+		assertEquals(2, fieldsNames.size());
+		assertThat(fieldsNames, containsInAnyOrder(firstFieldName, secondFieldName));
 		assertEquals(firstMockedField, parsedClass.getField(firstFieldName));
 		assertEquals(secondMockedField, parsedClass.getField(secondFieldName));
+		assertEquals(firstMockedField, firstFieldData);
+		assertEquals(secondMockedField, secondFieldData);
 	}
 }

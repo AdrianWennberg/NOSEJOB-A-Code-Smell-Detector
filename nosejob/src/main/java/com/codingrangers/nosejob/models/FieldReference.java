@@ -1,9 +1,9 @@
 package com.codingrangers.nosejob.models;
 
-public interface MethodReference extends CodeLocation {
+public interface FieldReference extends CodeLocation {
 	String getReferredClassName();
 	String getReferencingClassName();
 
-	String getReferredMethodSignature();
+	String getReferredFieldName();
 	boolean isInternal();
 }
