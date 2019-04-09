@@ -33,7 +33,7 @@ public class PrimitiveObsessionSnifferTest {
             testMethod.setReturnType("", false);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToAnalyse(projectTest);
+            prObsSnifferTest.setProjectToSniff(projectTest);
 
             assertEquals(0.67f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -61,7 +61,7 @@ public class PrimitiveObsessionSnifferTest {
             secondTestMethod.setReturnType("", false);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToAnalyse(projectTest);
+            prObsSnifferTest.setProjectToSniff(projectTest);
 
             assertEquals(0.5, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -89,7 +89,7 @@ public class PrimitiveObsessionSnifferTest {
             secondTestMethod.setReturnType("", false);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToAnalyse(projectTest);
+            prObsSnifferTest.setProjectToSniff(projectTest);
 
             assertEquals(0.33f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -101,7 +101,7 @@ public class PrimitiveObsessionSnifferTest {
             ClassData testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToAnalyse(projectTest);
+            prObsSnifferTest.setProjectToSniff(projectTest);
 
             assertEquals(0f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -124,7 +124,7 @@ public class PrimitiveObsessionSnifferTest {
 
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToAnalyse(projectTest);
+            prObsSnifferTest.setProjectToSniff(projectTest);
 
             assertEquals(0.5f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -143,7 +143,7 @@ public class PrimitiveObsessionSnifferTest {
             ParsedVariable fourthTestField = secondTestClass.createField("fourthTestField");
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToAnalyse(projectTest);
+            prObsSnifferTest.setProjectToSniff(projectTest);
 
             assertEquals(0.25f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -155,7 +155,7 @@ public class PrimitiveObsessionSnifferTest {
             ParsedClass testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToAnalyse(projectTest);
+            prObsSnifferTest.setProjectToSniff(projectTest);
 
             assertEquals(0f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -171,7 +171,7 @@ public class PrimitiveObsessionSnifferTest {
 
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToAnalyse(projectTest);
+            prObsSnifferTest.setProjectToSniff(projectTest);
 
             assertEquals(0f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -190,7 +190,7 @@ public class PrimitiveObsessionSnifferTest {
             secondTestMethod.setReturnType("", false);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToAnalyse(projectTest);
+            prObsSnifferTest.setProjectToSniff(projectTest);
 
             assertEquals(0.5f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -208,7 +208,7 @@ public class PrimitiveObsessionSnifferTest {
             secondTestField.setIsPrimitive();
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToAnalyse(projectTest);
+            prObsSnifferTest.setProjectToSniff(projectTest);
 
             assertEquals(1f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -239,7 +239,7 @@ public class PrimitiveObsessionSnifferTest {
             secondTestMethod.setReturnType("", true);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToAnalyse(projectTest);
+            prObsSnifferTest.setProjectToSniff(projectTest);
 
             assertEquals(0.66f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }

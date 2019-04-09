@@ -16,7 +16,7 @@ public abstract class GeneralSniffer implements Sniffer {
     }
 
     @Override
-    public void setProjectToAnalyse(ProjectData projectData) {
+    public void setProjectToSniff(ProjectData projectData) {
         this.currentProjectToAnalyse = projectData;
     }
 }

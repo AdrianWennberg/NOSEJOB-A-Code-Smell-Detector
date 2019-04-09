@@ -1,6 +1,7 @@
 package com.codingrangers.nosejob.sniffers;
 
 import com.codingrangers.nosejob.models.*;
+import com.codingrangers.nosejob.reports.SmellReport;
 
 public class BloatedCodeSniffer extends GeneralSniffer {
     private static final String NAME = "Bloated Code";
@@ -52,13 +53,33 @@ public class BloatedCodeSniffer extends GeneralSniffer {
         }
     }
 
-    @Override
-    public SmellReportBody getSmellReport() {
-        return null;
+    public void retrieveSmellsFromMethods(ClassData currentClassAnalysed) {
+        if (currentClassAnalysed.equals(null))
+            throw new NullPointerException("Cannot analyse fields of a null.");
+
+        for (String methodSignature : currentClassAnalysed.getMethodSignatures()) {
+            Smell methodDiagnosis = new MethodDiagnosis();
+            methodDiagnosis.setCodeData(currentClassAnalysed.getMethod(methodSignature));
+            smells.add(methodDiagnosis);
+        }
+    }
+
+    public void retrieveSmellsFromClasses() {
+        if (currentProjectToAnalyse.equals(null))
+            throw new NullPointerException("Cannot analyse a null project.");
+
+        for (String className : currentProjectToAnalyse.getClassNames()) {
+            retrieveSmellsFromMethods(currentProjectToAnalyse.getClassData(className));
+        }
     }
 
     @Override
-    public void setProjectToAnalyse(ProjectData codeData) {
+    public SmellReportBody getSmellReport() {
+        retrieveSmellsFromClasses();
 
+        SmellReport report = new SmellReport();
+        report.setSmellName(NAME);
+        report.addSmells(smells);
+        return report;
     }
 }
