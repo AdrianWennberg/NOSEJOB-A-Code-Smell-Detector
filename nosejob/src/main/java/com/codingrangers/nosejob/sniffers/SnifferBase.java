@@ -22,10 +22,13 @@ public abstract class SnifferBase implements ProjectAnalyser {
 
 	@Override
 	public ProjectReport getProjectReport() {
+		if (projectToAnalyze.equals(null))
+			throw new NullPointerException("Cannot analyse a null project.");
+
 		ProjectReport result = new GlobalReport();
 
 		for (Sniffer analyser : analysers) {
-			analyser.setProjectToAnalyse(projectToAnalyze);
+			analyser.setProjectToSniff(projectToAnalyze);
 			((GlobalReport) result).addSmellReportToProjectReport(analyser.getSmellReport());
 		}
 
