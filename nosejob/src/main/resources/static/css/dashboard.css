@@ -1,1 +1,103 @@
+.dashboard-container {
+	animation: fadeIn 1s;
+}
 
+.dashboard-header {
+	margin-left: 70px;
+	margin-top: 50px;
+	padding-left: 3%;
+	color: white;
+}
+
+.tiles {
+	margin: 50px 0 0 100px;
+}
+
+.tile {
+	width: 160px;
+	height: 180px;
+	border-radius: 4px;
+	box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.15);
+	margin-top: 20px;
+	margin-left: 20px;
+	float: left;
+}
+
+.tile.wide {
+	width: 340px;
+}
+
+.tile .tile__analysis {
+	height: 120px;
+	background-color: #f4f4f4;
+	border-radius: 4px 4px 0 0;
+	color: white;
+	font-weight: 300;
+}
+
+.tile.wide .tile__analysis .left,
+.tile.wide .tile__analysis .right {
+	width: 160px;
+	float: left;
+}
+
+.tile .tile__analysis .numeric-datum {
+	font-size: 48px;
+	text-align: center;
+	padding: 10px 0 0;
+}
+
+.tile .tile__analysis .title {
+	font-size: 20px;
+	text-align: center;
+}
+
+.tile .tile__base {
+	height: 60px;
+	border-radius: 0 0 4px 4px;
+	background-color: white;
+}
+
+.tile .tile__base .title {
+	text-align: center;
+	font-size: 20px;
+	padding-top: 2%;
+}
+
+.tile.wide .tile__base .title {
+	padding: 4%;
+}
+
+.tile .tile__analysis {
+	background-color: #63bc92;
+}
+
+.tile__analysis:hover {
+	filter: brightness(110%);
+	transition: 300ms;
+
+}
+
+.tile .tile__base {
+	color: #63bc92;
+}
+
+@-webkit-keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}

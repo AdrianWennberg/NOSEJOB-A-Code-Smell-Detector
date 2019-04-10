@@ -47,6 +47,10 @@
 	cursor: pointer;
 }
 
+.dashboard-container {
+	animation: fadeUp 300ms;
+}
+
 
 @-webkit-keyframes fadeUp {
 	from {

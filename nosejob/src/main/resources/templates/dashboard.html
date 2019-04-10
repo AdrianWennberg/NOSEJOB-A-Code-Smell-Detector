@@ -19,13 +19,24 @@
 		</button>
 	</div>
 	<div class="dashboard-container">
-		<h1 class="project-heading">Your Project</h1>
-		<section class="analysis">
-			<div class="analysis__tile" th:each="smellReport: ${smellReports}">
-				<span th:text="${smellReport.getSmellName()}"></span>
+		<h1 class="dashboard-header">Your Project Analysis</h1>
+		<div class="tiles">
+			<div class="tile wide" th:each="smellReport: ${smellReports}">
+				<div class="tile__analysis">
+					<div class="left">
+						<div class="numeric-datum">0</div>
+						<div class="title">Total Severity</div>
+					</div>
+					<div class="right">
+						<div class="numeric-datum">0</div>
+						<div class="title">Files Affected</div>
+					</div>
+				</div>
+				<div class="tile__base">
+					<div class="title" th:text="${smellReport.getSmellName()}"></div>
+				</div>
 			</div>
-		</section>
-		<div></div>
+		</div>
 	</div>
 </body>
 
