@@ -19,6 +19,7 @@
 		</button>
 	</div>
 	<div class="dashboard-container">
+<<<<<<< HEAD
 		<button class="button--state-transparent" onclick="location.href='/upload'">
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="back-arrow">
 				<path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
@@ -44,6 +45,15 @@
 				</div>
 			</div>
 		</div>
+=======
+		<h1 class="project-heading">Your Project</h1>
+		<section class="analysis">
+			<div class="analysis__tile" th:each="smellReport: ${smellReports}">
+				<span th:text="${smellReport.getSmellName()}"></span>
+			</div>
+		</section>
+		<div></div>
+>>>>>>> bug fixes, parsing now working, continued on dashboard,
 	</div>
 </body>
 

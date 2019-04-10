@@ -54,6 +54,7 @@ public class FileUploadController {
 	}
 
 	@PostMapping("/upload")
+<<<<<<< HEAD
 	public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
 			Model model) {
 		if (file.isEmpty()) {
@@ -61,6 +62,9 @@ public class FileUploadController {
 			return "/error";
 		}
 
+=======
+	public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+>>>>>>> bug fixes, parsing now working, continued on dashboard,
 		storageService.store(file);
 		redirectAttributes.addFlashAttribute("message", "Successfully uploaded " + file.getOriginalFilename() + "!");
 		return "redirect:/dashboard";

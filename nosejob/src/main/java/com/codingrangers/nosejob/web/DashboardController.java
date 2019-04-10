@@ -2,12 +2,10 @@ package com.codingrangers.nosejob.web;
 
 import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.models.ProjectReport;
-import com.codingrangers.nosejob.parser.ParseFailedException;
 import com.codingrangers.nosejob.parser.ProjectParser;
 import com.codingrangers.nosejob.sniffers.GlobalSniffer;
 import com.codingrangers.nosejob.storage.StorageProperties;
 
-import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -37,10 +35,9 @@ public class DashboardController {
 			globalSniffer.setProjectToAnalyse(projectData);
 			ProjectReport projectReport = globalSniffer.getProjectReport();
 			model.addAttribute("smellReports", projectReport.getSmellReports());
-		} catch (FileNotFoundException e) {
-
+		} catch (Exception e) {
+			return "error";
 		}
-
 		return "dashboard";
 	}
 

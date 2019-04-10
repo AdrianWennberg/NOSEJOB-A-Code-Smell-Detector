@@ -74,6 +74,7 @@ public class ProjectParser implements CodeParser {
 	}
 
 	private void parseFile(File file) {
+		System.out.println("FILE ---------------------->" + file.toString());
 		CompilationUnit compilationUnit = null;
 
 		try {
@@ -82,6 +83,7 @@ public class ProjectParser implements CodeParser {
 			e.printStackTrace();
 		}
 
+		System.out.println("CompUnit =>" + compilationUnit.toString());
 		ParsedClass parsedClass = new ParsedClass("packageNameGoesHere", file.getName(), file.getPath());
 		classVisitor.visit(compilationUnit, parsedClass);
 		parsedProject.addClass(parsedClass);
