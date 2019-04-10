@@ -92,7 +92,6 @@
 	filter: brightness(110%);
 }
 
-
 @-webkit-keyframes fadeIn {
 	from {
 		opacity: 0;
