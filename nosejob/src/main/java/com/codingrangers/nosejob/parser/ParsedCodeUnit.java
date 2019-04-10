@@ -20,27 +20,33 @@ public abstract class ParsedCodeUnit implements CodeData {
 	}
 
 	public void setStartLine(int lineNumber) {
-		if (lineNumber < 0)
+		if (lineNumber < 0) {
 			throw new IllegalArgumentException("Start line number must be positive");
+		}
 
-		if (endLine != -1 && lineNumber > endLine)
+		if (endLine != -1 && lineNumber > endLine) {
 			throw new IllegalArgumentException("Start line must be less than end line");
+		}
 
-		if (startLine != -1)
-			throw new IllegalStateException("Start line has allready been set");
+		if (startLine != -1) {
+			throw new IllegalStateException("Start line has already been set");
+		}
 
 		startLine = lineNumber;
 	}
 
 	public void setEndLine(int lineNumber) {
-		if (lineNumber < 0)
+		if (lineNumber < 0) {
 			throw new IllegalArgumentException("End line number must be positive");
+		}
 
-		if (startLine != -1 && lineNumber < startLine)
+		if (startLine != -1 && lineNumber < startLine) {
 			throw new IllegalArgumentException("End line must be less than start line");
+		}
 
-		if (endLine != -1)
+		if (endLine != -1) {
 			throw new IllegalStateException("End line has allready been set");
+		}
 
 		endLine = lineNumber;
 	}
