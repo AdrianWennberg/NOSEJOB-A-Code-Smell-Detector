@@ -5,14 +5,29 @@ import com.codingrangers.nosejob.parser.data.ParsedClass;
 import com.codingrangers.nosejob.parser.data.ParsedMethod;
 import com.codingrangers.nosejob.parser.data.ParsedProject;
 import com.codingrangers.nosejob.parser.data.ParsedVariable;
+import com.codingrangers.nosejob.reports.SmellReport;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 @RunWith(Enclosed.class)
 public class PrimitiveObsessionSnifferTest {
+    public static class getSmellReportTests{
+
+        @Test
+        public void retrieveNonNullReport(){
+            ParsedProject projectTest = new ParsedProject();
+
+            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
+            blCdSnifferTest.setProjectToSniff(projectTest);
+
+            assertThat(blCdSnifferTest.getSmellReport(), instanceOf(SmellReport.class));
+        }
+    }
 
     public static class retrieveSmellsFromMethodTests {
 
