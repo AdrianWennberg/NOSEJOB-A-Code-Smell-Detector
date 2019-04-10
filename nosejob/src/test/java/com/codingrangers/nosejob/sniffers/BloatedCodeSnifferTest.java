@@ -10,7 +10,6 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
-
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -20,16 +19,16 @@ import static org.mockito.Mockito.when;
 @RunWith(Enclosed.class)
 public class BloatedCodeSnifferTest {
 
-    public static class getSmellReportTests {
+    public static class getSmellReportTests{
 
         @Test
-        public void retrieveNonNullReport() {
+        public void retrieveNonNullReport(){
             ParsedProject projectTest = new ParsedProject();
 
-            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
-            bloatedCodeTest.setProjectToSniff(projectTest);
+            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
+            blCdSnifferTest.setProjectToSniff(projectTest);
 
-            assertThat(bloatedCodeTest.getSmellReport(), instanceOf(SmellReport.class));
+            assertThat(blCdSnifferTest.getSmellReport(), instanceOf(SmellReport.class));
         }
     }
 

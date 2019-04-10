@@ -1,5 +1,11 @@
 package com.codingrangers.nosejob.reports;
 
+<<<<<<< HEAD
+=======
+import com.codingrangers.nosejob.models.SmellReportBody;
+import com.codingrangers.nosejob.parser.ParsedProject;
+import com.codingrangers.nosejob.sniffers.BloatedCodeSniffer;
+>>>>>>> Added one degree of severity in the bloated code sniffer
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -10,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
