@@ -23,13 +23,13 @@ import org.springframework.stereotype.Component;
 public class ProjectParser implements CodeParser {
 
 	ParsedProject parsedProject;
-	ClassVisitor ClassVisitor;
+	ClassVisitor classVisitor;
 
 	public ProjectParser() {
 		VariableVisitor variableVisitor = new VariableVisitor();
 		MethodVisitor methodVisitor = new MethodVisitor(variableVisitor);
-		ClassVisitor classVisitor = new ClassVisitor(methodVisitor, variableVisitor);
-		ParsedProject parsedProject = new ParsedProject();
+		this.classVisitor = new ClassVisitor(methodVisitor, variableVisitor);
+		this.parsedProject = new ParsedProject();
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class ProjectParser implements CodeParser {
 	 */
 	public ProjectParser(ParsedProject injectedProjectData, ClassVisitor injectedClassVisitor) {
 		parsedProject = injectedProjectData;
-		ClassVisitor = injectedClassVisitor;
+		classVisitor = injectedClassVisitor;
 	}
 
 	/**
@@ -75,6 +75,7 @@ public class ProjectParser implements CodeParser {
 	}
 
 	private void parseFile(File file) {
+		System.out.println("FILE ---------------------->" + file.toString());
 		CompilationUnit compilationUnit = null;
 
 		try {
@@ -83,8 +84,9 @@ public class ProjectParser implements CodeParser {
 			e.printStackTrace();
 		}
 
+		System.out.println("CompUnit =>" + compilationUnit.toString());
 		ParsedClass parsedClass = new ParsedClass("packageNameGoesHere", file.getName(), file.getPath());
-		ClassVisitor.visit(compilationUnit, parsedClass);
+		classVisitor.visit(compilationUnit, parsedClass);
 		parsedProject.addClass(parsedClass);
 	}
 

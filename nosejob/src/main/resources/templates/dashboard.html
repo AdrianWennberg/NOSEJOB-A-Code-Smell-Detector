@@ -21,7 +21,9 @@
 	<div class="dashboard-container">
 		<h1 class="project-heading">Your Project</h1>
 		<section class="analysis">
-			<div class="analysis__tile" th:each></div>
+			<div class="analysis__tile" th:each="smellReport: ${smellReports}">
+				<span th:text="${smellReport.getSmellName()}"></span>
+			</div>
 		</section>
 		<div></div>
 	</div>

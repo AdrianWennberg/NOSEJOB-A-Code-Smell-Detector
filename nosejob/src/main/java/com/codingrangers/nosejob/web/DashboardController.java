@@ -32,11 +32,12 @@ public class DashboardController {
 	@GetMapping("/dashboard")
 	public String analyseProject(Model model) {
 		try {
+			System.out.println("********* ->" + this.rootLocation.toString());
 			ProjectData projectData = this.projectParser.parseProject(this.rootLocation.toString());
 			GlobalSniffer globalSniffer = new GlobalSniffer();
 			globalSniffer.setProjectToAnalyse(projectData);
 			ProjectReport projectReport = globalSniffer.getProjectReport();
-			model.addAttribute("projectReport", projectReport);
+			model.addAttribute("smellReports", projectReport.getSmellReports());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
