@@ -217,6 +217,5 @@ public class BloatedCodeSnifferTest {
 
             assertEquals(0f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
-
     }
 }
