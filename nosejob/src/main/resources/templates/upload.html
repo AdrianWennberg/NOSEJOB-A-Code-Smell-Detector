@@ -52,10 +52,14 @@
 		let label = document.getElementById('fileLabel');
 		let labelValue = label.innerHTML;
 		let uploadInput = document.getElementById('submit');
-		uploadInput.setAttribute('diabled', 'disabled');
+		uploadInput.setAttribute('diabled', 'disabled'); <<
+		<< << < HEAD
 
 		let analyseButton = document.getElementsByClassName('analyse-button');
 
+		===
+		=== = >>>
+		>>> > wip
 		fileInput.addEventListener('change', (event$) => {
 			let fileName = '';
 			if (this.files && this.files.length > 1) {
@@ -63,10 +67,6 @@
 					.replace('{fileCount}', this.files.length);
 			} else {
 				fileName = event$.target.value.split('\\').pop();
-			}
-
-			if (this.files) {
-				uploadInput.removeAttribute('disabled');
 			}
 
 			if (fileName) {
