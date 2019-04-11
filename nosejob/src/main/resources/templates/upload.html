@@ -26,7 +26,12 @@
 			<label for="file" id="fileLabel"><span>choose a file</span></label>
 			<input type="submit" value="Upload" id="submit" />
 			<label id="" file="analyse-label" for="submit"><span>analyse</span></label>
-			<span id="file-upload-text"></span>
+			<div th:if="${!files.isEmpty()}">
+				<span th:text=" 'You uploaded ' + ${files.get(0)}"></span>
+			</div>
+			<div th:if="${files.isEmpty()}">
+				<span th:text="'No files have been uploaded'"></span>
+			</div>
 	</div>
 	<div class="bottom-waves">
 		<div class="wave"></div>
