@@ -56,6 +56,9 @@ public class FileUploadController {
 
 	@PostMapping("/upload")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+		// if (file.isEmpty()) {
+		// return "/error";
+		// }
 		storageService.store(file);
 		redirectAttributes.addFlashAttribute("message", "Successfully uploaded " + file.getOriginalFilename() + "!");
 		return "redirect:/dashboard";
