@@ -19,12 +19,18 @@
 		</button>
 	</div>
 	<div class="dashboard-container">
+		<button class="button--state-transparent" onclick="location.href='/upload'">
+			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="back-arrow">
+				<path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
+				<path fill="none" d="M0 0h24v24H0z" />
+			</svg>
+		</button>
 		<h1 class="dashboard-header">Your Project Analysis</h1>
 		<div class="tiles">
 			<div class="tile wide" th:each="smellReport: ${smellReports}">
 				<div class="tile__analysis">
 					<div class="left">
-						<div class="numeric-datum">0</div>
+						<div class="numeric-datum" th:text="${smellReport.getDisplayTotalSmellSeverity()}"></div>
 						<div class="title">Total Severity</div>
 					</div>
 					<div class="right">

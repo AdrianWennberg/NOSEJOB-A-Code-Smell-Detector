@@ -82,6 +82,17 @@
 	color: #63bc92;
 }
 
+.back-arrow {
+	fill: #63bc92 !important;
+	margin-top: 35px;
+	margin-left: 20px;
+}
+
+.back-arrow:hover {
+	filter: brightness(110%);
+}
+
+
 @-webkit-keyframes fadeIn {
 	from {
 		opacity: 0;

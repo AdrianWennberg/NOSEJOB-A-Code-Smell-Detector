@@ -21,11 +21,11 @@
 	<div class="app-container">
 		<a onclick="location.href='/'" class="back-link">back</a>
 		<h1>Upload File</h1>
-		<form method="POST" enctype="multipart/form-data" action="/upload">
+		<form method="POST" enctype="multipart/form-data" action="/upload" id="file-form">
 			<input type="file" name="file" id="file" data-multiple-caption="{fileCount} files selected" multiple />
 			<label for="file" id="fileLabel"><span>choose a file</span></label>
 			<input type="submit" value="Upload" id="submit" />
-			<label for="submit"><span>analyse</span></label>
+			<label id="" file="analyse-label" for="submit"><span>analyse</span></label>
 			<span id="file-upload-text"></span>
 	</div>
 	<div class="bottom-waves">
@@ -39,7 +39,6 @@
 		let labelValue = label.innerHTML;
 		let uploadInput = document.getElementById('submit');
 		uploadInput.setAttribute('diabled', 'disabled');
-		let analyseButton = document.getElementsByClassName('analyse-button');
 		fileInput.addEventListener('change', (event$) => {
 			let fileName = '';
 			if (this.files && this.files.length > 1) {
@@ -47,10 +46,6 @@
 					.replace('{fileCount}', this.files.length);
 			} else {
 				fileName = event$.target.value.split('\\').pop();
-			}
-
-			if (this.files) {
-				uploadInput.removeAttribute('disabled');
 			}
 
 			if (fileName) {
@@ -64,9 +59,6 @@
 
 			if (!initialized) {
 				initialized = true;
-				if (this.files) {
-					analyseButton.removeAttribute(disabled);
-				}
 			}
 		});
 
