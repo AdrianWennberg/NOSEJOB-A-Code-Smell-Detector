@@ -1,6 +1,5 @@
 package com.codingrangers.nosejob.web;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -13,13 +12,7 @@ public class CustomErrorController implements ErrorController {
 
 	@RequestMapping("/error")
 	public String handleError(HttpServletRequest request, Model model) {
-		String errorMessage;
-		if (request.getAuthType().equals(HttpServletRequest.FORM_AUTH)) {
-			errorMessage = "You did not upload a file";
-		} else {
-			errorMessage = "Oops, something went wrong!";
-		}
-		model.addAttribute("errorMessage", errorMessage);
+		model.addAttribute("errorMessage", "Oops, something went wrong!");
 		return "error";
 	}
 
