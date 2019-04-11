@@ -1,0 +1,27 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+	<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+	<link href="../static/css/home.css" th:href="@{/css/error.css}" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+	<title>NOSEJOB: A Code Smell Detector</title>
+</head>
+
+<body>
+	<div class="app-header">
+		<button class="button--state-transparent" onclick="location.href='/'">
+			<h1>NOSEJOB <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+					<path fill="none" d="M0 0h24v24H0V0z" />
+					<path
+						d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+				</svg></h1>
+		</button>
+	</div>
+	<div class="app-container">
+		<h1 th:text="${errorMessage}"></h1>
+		<button onclick="location.href='/'" class="return-home-button">return home</button>
+	</div>
+</body>
+
+</html>

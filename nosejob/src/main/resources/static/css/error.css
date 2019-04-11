@@ -1,0 +1,28 @@
+.return-home-button {
+	margin-top: 20px;
+	animation: pulsate 2s infinite;
+	border-radius: 24px;
+	border-style: solid;
+	border-color: transparent;
+	padding: 12px 20px;
+	font-weight: 400;
+	text-transform: uppercase;
+	text-align: center;
+	background-color: #FF3D4A;
+	color: white;
+	cursor: pointer;
+}
+
+.return-home-button:hover {
+	filter: brightness(120%);
+	outline: none;
+	animation: none;
+}
+
+.return-home-button:focus {
+	outline: none;
+}
+
+.logo {
+	fill: #FF3D4A !important;
+}
