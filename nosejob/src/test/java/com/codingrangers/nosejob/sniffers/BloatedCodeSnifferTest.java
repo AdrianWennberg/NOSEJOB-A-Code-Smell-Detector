@@ -48,7 +48,7 @@ public class BloatedCodeSnifferTest {
             BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
             blCdSnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.16f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.10f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -74,7 +74,7 @@ public class BloatedCodeSnifferTest {
             BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
             blCdSnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.24f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.15f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -101,7 +101,7 @@ public class BloatedCodeSnifferTest {
             ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
 
             ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
-            when(firstMockedTestMethod.getLineCount()).thenReturn(11);
+            when(firstMockedTestMethod.getLineCount()).thenReturn(50);
             when(firstMockedTestMethod.getClassName()).thenReturn(firstTestClass.getName());
             when(firstMockedTestMethod.getName()).thenReturn("firstMockedTestMethod");
             firstTestClass.addMethod(firstMockedTestMethod);
@@ -120,7 +120,7 @@ public class BloatedCodeSnifferTest {
             BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
             blCdSnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.08f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.50f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -137,7 +137,7 @@ public class BloatedCodeSnifferTest {
             firstTestClass.addMethod(firstMockedTestMethod);
 
             ParsedMethod secondMockedTestMethod = mock(ParsedMethod.class);
-            when(secondMockedTestMethod.getLineCount()).thenReturn(5);
+            when(secondMockedTestMethod.getLineCount()).thenReturn(25);
             when(secondMockedTestMethod.getClassName()).thenReturn(secondTestClass.getName());
             when(secondMockedTestMethod.getName()).thenReturn("secondMockedTestMethod");
             secondTestClass.addMethod(secondMockedTestMethod);
@@ -150,7 +150,7 @@ public class BloatedCodeSnifferTest {
             BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
             blCdSnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.0f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.25f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
