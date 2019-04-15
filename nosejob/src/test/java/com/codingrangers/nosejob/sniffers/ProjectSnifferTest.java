@@ -1,5 +1,4 @@
 package com.codingrangers.nosejob.sniffers;
-
 import com.codingrangers.nosejob.parser.data.ParsedProject;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -13,7 +12,7 @@ import static org.junit.Assert.assertThat;
 public class ProjectSnifferTest {
     public static class getProjectReportTest{
         @Test
-        public void getProjectReport() {
+        public void getProjectReportTest(){
             String primitiveObsessionName = "Primitive Obsession";
             String bloatedCodeName = "Bloated Code";
             String violationOfDataPrivacyName = "Violation Of Data Privacy";
