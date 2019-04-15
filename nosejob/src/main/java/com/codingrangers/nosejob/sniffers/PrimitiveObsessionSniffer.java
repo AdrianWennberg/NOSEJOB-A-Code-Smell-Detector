@@ -118,8 +118,9 @@ public class PrimitiveObsessionSniffer extends GeneralSniffer{
 			throw new NullPointerException("Cannot analyse a null project.");
 
 		for (String className : currentProjectToAnalyse.getClassNames()) {
-			retrieveSmellsFromMethods(currentProjectToAnalyse.getClassData(className));
-			retrieveSmellFromFields(currentProjectToAnalyse.getClassData(className));
+			ClassData currentClassToAnalyse = currentProjectToAnalyse.getClassData(className);
+			retrieveSmellsFromMethods(currentClassToAnalyse);
+			retrieveSmellFromFields(currentClassToAnalyse);
 		}
 	}
 
