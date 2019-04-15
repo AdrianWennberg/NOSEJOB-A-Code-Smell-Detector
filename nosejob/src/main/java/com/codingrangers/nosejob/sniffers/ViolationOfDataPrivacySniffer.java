@@ -3,7 +3,7 @@ import com.codingrangers.nosejob.models.*;
 import com.codingrangers.nosejob.reports.SmellReport;
 
 public class ViolationOfDataPrivacySniffer extends GeneralSniffer {
-    private static final String NAME = "Bloated Code";
+    private static final String NAME = "Violation Of Data Privacy";
 
     private class FieldsDiagnosis implements Smell {
         private ClassData currentClassToAnalyze;
@@ -15,7 +15,7 @@ public class ViolationOfDataPrivacySniffer extends GeneralSniffer {
             if (currentClassToAnalyze.getFieldsNames().size() == 0)
                 return 0f;
 
-            return currentClassToAnalyze.countPublicFields() / currentClassToAnalyze.countFields();
+            return (float) currentClassToAnalyze.countPublicFields() / currentClassToAnalyze.countFields();
         }
 
         @Override

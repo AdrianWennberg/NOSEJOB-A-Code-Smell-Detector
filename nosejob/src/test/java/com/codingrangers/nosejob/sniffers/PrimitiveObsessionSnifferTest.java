@@ -22,10 +22,10 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveNonNullReport(){
             ParsedProject projectTest = new ParsedProject();
 
-            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-            blCdSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertThat(blCdSnifferTest.getSmellReport(), instanceOf(SmellReport.class));
+            assertThat(primitiveObsessionTest.getSmellReport(), instanceOf(SmellReport.class));
         }
     }
 
@@ -37,20 +37,36 @@ public class PrimitiveObsessionSnifferTest {
 
             ParsedClass testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
+<<<<<<< HEAD
             ParsedMethod testMethod = testClass.createMethod("testMethod");
+=======
+            projectTest.addClass(testClass);
+
+            ParsedMethod testMethod = new ParsedMethod(testClass, "testMethod");
+            testClass.addMethod(testMethod);
+>>>>>>> Feature Envy implemented, need Testing
 
             ParsedVariable firstTestField = testMethod.createParameter("firstTestField");
             firstTestField.setIsPrimitive();
+<<<<<<< HEAD
 
             ParsedVariable secondTestField = testMethod.createVariable("secondTestField");
             secondTestField.setIsPrimitive();
 
             testMethod.setReturnType("", false);
+=======
+            testMethod.addParameter(firstTestField);
+            ParsedVariable secondTestField = new ParsedVariable(testMethod, "secondTestField");
+            secondTestField.setIsPrimitive();
+            testMethod.addVariable(secondTestField);
+            ParsedVariable thirdTestField = new ParsedVariable(testMethod, "thirdTestField");
+            testMethod.addReturnType(thirdTestField);
+>>>>>>> Feature Envy implemented, need Testing
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.67f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.67f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -59,14 +75,24 @@ public class PrimitiveObsessionSnifferTest {
 
             ParsedClass testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
+<<<<<<< HEAD
             ParsedMethod firstTestMethod = testClass.createMethod("firstTestMethod");
             ParsedMethod secondTestMethod = testClass.createMethod("secondTestMethod");
+=======
+            projectTest.addClass(testClass);
+
+            ParsedMethod firstTestMethod = new ParsedMethod(testClass, "firstTestMethod");
+            ParsedMethod secondTestMethod = new ParsedMethod(testClass, "secondTestMethod");
+            testClass.addMethod(firstTestMethod);
+            testClass.addMethod(secondTestMethod);
+>>>>>>> Feature Envy implemented, need Testing
 
 
             ParsedVariable firstTestField = firstTestMethod.createParameter("firstTestField");
             firstTestField.setIsPrimitive();
             ParsedVariable secondTestField = firstTestMethod.createVariable("secondTestField");
             secondTestField.setIsPrimitive();
+<<<<<<< HEAD
             firstTestMethod.setReturnType("", false);
 
 
@@ -74,11 +100,25 @@ public class PrimitiveObsessionSnifferTest {
             thirdTestField.setIsPrimitive();
             ParsedVariable fourthTestField = secondTestMethod.createVariable("fourthTestField");
             secondTestMethod.setReturnType("", false);
+=======
+            ParsedVariable thirdTestField = new ParsedVariable(firstTestMethod, "thirdTestField");
+            firstTestMethod.addParameter(firstTestField);
+            firstTestMethod.addVariable(secondTestField);
+            firstTestMethod.addReturnType(thirdTestField);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            ParsedVariable fourthTestField = new ParsedVariable(secondTestMethod, "fourthTestField");
+            fourthTestField.setIsPrimitive();
+            ParsedVariable fifthTestField = new ParsedVariable(secondTestMethod, "fifthTestField");
+            ParsedVariable sixthTestField = new ParsedVariable(secondTestMethod, "sixthTestField");
+            secondTestMethod.addParameter(fourthTestField);
+            secondTestMethod.addVariable(fifthTestField);
+            secondTestMethod.addReturnType(sixthTestField);
+>>>>>>> Feature Envy implemented, need Testing
 
-            assertEquals(0.5, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
+
+            assertEquals(0.5f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -88,6 +128,7 @@ public class PrimitiveObsessionSnifferTest {
             ParsedClass firstTestClass = projectTest.createClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
+<<<<<<< HEAD
             ParsedMethod firstTestMethod = firstTestClass.createMethod("firstTestMethod");
             ParsedMethod secondTestMethod = secondTestClass.createMethod("secondTestMethod");
 
@@ -102,11 +143,36 @@ public class PrimitiveObsessionSnifferTest {
             thirdTestField.setIsPrimitive();
             ParsedVariable fourthTestField = secondTestMethod.createVariable("fourthTestField");
             secondTestMethod.setReturnType("", false);
+=======
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            ParsedMethod firstTestMethod = new ParsedMethod(firstTestClass, "firstTestMethod");
+            ParsedMethod secondTestMethod = new ParsedMethod(secondTestClass, "secondTestMethod");
 
-            assertEquals(0.33f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            firstTestClass.addMethod(firstTestMethod);
+            secondTestClass.addMethod(secondTestMethod);
+
+            ParsedVariable firstTestField = new ParsedVariable(firstTestMethod, "firstTestField");
+            firstTestField.setIsPrimitive();
+            ParsedVariable secondTestField = new ParsedVariable(firstTestMethod, "secondTestField");
+            ParsedVariable thirdTestField = new ParsedVariable(firstTestMethod, "thirdTestField");
+            firstTestMethod.addParameter(firstTestField);
+            firstTestMethod.addVariable(secondTestField);
+            firstTestMethod.addReturnType(thirdTestField);
+            ParsedVariable fourthTestField = new ParsedVariable(secondTestMethod, "fourthTestField");
+            fourthTestField.setIsPrimitive();
+            ParsedVariable fifthTestField = new ParsedVariable(secondTestMethod, "fifthTestField");
+            ParsedVariable sixthTestField = new ParsedVariable(secondTestMethod, "sixthTestField");
+            secondTestMethod.addParameter(fourthTestField);
+            secondTestMethod.addVariable(fifthTestField);
+            secondTestMethod.addReturnType(sixthTestField);
+>>>>>>> Feature Envy implemented, need Testing
+
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
+
+            assertEquals(0.33f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -115,10 +181,10 @@ public class PrimitiveObsessionSnifferTest {
 
             ClassData testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 
@@ -130,18 +196,33 @@ public class PrimitiveObsessionSnifferTest {
 
             ParsedClass testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
+<<<<<<< HEAD
             ParsedVariable firstTestField = testClass.createField("firstTestField");
+=======
+            projectTest.addClass(testClass);
+
+            ParsedVariable firstTestField = new ParsedVariable(testClass, "firstTestField");
+>>>>>>> Feature Envy implemented, need Testing
             firstTestField.setIsPrimitive();
             ParsedVariable secondTestField = testClass.createField("secondTestField");
             secondTestField.setIsPrimitive();
+<<<<<<< HEAD
             ParsedVariable thirdTestField = testClass.createField("thirdTestField");
             ParsedVariable fourthTestField = testClass.createField("fourthTestField");
 
+=======
+            ParsedVariable thirdTestField = new ParsedVariable(testClass, "thirdTestField");
+            ParsedVariable fourthTestField = new ParsedVariable(testClass, "fourthTestField");
+            testClass.addField(firstTestField);
+            testClass.addField(secondTestField);
+            testClass.addField(thirdTestField);
+            testClass.addField(fourthTestField);
+>>>>>>> Feature Envy implemented, need Testing
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.5f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -151,16 +232,31 @@ public class PrimitiveObsessionSnifferTest {
             ParsedClass firstTestClass = projectTest.createClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
+<<<<<<< HEAD
             ParsedVariable firstTestField = firstTestClass.createField("firstTestField");
             firstTestField.setIsPrimitive();
             ParsedVariable secondTestField = firstTestClass.createField("secondTestField");
             ParsedVariable thirdTestField = secondTestClass.createField("thirdTestField");
             ParsedVariable fourthTestField = secondTestClass.createField("fourthTestField");
+=======
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            ParsedVariable firstTestField = new ParsedVariable(firstTestClass, "firstTestField");
+            firstTestField.setIsPrimitive();
+            ParsedVariable secondTestField = new ParsedVariable(firstTestClass, "secondTestField");
+            ParsedVariable thirdTestField = new ParsedVariable(secondTestClass, "thirdTestField");
+            ParsedVariable fourthTestField = new ParsedVariable(secondTestClass, "fourthTestField");
+            firstTestClass.addField(firstTestField);
+            firstTestClass.addField(secondTestField);
+            secondTestClass.addField(thirdTestField);
+            secondTestClass.addField(fourthTestField);
+>>>>>>> Feature Envy implemented, need Testing
 
-            assertEquals(0.25f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
+
+            assertEquals(0.25f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -169,10 +265,10 @@ public class PrimitiveObsessionSnifferTest {
 
             ParsedClass testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 
@@ -185,16 +281,17 @@ public class PrimitiveObsessionSnifferTest {
             ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromClassesNoFields() {
             ParsedProject projectTest = new ParsedProject();
 
+<<<<<<< HEAD
             ParsedClass firstTestClass = projectTest.createClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
@@ -203,11 +300,29 @@ public class PrimitiveObsessionSnifferTest {
 
             firstTestMethod.setReturnType("", true);
             secondTestMethod.setReturnType("", false);
+=======
+            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
+            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
 
-            assertEquals(0.5f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            ParsedMethod firstTestMethod = new ParsedMethod(firstTestClass, "firstTestMethod");
+            ParsedMethod secondTestMethod = new ParsedMethod(secondTestClass, "secondTestMethod");
+            firstTestClass.addMethod(firstTestMethod);
+            secondTestClass.addMethod(secondTestMethod);
+
+            ParsedVariable firstTestField = new ParsedVariable(firstTestMethod, "firstTestField");
+            firstTestField.setIsPrimitive();
+            ParsedVariable secondTestField = new ParsedVariable(secondTestMethod, "secondTestField");
+            firstTestMethod.addReturnType(firstTestField);
+            secondTestMethod.addReturnType(secondTestField);
+>>>>>>> Feature Envy implemented, need Testing
+
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
+
+            assertEquals(0.5f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -217,15 +332,30 @@ public class PrimitiveObsessionSnifferTest {
             ParsedClass firstTestClass = projectTest.createClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
+<<<<<<< HEAD
             ParsedVariable firstTestField = firstTestClass.createField("firstTestField");
+=======
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+
+            ParsedVariable firstTestField = new ParsedVariable(firstTestClass, "firstTestField");
+>>>>>>> Feature Envy implemented, need Testing
             firstTestField.setIsPrimitive();
             ParsedVariable secondTestField = secondTestClass.createField("secondTestField");
             secondTestField.setIsPrimitive();
+<<<<<<< HEAD
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToSniff(projectTest);
+=======
+            firstTestClass.addField(firstTestField);
+            secondTestClass.addField(secondTestField);
 
-            assertEquals(1f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
+>>>>>>> Feature Envy implemented, need Testing
+
+            assertEquals(1f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -235,13 +365,24 @@ public class PrimitiveObsessionSnifferTest {
             ParsedClass firstTestClass = projectTest.createClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
+<<<<<<< HEAD
             ParsedMethod firstTestMethod = firstTestClass.createMethod("firstTestMethod");
             ParsedMethod secondTestMethod = secondTestClass.createMethod("secondTestMethod");
+=======
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+
+            ParsedMethod firstTestMethod = new ParsedMethod(firstTestClass, "firstTestMethod");
+            ParsedMethod secondTestMethod = new ParsedMethod(secondTestClass, "secondTestMethod");
+            firstTestClass.addMethod(firstTestMethod);
+            secondTestClass.addMethod(secondTestMethod);
+>>>>>>> Feature Envy implemented, need Testing
 
             ParsedVariable firstTestField = firstTestClass.createField("firstTestField");
             firstTestField.setIsPrimitive();
             ParsedVariable secondTestField = secondTestClass.createField("secondTestField");
             secondTestField.setIsPrimitive();
+<<<<<<< HEAD
 
 
             ParsedVariable thirdTestField = firstTestMethod.createParameter("thirdTestField");
@@ -252,11 +393,31 @@ public class PrimitiveObsessionSnifferTest {
             ParsedVariable sixthTestField = secondTestMethod.createParameter("sixthTestField");
             ParsedVariable seventhTestField = secondTestMethod.createVariable("seventhTestField");
             secondTestMethod.setReturnType("", true);
+=======
+            ParsedVariable thirdTestField = new ParsedVariable(firstTestMethod, "thirdTestField");
+            ParsedVariable fourthTestField = new ParsedVariable(firstTestMethod, "fourthTestField");
+            ParsedVariable fifthTestField = new ParsedVariable(firstTestMethod, "fifthTestField");
+            fifthTestField.setIsPrimitive();
+            ParsedVariable sixthTestField = new ParsedVariable(secondTestMethod, "sixthTestField");
+            ParsedVariable seventhTestField = new ParsedVariable(secondTestMethod, "seventhTestField");
+            ParsedVariable eighthTestField = new ParsedVariable(secondTestMethod, "eighthTestField");
+            eighthTestField.setIsPrimitive();
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            firstTestClass.addField(firstTestField);
+            secondTestClass.addField(secondTestField);
 
-            assertEquals(0.66f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            firstTestMethod.addParameter(thirdTestField);
+            firstTestMethod.addVariable(fourthTestField);
+            firstTestMethod.addReturnType(fifthTestField);
+            secondTestMethod.addParameter(sixthTestField);
+            secondTestMethod.addVariable(seventhTestField);
+            secondTestMethod.addReturnType(eighthTestField);
+>>>>>>> Feature Envy implemented, need Testing
+
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
+
+            assertEquals(0.66f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 }

@@ -23,10 +23,10 @@ public class BloatedCodeSnifferTest {
         public void retrieveNonNullReport(){
             ParsedProject projectTest = new ParsedProject();
 
-            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-            blCdSnifferTest.setProjectToSniff(projectTest);
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
 
-            assertThat(blCdSnifferTest.getSmellReport(), instanceOf(SmellReport.class));
+            assertThat(bloatedCodeTest.getSmellReport(), instanceOf(SmellReport.class));
         }
     }
 
@@ -37,18 +37,18 @@ public class BloatedCodeSnifferTest {
 
             ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
 
+            projectTest.addClass(testClass);
+
             ParsedMethod mockedTestMethod = mock(ParsedMethod.class);
             when(mockedTestMethod.getLineCount()).thenReturn(11);
             when(mockedTestMethod.getClassName()).thenReturn(testClass.getName());
             when(mockedTestMethod.getFullyQualifiedName()).thenReturn("mockedMethod");
-            projectTest.addClass(testClass);
-
             testClass.addMethod(mockedTestMethod);
 
-            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-            blCdSnifferTest.setProjectToSniff(projectTest);
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.10f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.1f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -56,6 +56,8 @@ public class BloatedCodeSnifferTest {
             ParsedProject projectTest = new ParsedProject();
 
             ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
+
+            projectTest.addClass(testClass);
 
             ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
             when(firstMockedTestMethod.getLineCount()).thenReturn(11);
@@ -69,12 +71,10 @@ public class BloatedCodeSnifferTest {
             when(secondMockedTestMethod.getName()).thenReturn("secondMockedTestMethod");
             testClass.addMethod(secondMockedTestMethod);
 
-            projectTest.addClass(testClass);
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
 
-            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-            blCdSnifferTest.setProjectToSniff(projectTest);
-
-            assertEquals(0.15f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.15f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -85,10 +85,10 @@ public class BloatedCodeSnifferTest {
 
             projectTest.addClass(testClass);
 
-            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-            blCdSnifferTest.setProjectToSniff(projectTest);
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.0f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 
@@ -99,6 +99,9 @@ public class BloatedCodeSnifferTest {
 
             ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
 
             ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
             when(firstMockedTestMethod.getLineCount()).thenReturn(50);
@@ -112,15 +115,10 @@ public class BloatedCodeSnifferTest {
             when(secondMockedTestMethod.getName()).thenReturn("secondMockedTestMethod");
             secondTestClass.addMethod(secondMockedTestMethod);
 
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
-            firstTestClass.addMethod(firstMockedTestMethod);
-            secondTestClass.addMethod(secondMockedTestMethod);
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
 
-            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-            blCdSnifferTest.setProjectToSniff(projectTest);
-
-            assertEquals(0.50f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -129,6 +127,9 @@ public class BloatedCodeSnifferTest {
 
             ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
 
             ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
             when(firstMockedTestMethod.getLineCount()).thenReturn(10);
@@ -142,15 +143,10 @@ public class BloatedCodeSnifferTest {
             when(secondMockedTestMethod.getName()).thenReturn("secondMockedTestMethod");
             secondTestClass.addMethod(secondMockedTestMethod);
 
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
-            firstTestClass.addMethod(firstMockedTestMethod);
-            secondTestClass.addMethod(secondMockedTestMethod);
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
 
-            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-            blCdSnifferTest.setProjectToSniff(projectTest);
-
-            assertEquals(0.25f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.25f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -163,10 +159,11 @@ public class BloatedCodeSnifferTest {
             projectTest.addClass(firstTestClass);
             projectTest.addClass(secondTestClass);
 
-            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-            blCdSnifferTest.setProjectToSniff(projectTest);
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.0f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
+
     }
 }
