@@ -19,10 +19,10 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveNonNullReport(){
             ParsedProject projectTest = new ParsedProject();
 
-            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-            blCdSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertThat(blCdSnifferTest.getSmellReport(), instanceOf(SmellReport.class));
+            assertThat(primitiveObsessionTest.getSmellReport(), instanceOf(SmellReport.class));
         }
     }
 
@@ -34,26 +34,24 @@ public class PrimitiveObsessionSnifferTest {
 
             ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
 
+            projectTest.addClass(testClass);
+
             ParsedMethod testMethod = new ParsedMethod(testClass, "testMethod");
+            testClass.addMethod(testMethod);
 
             ParsedVariable firstTestField = new ParsedVariable(testMethod, "firstTestField");
             firstTestField.setIsPrimitive();
+            testMethod.addParameter(firstTestField);
             ParsedVariable secondTestField = new ParsedVariable(testMethod, "secondTestField");
             secondTestField.setIsPrimitive();
-            ParsedVariable thirdTestField = new ParsedVariable(testMethod, "thirdTestField");
-
-            projectTest.addClass(testClass);
-
-            testClass.addMethod(testMethod);
-
-            testMethod.addParameter(firstTestField);
             testMethod.addVariable(secondTestField);
+            ParsedVariable thirdTestField = new ParsedVariable(testMethod, "thirdTestField");
             testMethod.addReturnType(thirdTestField);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.67f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.67f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -62,34 +60,34 @@ public class PrimitiveObsessionSnifferTest {
 
             ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
 
+            projectTest.addClass(testClass);
+
             ParsedMethod firstTestMethod = new ParsedMethod(testClass, "firstTestMethod");
             ParsedMethod secondTestMethod = new ParsedMethod(testClass, "secondTestMethod");
+            testClass.addMethod(firstTestMethod);
+            testClass.addMethod(secondTestMethod);
 
             ParsedVariable firstTestField = new ParsedVariable(firstTestMethod, "firstTestField");
             firstTestField.setIsPrimitive();
             ParsedVariable secondTestField = new ParsedVariable(firstTestMethod, "secondTestField");
             secondTestField.setIsPrimitive();
             ParsedVariable thirdTestField = new ParsedVariable(firstTestMethod, "thirdTestField");
+            firstTestMethod.addParameter(firstTestField);
+            firstTestMethod.addVariable(secondTestField);
+            firstTestMethod.addReturnType(thirdTestField);
+
             ParsedVariable fourthTestField = new ParsedVariable(secondTestMethod, "fourthTestField");
             fourthTestField.setIsPrimitive();
             ParsedVariable fifthTestField = new ParsedVariable(secondTestMethod, "fifthTestField");
             ParsedVariable sixthTestField = new ParsedVariable(secondTestMethod, "sixthTestField");
-
-            projectTest.addClass(testClass);
-            testClass.addMethod(firstTestMethod);
-            testClass.addMethod(secondTestMethod);
-
-            firstTestMethod.addParameter(firstTestField);
-            firstTestMethod.addVariable(secondTestField);
-            firstTestMethod.addReturnType(thirdTestField);
             secondTestMethod.addParameter(fourthTestField);
             secondTestMethod.addVariable(fifthTestField);
             secondTestMethod.addReturnType(sixthTestField);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.5, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -99,34 +97,34 @@ public class PrimitiveObsessionSnifferTest {
             ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
 
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+
             ParsedMethod firstTestMethod = new ParsedMethod(firstTestClass, "firstTestMethod");
             ParsedMethod secondTestMethod = new ParsedMethod(secondTestClass, "secondTestMethod");
+
+            firstTestClass.addMethod(firstTestMethod);
+            secondTestClass.addMethod(secondTestMethod);
 
             ParsedVariable firstTestField = new ParsedVariable(firstTestMethod, "firstTestField");
             firstTestField.setIsPrimitive();
             ParsedVariable secondTestField = new ParsedVariable(firstTestMethod, "secondTestField");
             ParsedVariable thirdTestField = new ParsedVariable(firstTestMethod, "thirdTestField");
+            firstTestMethod.addParameter(firstTestField);
+            firstTestMethod.addVariable(secondTestField);
+            firstTestMethod.addReturnType(thirdTestField);
             ParsedVariable fourthTestField = new ParsedVariable(secondTestMethod, "fourthTestField");
             fourthTestField.setIsPrimitive();
             ParsedVariable fifthTestField = new ParsedVariable(secondTestMethod, "fifthTestField");
             ParsedVariable sixthTestField = new ParsedVariable(secondTestMethod, "sixthTestField");
-
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
-            firstTestClass.addMethod(firstTestMethod);
-            secondTestClass.addMethod(secondTestMethod);
-
-            firstTestMethod.addParameter(firstTestField);
-            firstTestMethod.addVariable(secondTestField);
-            firstTestMethod.addReturnType(thirdTestField);
             secondTestMethod.addParameter(fourthTestField);
             secondTestMethod.addVariable(fifthTestField);
             secondTestMethod.addReturnType(sixthTestField);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.33f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.33f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -137,10 +135,10 @@ public class PrimitiveObsessionSnifferTest {
 
             projectTest.addClass(testClass);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 
@@ -152,24 +150,23 @@ public class PrimitiveObsessionSnifferTest {
 
             ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
 
+            projectTest.addClass(testClass);
+
             ParsedVariable firstTestField = new ParsedVariable(testClass, "firstTestField");
             firstTestField.setIsPrimitive();
             ParsedVariable secondTestField = new ParsedVariable(testClass, "secondTestField");
             secondTestField.setIsPrimitive();
             ParsedVariable thirdTestField = new ParsedVariable(testClass, "thirdTestField");
             ParsedVariable fourthTestField = new ParsedVariable(testClass, "fourthTestField");
-
-            projectTest.addClass(testClass);
-
             testClass.addField(firstTestField);
             testClass.addField(secondTestField);
             testClass.addField(thirdTestField);
             testClass.addField(fourthTestField);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.5f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -179,24 +176,23 @@ public class PrimitiveObsessionSnifferTest {
             ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
 
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+
             ParsedVariable firstTestField = new ParsedVariable(firstTestClass, "firstTestField");
             firstTestField.setIsPrimitive();
             ParsedVariable secondTestField = new ParsedVariable(firstTestClass, "secondTestField");
             ParsedVariable thirdTestField = new ParsedVariable(secondTestClass, "thirdTestField");
             ParsedVariable fourthTestField = new ParsedVariable(secondTestClass, "fourthTestField");
-
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
-
             firstTestClass.addField(firstTestField);
             firstTestClass.addField(secondTestField);
             secondTestClass.addField(thirdTestField);
             secondTestClass.addField(fourthTestField);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.25f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.25f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -207,10 +203,10 @@ public class PrimitiveObsessionSnifferTest {
 
             projectTest.addClass(testClass);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 
@@ -225,10 +221,10 @@ public class PrimitiveObsessionSnifferTest {
             projectTest.addClass(firstTestClass);
             projectTest.addClass(secondTestClass);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -238,25 +234,24 @@ public class PrimitiveObsessionSnifferTest {
             ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
 
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+
             ParsedMethod firstTestMethod = new ParsedMethod(firstTestClass, "firstTestMethod");
             ParsedMethod secondTestMethod = new ParsedMethod(secondTestClass, "secondTestMethod");
+            firstTestClass.addMethod(firstTestMethod);
+            secondTestClass.addMethod(secondTestMethod);
 
             ParsedVariable firstTestField = new ParsedVariable(firstTestMethod, "firstTestField");
             firstTestField.setIsPrimitive();
             ParsedVariable secondTestField = new ParsedVariable(secondTestMethod, "secondTestField");
-
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
-            firstTestClass.addMethod(firstTestMethod);
-            secondTestClass.addMethod(secondTestMethod);
-
             firstTestMethod.addReturnType(firstTestField);
             secondTestMethod.addReturnType(secondTestField);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.5f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -266,20 +261,20 @@ public class PrimitiveObsessionSnifferTest {
             ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
 
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+
             ParsedVariable firstTestField = new ParsedVariable(firstTestClass, "firstTestField");
             firstTestField.setIsPrimitive();
             ParsedVariable secondTestField = new ParsedVariable(secondTestClass, "secondTestField");
             secondTestField.setIsPrimitive();
-
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
             firstTestClass.addField(firstTestField);
             secondTestClass.addField(secondTestField);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(1f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(1f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -289,8 +284,13 @@ public class PrimitiveObsessionSnifferTest {
             ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
             ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
 
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+
             ParsedMethod firstTestMethod = new ParsedMethod(firstTestClass, "firstTestMethod");
             ParsedMethod secondTestMethod = new ParsedMethod(secondTestClass, "secondTestMethod");
+            firstTestClass.addMethod(firstTestMethod);
+            secondTestClass.addMethod(secondTestMethod);
 
             ParsedVariable firstTestField = new ParsedVariable(firstTestClass, "firstTestField");
             firstTestField.setIsPrimitive();
@@ -305,12 +305,8 @@ public class PrimitiveObsessionSnifferTest {
             ParsedVariable eighthTestField = new ParsedVariable(secondTestMethod, "eighthTestField");
             eighthTestField.setIsPrimitive();
 
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
             firstTestClass.addField(firstTestField);
             secondTestClass.addField(secondTestField);
-            firstTestClass.addMethod(firstTestMethod);
-            secondTestClass.addMethod(secondTestMethod);
 
             firstTestMethod.addParameter(thirdTestField);
             firstTestMethod.addVariable(fourthTestField);
@@ -319,10 +315,10 @@ public class PrimitiveObsessionSnifferTest {
             secondTestMethod.addVariable(seventhTestField);
             secondTestMethod.addReturnType(eighthTestField);
 
-            PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
-            prObsSnifferTest.setProjectToSniff(projectTest);
+            PrimitiveObsessionSniffer primitiveObsessionTest = new PrimitiveObsessionSniffer();
+            primitiveObsessionTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.66f, prObsSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.66f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 }

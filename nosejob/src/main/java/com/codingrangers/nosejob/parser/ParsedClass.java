@@ -2,9 +2,7 @@ package com.codingrangers.nosejob.parser;
 
 import java.util.*;
 
-import com.codingrangers.nosejob.models.VariableData;
-import com.codingrangers.nosejob.models.ClassData;
-import com.codingrangers.nosejob.models.MethodData;
+import com.codingrangers.nosejob.models.*;
 
 /**
  * ParsedClass TODO: Need to unit test this
@@ -46,6 +44,11 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData {
 	}
 
 	@Override
+	public int countFields() {
+		return new ArrayList<>(classVariables.keySet()).size();
+	}
+
+	@Override
 	public List<String> getFieldsNames() {
 		return new ArrayList<String>(classVariables.keySet());
 	}
@@ -53,6 +56,50 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData {
 	@Override
 	public VariableData getField(String name) {
 		return classVariables.get(name);
+	}
+
+	@Override
+	public int countPublicFields() {
+		int counter = 0;
+		for(String variableName : getFieldsNames()){
+			if(getField(variableName).getAccessSpecifier().equals(AccessSpecifier.PUBLIC)) counter++;
+		}
+		return counter;
+	}
+
+	@Override
+	public int countInternalMethodCalls() {
+		return 0;
+	}
+
+	@Override
+	public List<MethodReference> getInternalMethodCalls() {
+		return null;
+	}
+
+	@Override
+	public int countMethodCallsTo(String fullyQualifedClassName) {
+		return 0;
+	}
+
+	@Override
+	public List<MethodReference> getMethodCallsTo(String fullyQualifedClassName) {
+		return null;
+	}
+
+	@Override
+	public int countFieldReferencesTo(String fullyQualifedClassName) {
+		return 0;
+	}
+
+	@Override
+	public List<FieldReference> getFieldReferancesTo(String fullyQualifedClassName) {
+		return null;
+	}
+
+	@Override
+	public int countMethods() {
+		return 0;
 	}
 
 	@Override

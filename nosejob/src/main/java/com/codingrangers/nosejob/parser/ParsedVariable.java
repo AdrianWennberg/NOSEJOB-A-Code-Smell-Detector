@@ -1,5 +1,6 @@
 package com.codingrangers.nosejob.parser;
 
+import com.codingrangers.nosejob.models.AccessSpecifier;
 import com.codingrangers.nosejob.models.VariableData;
 
 /**
@@ -13,6 +14,10 @@ public class ParsedVariable extends ParsedCodeUnit implements VariableData {
 	public ParsedVariable(ParsedCodeUnit variableScope, String variableName) {
 		super(variableScope.getFullyQualifiedName(), variableName, variableScope.getFilePath());
 		isPrimitive = false;
+	}
+
+	public ParsedVariable(String blockNamePrefix, String blockName, String filePath) {
+		super(blockNamePrefix, blockName, filePath);
 	}
 
 	public void setIsPrimitive() {
@@ -31,5 +36,10 @@ public class ParsedVariable extends ParsedCodeUnit implements VariableData {
 	@Override
 	public boolean isPrimitive() {
 		return isPrimitive;
+	}
+
+	@Override
+	public AccessSpecifier getAccessSpecifier() {
+		return null;
 	}
 }
