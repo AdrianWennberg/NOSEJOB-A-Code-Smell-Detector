@@ -1,22 +1,60 @@
 package com.codingrangers.nosejob.sniffers;
 
-import com.codingrangers.nosejob.models.ClassData;
-import com.codingrangers.nosejob.models.Smell;
-import com.codingrangers.nosejob.models.SmellReportBody;
+import com.codingrangers.nosejob.models.*;
 import com.codingrangers.nosejob.reports.SmellReport;
 
 public class FeatureEnvySniffer extends GeneralSniffer {
     private static final String NAME = "Feature Envy";
 
-    public void retrieveSmellFromSingularClass(ClassData currentClassAnalysed) {
-        if (currentClassAnalysed.equals(null))
+    private class ClassDiagnosis implements Smell {
+        private ClassData currentClassToAnalyse;
+
+        public float compareWithOtherClassesWithinProject() {
+            float callsRatio = 0f;
+
+            for(String className : currentProjectToAnalyse.getClassNames()){
+                if(!className.equals(currentClassToAnalyse.getName())) {
+                    ClassData classToCompareWith = currentProjectToAnalyse.getClassData(className);
+                    callsRatio += currentClassToAnalyse.getMethodCallsTo(classToCompareWith.getFullyQualifiedName()).size() / currentClassToAnalyse.getInternalMethodCalls().size();
+                }
+            }
+
+            callsRatio /= currentProjectToAnalyse.getClassNames().size() - 1;
+
+            return callsRatio;
+        }
+
+        @Override
+        public void setCodeData(CodeData codeData) {
+            currentClassToAnalyse = (ClassData) codeData;
+        }
+
+        @Override
+        public CodeData getLocation() {
+            return currentClassToAnalyse;
+        }
+
+        @Override
+        public boolean isSmelly() {
+            return (getSmellSeverity() > 0) ? true : false;
+        }
+
+        @Override
+        public float getSmellSeverity() {
+            float severity = 0f;
+            severity = (compareWithOtherClassesWithinProject() > 1f) ? (severity - 1f) : 0f;
+            return severity;
+        }
+    }
+
+    public void retrieveSmellFromSingularClass(ClassData currentClassToAnalyse) {
+        if (currentClassToAnalyse.equals(null))
             throw new NullPointerException("Cannot analyse methods of a null.");
 
-        if (currentClassAnalysed.getFieldsNames().size() > 0) {
-            /** TODO
-             * Smell fieldsDiagnosis = new ViolationOfDataPrivacySniffer.FieldsDiagnosis();
-            fieldsDiagnosis.setCodeData(currentClassAnalysed);
-            smells.add(fieldsDiagnosis);*/
+        if (currentClassToAnalyse.getFieldsNames().size() > 0) {
+            Smell classDiagnosis = new ClassDiagnosis();
+            classDiagnosis.setCodeData(currentClassToAnalyse);
+            smells.add(classDiagnosis);
         }
     }
 
@@ -26,8 +64,7 @@ public class FeatureEnvySniffer extends GeneralSniffer {
 
         for(String className : currentProjectToAnalyse.getClassNames()){
             ClassData currentClassToAnalyse = currentProjectToAnalyse.getClassData(className);
-            /**TODO
-             * retrieveSmellFromFields(currentClassToAnalyse);*/
+            retrieveSmellFromSingularClass(currentClassToAnalyse);
         }
     }
 

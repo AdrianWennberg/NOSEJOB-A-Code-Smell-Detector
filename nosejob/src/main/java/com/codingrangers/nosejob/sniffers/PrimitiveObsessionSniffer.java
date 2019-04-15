@@ -12,9 +12,6 @@ public class PrimitiveObsessionSniffer extends GeneralSniffer{
 	private class MethodDiagnosis implements Smell {
 		private MethodData currentMethodToAnalyze;
 
-		private MethodDiagnosis() {
-		}
-
 		public float countSeverityInMethodsParametersTypes() {
 			return currentMethodToAnalyze.getPrimitiveParameterCount();
 		}
@@ -54,9 +51,6 @@ public class PrimitiveObsessionSniffer extends GeneralSniffer{
 	private class FieldsDiagnosis implements Smell {
 		private ClassData currentClassToAnalyze;
 
-		private FieldsDiagnosis() {
-		}
-
 		public float measureSeverityInClassFieldsTypes() {
 			if (currentClassToAnalyze.getFieldsNames().size() == 0)
 				return 0f;
@@ -91,9 +85,9 @@ public class PrimitiveObsessionSniffer extends GeneralSniffer{
 		}
 	}
 
-	public void retrieveSmellsFromMethods(ClassData currentClassAnalysed) {
+	private void retrieveSmellsFromMethods(ClassData currentClassAnalysed) {
 		if (currentClassAnalysed.equals(null))
-			throw new NullPointerException("Cannot analyse fields of a null.");
+			throw new NullPointerException("Cannot analyse methods of a null.");
 
 		for (String methodSignature : currentClassAnalysed.getMethodSignatures()) {
 			Smell methodDiagnosis = new MethodDiagnosis();
@@ -102,18 +96,18 @@ public class PrimitiveObsessionSniffer extends GeneralSniffer{
 		}
 	}
 
-	public void retrieveSmellFromFields(ClassData currentClassAnalysed) {
-		if (currentClassAnalysed.equals(null))
-			throw new NullPointerException("Cannot analyse methods of a null.");
+	private void retrieveSmellFromFields(ClassData currentClassToAnalyse) {
+		if (currentClassToAnalyse.equals(null))
+			throw new NullPointerException("Cannot analyse fields of a null.");
 
-		if (currentClassAnalysed.getFieldsNames().size() > 0) {
+		if (currentClassToAnalyse.getFieldsNames().size() > 0) {
 			Smell fieldsDiagnosis = new FieldsDiagnosis();
-			fieldsDiagnosis.setCodeData(currentClassAnalysed);
+			fieldsDiagnosis.setCodeData(currentClassToAnalyse);
 			smells.add(fieldsDiagnosis);
 		}
 	}
 
-	public void retrieveSmellsFromClasses() {
+	private void retrieveSmellsFromClasses() {
 		if (currentProjectToAnalyse.equals(null))
 			throw new NullPointerException("Cannot analyse a null project.");
 
