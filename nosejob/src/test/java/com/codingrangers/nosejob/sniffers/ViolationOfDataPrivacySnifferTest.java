@@ -1,8 +1,10 @@
 package com.codingrangers.nosejob.sniffers;
 
+import com.codingrangers.nosejob.models.AccessSpecifier;
 import com.codingrangers.nosejob.parser.ParsedClass;
 import com.codingrangers.nosejob.parser.ParsedMethod;
 import com.codingrangers.nosejob.parser.ParsedProject;
+import com.codingrangers.nosejob.parser.ParsedVariable;
 import com.codingrangers.nosejob.reports.SmellReport;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -15,7 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(Enclosed.class)
-public class ViolationOfDataPrivacySniffer {
+public class ViolationOfDataPrivacySnifferTest {
     public static class getSmellReportTests{
 
         @Test
@@ -30,142 +32,136 @@ public class ViolationOfDataPrivacySniffer {
     }
 
     public static class retrieveSmellsFromMethodTests {
-//        @Test
-//        public void retrieveSmellsFromMethodTest() {
-//            ParsedProject projectTest = new ParsedProject();
-//
-//            ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
-//
-//            ParsedMethod mockedTestMethod = mock(ParsedMethod.class);
-//            when(mockedTestMethod.getLineCount()).thenReturn(11);
-//            when(mockedTestMethod.getClassName()).thenReturn(testClass.getName());
-//            when(mockedTestMethod.getFullyQualifiedName()).thenReturn("mockedMethod");
-//            projectTest.addClass(testClass);
-//
-//            testClass.addMethod(mockedTestMethod);
-//
-//            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-//            blCdSnifferTest.setProjectToSniff(projectTest);
-//
-//            assertEquals(0.10f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-//        }
+        @Test
+        public void retrieveSmellsFromFieldTest() {
+            ParsedProject projectTest = new ParsedProject();
 
-//        @Test
-//        public void retrieveSmellsFromMethodsTest() {
-//            ParsedProject projectTest = new ParsedProject();
-//
-//            ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
-//
-//            ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
-//            when(firstMockedTestMethod.getLineCount()).thenReturn(11);
-//            when(firstMockedTestMethod.getClassName()).thenReturn(testClass.getName());
-//            when(firstMockedTestMethod.getName()).thenReturn("firstMockedTestMethod");
-//            testClass.addMethod(firstMockedTestMethod);
-//
-//            ParsedMethod secondMockedTestMethod = mock(ParsedMethod.class);
-//            when(secondMockedTestMethod.getLineCount()).thenReturn(16);
-//            when(secondMockedTestMethod.getClassName()).thenReturn(testClass.getName());
-//            when(secondMockedTestMethod.getName()).thenReturn("secondMockedTestMethod");
-//            testClass.addMethod(secondMockedTestMethod);
-//
-//            projectTest.addClass(testClass);
-//
-//            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-//            blCdSnifferTest.setProjectToSniff(projectTest);
-//
-//            assertEquals(0.15f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-//        }
+            ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
 
-//        @Test
-//        public void retrieveSmellsFromNoMethodsTest() {
-//            ParsedProject projectTest = new ParsedProject();
-//
-//            ParsedClass testClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-//
-//            projectTest.addClass(testClass);
-//
-//            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-//            blCdSnifferTest.setProjectToSniff(projectTest);
-//
-//            assertEquals(0.0f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-//        }
+            ParsedVariable mockedTestField = mock(ParsedVariable.class);
+            when(mockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PUBLIC);
+            when(mockedTestField.getName()).thenReturn("mockedField");
+            testClass.addField(mockedTestField);
+
+            projectTest.addClass(testClass);
+
+            ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
+            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+
+            assertEquals(1f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+        }
+
+        @Test
+        public void retrieveSmellsFromFieldsTest() {
+            ParsedProject projectTest = new ParsedProject();
+
+            ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
+
+            ParsedVariable firstMockedTestField = mock(ParsedVariable.class);
+            when(firstMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PUBLIC);
+            when(firstMockedTestField.getName()).thenReturn("firstMockedField");
+            testClass.addField(firstMockedTestField);
+
+            ParsedVariable secondMockedTestField = mock(ParsedVariable.class);
+            when(secondMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PROTECTED);
+            when(secondMockedTestField.getName()).thenReturn("secondMockedField");
+            testClass.addField(secondMockedTestField);
+
+            projectTest.addClass(testClass);
+
+            ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
+            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+
+            assertEquals(0.5f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+        }
+
+        @Test
+        public void retrieveSmellsFromNoFieldsTest() {
+            ParsedProject projectTest = new ParsedProject();
+
+            ParsedClass testClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
+
+            projectTest.addClass(testClass);
+
+            ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
+            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+
+            assertEquals(0f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+        }
     }
 
     public static class retrieveSmellsFromClasses {
-//        @Test
-//        public void retrieveSmellsFromMethodsOfMultipleClassesTest() {
-//            ParsedProject projectTest = new ParsedProject();
-//
-//            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-//            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
-//
-//            ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
-//            when(firstMockedTestMethod.getLineCount()).thenReturn(50);
-//            when(firstMockedTestMethod.getClassName()).thenReturn(firstTestClass.getName());
-//            when(firstMockedTestMethod.getName()).thenReturn("firstMockedTestMethod");
-//            firstTestClass.addMethod(firstMockedTestMethod);
-//
-//            ParsedMethod secondMockedTestMethod = mock(ParsedMethod.class);
-//            when(secondMockedTestMethod.getLineCount()).thenReturn(5);
-//            when(secondMockedTestMethod.getClassName()).thenReturn(secondTestClass.getName());
-//            when(secondMockedTestMethod.getName()).thenReturn("secondMockedTestMethod");
-//            secondTestClass.addMethod(secondMockedTestMethod);
-//
-//            projectTest.addClass(firstTestClass);
-//            projectTest.addClass(secondTestClass);
-//            firstTestClass.addMethod(firstMockedTestMethod);
-//            secondTestClass.addMethod(secondMockedTestMethod);
-//
-//            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-//            blCdSnifferTest.setProjectToSniff(projectTest);
-//
-//            assertEquals(0.50f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-//        }
+        @Test
+        public void retrieveSmellsFromFieldsOfMultipleClassesTest() {
+            ParsedProject projectTest = new ParsedProject();
 
-//        @Test
-//        public void retrieveSmellsFromSmallMethodsOfMultipleClassesTest() {
-//            ParsedProject projectTest = new ParsedProject();
-//
-//            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-//            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
-//
-//            ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
-//            when(firstMockedTestMethod.getLineCount()).thenReturn(10);
-//            when(firstMockedTestMethod.getClassName()).thenReturn(firstTestClass.getName());
-//            when(firstMockedTestMethod.getName()).thenReturn("firstMockedTestMethod");
-//            firstTestClass.addMethod(firstMockedTestMethod);
-//
-//            ParsedMethod secondMockedTestMethod = mock(ParsedMethod.class);
-//            when(secondMockedTestMethod.getLineCount()).thenReturn(25);
-//            when(secondMockedTestMethod.getClassName()).thenReturn(secondTestClass.getName());
-//            when(secondMockedTestMethod.getName()).thenReturn("secondMockedTestMethod");
-//            secondTestClass.addMethod(secondMockedTestMethod);
-//
-//            projectTest.addClass(firstTestClass);
-//            projectTest.addClass(secondTestClass);
-//            firstTestClass.addMethod(firstMockedTestMethod);
-//            secondTestClass.addMethod(secondMockedTestMethod);
-//
-//            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-//            blCdSnifferTest.setProjectToSniff(projectTest);
-//
-//            assertEquals(0.25f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-//        }
+            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
+            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
 
-//        @Test
-//        public void retrieveSmellsFromMultipleClassesWithNoMethodsTest() {
-//            ParsedProject projectTest = new ParsedProject();
-//
-//            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-//            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
-//
-//            projectTest.addClass(firstTestClass);
-//            projectTest.addClass(secondTestClass);
-//
-//            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-//            blCdSnifferTest.setProjectToSniff(projectTest);
-//
-//            assertEquals(0.0f, blCdSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-//        }
+            ParsedVariable firstMockedTestField = mock(ParsedVariable.class);
+            when(firstMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PUBLIC);
+            when(firstMockedTestField.getName()).thenReturn("firstMockedField");
+            firstTestClass.addField(firstMockedTestField);
+
+            ParsedVariable secondMockedTestField = mock(ParsedVariable.class);
+            when(secondMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PROTECTED);
+            when(secondMockedTestField.getName()).thenReturn("secondMockedField");
+            secondTestClass.addField(secondMockedTestField);
+
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+            firstTestClass.addField(firstMockedTestField);
+            secondTestClass.addField(secondMockedTestField);
+
+            ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
+            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+
+            assertEquals(0.5f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+        }
+
+        @Test
+        public void retrieveSmellsFromPrivateFieldsOfMultipleClassesTest() {
+            ParsedProject projectTest = new ParsedProject();
+
+            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
+            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+
+            ParsedVariable firstMockedTestField = mock(ParsedVariable.class);
+            when(firstMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PRIVATE);
+            when(firstMockedTestField.getName()).thenReturn("firstMockedField");
+            firstTestClass.addField(firstMockedTestField);
+
+            ParsedVariable secondMockedTestField = mock(ParsedVariable.class);
+            when(secondMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PROTECTED);
+            when(secondMockedTestField.getName()).thenReturn("secondMockedField");
+            secondTestClass.addField(secondMockedTestField);
+
+            firstTestClass.addField(firstMockedTestField);
+            secondTestClass.addField(secondMockedTestField);
+
+            ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
+            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+
+            assertEquals(0f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+        }
+
+        @Test
+        public void retrieveSmellsFromMultipleClassesWithNoMethodsTest() {
+            ParsedProject projectTest = new ParsedProject();
+
+            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
+            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+
+            ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
+            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+
+            assertEquals(0f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+        }
     }
 }
