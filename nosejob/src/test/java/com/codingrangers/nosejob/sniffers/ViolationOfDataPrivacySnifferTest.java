@@ -50,7 +50,6 @@ public class ViolationOfDataPrivacySnifferTest {
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
             violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
-
             assertEquals(1f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
@@ -76,6 +75,7 @@ public class ViolationOfDataPrivacySnifferTest {
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
             violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
 
+
             assertEquals(0.5f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
@@ -96,7 +96,6 @@ public class ViolationOfDataPrivacySnifferTest {
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
             violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
-
             assertEquals(0f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
@@ -130,6 +129,7 @@ public class ViolationOfDataPrivacySnifferTest {
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
             violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
+
 
             assertEquals(0.5f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }

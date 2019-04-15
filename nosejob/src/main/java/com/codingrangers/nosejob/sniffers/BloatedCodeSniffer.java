@@ -1,5 +1,4 @@
 package com.codingrangers.nosejob.sniffers;
-
 import com.codingrangers.nosejob.models.*;
 import com.codingrangers.nosejob.reports.SmellReport;
 

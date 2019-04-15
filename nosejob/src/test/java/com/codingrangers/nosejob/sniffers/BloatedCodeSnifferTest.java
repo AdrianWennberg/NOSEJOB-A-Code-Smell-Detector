@@ -25,10 +25,10 @@ public class BloatedCodeSnifferTest {
         public void retrieveNonNullReport(){
             ParsedProject projectTest = new ParsedProject();
 
-            BloatedCodeSniffer blCdSnifferTest = new BloatedCodeSniffer();
-            blCdSnifferTest.setProjectToSniff(projectTest);
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
 
-            assertThat(blCdSnifferTest.getSmellReport(), instanceOf(SmellReport.class));
+            assertThat(bloatedCodeTest.getSmellReport(), instanceOf(SmellReport.class));
         }
     }
 
@@ -41,6 +41,7 @@ public class BloatedCodeSnifferTest {
 
             ClassData mockedTestClass = mock(ClassData.class);
 
+<<<<<<< HEAD
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
 
@@ -58,6 +59,19 @@ public class BloatedCodeSnifferTest {
             BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
             bloatedCodeTest.setProjectToSniff(mockedProject);
 
+=======
+            projectTest.addClass(testClass);
+
+            ParsedMethod mockedTestMethod = mock(ParsedMethod.class);
+            when(mockedTestMethod.getLineCount()).thenReturn(11);
+            when(mockedTestMethod.getClassName()).thenReturn(testClass.getName());
+            when(mockedTestMethod.getFullyQualifiedName()).thenReturn("mockedMethod");
+            testClass.addMethod(mockedTestMethod);
+
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
+
+>>>>>>> Feature Envy implemented, need Testing
             assertEquals(0.1f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
@@ -70,12 +84,23 @@ public class BloatedCodeSnifferTest {
 
             ClassData mockedTestClass = mock(ClassData.class);
 
+<<<<<<< HEAD
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+=======
+            projectTest.addClass(testClass);
+
+            ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
+            when(firstMockedTestMethod.getLineCount()).thenReturn(11);
+            when(firstMockedTestMethod.getClassName()).thenReturn(testClass.getName());
+            when(firstMockedTestMethod.getName()).thenReturn("firstMockedTestMethod");
+            testClass.addMethod(firstMockedTestMethod);
+>>>>>>> Feature Envy implemented, need Testing
 
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass));
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
 
+<<<<<<< HEAD
             MethodData firstMockedTestMethod = mock(MethodData.class);
             when(firstMockedTestMethod.getLineCount()).thenReturn(16);
             when(firstMockedTestMethod.getClassName()).thenReturn(testClass);
@@ -93,6 +118,11 @@ public class BloatedCodeSnifferTest {
             BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
             bloatedCodeTest.setProjectToSniff(mockedProject);
 
+=======
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
+
+>>>>>>> Feature Envy implemented, need Testing
             assertEquals(0.15f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
@@ -106,11 +136,16 @@ public class BloatedCodeSnifferTest {
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
 
+<<<<<<< HEAD
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass));
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
 
             BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
             bloatedCodeTest.setProjectToSniff(mockedProject);
+=======
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
+>>>>>>> Feature Envy implemented, need Testing
 
             assertEquals(0f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -128,13 +163,25 @@ public class BloatedCodeSnifferTest {
             ClassData mockedTestClass = mock(ClassData.class);
             ClassData otherMockedTestClass = mock(ClassData.class);
 
+<<<<<<< HEAD
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+=======
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+
+            ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
+            when(firstMockedTestMethod.getLineCount()).thenReturn(50);
+            when(firstMockedTestMethod.getClassName()).thenReturn(firstTestClass.getName());
+            when(firstMockedTestMethod.getName()).thenReturn("firstMockedTestMethod");
+            firstTestClass.addMethod(firstMockedTestMethod);
+>>>>>>> Feature Envy implemented, need Testing
 
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
             when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedTestClass);
 
+<<<<<<< HEAD
             MethodData firstMockedTestMethod = mock(MethodData.class);
             when(firstMockedTestMethod.getLineCount()).thenReturn(55);
             when(firstMockedTestMethod.getClassName()).thenReturn(testClass);
@@ -153,6 +200,11 @@ public class BloatedCodeSnifferTest {
             BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
             bloatedCodeTest.setProjectToSniff(mockedProject);
 
+=======
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
+
+>>>>>>> Feature Envy implemented, need Testing
             assertEquals(0.5f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
@@ -167,13 +219,25 @@ public class BloatedCodeSnifferTest {
             ClassData mockedTestClass = mock(ClassData.class);
             ClassData otherMockedTestClass = mock(ClassData.class);
 
+<<<<<<< HEAD
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+=======
+            projectTest.addClass(firstTestClass);
+            projectTest.addClass(secondTestClass);
+
+            ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
+            when(firstMockedTestMethod.getLineCount()).thenReturn(10);
+            when(firstMockedTestMethod.getClassName()).thenReturn(firstTestClass.getName());
+            when(firstMockedTestMethod.getName()).thenReturn("firstMockedTestMethod");
+            firstTestClass.addMethod(firstMockedTestMethod);
+>>>>>>> Feature Envy implemented, need Testing
 
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
             when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedTestClass);
 
+<<<<<<< HEAD
             MethodData firstMockedTestMethod = mock(MethodData.class);
             when(firstMockedTestMethod.getLineCount()).thenReturn(15);
             when(firstMockedTestMethod.getClassName()).thenReturn(testClass);
@@ -192,6 +256,11 @@ public class BloatedCodeSnifferTest {
             BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
             bloatedCodeTest.setProjectToSniff(mockedProject);
 
+=======
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
+
+>>>>>>> Feature Envy implemented, need Testing
             assertEquals(0.25f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
@@ -207,14 +276,20 @@ public class BloatedCodeSnifferTest {
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
 
+<<<<<<< HEAD
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
             when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedTestClass);
 
             BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
             bloatedCodeTest.setProjectToSniff(mockedProject);
+=======
+            BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
+            bloatedCodeTest.setProjectToSniff(projectTest);
+>>>>>>> Feature Envy implemented, need Testing
 
             assertEquals(0f, bloatedCodeTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
+
     }
 }
