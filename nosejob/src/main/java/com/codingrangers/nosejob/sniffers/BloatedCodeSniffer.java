@@ -62,7 +62,7 @@ public class BloatedCodeSniffer extends GeneralSniffer {
         }
     }
 
-    public void retrieveSmellsFromClasses() {
+    private void retrieveSmellsFromClasses() {
         if (currentProjectToAnalyse.equals(null))
             throw new NullPointerException("Cannot analyse a null project.");
 
