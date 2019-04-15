@@ -2,7 +2,6 @@ package com.codingrangers.nosejob.sniffers;
 
 import com.codingrangers.nosejob.models.AccessSpecifier;
 import com.codingrangers.nosejob.parser.ParsedClass;
-import com.codingrangers.nosejob.parser.ParsedMethod;
 import com.codingrangers.nosejob.parser.ParsedProject;
 import com.codingrangers.nosejob.parser.ParsedVariable;
 import com.codingrangers.nosejob.reports.SmellReport;

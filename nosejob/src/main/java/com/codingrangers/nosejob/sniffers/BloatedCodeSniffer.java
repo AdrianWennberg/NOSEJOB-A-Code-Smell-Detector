@@ -23,9 +23,6 @@ public class BloatedCodeSniffer extends GeneralSniffer {
     private class MethodDiagnosis implements Smell {
         private MethodData currentMethodToAnalyze;
 
-        private MethodDiagnosis() {
-        }
-
         @Override
         public void setCodeData(CodeData codeData) {
             currentMethodToAnalyze = (MethodData) codeData;
@@ -54,9 +51,9 @@ public class BloatedCodeSniffer extends GeneralSniffer {
         }
     }
 
-    public void retrieveSmellsFromMethods(ClassData currentClassAnalysed) {
+    private void retrieveSmellsFromMethods(ClassData currentClassAnalysed) {
         if (currentClassAnalysed.equals(null))
-            throw new NullPointerException("Cannot analyse fields of a null.");
+            throw new NullPointerException("Cannot analyse methods of a null.");
 
         for (String methodSignature : currentClassAnalysed.getMethodSignatures()) {
             Smell methodDiagnosis = new MethodDiagnosis();
@@ -65,7 +62,7 @@ public class BloatedCodeSniffer extends GeneralSniffer {
         }
     }
 
-    public void retrieveSmellsFromClasses() {
+    private void retrieveSmellsFromClasses() {
         if (currentProjectToAnalyse.equals(null))
             throw new NullPointerException("Cannot analyse a null project.");
 
