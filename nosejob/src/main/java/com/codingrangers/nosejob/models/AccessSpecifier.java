@@ -1,4 +1,8 @@
 package com.codingrangers.nosejob.models;
 
-public interface AccessSpecifier {
+public enum AccessSpecifier {
+    PUBLIC,
+    PROTECTED,
+    DEFAULT,
+    PRIVATE,
 }

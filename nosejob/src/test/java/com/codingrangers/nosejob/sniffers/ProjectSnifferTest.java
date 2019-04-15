@@ -1,4 +1,4 @@
-package com.codingrangers.nosejob.reports;
+package com.codingrangers.nosejob.sniffers;
 import com.codingrangers.nosejob.parser.ParsedProject;
 import com.codingrangers.nosejob.sniffers.ProjectSniffer;
 import org.junit.Test;
