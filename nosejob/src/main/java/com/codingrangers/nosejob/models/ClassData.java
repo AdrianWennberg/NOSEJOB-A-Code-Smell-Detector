@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface ClassData extends CodeData {
 	int countPublicFields();
+<<<<<<< HEAD
 	
 	int countInternalMethodCalls();
 
@@ -17,6 +18,18 @@ public interface ClassData extends CodeData {
 
     Iterable<FieldReference> getFieldReferencesTo(String fullyQualifiedClassName);
 	
+=======
+
+	int countInternalMethodCalls();
+	List<MethodReference> getInternalMethodCalls();
+
+	int countMethodCallsTo(String fullyQualifedClassName);
+	List<MethodReference> getMethodCallsTo(String fullyQualifedClassName);
+
+	int countFieldReferencesTo(String fullyQualifedClassName);
+	List<FieldReference> getFieldReferancesTo(String fullyQualifedClassName);
+
+>>>>>>> Violation of Data privacy Tested
 	int countMethods();
 	List<String> getMethodSignatures();
 	MethodData getMethod(String signature);

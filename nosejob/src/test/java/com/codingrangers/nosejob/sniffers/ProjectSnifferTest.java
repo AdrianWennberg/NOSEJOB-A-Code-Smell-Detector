@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 package com.codingrangers.nosejob.reports;
 
 import com.codingrangers.nosejob.parser.data.ParsedProject;
+=======
+package com.codingrangers.nosejob.sniffers;
+import com.codingrangers.nosejob.parser.ParsedProject;
+>>>>>>> Violation of Data privacy Tested
 import com.codingrangers.nosejob.sniffers.ProjectSniffer;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;

@@ -71,7 +71,8 @@ public class BloatedCodeSniffer extends GeneralSniffer {
             throw new NullPointerException("Cannot analyse a null project.");
 
         for (String className : currentProjectToAnalyse.getClassNames()) {
-            retrieveSmellsFromMethods(currentProjectToAnalyse.getClassData(className));
+            ClassData currentClassToAnalyse = currentProjectToAnalyse.getClassData(className);
+            retrieveSmellsFromMethods(currentClassToAnalyse);
         }
     }
 
