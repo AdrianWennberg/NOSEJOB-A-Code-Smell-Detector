@@ -20,6 +20,8 @@ public interface ClassData extends CodeData {
 	
 =======
 
+	int countTotalMehodCalls();
+
 	int countInternalMethodCalls();
 	List<MethodReference> getInternalMethodCalls();
 

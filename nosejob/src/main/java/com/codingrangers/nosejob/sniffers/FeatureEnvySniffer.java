@@ -9,7 +9,7 @@ public class FeatureEnvySniffer extends GeneralSniffer {
     private class ClassDiagnosis implements Smell {
         private ClassData currentClassToAnalyse;
 
-        public float compareWithOtherClassesWithinProject() {
+        private float compareWithOtherClassesWithinProject() {
             float callsRatio = 0f;
 
             for(String className : currentProjectToAnalyse.getClassNames()){

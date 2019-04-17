@@ -8,7 +8,7 @@ public class ViolationOfDataPrivacySniffer extends GeneralSniffer {
     private class FieldsDiagnosis implements Smell {
         private ClassData currentClassToAnalyze;
 
-        public float measureSeverityInClassFieldsTypes() {
+        private float measureSeverityInClassFieldsTypes() {
             if (currentClassToAnalyze.getFieldsNames().size() == 0)
                 return 0f;
 
