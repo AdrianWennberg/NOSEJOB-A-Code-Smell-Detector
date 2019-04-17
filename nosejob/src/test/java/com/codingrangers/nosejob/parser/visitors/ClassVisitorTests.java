@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import org.junit.*;
 import org.mockito.Mockito;
 
-import com.codingrangers.nosejob.parser.data.ParsedClass;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;

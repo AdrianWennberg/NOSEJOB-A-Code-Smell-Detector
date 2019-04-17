@@ -2,7 +2,6 @@ package com.codingrangers.nosejob.parser;
 
 import com.codingrangers.nosejob.models.CodeParser;
 import com.codingrangers.nosejob.models.ProjectData;
-import com.codingrangers.nosejob.parser.data.ParsedClass;
 import com.codingrangers.nosejob.parser.data.ParsedProject;
 import com.codingrangers.nosejob.parser.visitors.ClassVisitor;
 import com.codingrangers.nosejob.parser.visitors.MethodVisitor;
