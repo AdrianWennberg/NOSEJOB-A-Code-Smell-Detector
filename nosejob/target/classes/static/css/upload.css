@@ -1,0 +1,134 @@
+.upload-container {
+	text-align: center;
+	border-radius: 16px;
+	border: 1px solid grey;
+	color: white;
+	padding: 40px;
+	position: absolute;
+	display: inline-block;
+	top: 50%;
+	transform: translateY(-50%);
+	max-width: 500px;
+	width: 100%;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	transition: ease-in-out 125ms;
+}
+
+.app-header {
+	padding-left: 18px;
+	color: white !important;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: none;
+	align-items: center;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.logo {
+	fill: #63bc92 !important;
+	width: 32px;
+	height: 32px;
+}
+
+.button--state-transparent {
+	color: white !important;
+	background-color: transparent;
+	border: none;
+}
+
+.button--state-transparent:focus {
+	outline: none;
+}
+
+.button--state-transparent:hover {
+	cursor: pointer;
+}
+
+.back-button {
+	margin-left: 30%;
+	margin-top: 10%;
+	border-radius: 25px;
+	border-style: solid;
+	border-color: transparent;
+	padding: 12px 20px;
+	font-weight: 400;
+	text-transform: uppercase;
+	text-align: center;
+	background-color: #63bc92;
+	color: white;
+	cursor: pointer;
+}
+
+.back-button:hover {
+	filter: brightness(120%);
+	outline: none;
+	animation: none;
+}
+
+.back-button:focus {
+	outline: none;
+}
+
+body {
+	color: white !important;
+	background-color: #39414d;
+}
+
+h1 {
+	font-family: "Open Sans";
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 26.4px;
+}
+
+h3 {
+	font-family: "Open Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 15.4px;
+}
+
+p {
+	font-family: "Open Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 20px;
+}
+
+a {
+	text-decoration: none;
+	font-family: "Open Sans";
+	color: white;
+}
+
+li {
+	list-style-type: none;
+}
+
+
+blockquote {
+	font-family: "Open Sans";
+	font-size: 21px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 30px;
+}
+
+pre {
+	font-family: "Open Sans";
+	font-size: 13px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 18.5714px;
+}
