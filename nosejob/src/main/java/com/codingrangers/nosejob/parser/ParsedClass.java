@@ -68,6 +68,11 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData {
 	}
 
 	@Override
+	public int countTotalMehodCalls() {
+		return 0;
+	}
+
+	@Override
 	public int countInternalMethodCalls() {
 		return 0;
 	}

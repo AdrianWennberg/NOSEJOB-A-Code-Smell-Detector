@@ -13,15 +13,15 @@ public class PrimitiveObsessionSniffer extends GeneralSniffer{
 	private class MethodDiagnosis implements Smell {
 		private MethodData currentMethodToAnalyze;
 
-		public float countSeverityInMethodsParametersTypes() {
+		private float countSeverityInMethodsParametersTypes() {
 			return currentMethodToAnalyze.getPrimitiveParameterCount();
 		}
 
-		public int countSeverityInMethodsLocalTypes() {
+		private int countSeverityInMethodsLocalTypes() {
 			return currentMethodToAnalyze.getPrimitiveLocalCount();
 		}
 
-		public float countSeverityInMethodsReturnTypes() {
+		private float countSeverityInMethodsReturnTypes() {
 			return (currentMethodToAnalyze.hasPrimitiveReturnType()) ? 1 : 0;
 		}
 
