@@ -15,11 +15,11 @@ public class ParsedVariable extends ParsedCodeUnit implements VariableData, Clon
 		accessSpecifier = AccessSpecifier.PRIVATE;
 	}
 
-	void setIsPrimitive() {
+	public void setIsPrimitive() {
 		isPrimitive = true;
 	}
 
-	void setVariableType(String variableType) {
+	public void setVariableType(String variableType) {
 		type = variableType;
 	}
 

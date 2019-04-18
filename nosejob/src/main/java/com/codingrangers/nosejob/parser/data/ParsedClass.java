@@ -29,7 +29,7 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
         methodPrototype = newPrototype;
     }
 
-    ParsedMethod createMethod(String name) {
+    public ParsedMethod createMethod(String name) {
         ParsedMethod method = methodPrototype.clone();
         method.setName(name);
         method.setReferenceStorage(referenceStorage);
@@ -57,7 +57,7 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
         fieldPrototype = newPrototype;
     }
 
-    ParsedVariable createField(String name) {
+    public ParsedVariable createField(String name) {
         ParsedVariable variable = fieldPrototype.clone();
         variable.setName(name);
         classVariables.put(variable.getName(), variable);
@@ -88,6 +88,11 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
     @Override
     public VariableData getField(String name) {
         return classVariables.get(name);
+    }
+
+    @Override
+    public int countPrimitiveFields() {
+        return DataStructureHelpers.countPrimitives(classVariables.values());
     }
 
 
@@ -141,10 +146,6 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
 
     @Override
     protected ParsedClass clone() {
-        try {
-            return (ParsedClass) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException();
-        }
+        return new ParsedClass(getNamePrefix(), getName(), getFilePath());
     }
 }

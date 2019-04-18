@@ -159,78 +159,60 @@ public class ParsedMethodTest {
     }
 
     @Test
-    public void canAddParameter() {
-        VariableData mockedParameter = mock(VariableData.class);
-        when(mockedParameter.isPrimitive()).thenReturn(true);
-
-
+    public void canCreateDefaultParameter() {
         ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
 
-        parsedMethod.addParameter(mockedParameter);
+        ParsedVariable parsedVariable = parsedMethod.createParameter("");
+        parsedVariable.setIsPrimitive();
 
         List<VariableData> parameters = parsedMethod.getParameters();
 
         assertEquals(1, parameters.size());
-        assertEquals(mockedParameter, parameters.get(0));
+        assertEquals(parsedVariable, parameters.get(0));
         assertEquals(1, parsedMethod.getPrimitiveParameterCount());
     }
 
     @Test
-    public void canAddMultipleParameters() {
-        VariableData firstMockedParameter = mock(VariableData.class);
-        when(firstMockedParameter.isPrimitive()).thenReturn(false);
-
-        VariableData secondMockedParameter = mock(VariableData.class);
-        when(secondMockedParameter.isPrimitive()).thenReturn(true);
-
-
+    public void canCreateMultipleDefaultParameters() {
         ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
 
-        parsedMethod.addParameter(firstMockedParameter);
-        parsedMethod.addParameter(secondMockedParameter);
+        ParsedVariable firstParsedVariable = parsedMethod.createParameter("");
+        ParsedVariable secondParsedVariable = parsedMethod.createParameter("");
+        firstParsedVariable.setIsPrimitive();
 
         List<VariableData> parameters = parsedMethod.getParameters();
 
         assertEquals(2, parameters.size());
-        assertThat(parameters, containsInAnyOrder(firstMockedParameter, secondMockedParameter));
+        assertThat(parameters, containsInAnyOrder(firstParsedVariable, secondParsedVariable));
         assertEquals(1, parsedMethod.getPrimitiveParameterCount());
     }
 
     @Test
-    public void canAddLocalVariable() {
-        VariableData mockedVariable = mock(VariableData.class);
-        when(mockedVariable.isPrimitive()).thenReturn(true);
-
-
+    public void canCreateLocalVariable() {
         ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
 
-        parsedMethod.addVariable(mockedVariable);
+        ParsedVariable parsedVariable = parsedMethod.createVariable("");
+        parsedVariable.setIsPrimitive();
 
         List<VariableData> localVariables = parsedMethod.getLocalVariables();
 
         assertEquals(1, localVariables.size());
-        assertEquals(mockedVariable, localVariables.get(0));
+        assertEquals(parsedVariable, localVariables.get(0));
         assertEquals(1, parsedMethod.getPrimitiveLocalCount());
     }
 
     @Test
     public void canAddMultipleLocalVariables() {
-        VariableData firstMockedVariable = mock(VariableData.class);
-        when(firstMockedVariable.isPrimitive()).thenReturn(false);
-
-        VariableData secondMockedVariable = mock(VariableData.class);
-        when(secondMockedVariable.isPrimitive()).thenReturn(true);
-
-
         ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
 
-        parsedMethod.addVariable(firstMockedVariable);
-        parsedMethod.addVariable(secondMockedVariable);
+        ParsedVariable firstParsedVariable = parsedMethod.createVariable("");
+        firstParsedVariable.setIsPrimitive();
+        ParsedVariable secondParsedVariable = parsedMethod.createVariable("");
 
         List<VariableData> localVariables = parsedMethod.getLocalVariables();
 
         assertEquals(2, localVariables.size());
-        assertThat(localVariables, containsInAnyOrder(firstMockedVariable, secondMockedVariable));
+        assertThat(localVariables, containsInAnyOrder(firstParsedVariable, secondParsedVariable));
         assertEquals(1, parsedMethod.getPrimitiveLocalCount());
     }
 

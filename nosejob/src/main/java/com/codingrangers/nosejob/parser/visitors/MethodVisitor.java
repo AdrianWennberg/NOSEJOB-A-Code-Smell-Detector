@@ -1,8 +1,10 @@
 package com.codingrangers.nosejob.parser.visitors;
 
-import com.codingrangers.nosejob.parser.*;
+import com.codingrangers.nosejob.parser.data.ParsedMethod;
+import com.codingrangers.nosejob.parser.data.ParsedVariable;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.javaparser.ast.body.*;
 
 /**
  * parser for method level data enters project at MethodDecloration and exits at
@@ -13,7 +15,7 @@ import com.github.javaparser.ast.body.*;
  */
 public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 
-	VoidVisitorAdapter<ParsedVariable> variableVisitor;
+	private VoidVisitorAdapter<ParsedVariable> variableVisitor;
 	
 	public MethodVisitor(VoidVisitorAdapter<ParsedVariable> variableVistor) {
 		this.variableVisitor = variableVistor;

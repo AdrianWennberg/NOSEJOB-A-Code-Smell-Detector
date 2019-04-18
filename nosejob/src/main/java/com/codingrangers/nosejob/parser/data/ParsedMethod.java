@@ -12,6 +12,7 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneabl
     private final String className;
     private final List<VariableData> parameters;
     private final List<VariableData> localVariables;
+    private ParsedVariable variablePrototype;
     private ReferenceStorage referenceStorage;
 
     ParsedMethod(String blockNamePrefix, String blockName, String filePath, String className) {
@@ -19,10 +20,11 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneabl
         this.className = className;
         parameters = new ArrayList<>();
         localVariables = new ArrayList<>();
+        variablePrototype = new ParsedVariable(getFullyQualifiedName(), "", filePath);
         setReturnType("void", true);
     }
 
-    void setReturnType(String variableType, boolean isPrimitive) {
+    public void setReturnType(String variableType, boolean isPrimitive) {
         ParsedVariable temp = new ParsedVariable(getFullyQualifiedName(), getName(), getFilePath());
         temp.setVariableType(variableType);
         if (isPrimitive)
@@ -33,12 +35,24 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneabl
     void setReturnType(VariableData returnType) {
         this.returnType = returnType;
     }
-    void addParameter(VariableData newParameter) {
-        parameters.add(newParameter);
+
+    void setVariablePrototype(ParsedVariable newPrototype) {
+        variablePrototype = newPrototype;
     }
 
-    void addVariable(VariableData newVariable) {
-        localVariables.add(newVariable);
+    public ParsedVariable createParameter(String name) {
+        ParsedVariable variable = variablePrototype.clone();
+        variable.setName(name);
+        parameters.add(variable);
+        return variable;
+    }
+
+
+    public ParsedVariable createVariable(String name) {
+        ParsedVariable variable = variablePrototype.clone();
+        variable.setName(name);
+        localVariables.add(variable);
+        return variable;
     }
 
     @Override
@@ -94,10 +108,6 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneabl
 
     @Override
     protected ParsedMethod clone() {
-        try {
-            return (ParsedMethod) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException();
-        }
+        return new ParsedMethod(getNamePrefix(), getName(), getFilePath(), getClassName());
     }
 }

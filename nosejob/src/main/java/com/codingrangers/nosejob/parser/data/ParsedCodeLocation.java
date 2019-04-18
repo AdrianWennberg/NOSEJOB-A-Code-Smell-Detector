@@ -13,7 +13,7 @@ public abstract class ParsedCodeLocation implements CodeLocation {
 		path = filePath;
 	}
 
-    void setStartLine(int lineNumber) {
+    public void setStartLine(int lineNumber) {
 		if (lineNumber < 0)
 			throw new IllegalArgumentException("Start line number must be positive");
 
@@ -26,7 +26,7 @@ public abstract class ParsedCodeLocation implements CodeLocation {
 		startLine = lineNumber;
 	}
 
-    void setEndLine(int lineNumber) {
+    public void setEndLine(int lineNumber) {
 		if (lineNumber < 0)
 			throw new IllegalArgumentException("End line number must be positive");
 

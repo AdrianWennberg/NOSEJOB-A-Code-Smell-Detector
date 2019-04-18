@@ -1,5 +1,6 @@
 package com.codingrangers.nosejob.reports;
-import com.codingrangers.nosejob.parser.ParsedProject;
+
+import com.codingrangers.nosejob.parser.data.ParsedProject;
 import com.codingrangers.nosejob.sniffers.GlobalSniffer;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -11,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class GlobalSnifferTest {
     public static class getProjectReportTest{
         @Test
-        public void getProjectReportTest(){
+        public void getProjectReport() {
             String primitiveObsessionName = "Primitive Obsession";
             ParsedProject testProject = new ParsedProject();
 
