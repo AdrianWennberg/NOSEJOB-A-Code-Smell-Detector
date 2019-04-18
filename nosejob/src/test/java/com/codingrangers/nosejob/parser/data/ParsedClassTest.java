@@ -1,21 +1,16 @@
 package com.codingrangers.nosejob.parser.data;
 
-import com.codingrangers.nosejob.models.CodeData;
-import com.codingrangers.nosejob.models.MethodData;
-import com.codingrangers.nosejob.models.VariableData;
+import com.codingrangers.nosejob.models.*;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-/**
- * ParsedClassTest
- */
 
 public class ParsedClassTest {
 	@Test
@@ -127,6 +122,7 @@ public class ParsedClassTest {
 		when(mockedClone.getName()).thenReturn(methodSignature);
 
 		ParsedClass parsedClass = new ParsedClass("", "", "");
+
 		parsedClass.setMethodPrototype(mockedPrototype);
 		MethodData methodData = parsedClass.createMethod(methodSignature);
 
@@ -137,7 +133,6 @@ public class ParsedClassTest {
 		assertEquals(methodData, parsedClass.getMethod(methodSignature));
 		assertEquals(mockedClone, methodData);
 	}
-
 	@Test
 	public void canCreateMultipleMethods() {
 		ParsedMethod mockedPrototype = mock(ParsedMethod.class);
@@ -169,6 +164,39 @@ public class ParsedClassTest {
 	}
 
 	@Test
+	public void canCreateDefaultMethod() {
+		String methodSignature = "testMethod";
+
+		ParsedClass parsedClass = new ParsedClass("", "", "");
+		MethodData methodData = parsedClass.createMethod(methodSignature);
+
+		List<String> methods = parsedClass.getMethodSignatures();
+
+		assertEquals(1, methods.size());
+		assertEquals(methodSignature, methods.get(0));
+		assertEquals(methodData, parsedClass.getMethod(methodSignature));
+	}
+
+	@Test
+	public void canCreateMultipleDefaultMethods() {
+
+		String firstMethodSignature = "testMethodOne";
+
+		String secondMethodSignature = "testMethodTwo";
+
+		ParsedClass parsedClass = new ParsedClass("", "", "");
+
+		MethodData firstMethodData = parsedClass.createMethod(firstMethodSignature);
+		MethodData secondMethodData = parsedClass.createMethod(secondMethodSignature);
+
+		List<String> methods = parsedClass.getMethodSignatures();
+
+		assertEquals(2, methods.size());
+		assertThat(methods, containsInAnyOrder(firstMethodSignature, secondMethodSignature));
+		assertEquals(firstMethodData, parsedClass.getMethod(firstMethodSignature));
+		assertEquals(secondMethodData, parsedClass.getMethod(secondMethodSignature));
+	}
+	@Test
 	public void canCreateField() {
 
 		ParsedVariable mockedPrototype = mock(ParsedVariable.class);
@@ -189,9 +217,8 @@ public class ParsedClassTest {
 		assertEquals(mockedClone, parsedClass.getField(fieldName));
 		assertEquals(mockedClone, fieldData);
 	}
-
 	@Test
-	public void canAddMultipleFields() {
+	public void canCreateMultipleFields() {
 		ParsedVariable mockedPrototype = mock(ParsedVariable.class);
 
 		String firstFieldName = "testFieldOne";
@@ -219,5 +246,226 @@ public class ParsedClassTest {
 		assertEquals(secondMockedField, parsedClass.getField(secondFieldName));
 		assertEquals(firstMockedField, firstFieldData);
 		assertEquals(secondMockedField, secondFieldData);
+	}
+
+	@Test
+	public void canCreateDefaultField() {
+
+		String fieldName = "testField";
+
+		ParsedClass parsedClass = new ParsedClass("", "", "");
+		VariableData fieldData = parsedClass.createField(fieldName);
+
+		List<String> fields = parsedClass.getFieldsNames();
+
+		assertEquals(1, fields.size());
+		assertEquals(fieldName, fields.get(0));
+		assertEquals(fieldData, parsedClass.getField(fieldName));
+	}
+
+	@Test
+	public void canCreateMultipleDefaultFields() {
+
+		String firstFieldName = "testFieldOne";
+
+		String secondFieldName = "testFieldTwo";
+
+		ParsedClass parsedClass = new ParsedClass("", "", "");
+
+		ParsedVariable firstFieldData = parsedClass.createField(firstFieldName);
+		ParsedVariable secondFieldData = parsedClass.createField(secondFieldName);
+
+		List<String> fieldsNames = parsedClass.getFieldsNames();
+
+		assertEquals(2, fieldsNames.size());
+		assertThat(fieldsNames, containsInAnyOrder(firstFieldName, secondFieldName));
+		assertEquals(firstFieldData, parsedClass.getField(firstFieldName));
+		assertEquals(secondFieldData, parsedClass.getField(secondFieldName));
+	}
+
+
+	@Test
+	public void testCountMethods() {
+		ParsedClass parsedClass = new ParsedClass("", "", "");
+
+		assertEquals(0, parsedClass.countMethods());
+		parsedClass.createMethod("a");
+		assertEquals(1, parsedClass.countMethods());
+		parsedClass.createMethod("b");
+		assertEquals(2, parsedClass.countMethods());
+	}
+
+	@Test
+	public void testCountFields() {
+		ParsedClass parsedClass = new ParsedClass("", "", "");
+
+		assertEquals(0, parsedClass.countFields());
+		parsedClass.createField("a");
+		assertEquals(1, parsedClass.countFields());
+		parsedClass.createField("b");
+		assertEquals(2, parsedClass.countFields());
+	}
+
+	@Test
+	public void testCountPublicFields() {
+		ParsedClass parsedClass = new ParsedClass("", "", "");
+
+		assertEquals(0, parsedClass.countPublicFields());
+
+		ParsedVariable createdField = parsedClass.createField("a");
+		createdField.setAccessSpecifier(AccessSpecifier.PUBLIC);
+		assertEquals(1, parsedClass.countPublicFields());
+
+		createdField = parsedClass.createField("b");
+		assertEquals(1, parsedClass.countPublicFields());
+
+		createdField.setAccessSpecifier(AccessSpecifier.PUBLIC);
+		assertEquals(2, parsedClass.countPublicFields());
+	}
+
+	@Test
+	public void canAddMethodReferences() {
+		String className = "ClassName";
+		String namePrefix = "name.prefix";
+		String fullyQualifiedName = "name.prefix.ClassName";
+		ParsedClass parsedClass = new ParsedClass(namePrefix, className, "");
+
+		ReferenceStorage mockedStorage = mock(ReferenceStorage.class);
+		parsedClass.setReferenceStorage(mockedStorage);
+
+
+		String otherClassName = "name.other.OtherClassName";
+		String methodSignature = "foo()";
+
+		MethodReference reference = parsedClass.addReferenceToMethod(otherClassName, methodSignature);
+
+		assertEquals(fullyQualifiedName, reference.getReferredClassName());
+		assertEquals(otherClassName, reference.getReferencingClassName());
+		assertEquals(methodSignature, reference.getReferredMethodSignature());
+
+		verify(mockedStorage, times(1)).add(reference);
+	}
+
+	@Test
+	public void canGetMethodReferences() {
+		String className = "ClassName";
+		String namePrefix = "name.prefix";
+		String fullyQualifiedName = "name.prefix.ClassName";
+		ParsedClass parsedClass = new ParsedClass(namePrefix, className, "");
+
+		ReferenceStorage mockedStorage = mock(ReferenceStorage.class);
+		parsedClass.setReferenceStorage(mockedStorage);
+
+		MethodReference mockedReference = mock(MethodReference.class);
+
+		List<MethodReference> references = new ArrayList<>();
+		references.add(mockedReference);
+		references.add(mockedReference);
+		references.add(mockedReference);
+
+		String otherClassName = "name.other.OtherClassName";
+
+		when(mockedStorage.getMethodReference(fullyQualifiedName, otherClassName)).thenReturn(references);
+
+
+		Iterable<MethodReference> methodReferences = parsedClass.getMethodCallsTo(otherClassName);
+
+		assertEquals(references, methodReferences);
+		assertEquals(3, parsedClass.countMethodCallsTo(otherClassName));
+	}
+
+	@Test
+	public void canGetInternalMethodReferences() {
+		String className = "ClassName";
+		String namePrefix = "name.prefix";
+		String fullyQualifiedName = "name.prefix.ClassName";
+		ParsedClass parsedClass = new ParsedClass(namePrefix, className, "");
+
+		ReferenceStorage mockedStorage = mock(ReferenceStorage.class);
+		parsedClass.setReferenceStorage(mockedStorage);
+
+		MethodReference mockedReference = mock(MethodReference.class);
+
+		List<MethodReference> references = new ArrayList<>();
+		references.add(mockedReference);
+		references.add(mockedReference);
+		references.add(mockedReference);
+
+
+		when(mockedStorage.getMethodReference(fullyQualifiedName, fullyQualifiedName)).thenReturn(references);
+
+
+		Iterable<MethodReference> methodReferences = parsedClass.getInternalMethodCalls();
+
+		assertEquals(references, methodReferences);
+		assertEquals(3, parsedClass.countInternalMethodCalls());
+	}
+
+	@Test
+	public void canAddFieldReferences() {
+		String className = "ClassName";
+		String namePrefix = "name.prefix";
+		String fullyQualifiedName = "name.prefix.ClassName";
+		ParsedClass parsedClass = new ParsedClass(namePrefix, className, "");
+
+		ReferenceStorage mockedStorage = mock(ReferenceStorage.class);
+		parsedClass.setReferenceStorage(mockedStorage);
+		String otherClassName = "name.other.OtherClassName";
+		String fieldName = "foo";
+
+		FieldReference reference = parsedClass.addReferenceToField(otherClassName, fieldName);
+
+		assertEquals(fullyQualifiedName, reference.getReferredClassName());
+		assertEquals(otherClassName, reference.getReferencingClassName());
+		assertEquals(fieldName, reference.getReferredFieldName());
+
+		verify(mockedStorage, times(1)).add(reference);
+	}
+
+	@Test
+	public void canGetFieldReferences() {
+		String className = "ClassName";
+		String namePrefix = "name.prefix";
+		String fullyQualifiedName = "name.prefix.ClassName";
+		ParsedClass parsedClass = new ParsedClass(namePrefix, className, "");
+
+		ReferenceStorage mockedStorage = mock(ReferenceStorage.class);
+		parsedClass.setReferenceStorage(mockedStorage);
+
+		FieldReference mockedReference = mock(FieldReference.class);
+
+		List<FieldReference> references = new ArrayList<>();
+		references.add(mockedReference);
+		references.add(mockedReference);
+		references.add(mockedReference);
+
+		String otherClassName = "name.other.OtherClassName";
+
+		when(mockedStorage.getFieldReference(fullyQualifiedName, otherClassName)).thenReturn(references);
+
+
+		Iterable<FieldReference> methodReferences = parsedClass.getFieldReferencesTo(otherClassName);
+
+		assertEquals(references, methodReferences);
+		assertEquals(3, parsedClass.countFieldReferencesTo(otherClassName));
+	}
+
+	@Test
+	public void canClone() {
+		String className = "ClassName";
+		String namePrefix = "name.prefix";
+		String fullyQualifiedName = "name.prefix.ClassName";
+		String path = "C:/File/path.java";
+		ParsedClass parsedClass = new ParsedClass(namePrefix, className, path);
+
+		assertEquals(className, parsedClass.getName());
+		assertEquals(fullyQualifiedName, parsedClass.getFullyQualifiedName());
+		assertEquals(path, parsedClass.getFilePath());
+
+		CodeData clonedClass = parsedClass.clone();
+
+		assertEquals(className, clonedClass.getName());
+		assertEquals(fullyQualifiedName, clonedClass.getFullyQualifiedName());
+		assertEquals(path, clonedClass.getFilePath());
 	}
 }

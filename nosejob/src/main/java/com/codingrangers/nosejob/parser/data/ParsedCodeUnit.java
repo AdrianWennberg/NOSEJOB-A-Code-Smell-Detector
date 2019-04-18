@@ -2,9 +2,6 @@ package com.codingrangers.nosejob.parser.data;
 
 import com.codingrangers.nosejob.models.CodeData;
 
-/**
- * NamedBlock TODO: Need to unit test this
- */
 public abstract class ParsedCodeUnit extends ParsedCodeLocation implements CodeData {
 
     private String namePrefix;

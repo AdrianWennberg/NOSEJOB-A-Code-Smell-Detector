@@ -18,17 +18,7 @@ class ReferenceStorage {
     private Map<String, List<FieldReference>> fieldReferencesByReferred;
 
 
-    private static ReferenceStorage instance;
-
-    public static ReferenceStorage get() {
-        if (instance == null) {
-            instance = new ReferenceStorage();
-        }
-
-        return instance;
-    }
-
-    private ReferenceStorage() {
+    public ReferenceStorage() {
         methodReferencesByReferencing = new HashMap<>();
         methodReferencesByReferred = new HashMap<>();
 

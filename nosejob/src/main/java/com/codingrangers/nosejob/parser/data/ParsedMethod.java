@@ -6,27 +6,33 @@ import com.codingrangers.nosejob.models.VariableData;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * ParsedMethod TODO: Need to unit test this
- */
 public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneable {
 
     private VariableData returnType;
     private final String className;
     private final List<VariableData> parameters;
     private final List<VariableData> localVariables;
+    private ReferenceStorage referenceStorage;
 
     ParsedMethod(String blockNamePrefix, String blockName, String filePath, String className) {
         super(blockNamePrefix, blockName, filePath);
         this.className = className;
         parameters = new ArrayList<>();
         localVariables = new ArrayList<>();
+        setReturnType("void", true);
     }
 
-    void addReturnType(VariableData methodReturnType) {
-        returnType = methodReturnType;
+    void setReturnType(String variableType, boolean isPrimitive) {
+        ParsedVariable temp = new ParsedVariable(getFullyQualifiedName(), getName(), getFilePath());
+        temp.setVariableType(variableType);
+        if (isPrimitive)
+            temp.setIsPrimitive();
+        returnType = temp;
     }
 
+    void setReturnType(VariableData returnType) {
+        this.returnType = returnType;
+    }
     void addParameter(VariableData newParameter) {
         parameters.add(newParameter);
     }
@@ -70,20 +76,24 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneabl
         return DataStructureHelpers.countPrimitives(localVariables);
     }
 
+    void setReferenceStorage(ReferenceStorage storage) {
+        referenceStorage = storage;
+    }
+
     public ParsedMethodReference addReferenceToMethod(String fullyQualifiedClassName, String methodSignature) {
         ParsedMethodReference methodRef = new ParsedMethodReference(getFilePath(), getFullyQualifiedName(), fullyQualifiedClassName, methodSignature);
-        ReferenceStorage.get().add(methodRef);
+        referenceStorage.add(methodRef);
         return methodRef;
     }
 
     public ParsedFieldReference addReferenceToField(String fullyQualifiedClassName, String fieldName) {
         ParsedFieldReference fieldRef = new ParsedFieldReference(getFilePath(), getFullyQualifiedName(), fullyQualifiedClassName, fieldName);
-        ReferenceStorage.get().add(fieldRef);
+        referenceStorage.add(fieldRef);
         return fieldRef;
     }
 
     @Override
-    protected final ParsedMethod clone() {
+    protected ParsedMethod clone() {
         try {
             return (ParsedMethod) super.clone();
         } catch (CloneNotSupportedException e) {

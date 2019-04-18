@@ -34,5 +34,4 @@ public class ParsedMethodReference extends ParsedCodeLocation implements MethodR
     public boolean isInternal() {
         return referredClassName.equals(referencingClassName);
     }
-
 }

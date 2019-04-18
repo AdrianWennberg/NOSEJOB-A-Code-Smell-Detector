@@ -1,6 +1,8 @@
 package com.codingrangers.nosejob.parser.data;
 
 import com.codingrangers.nosejob.models.CodeData;
+import com.codingrangers.nosejob.models.FieldReference;
+import com.codingrangers.nosejob.models.MethodReference;
 import com.codingrangers.nosejob.models.VariableData;
 import org.junit.Test;
 
@@ -8,8 +10,7 @@ import java.util.List;
 
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ParsedMethodTest {
     @Test
@@ -140,7 +141,7 @@ public class ParsedMethodTest {
 
         ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
 
-        parsedMethod.addReturnType(mockedReturnType);
+        parsedMethod.setReturnType(mockedReturnType);
 
         assertEquals(mockedReturnType, parsedMethod.getReturnType());
         assertTrue(parsedMethod.hasPrimitiveReturnType());
@@ -151,7 +152,7 @@ public class ParsedMethodTest {
 
         parsedMethod = new ParsedMethod("", "", "", "");
 
-        parsedMethod.addReturnType(mockedReturnType);
+        parsedMethod.setReturnType(mockedReturnType);
 
         assertEquals(mockedReturnType, parsedMethod.getReturnType());
         assertFalse(parsedMethod.hasPrimitiveReturnType());
@@ -231,5 +232,73 @@ public class ParsedMethodTest {
         assertEquals(2, localVariables.size());
         assertThat(localVariables, containsInAnyOrder(firstMockedVariable, secondMockedVariable));
         assertEquals(1, parsedMethod.getPrimitiveLocalCount());
+    }
+
+
+    @Test
+    public void canAddMethodReferences() {
+        String methodSignature = "foo()";
+        String className = "ClassName";
+        String namePrefix = "name.prefix.ClassName";
+        String fullyQualifiedName = "name.prefix.ClassName.foo()";
+        ParsedMethod parsedMethod = new ParsedMethod(namePrefix, methodSignature, "", className);
+
+        ReferenceStorage mockedStorage = mock(ReferenceStorage.class);
+        parsedMethod.setReferenceStorage(mockedStorage);
+
+        String otherClassName = "name.other.OtherClassName";
+        String calledMethodSignature = "bar()";
+
+        MethodReference reference = parsedMethod.addReferenceToMethod(otherClassName, calledMethodSignature);
+
+        assertEquals(fullyQualifiedName, reference.getReferredClassName());
+        assertEquals(otherClassName, reference.getReferencingClassName());
+        assertEquals(calledMethodSignature, reference.getReferredMethodSignature());
+
+        verify(mockedStorage, times(1)).add(reference);
+    }
+
+    @Test
+    public void canAddFieldReferences() {
+        String methodSignature = "foo()";
+        String className = "ClassName";
+        String namePrefix = "name.prefix.ClassName";
+        String fullyQualifiedName = "name.prefix.ClassName.foo()";
+        ParsedMethod parsedMethod = new ParsedMethod(namePrefix, methodSignature, "", className);
+
+        ReferenceStorage mockedStorage = mock(ReferenceStorage.class);
+        parsedMethod.setReferenceStorage(mockedStorage);
+        String otherClassName = "name.other.OtherClassName";
+        String fieldName = "bar";
+
+        FieldReference reference = parsedMethod.addReferenceToField(otherClassName, fieldName);
+
+        assertEquals(fullyQualifiedName, reference.getReferredClassName());
+        assertEquals(otherClassName, reference.getReferencingClassName());
+        assertEquals(fieldName, reference.getReferredFieldName());
+
+        verify(mockedStorage, times(1)).add(reference);
+    }
+
+    @Test
+    public void canClone() {
+        String methodSignature = "foo()";
+        String namePrefix = "name.prefix.ClassName";
+        String className = "ClassName";
+        String fullyQualifiedName = "name.prefix.ClassName.foo()";
+        String path = "C:/File/path.java";
+        ParsedMethod parsedMethod = new ParsedMethod(namePrefix, methodSignature, path, className);
+
+        assertEquals(methodSignature, parsedMethod.getName());
+        assertEquals(fullyQualifiedName, parsedMethod.getFullyQualifiedName());
+        assertEquals(path, parsedMethod.getFilePath());
+        assertEquals(className, parsedMethod.getClassName());
+
+        CodeData clonedMethod = parsedMethod.clone();
+
+        assertEquals(methodSignature, clonedMethod.getName());
+        assertEquals(fullyQualifiedName, clonedMethod.getFullyQualifiedName());
+        assertEquals(path, clonedMethod.getFilePath());
+        assertEquals(className, parsedMethod.getClassName());
     }
 }

@@ -8,15 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * ParsedClass TODO: Need to unit test this
- */
 public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable {
 
     private final Map<String, MethodData> classMethods;
     private final Map<String, VariableData> classVariables;
     private ParsedMethod methodPrototype;
     private ParsedVariable fieldPrototype;
+    private ReferenceStorage referenceStorage;
 
     ParsedClass(String classNamePrefix, String className, String filePath) {
         super(classNamePrefix, className, filePath);
@@ -26,6 +24,7 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
         fieldPrototype = new ParsedVariable(getFullyQualifiedName(), "", filePath);
     }
 
+
     void setMethodPrototype(ParsedMethod newPrototype) {
         methodPrototype = newPrototype;
     }
@@ -33,10 +32,10 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
     ParsedMethod createMethod(String name) {
         ParsedMethod method = methodPrototype.clone();
         method.setName(name);
+        method.setReferenceStorage(referenceStorage);
         classMethods.put(method.getName(), method);
         return method;
     }
-
 
     @Override
     public int countMethods() {
@@ -53,12 +52,14 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
         return classMethods.get(name);
     }
 
+
     void setFieldPrototype(ParsedVariable newPrototype) {
         fieldPrototype = newPrototype;
     }
 
     ParsedVariable createField(String name) {
         ParsedVariable variable = fieldPrototype.clone();
+        variable.setName(name);
         classVariables.put(variable.getName(), variable);
         return variable;
     }
@@ -89,6 +90,11 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
         return classVariables.get(name);
     }
 
+
+    void setReferenceStorage(ReferenceStorage storage) {
+        referenceStorage = storage;
+    }
+
     @Override
     public int countInternalMethodCalls() {
         return countMethodCallsTo(getFullyQualifiedName());
@@ -106,7 +112,7 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
 
     @Override
     public Iterable<MethodReference> getMethodCallsTo(String fullyQualifiedClassName) {
-        return ReferenceStorage.get().getMethodReference(getFullyQualifiedName(), fullyQualifiedClassName);
+        return referenceStorage.getMethodReference(getFullyQualifiedName(), fullyQualifiedClassName);
     }
 
     @Override
@@ -116,25 +122,25 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
 
     @Override
     public Iterable<FieldReference> getFieldReferencesTo(String fullyQualifiedClassName) {
-        return ReferenceStorage.get().getFieldReference(getFullyQualifiedName(), fullyQualifiedClassName);
+        return referenceStorage.getFieldReference(getFullyQualifiedName(), fullyQualifiedClassName);
     }
 
     public ParsedMethodReference addReferenceToMethod(String fullyQualifiedClassName, String methodSignature) {
         ParsedMethodReference methodRef = new ParsedMethodReference(getFilePath(), getFullyQualifiedName(),
                 fullyQualifiedClassName, methodSignature);
-        ReferenceStorage.get().add(methodRef);
+        referenceStorage.add(methodRef);
         return methodRef;
     }
 
     public ParsedFieldReference addReferenceToField(String fullyQualifiedClassName, String fieldName) {
         ParsedFieldReference fieldRef = new ParsedFieldReference(getFilePath(), getFullyQualifiedName(),
                 fullyQualifiedClassName, fieldName);
-        ReferenceStorage.get().add(fieldRef);
+        referenceStorage.add(fieldRef);
         return fieldRef;
     }
 
     @Override
-    protected final ParsedClass clone() {
+    protected ParsedClass clone() {
         try {
             return (ParsedClass) super.clone();
         } catch (CloneNotSupportedException e) {

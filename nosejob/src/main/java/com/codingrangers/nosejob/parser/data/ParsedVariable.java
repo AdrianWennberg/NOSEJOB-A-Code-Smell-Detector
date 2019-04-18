@@ -3,9 +3,6 @@ package com.codingrangers.nosejob.parser.data;
 import com.codingrangers.nosejob.models.AccessSpecifier;
 import com.codingrangers.nosejob.models.VariableData;
 
-/**
- * ParsedVariable TODO: Need to unit test this
- */
 public class ParsedVariable extends ParsedCodeUnit implements VariableData, Cloneable {
 
 	private String type;
@@ -46,7 +43,7 @@ public class ParsedVariable extends ParsedCodeUnit implements VariableData, Clon
 	}
 
 	@Override
-	protected final ParsedVariable clone() {
+	protected ParsedVariable clone() {
 		try {
 			return (ParsedVariable) super.clone();
 		} catch (CloneNotSupportedException e) {

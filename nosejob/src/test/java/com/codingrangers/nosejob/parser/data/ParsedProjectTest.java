@@ -34,7 +34,7 @@ public class ParsedProjectTest {
     }
 
     @Test
-    public void canAddMultipleClasses() {
+    public void canCreateMultipleClasses() {
         String firstClassName = "testClassOne";
         ParsedClass firstMockedClass = mock(ParsedClass.class);
         when(firstMockedClass.getName()).thenReturn(firstClassName);
@@ -87,7 +87,7 @@ public class ParsedProjectTest {
     }
 
     @Test
-    public void canAddMultipleDefaultClasses() {
+    public void canCreateMultipleDefaultClasses() {
 
         String firstClassNamePrefix = "com.example";
         String firstClassName = "testClassOne";
@@ -120,4 +120,6 @@ public class ParsedProjectTest {
         assertEquals(secondClassName, secondCreatedClassData.getName());
         assertEquals(secondFilePath, secondCreatedClassData.getFilePath());
     }
+
+
 }

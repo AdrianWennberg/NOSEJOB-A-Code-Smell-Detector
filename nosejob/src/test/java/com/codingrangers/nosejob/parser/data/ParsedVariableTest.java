@@ -1,5 +1,6 @@
 package com.codingrangers.nosejob.parser.data;
 
+import com.codingrangers.nosejob.models.AccessSpecifier;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -138,5 +139,22 @@ public class ParsedVariableTest {
 		parsedVariable.setVariableType(variableType);
 
 		assertEquals(variableType, parsedVariable.getType());
+	}
+
+	@Test
+	public void canSetAccessSpecifier() {
+		ParsedVariable parsedVariable = new ParsedVariable("", "", "");
+
+		AccessSpecifier accessSpecifier = AccessSpecifier.PUBLIC;
+		parsedVariable.setAccessSpecifier(accessSpecifier);
+
+		assertEquals(accessSpecifier, parsedVariable.getAccessSpecifier());
+
+		parsedVariable = new ParsedVariable("", "", "");
+
+		accessSpecifier = AccessSpecifier.PROTECTED;
+		parsedVariable.setAccessSpecifier(accessSpecifier);
+
+		assertEquals(accessSpecifier, parsedVariable.getAccessSpecifier());
 	}
 }

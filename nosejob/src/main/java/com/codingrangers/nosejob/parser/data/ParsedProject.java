@@ -8,17 +8,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * ParsedProject TODO: Need to unit test this
- */
 public class ParsedProject implements ProjectData {
 
 	private Map<String, ClassData> classes;
 	private ParsedClass classPrototype;
+	private ReferenceStorage referanceStorage;
 
 	public ParsedProject() {
 		classes = new HashMap<>();
 		classPrototype = new ParsedClass("", "", "");
+		referanceStorage = new ReferenceStorage();
+		classPrototype.setReferenceStorage(referanceStorage);
 	}
 
 	public void setClassPrototype(ParsedClass newPrototype) {
