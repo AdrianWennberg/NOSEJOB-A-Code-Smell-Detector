@@ -30,6 +30,13 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 	 */
 	@Override
 	public void visit(MethodDeclaration method, ParsedMethod methodData) {
+		ParsedVariable returnTypeVar = methodData.createVariable(method.getSignature().asString());
+		
+		for(Parameter p : method.getParameters()) {
+			ParsedVariable paramaterData = methodData.createParameter(p.getNameAsString());
+			variableVisitor.visit(p, paramaterData);
+		}
+		
 		super.visit(method,methodData);
 	}
 	
