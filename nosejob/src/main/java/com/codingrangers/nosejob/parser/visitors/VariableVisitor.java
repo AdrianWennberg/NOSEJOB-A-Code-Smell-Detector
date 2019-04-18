@@ -8,6 +8,7 @@ import com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade;
 import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.expr.AssignExpr;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
+import com.github.javaparser.ast.type.ReferenceType;
 import com.github.javaparser.ast.type.Type;
 import com.github.javaparser.ast.*;
 
@@ -32,7 +33,10 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 		
 		System.out.println(variable.getNameAsString());
 		
-		ResolvedType var = variable.getType().resolve();
+		ResolvedType resolbedType = variable.getType().resolve();
+		
+		if(resolbedType.isReferenceType())
+			System.out.println(resolbedType.asReferenceType().getQualifiedName());
 		
 		//the commeted code bellow is temporarly documenting how to get the various values
 		//that will be needed in the near future
