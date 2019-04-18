@@ -1,8 +1,13 @@
 package com.codingrangers.nosejob.parser.visitors;
 
 import com.codingrangers.nosejob.parser.ParsedVariable;
+import com.codingrangers.nosejob.parser.ProjectParser;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.javaparser.resolution.types.ResolvedType;
+import com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade;
 import com.github.javaparser.ast.body.*;
+import com.github.javaparser.ast.expr.AssignExpr;
+import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.ast.type.Type;
 import com.github.javaparser.ast.*;
 
@@ -25,6 +30,10 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 		if(variable.getType().isPrimitiveType())
 			variableData.setIsPrimitive();
 		
+		System.out.println(variable.getNameAsString());
+		
+		ResolvedType var = variable.getType().resolve();
+		
 		//the commeted code bellow is temporarly documenting how to get the various values
 		//that will be needed in the near future
 		
@@ -45,6 +54,16 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 		Type type = variable.getType();
 		System.out.println(type.asString() +" is prim: "+ type.isPrimitiveType());
 		System.out.println(variable.getBegin().get().line);*/
+	}
+	
+	public void visit(VariableDeclarationExpr vde, ParsedVariable variableData ) {
+		System.out.println("expr");
+		System.out.println(vde.calculateResolvedType());
+	}
+	
+	public void visit(AssignExpr vde, ParsedVariable variableData ) {
+		System.out.println("expr");
+		System.out.println(vde.calculateResolvedType());
 	}
 	
 }

@@ -2,6 +2,11 @@ package com.codingrangers.nosejob.parser;
 
 import com.github.javaparser.*;
 import com.github.javaparser.ast.*;
+import com.github.javaparser.symbolsolver.JavaSymbolSolver;
+import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.parser.visitors.*;
 import com.codingrangers.nosejob.models.CodeParser;
@@ -23,6 +28,8 @@ public class ProjectParser implements CodeParser {
 
 	ParsedProject parsedProject;
 	ClassVisitor ClassVisitor;
+	
+	public static CombinedTypeSolver combinedSolver;
 
 	public ProjectParser() {
 		VariableVisitor variableVisitor = new VariableVisitor();
@@ -49,6 +56,16 @@ public class ProjectParser implements CodeParser {
 		if(root.exists() == false) 
 			throw new FileNotFoundException();
 				
+		JavaParserTypeSolver parserSolver = new JavaParserTypeSolver(path);
+		ReflectionTypeSolver reflectionSolver = new ReflectionTypeSolver();
+		
+		combinedSolver = new CombinedTypeSolver();
+		combinedSolver.add(parserSolver);
+		combinedSolver.add(reflectionSolver);
+		
+		JavaSymbolSolver symbolSolver = new JavaSymbolSolver(combinedSolver);
+		JavaParser.getStaticConfiguration().setSymbolResolver(symbolSolver);
+		
 		directoryOrFile(root);
 		
 		ParsedProject returnValue = parsedProject;

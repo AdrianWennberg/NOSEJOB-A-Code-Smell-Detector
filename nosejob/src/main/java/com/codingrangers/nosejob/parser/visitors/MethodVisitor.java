@@ -3,6 +3,7 @@ package com.codingrangers.nosejob.parser.visitors;
 import com.codingrangers.nosejob.parser.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.ast.body.*;
+import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 
 /**
  * parser for method level data enters project at MethodDecloration and exits at
