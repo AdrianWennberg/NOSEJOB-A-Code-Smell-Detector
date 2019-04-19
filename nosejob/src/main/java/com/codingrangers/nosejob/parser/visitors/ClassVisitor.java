@@ -45,6 +45,8 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 	@Override
 	public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedClass classData) {
 		if (classOrInterface.isInterface() == false) {
+			classData.setStartLine(classOrInterface.getBegin().get().line);
+			classData.setEndLine(classOrInterface.getEnd().get().line);
 			super.visit(classOrInterface, classData);
 		}
 	}
