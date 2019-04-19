@@ -1,10 +1,8 @@
 package com.codingrangers.nosejob.parser.visitors;
 
-import com.codingrangers.nosejob.parser.ParsedVariable;
+import com.codingrangers.nosejob.parser.data.ParsedVariable;
+import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.javaparser.ast.body.*;
-import com.github.javaparser.ast.type.Type;
-import com.github.javaparser.ast.*;
 
 /**
  * parsing for Variable level data enters project at VariableDeclarationExpr

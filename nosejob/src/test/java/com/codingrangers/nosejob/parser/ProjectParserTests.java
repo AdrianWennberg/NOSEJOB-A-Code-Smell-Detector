@@ -1,18 +1,21 @@
 package com.codingrangers.nosejob.parser;
 
-import org.junit.*;
-import static org.mockito.Mockito.*;
+import com.codingrangers.nosejob.models.ProjectData;
+import com.codingrangers.nosejob.parser.data.ParsedClass;
+import com.codingrangers.nosejob.parser.data.ParsedProject;
+import com.codingrangers.nosejob.parser.visitors.ClassVisitor;
+import com.github.javaparser.ast.CompilationUnit;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.FileNotFoundException;
 
-import com.codingrangers.nosejob.models.ProjectData;
-import com.codingrangers.nosejob.parser.visitors.ClassVisitor;
-import com.github.javaparser.ast.CompilationUnit;	
+import static org.mockito.Mockito.*;
 
 public class ProjectParserTests {
-	ProjectParser target;
-	ParsedProject mockParsedProject;
-	ClassVisitor mockClassVisitor;
+	private ProjectParser target;
+	private ParsedProject mockParsedProject;
+	private ClassVisitor mockClassVisitor;
 	
 	@Before
 	public void before() {
@@ -25,6 +28,8 @@ public class ProjectParserTests {
 	@Test
 	public void parseProjectTest() {
 		ProjectData result = null;
+
+		when(mockParsedProject.createClass(anyString(), anyString(), anyString())).thenReturn(mock(ParsedClass.class));
 		
 		try {
 			result = target.parseProject("src/test/ParserTestTargets/ProjectParserTestsFolderTarget/dumyClass1.java");
@@ -34,12 +39,12 @@ public class ProjectParserTests {
 		}
 		
 		assert(result != null);
-		verify(mockParsedProject).addClass(any(ParsedClass.class));
+		verify(mockParsedProject).createClass(anyString(), anyString(), anyString());
 		verify(mockClassVisitor).visit(any(CompilationUnit.class),any(ParsedClass.class));
 	}
 	
 	@Test
-	public void parseProject_IncorectFileTest() {
+	public void parseProject_IncorrectFileTest() {
 		try {
 			target.parseProject("not/a/file");
 			assert(false);
@@ -55,8 +60,8 @@ public class ProjectParserTests {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	
-		verify(mockParsedProject, times(3)).addClass(any(ParsedClass.class));
+
+		verify(mockParsedProject, times(3)).createClass(anyString(), anyString(), anyString());
 		
 	}
 	

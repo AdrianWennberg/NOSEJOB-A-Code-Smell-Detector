@@ -1,9 +1,14 @@
 package com.codingrangers.nosejob.parser.visitors;
 
-import com.codingrangers.nosejob.parser.*;
+import com.codingrangers.nosejob.parser.data.ParsedClass;
+import com.codingrangers.nosejob.parser.data.ParsedMethod;
+import com.codingrangers.nosejob.parser.data.ParsedVariable;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.FieldDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.javaparser.ast.body.*;
-import com.github.javaparser.ast.*;
 
 /**
  * parser for class level data enters project from ClassOrInterfaceDeclaration
@@ -14,20 +19,20 @@ import com.github.javaparser.ast.*;
  */
 public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 
-	VoidVisitorAdapter<ParsedMethod> methodVisitor;
-	VoidVisitorAdapter<ParsedVariable> feildVisitor;
+	private VoidVisitorAdapter<ParsedMethod> methodVisitor;
+	private VoidVisitorAdapter<ParsedVariable> fieldVisitor;
 
 	public ClassVisitor(VoidVisitorAdapter<ParsedMethod> methodVisitor,
-			VoidVisitorAdapter<ParsedVariable> feildVisitor) {
+						VoidVisitorAdapter<ParsedVariable> fieldVisitor) {
 		this.methodVisitor = methodVisitor;
-		this.feildVisitor = feildVisitor;
+		this.fieldVisitor = fieldVisitor;
 	}
 
 	@Override
 	public void visit(FieldDeclaration field, ParsedClass classData) {
 		for (VariableDeclarator variable : field.getVariables()) {
 			ParsedVariable variableData = classData.createField(variable.getNameAsString());
-			feildVisitor.visit(variable, variableData);
+			fieldVisitor.visit(variable, variableData);
 		}
 	}
 

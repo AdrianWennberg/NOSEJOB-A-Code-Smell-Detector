@@ -4,4 +4,6 @@ public interface VariableData extends CodeData {
 	String getType();
 
 	boolean isPrimitive();
+	
+	AccessSpecifier getAccessSpecifier();
 }

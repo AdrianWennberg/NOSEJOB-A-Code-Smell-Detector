@@ -1,21 +1,19 @@
-package com.codingrangers.nosejob.data;
+package com.codingrangers.nosejob.parser.data;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import com.codingrangers.nosejob.models.VariableData;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
-import com.codingrangers.nosejob.helpers.DataStructureHelpers;
-import com.codingrangers.nosejob.models.VariableData;
-
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TestDataStructureHelpers {
 
 	@Test
 	public void testCountPrimitives() {
-		ArrayList<VariableData> variables = new ArrayList<VariableData>();
+		ArrayList<VariableData> variables = new ArrayList<>();
 
 		assertEquals(0, DataStructureHelpers.countPrimitives(variables));
 

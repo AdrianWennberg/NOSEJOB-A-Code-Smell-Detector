@@ -1,7 +1,10 @@
 package com.codingrangers.nosejob.sniffers;
 
 import com.codingrangers.nosejob.models.ClassData;
-import com.codingrangers.nosejob.parser.*;
+import com.codingrangers.nosejob.parser.data.ParsedClass;
+import com.codingrangers.nosejob.parser.data.ParsedMethod;
+import com.codingrangers.nosejob.parser.data.ParsedProject;
+import com.codingrangers.nosejob.parser.data.ParsedVariable;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -17,23 +20,17 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromMethodTest() {
             ParsedProject projectTest = new ParsedProject();
 
-            ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
+            ParsedClass testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
-            ParsedMethod testMethod = new ParsedMethod(testClass, "testMethod");
+            ParsedMethod testMethod = testClass.createMethod("testMethod");
 
-            ParsedVariable firstTestField = new ParsedVariable(testMethod, "firstTestField");
+            ParsedVariable firstTestField = testMethod.createParameter("firstTestField");
             firstTestField.setIsPrimitive();
-            ParsedVariable secondTestField = new ParsedVariable(testMethod, "secondTestField");
+
+            ParsedVariable secondTestField = testMethod.createVariable("secondTestField");
             secondTestField.setIsPrimitive();
-            ParsedVariable thirdTestField = new ParsedVariable(testMethod, "thirdTestField");
 
-            projectTest.addClass(testClass);
-
-            testClass.addMethod(testMethod);
-
-            testMethod.addParameter(firstTestField);
-            testMethod.addVariable(secondTestField);
-            testMethod.addReturnType(thirdTestField);
+            testMethod.setReturnType("", false);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
@@ -45,31 +42,23 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromMethodsTest() {
             ParsedProject projectTest = new ParsedProject();
 
-            ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
+            ParsedClass testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
-            ParsedMethod firstTestMethod = new ParsedMethod(testClass, "firstTestMethod");
-            ParsedMethod secondTestMethod = new ParsedMethod(testClass, "secondTestMethod");
+            ParsedMethod firstTestMethod = testClass.createMethod("firstTestMethod");
+            ParsedMethod secondTestMethod = testClass.createMethod("secondTestMethod");
 
-            ParsedVariable firstTestField = new ParsedVariable(firstTestMethod, "firstTestField");
+
+            ParsedVariable firstTestField = firstTestMethod.createParameter("firstTestField");
             firstTestField.setIsPrimitive();
-            ParsedVariable secondTestField = new ParsedVariable(firstTestMethod, "secondTestField");
+            ParsedVariable secondTestField = firstTestMethod.createVariable("secondTestField");
             secondTestField.setIsPrimitive();
-            ParsedVariable thirdTestField = new ParsedVariable(firstTestMethod, "thirdTestField");
-            ParsedVariable fourthTestField = new ParsedVariable(secondTestMethod, "fourthTestField");
-            fourthTestField.setIsPrimitive();
-            ParsedVariable fifthTestField = new ParsedVariable(secondTestMethod, "fifthTestField");
-            ParsedVariable sixthTestField = new ParsedVariable(secondTestMethod, "sixthTestField");
+            firstTestMethod.setReturnType("", false);
 
-            projectTest.addClass(testClass);
-            testClass.addMethod(firstTestMethod);
-            testClass.addMethod(secondTestMethod);
 
-            firstTestMethod.addParameter(firstTestField);
-            firstTestMethod.addVariable(secondTestField);
-            firstTestMethod.addReturnType(thirdTestField);
-            secondTestMethod.addParameter(fourthTestField);
-            secondTestMethod.addVariable(fifthTestField);
-            secondTestMethod.addReturnType(sixthTestField);
+            ParsedVariable thirdTestField = secondTestMethod.createParameter("thirdTestField");
+            thirdTestField.setIsPrimitive();
+            ParsedVariable fourthTestField = secondTestMethod.createVariable("fourthTestField");
+            secondTestMethod.setReturnType("", false);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
@@ -81,32 +70,23 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromMethodsOfMultipleClassesTest() {
             ParsedProject projectTest = new ParsedProject();
 
-            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+            ParsedClass firstTestClass = projectTest.createClass("nosejob", "firstTestClass", "C:\\tests");
+            ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
-            ParsedMethod firstTestMethod = new ParsedMethod(firstTestClass, "firstTestMethod");
-            ParsedMethod secondTestMethod = new ParsedMethod(secondTestClass, "secondTestMethod");
+            ParsedMethod firstTestMethod = firstTestClass.createMethod("firstTestMethod");
+            ParsedMethod secondTestMethod = secondTestClass.createMethod("secondTestMethod");
 
-            ParsedVariable firstTestField = new ParsedVariable(firstTestMethod, "firstTestField");
+
+            ParsedVariable firstTestField = firstTestMethod.createParameter("firstTestField");
             firstTestField.setIsPrimitive();
-            ParsedVariable secondTestField = new ParsedVariable(firstTestMethod, "secondTestField");
-            ParsedVariable thirdTestField = new ParsedVariable(firstTestMethod, "thirdTestField");
-            ParsedVariable fourthTestField = new ParsedVariable(secondTestMethod, "fourthTestField");
-            fourthTestField.setIsPrimitive();
-            ParsedVariable fifthTestField = new ParsedVariable(secondTestMethod, "fifthTestField");
-            ParsedVariable sixthTestField = new ParsedVariable(secondTestMethod, "sixthTestField");
+            ParsedVariable secondTestField = firstTestMethod.createVariable("secondTestField");
+            firstTestMethod.setReturnType("", false);
 
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
-            firstTestClass.addMethod(firstTestMethod);
-            secondTestClass.addMethod(secondTestMethod);
 
-            firstTestMethod.addParameter(firstTestField);
-            firstTestMethod.addVariable(secondTestField);
-            firstTestMethod.addReturnType(thirdTestField);
-            secondTestMethod.addParameter(fourthTestField);
-            secondTestMethod.addVariable(fifthTestField);
-            secondTestMethod.addReturnType(sixthTestField);
+            ParsedVariable thirdTestField = secondTestMethod.createParameter("thirdTestField");
+            thirdTestField.setIsPrimitive();
+            ParsedVariable fourthTestField = secondTestMethod.createVariable("fourthTestField");
+            secondTestMethod.setReturnType("", false);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
@@ -118,9 +98,7 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromNoMethodsTest() {
             ParsedProject projectTest = new ParsedProject();
 
-            ClassData testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
-
-            projectTest.addClass(testClass);
+            ClassData testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
@@ -135,21 +113,15 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromFieldsTest() {
             ParsedProject projectTest = new ParsedProject();
 
-            ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
+            ParsedClass testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
-            ParsedVariable firstTestField = new ParsedVariable(testClass, "firstTestField");
+            ParsedVariable firstTestField = testClass.createField("firstTestField");
             firstTestField.setIsPrimitive();
-            ParsedVariable secondTestField = new ParsedVariable(testClass, "secondTestField");
+            ParsedVariable secondTestField = testClass.createField("secondTestField");
             secondTestField.setIsPrimitive();
-            ParsedVariable thirdTestField = new ParsedVariable(testClass, "thirdTestField");
-            ParsedVariable fourthTestField = new ParsedVariable(testClass, "fourthTestField");
+            ParsedVariable thirdTestField = testClass.createField("thirdTestField");
+            ParsedVariable fourthTestField = testClass.createField("fourthTestField");
 
-            projectTest.addClass(testClass);
-
-            testClass.addField(firstTestField);
-            testClass.addField(secondTestField);
-            testClass.addField(thirdTestField);
-            testClass.addField(fourthTestField);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
@@ -161,22 +133,14 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromFieldsOfMultipleClassesTest() {
             ParsedProject projectTest = new ParsedProject();
 
-            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+            ParsedClass firstTestClass = projectTest.createClass("nosejob", "firstTestClass", "C:\\tests");
+            ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
-            ParsedVariable firstTestField = new ParsedVariable(firstTestClass, "firstTestField");
+            ParsedVariable firstTestField = firstTestClass.createField("firstTestField");
             firstTestField.setIsPrimitive();
-            ParsedVariable secondTestField = new ParsedVariable(firstTestClass, "secondTestField");
-            ParsedVariable thirdTestField = new ParsedVariable(secondTestClass, "thirdTestField");
-            ParsedVariable fourthTestField = new ParsedVariable(secondTestClass, "fourthTestField");
-
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
-
-            firstTestClass.addField(firstTestField);
-            firstTestClass.addField(secondTestField);
-            secondTestClass.addField(thirdTestField);
-            secondTestClass.addField(fourthTestField);
+            ParsedVariable secondTestField = firstTestClass.createField("secondTestField");
+            ParsedVariable thirdTestField = secondTestClass.createField("thirdTestField");
+            ParsedVariable fourthTestField = secondTestClass.createField("fourthTestField");
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
@@ -188,9 +152,7 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromNoFieldsTest() {
             ParsedProject projectTest = new ParsedProject();
 
-            ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
-
-            projectTest.addClass(testClass);
+            ParsedClass testClass = projectTest.createClass("nosejob", "testClass", "C:\\tests");
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
@@ -204,11 +166,9 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromClassesEmptyFieldsNotInMethods() {
             ParsedProject projectTest = new ParsedProject();
 
-            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+            ParsedClass firstTestClass = projectTest.createClass("nosejob", "firstTestClass", "C:\\tests");
+            ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
@@ -220,23 +180,14 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromClassesNoFields() {
             ParsedProject projectTest = new ParsedProject();
 
-            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+            ParsedClass firstTestClass = projectTest.createClass("nosejob", "firstTestClass", "C:\\tests");
+            ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
-            ParsedMethod firstTestMethod = new ParsedMethod(firstTestClass, "firstTestMethod");
-            ParsedMethod secondTestMethod = new ParsedMethod(secondTestClass, "secondTestMethod");
+            ParsedMethod firstTestMethod = firstTestClass.createMethod("firstTestMethod");
+            ParsedMethod secondTestMethod = secondTestClass.createMethod("secondTestMethod");
 
-            ParsedVariable firstTestField = new ParsedVariable(firstTestMethod, "firstTestField");
-            firstTestField.setIsPrimitive();
-            ParsedVariable secondTestField = new ParsedVariable(secondTestMethod, "secondTestField");
-
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
-            firstTestClass.addMethod(firstTestMethod);
-            secondTestClass.addMethod(secondTestMethod);
-
-            firstTestMethod.addReturnType(firstTestField);
-            secondTestMethod.addReturnType(secondTestField);
+            firstTestMethod.setReturnType("", true);
+            secondTestMethod.setReturnType("", false);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
@@ -248,18 +199,13 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromClassesNoMethods() {
             ParsedProject projectTest = new ParsedProject();
 
-            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+            ParsedClass firstTestClass = projectTest.createClass("nosejob", "firstTestClass", "C:\\tests");
+            ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
-            ParsedVariable firstTestField = new ParsedVariable(firstTestClass, "firstTestField");
+            ParsedVariable firstTestField = firstTestClass.createField("firstTestField");
             firstTestField.setIsPrimitive();
-            ParsedVariable secondTestField = new ParsedVariable(secondTestClass, "secondTestField");
+            ParsedVariable secondTestField = secondTestClass.createField("secondTestField");
             secondTestField.setIsPrimitive();
-
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
-            firstTestClass.addField(firstTestField);
-            secondTestClass.addField(secondTestField);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);
@@ -271,38 +217,26 @@ public class PrimitiveObsessionSnifferTest {
         public void retrieveSmellsFromClassesTest() {
             ParsedProject projectTest = new ParsedProject();
 
-            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+            ParsedClass firstTestClass = projectTest.createClass("nosejob", "firstTestClass", "C:\\tests");
+            ParsedClass secondTestClass = projectTest.createClass("nosejob", "secondTestClass", "C:\\tests");
 
-            ParsedMethod firstTestMethod = new ParsedMethod(firstTestClass, "firstTestMethod");
-            ParsedMethod secondTestMethod = new ParsedMethod(secondTestClass, "secondTestMethod");
+            ParsedMethod firstTestMethod = firstTestClass.createMethod("firstTestMethod");
+            ParsedMethod secondTestMethod = secondTestClass.createMethod("secondTestMethod");
 
-            ParsedVariable firstTestField = new ParsedVariable(firstTestClass, "firstTestField");
+            ParsedVariable firstTestField = firstTestClass.createField("firstTestField");
             firstTestField.setIsPrimitive();
-            ParsedVariable secondTestField = new ParsedVariable(secondTestClass, "secondTestField");
+            ParsedVariable secondTestField = secondTestClass.createField("secondTestField");
             secondTestField.setIsPrimitive();
-            ParsedVariable thirdTestField = new ParsedVariable(firstTestMethod, "thirdTestField");
-            ParsedVariable fourthTestField = new ParsedVariable(firstTestMethod, "fourthTestField");
-            ParsedVariable fifthTestField = new ParsedVariable(firstTestMethod, "fifthTestField");
-            fifthTestField.setIsPrimitive();
-            ParsedVariable sixthTestField = new ParsedVariable(secondTestMethod, "sixthTestField");
-            ParsedVariable seventhTestField = new ParsedVariable(secondTestMethod, "seventhTestField");
-            ParsedVariable eighthTestField = new ParsedVariable(secondTestMethod, "eighthTestField");
-            eighthTestField.setIsPrimitive();
 
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
-            firstTestClass.addField(firstTestField);
-            secondTestClass.addField(secondTestField);
-            firstTestClass.addMethod(firstTestMethod);
-            secondTestClass.addMethod(secondTestMethod);
 
-            firstTestMethod.addParameter(thirdTestField);
-            firstTestMethod.addVariable(fourthTestField);
-            firstTestMethod.addReturnType(fifthTestField);
-            secondTestMethod.addParameter(sixthTestField);
-            secondTestMethod.addVariable(seventhTestField);
-            secondTestMethod.addReturnType(eighthTestField);
+            ParsedVariable thirdTestField = firstTestMethod.createParameter("thirdTestField");
+            ParsedVariable fourthTestField = firstTestMethod.createVariable("fourthTestField");
+            firstTestMethod.setReturnType("", true);
+
+
+            ParsedVariable sixthTestField = secondTestMethod.createParameter("sixthTestField");
+            ParsedVariable seventhTestField = secondTestMethod.createVariable("seventhTestField");
+            secondTestMethod.setReturnType("", true);
 
             PrimitiveObsessionSniffer prObsSnifferTest = new PrimitiveObsessionSniffer();
             prObsSnifferTest.setProjectToAnalyse(projectTest);

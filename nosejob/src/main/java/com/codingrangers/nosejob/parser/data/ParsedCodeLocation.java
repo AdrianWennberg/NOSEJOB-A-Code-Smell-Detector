@@ -1,25 +1,19 @@
-package com.codingrangers.nosejob.parser;
+package com.codingrangers.nosejob.parser.data;
 
-import com.codingrangers.nosejob.models.CodeData;
+import com.codingrangers.nosejob.models.CodeLocation;
 
-/**
- * NamedBlock TODO: Need to unit test this
- */
-public abstract class ParsedCodeUnit implements CodeData {
+public abstract class ParsedCodeLocation implements CodeLocation {
 
-	private String namePrefix;
-	private String name;
-	private String path;
 	private int startLine = -1;
 	private int endLine = -1;
 
-	public ParsedCodeUnit(String blockNamePrefix, String blockName, String filePath) {
-		namePrefix = blockNamePrefix;
-		name = blockName;
+    private String path;
+
+    ParsedCodeLocation(String filePath) {
 		path = filePath;
 	}
 
-	public void setStartLine(int lineNumber) {
+    public void setStartLine(int lineNumber) {
 		if (lineNumber < 0)
 			throw new IllegalArgumentException("Start line number must be positive");
 
@@ -27,12 +21,12 @@ public abstract class ParsedCodeUnit implements CodeData {
 			throw new IllegalArgumentException("Start line must be less than end line");
 
 		if (startLine != -1)
-			throw new IllegalStateException("Start line has allready been set");
+            throw new IllegalStateException("Start line has already been set");
 
 		startLine = lineNumber;
 	}
 
-	public void setEndLine(int lineNumber) {
+    public void setEndLine(int lineNumber) {
 		if (lineNumber < 0)
 			throw new IllegalArgumentException("End line number must be positive");
 
@@ -40,24 +34,9 @@ public abstract class ParsedCodeUnit implements CodeData {
 			throw new IllegalArgumentException("End line must be less than start line");
 
 		if (endLine != -1)
-			throw new IllegalStateException("End line has allready been set");
+            throw new IllegalStateException("End line has already been set");
 
 		endLine = lineNumber;
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public String getFullyQualifiedName() {
-		return namePrefix + "." + name;
-	}
-
-	@Override
-	public String getFilePath() {
-		return path;
 	}
 
 	@Override
@@ -74,4 +53,13 @@ public abstract class ParsedCodeUnit implements CodeData {
 	public int getLineCount() {
 		return endLine - startLine + 1;
 	}
+
+    @Override
+    public String getFilePath() {
+        return path;
+    }
+
+    void setFilePath(String path) {
+        this.path = path;
+    }
 }
