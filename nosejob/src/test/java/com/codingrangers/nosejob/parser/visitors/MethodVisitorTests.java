@@ -68,11 +68,13 @@ public class MethodVisitorTests {
 		
 		CompilationUnit compUnit[] = {getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest1.java")
 				,getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest2.java")
-				};
+				,getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest3.java")};
+
 				
 		visitor.visit(compUnit[0], methodData);	
 		visitor.visit(compUnit[1], methodData);
-		
+		visitor.visit(compUnit[2], methodData);
+
 		verify(methodData,times(3)).addReferenceToMethod("referenceTests.ReferenceTest1", "methodToCall()");
 		verify(methodData,times(2)).addReferenceToField("referenceTests.ReferenceTest1", "field");
 	}

@@ -1,7 +1,5 @@
 package referenceTests;
 
-import referenceTests.ReferenceTest1;
-
 public class ReferenceTest2{
 	
 	public void externalMethodCall() {

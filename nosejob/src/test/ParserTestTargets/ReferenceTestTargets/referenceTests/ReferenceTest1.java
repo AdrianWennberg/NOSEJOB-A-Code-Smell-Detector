@@ -4,7 +4,9 @@ public class ReferenceTest1{
 	
 	public int field = 1;
 	
-	public int methodToCall() {}
+	public int methodToCall() {
+		return 0;
+	}
 	
 	public void internalMethodCall() {
 		int a = 0;
@@ -12,6 +14,10 @@ public class ReferenceTest1{
 		int i = field;
 		i = a;
 		int t = methodToCall();
+	}
+	
+	public static int staticMethodToCall() {
+		return 0;
 	}
 	
 }

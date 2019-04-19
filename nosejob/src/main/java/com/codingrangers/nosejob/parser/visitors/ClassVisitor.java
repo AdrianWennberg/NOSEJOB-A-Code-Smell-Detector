@@ -8,7 +8,13 @@ import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.expr.FieldAccessExpr;
+import com.github.javaparser.ast.expr.MethodCallExpr;
+import com.github.javaparser.ast.expr.NameExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.javaparser.resolution.declarations.ResolvedFieldDeclaration;
+import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
+import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
 
 /**
  * parser for class level data enters project from ClassOrInterfaceDeclaration
@@ -34,12 +40,37 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 			ParsedVariable variableData = classData.createField(variable.getNameAsString());
 			fieldVisitor.visit(variable, variableData);
 		}
+		super.visit(field, classData);
 	}
 
 	@Override
 	public void visit(MethodDeclaration method, ParsedClass classData) {
 		ParsedMethod methodData = classData.createMethod(method.getSignature().asString());
 		methodVisitor.visit(method, methodData);
+	}
+	
+	public void visit(MethodCallExpr methodCall, ParsedClass classData ) {
+		ResolvedMethodDeclaration resolvedMethod = methodCall.resolve();
+
+		String fullQualifiedName = resolvedMethod.getQualifiedName();
+		String classQualifedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));		
+		
+		classData.addReferenceToMethod(classQualifedName, resolvedMethod.getSignature());
+	}
+	
+	public void visit(FieldAccessExpr fieldCall, ParsedClass classData) {
+		ResolvedFieldDeclaration resolvedField = (ResolvedFieldDeclaration) fieldCall.resolve();
+				
+		classData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+	}
+	
+	public void visit(NameExpr nameCall, ParsedClass classData) {		
+		ResolvedValueDeclaration resolvedName = nameCall.resolve();
+		
+		if(resolvedName.isField()) {
+			ResolvedFieldDeclaration resolvedField = resolvedName.asField();
+			classData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+		}
 	}
 
 	@Override
