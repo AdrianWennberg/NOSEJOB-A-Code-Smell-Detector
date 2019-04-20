@@ -14,7 +14,7 @@
 }
 
 .return-home-button:hover {
-	filter: brightness(120%);
+	filter: brightness(80%);
 	outline: none;
 	animation: none;
 }

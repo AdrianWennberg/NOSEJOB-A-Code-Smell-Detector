@@ -3,6 +3,7 @@ package com.codingrangers.nosejob.models;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
@@ -17,6 +18,8 @@ public interface StorageService {
 	Path load(String filename);
 
 	Resource loadAsResource(String filename);
+
+	void unzip(String filename) throws IOException;
 
 	void deleteAll();
 
