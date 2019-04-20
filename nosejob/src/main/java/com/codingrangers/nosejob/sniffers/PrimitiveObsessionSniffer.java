@@ -85,7 +85,7 @@ public class PrimitiveObsessionSniffer implements Sniffer {
 
 		@Override
 		public boolean isSmelly() {
-			return (getSmellSeverity() > 0) ? true : false;
+			return getSmellSeverity() > 0 ? true : false;
 		}
 
 		@Override
@@ -110,8 +110,9 @@ public class PrimitiveObsessionSniffer implements Sniffer {
 	}
 
 	public void retrieveSmellFromFields(ClassData currentClassAnalysed) {
-		if (currentClassAnalysed.equals(null))
+		if (currentClassAnalysed.equals(null)) {
 			throw new NullPointerException("Cannot analyse methods of a null.");
+		}
 
 		if (currentClassAnalysed.getFieldsNames().size() > 0) {
 			Smell fieldsDiagnosis = new FieldsDiagnosis();

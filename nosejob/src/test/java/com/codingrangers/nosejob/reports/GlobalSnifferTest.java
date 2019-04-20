@@ -1,4 +1,5 @@
 package com.codingrangers.nosejob.reports;
+
 import com.codingrangers.nosejob.parser.ParsedProject;
 import com.codingrangers.nosejob.sniffers.GlobalSniffer;
 import org.junit.Test;
@@ -9,16 +10,16 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Enclosed.class)
 public class GlobalSnifferTest {
-    public static class getProjectReportTest{
-        @Test
-        public void getProjectReportTest(){
-            String primitiveObsessionName = "Primitive Obsession";
-            ParsedProject testProject = new ParsedProject();
+	public static class ProjectReportTest {
+		@Test
+		public void getProjectReportTest() {
+			String primitiveObsessionName = "Primitive Obsession";
+			ParsedProject testProject = new ParsedProject();
 
-            GlobalSniffer globalReport = new GlobalSniffer();
-            globalReport.setProjectToAnalyse(testProject);
+			GlobalSniffer globalReport = new GlobalSniffer();
+			globalReport.setProjectToAnalyse(testProject);
 
-            assertEquals(primitiveObsessionName, globalReport.getProjectReport().getSmellNames().get(0));
-        }
-    }
+			assertEquals(primitiveObsessionName, globalReport.getProjectReport().getSmellNames().get(0));
+		}
+	}
 }
