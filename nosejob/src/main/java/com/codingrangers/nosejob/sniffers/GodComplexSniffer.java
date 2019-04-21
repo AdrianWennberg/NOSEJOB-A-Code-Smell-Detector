@@ -12,7 +12,7 @@ public class GodComplexSniffer extends GeneralSniffer {
     private class ClassDiagnosis implements Smell {
         private ClassData currentClassToAnalyse;
 
-        private float howMuchItsUsedRatio() {
+        private float calculateHowMuchItsUsedRatio() {
             String currentClassName = currentClassToAnalyse.getName();
             float callsRatio = 0f;
 
@@ -46,7 +46,7 @@ public class GodComplexSniffer extends GeneralSniffer {
         @Override
         public float getSmellSeverity() {
             float severity = 0f;
-            severity = (howMuchItsUsedRatio() > 2f) ? (severity - 2f) : 0f;
+            severity = (calculateHowMuchItsUsedRatio() > 2f) ? (severity - 2f) : 0f;
             return severity;
         }
     }

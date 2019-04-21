@@ -3,7 +3,8 @@ package com.codingrangers.nosejob.sniffers;
 import com.codingrangers.nosejob.models.SmellReportBody;
 import com.codingrangers.nosejob.reports.SmellReport;
 
-public class DataOnlyClassesSnifferTest extends GeneralSniffer {
+/**TODO*/
+public class DataOnlyClassesSniffer extends GeneralSniffer {
     private static final String NAME = "Data Only Classes";
 
     @Override

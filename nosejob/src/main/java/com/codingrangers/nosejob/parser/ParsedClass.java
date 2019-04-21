@@ -98,7 +98,7 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData {
 	}
 
 	@Override
-	public List<FieldReference> getFieldReferancesTo(String fullyQualifedClassName) {
+	public List<FieldReference> getFieldReferencesTo(String fullyQualifedClassName) {
 		return null;
 	}
 
