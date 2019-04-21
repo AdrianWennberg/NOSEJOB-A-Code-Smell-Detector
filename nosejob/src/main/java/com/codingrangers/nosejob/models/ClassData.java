@@ -14,7 +14,7 @@ public interface ClassData extends CodeData {
 	List<MethodReference> getMethodCallsTo(String fullyQualifedClassName);
 
 	int countFieldReferencesTo(String fullyQualifedClassName);
-	List<FieldReference> getFieldReferancesTo(String fullyQualifedClassName);
+	List<FieldReference> getFieldReferencesTo(String fullyQualifedClassName);
 
 	int countMethods();
 	List<String> getMethodSignatures();

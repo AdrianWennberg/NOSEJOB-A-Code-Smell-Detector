@@ -9,7 +9,7 @@ public class FeatureEnvySniffer extends GeneralSniffer {
     private class ClassDiagnosis implements Smell {
         private ClassData currentClassToAnalyse;
 
-        private float compareWithOtherClassesWithinProject() {
+        private float countHowManyExternalMethodsItsUsing() {
             float callsRatio = 0f;
 
             for(String className : currentProjectToAnalyse.getClassNames()){
@@ -42,12 +42,12 @@ public class FeatureEnvySniffer extends GeneralSniffer {
         @Override
         public float getSmellSeverity() {
             float severity = 0f;
-            severity = (compareWithOtherClassesWithinProject() > 1f) ? (severity - 1f) : 0f;
+            severity = (countHowManyExternalMethodsItsUsing() > 1f) ? (severity - 1f) : 0f;
             return severity;
         }
     }
 
-    public void retrieveSmellFromSingularClass(ClassData currentClassToAnalyse) {
+    private void retrieveSmellFromSingularClass(ClassData currentClassToAnalyse) {
         if (currentClassToAnalyse.equals(null))
             throw new NullPointerException("Cannot analyse methods of a null.");
 
@@ -58,7 +58,7 @@ public class FeatureEnvySniffer extends GeneralSniffer {
         }
     }
 
-    public void retrieveSmellsFromClasses() {
+    private void retrieveSmellsFromClasses() {
         if (currentProjectToAnalyse.equals(null))
             throw new NullPointerException("Cannot analyse a null project.");
 
