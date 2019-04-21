@@ -8,7 +8,6 @@ public interface ClassData extends CodeData {
 	int countTotalMehodCalls();
 
 	int countInternalMethodCalls();
-<<<<<<< HEAD
 
 	Iterable<MethodReference> getInternalMethodCalls();
 
@@ -19,15 +18,6 @@ public interface ClassData extends CodeData {
 	int countFieldReferencesTo(String fullyQualifiedClassName);
 
 	Iterable<FieldReference> getFieldReferencesTo(String fullyQualifiedClassName);
-=======
-	List<MethodReference> getInternalMethodCalls();
-
-	int countMethodCallsTo(String fullyQualifedClassName);
-	List<MethodReference> getMethodCallsTo(String fullyQualifedClassName);
-
-	int countFieldReferencesTo(String fullyQualifedClassName);
-	List<FieldReference> getFieldReferancesTo(String fullyQualifedClassName);
->>>>>>> Violation of Data privacy Tested
 
 	int countMethods();
 	List<String> getMethodSignatures();

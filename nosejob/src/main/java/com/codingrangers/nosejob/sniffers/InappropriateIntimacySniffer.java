@@ -1,6 +1,5 @@
 package com.codingrangers.nosejob.sniffers;
 
-<<<<<<< HEAD
 import com.codingrangers.nosejob.models.*;
 import com.codingrangers.nosejob.reports.SmellReport;
 import java.util.List;
@@ -73,7 +72,4 @@ public class InappropriateIntimacySniffer extends GeneralSniffer {
         report.addSmells(smells);
         return report;
     }
-=======
-public class InappropriateIntimacySniffer {
->>>>>>> Inappropriate Intimacy Sniffer Implemented, need testing
 }
