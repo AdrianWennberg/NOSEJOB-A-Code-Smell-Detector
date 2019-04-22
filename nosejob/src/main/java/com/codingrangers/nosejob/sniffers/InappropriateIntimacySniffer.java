@@ -43,7 +43,7 @@ public class InappropriateIntimacySniffer extends GeneralSniffer {
 
         @Override
         public float getSmellSeverity() {
-            return countHowManyExternalFieldsAreUsed();
+            return (countHowManyExternalFieldsAreUsed() > 0f) ? 1f : 0f;
         }
     }
 
@@ -51,11 +51,9 @@ public class InappropriateIntimacySniffer extends GeneralSniffer {
         if (currentClassToAnalyse.equals(null))
             throw new NullPointerException("Cannot analyse a null class.");
 
-        if (currentClassToAnalyse.getFieldsNames().size() > 0) {
-            Smell classDiagnosis = new ClassDiagnosis();
-            classDiagnosis.setCodeData(currentClassToAnalyse);
-            smells.add(classDiagnosis);
-        }
+        Smell classDiagnosis = new ClassDiagnosis();
+        classDiagnosis.setCodeData(currentClassToAnalyse);
+        smells.add(classDiagnosis);
     }
 
     private void retrieveSmellsFromClasses() {
