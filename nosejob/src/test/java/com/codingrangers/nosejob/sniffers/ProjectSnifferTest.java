@@ -1,12 +1,9 @@
 package com.codingrangers.nosejob.sniffers;
-import com.codingrangers.nosejob.parser.ParsedProject;
-import com.codingrangers.nosejob.reports.SmellReport;
-import com.codingrangers.nosejob.sniffers.ProjectSniffer;
+import com.codingrangers.nosejob.parser.data.ParsedProject;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;

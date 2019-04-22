@@ -8,8 +8,10 @@ import org.junit.runners.Suite.SuiteClasses;
         ProjectSnifferTest.class,
         BloatedCodeSnifferTest.class,
         ViolationOfDataPrivacySnifferTest.class,
-        PrimitiveObsessionSnifferTest.class,
+//        PrimitiveObsessionSnifferTest.class,
         InappropriateIntimacySnifferTest.class,
-        FeatureEnvySnifferTest.class})
+        FeatureEnvySnifferTest.class,
+        GodComplexSnifferTest.class,
+        DataOnlyClassesSnifferTest.class})
 
 public class SniffersTestSuite {}

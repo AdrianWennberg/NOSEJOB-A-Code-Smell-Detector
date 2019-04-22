@@ -2,7 +2,8 @@ package com.codingrangers.nosejob.sniffers;
 
 import com.codingrangers.nosejob.models.ClassData;
 import com.codingrangers.nosejob.models.MethodReference;
-import com.codingrangers.nosejob.parser.ParsedProject;
+import com.codingrangers.nosejob.models.ProjectData;
+import com.codingrangers.nosejob.parser.data.ParsedProject;
 import com.codingrangers.nosejob.reports.SmellReport;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -35,7 +36,7 @@ public class FeatureEnvySnifferTest {
     public static class retrieveSmellsFromClassTests {
         @Test
         public void retrieveSmellsFromClassNoInternalCallsTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -50,14 +51,15 @@ public class FeatureEnvySnifferTest {
 
             List<MethodReference> mockedExternalList = Arrays.asList(mock(MethodReference.class), mock(MethodReference.class));
             List<MethodReference> mockedInternalList = Arrays.asList();
-            when(mockedTestClass.getMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-            when(mockedTestClass.getInternalMethodCalls()).thenReturn(mockedInternalList);
+            when(mockedTestClass.countMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
+            when(mockedTestClass.countInternalMethodCalls()).thenReturn(mockedInternalList.size());
 
-            projectTest.addClass(mockedTestClass);
-            projectTest.addClass(otherMockedClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
+            when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
+            featureEnvySnifferTest.setProjectToSniff(mockedProject);
 
             assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -65,7 +67,7 @@ public class FeatureEnvySnifferTest {
         @Test
         public void retrieveSmellsFromClassOneInternalCallsTest() {
             /**NOTE: This should have the same result as test above*/
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -80,21 +82,21 @@ public class FeatureEnvySnifferTest {
 
             List<MethodReference> mockedExternalList = Arrays.asList(mock(MethodReference.class), mock(MethodReference.class));
             List<MethodReference> mockedInternalList = Arrays.asList(mock(MethodReference.class));
-            when(mockedTestClass.getMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-            when(mockedTestClass.getInternalMethodCalls()).thenReturn(mockedInternalList);
+            when(mockedTestClass.countMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
+            when(mockedTestClass.countInternalMethodCalls()).thenReturn(mockedInternalList.size());
 
-            projectTest.addClass(mockedTestClass);
-            projectTest.addClass(otherMockedClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
+            when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
-
+            featureEnvySnifferTest.setProjectToSniff(mockedProject);
             assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromEqualExternalAndInternalMethodCallsTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -109,21 +111,22 @@ public class FeatureEnvySnifferTest {
 
             List<MethodReference> mockedExternalList = Arrays.asList(mock(MethodReference.class), mock(MethodReference.class));
             List<MethodReference> mockedInternalList = Arrays.asList(mock(MethodReference.class), mock(MethodReference.class));
-            when(mockedTestClass.getMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-            when(mockedTestClass.getInternalMethodCalls()).thenReturn(mockedInternalList);
+            when(mockedTestClass.countMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
+            when(mockedTestClass.countInternalMethodCalls()).thenReturn(mockedInternalList.size());
 
-            projectTest.addClass(mockedTestClass);
-            projectTest.addClass(otherMockedClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
+            when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
+            featureEnvySnifferTest.setProjectToSniff(mockedProject);
 
             assertEquals(0.0f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromManyExternalMethodCallsTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -139,21 +142,22 @@ public class FeatureEnvySnifferTest {
             List<MethodReference> mockedExternalList = Arrays.asList(mock(MethodReference.class), mock(MethodReference.class), mock(MethodReference.class), mock(MethodReference.class));
             List<MethodReference> mockedInternalList = Arrays.asList(mock(MethodReference.class));
 
-            when(mockedTestClass.getMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-            when(mockedTestClass.getInternalMethodCalls()).thenReturn(mockedInternalList);
+            when(mockedTestClass.countMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
+            when(mockedTestClass.countInternalMethodCalls()).thenReturn(mockedInternalList.size());
 
-            projectTest.addClass(mockedTestClass);
-            projectTest.addClass(otherMockedClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
+            when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
+            featureEnvySnifferTest.setProjectToSniff(mockedProject);
 
             assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsNoReferencedFieldsTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
             String testClass = "testClass";
             ClassData mockedTestClass = mock(ClassData.class);
@@ -161,10 +165,11 @@ public class FeatureEnvySnifferTest {
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
 
-            projectTest.addClass(mockedTestClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
+            featureEnvySnifferTest.setProjectToSniff(mockedProject);
 
             assertEquals(0f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -173,7 +178,7 @@ public class FeatureEnvySnifferTest {
     public static class retrieveSmellsFromClasses {
         @Test
         public void retrieveSmellsFromFieldsOfMultipleClassesTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
             String firstTestClass = "firstTestClass";
             String secondTestClass = "secondTestClass";
@@ -196,28 +201,29 @@ public class FeatureEnvySnifferTest {
             List<MethodReference> secondMockedExternalList = Arrays.asList(mock(MethodReference.class), mock(MethodReference.class), mock(MethodReference.class), mock(MethodReference.class));
             List<MethodReference> secondMockedInternalList = Arrays.asList(mock(MethodReference.class));
 
-            when(firstMockedClass.getMethodCallsTo(secondMockedClass.getFullyQualifiedName())).thenReturn(firstMockedExternalList);
-            when(firstMockedClass.getInternalMethodCalls()).thenReturn(firstMockedInternalList);
+            when(firstMockedClass.countMethodCallsTo(secondMockedClass.getFullyQualifiedName())).thenReturn(firstMockedExternalList.size());
+            when(firstMockedClass.countInternalMethodCalls()).thenReturn(firstMockedInternalList.size());
 
-            when(secondMockedClass.getMethodCallsTo(thirdMockedClass.getFullyQualifiedName())).thenReturn(secondMockedExternalList);
-            when(secondMockedClass.getInternalMethodCalls()).thenReturn(secondMockedInternalList);
+            when(secondMockedClass.countMethodCallsTo(thirdMockedClass.getFullyQualifiedName())).thenReturn(secondMockedExternalList.size());
+            when(secondMockedClass.countInternalMethodCalls()).thenReturn(secondMockedInternalList.size());
 
-            when(thirdMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList(mock(MethodReference.class)));
-            when(thirdMockedClass.getInternalMethodCalls()).thenReturn(Arrays.asList());
+            when(thirdMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList(mock(MethodReference.class)).size());
+            when(thirdMockedClass.countInternalMethodCalls()).thenReturn(Arrays.asList().size());
 
-            projectTest.addClass(firstMockedClass);
-            projectTest.addClass(secondMockedClass);
-            projectTest.addClass(thirdMockedClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(firstTestClass, secondTestClass, thirdTestClass));
+            when(mockedProject.getClassData(firstTestClass)).thenReturn(firstMockedClass);
+            when(mockedProject.getClassData(secondTestClass)).thenReturn(secondMockedClass);
+            when(mockedProject.getClassData(thirdTestClass)).thenReturn(thirdMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
+            featureEnvySnifferTest.setProjectToSniff(mockedProject);
 
             assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromMultipleClassesWithNoMethodsTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
             String firstTestClass = "firstTestClass";
             String secondTestClass = "secondTestClass";
@@ -234,23 +240,24 @@ public class FeatureEnvySnifferTest {
             when(thirdMockedClass.getName()).thenReturn(thirdTestClass);
             when(thirdMockedClass.getFullyQualifiedName()).thenReturn(thirdTestClass);
 
-            when(firstMockedClass.getMethodCallsTo(secondMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList());
-            when(firstMockedClass.getInternalMethodCalls()).thenReturn(Arrays.asList());
+            when(firstMockedClass.countMethodCallsTo(secondMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList().size());
+            when(firstMockedClass.countInternalMethodCalls()).thenReturn(Arrays.asList().size());
 
-            when(secondMockedClass.getMethodCallsTo(thirdMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList());
-            when(secondMockedClass.getInternalMethodCalls()).thenReturn(Arrays.asList());
+            when(secondMockedClass.countMethodCallsTo(thirdMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList().size());
+            when(secondMockedClass.countInternalMethodCalls()).thenReturn(Arrays.asList().size());
 
-            when(thirdMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList());
-            when(thirdMockedClass.getInternalMethodCalls()).thenReturn(Arrays.asList());
+            when(thirdMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList().size());
+            when(thirdMockedClass.countInternalMethodCalls()).thenReturn(Arrays.asList().size());
 
-            projectTest.addClass(firstMockedClass);
-            projectTest.addClass(secondMockedClass);
-            projectTest.addClass(thirdMockedClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(firstTestClass, secondTestClass, thirdTestClass));
+            when(mockedProject.getClassData(firstTestClass)).thenReturn(firstMockedClass);
+            when(mockedProject.getClassData(secondTestClass)).thenReturn(secondMockedClass);
+            when(mockedProject.getClassData(thirdTestClass)).thenReturn(thirdMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
+            featureEnvySnifferTest.setProjectToSniff(mockedProject);
 
             assertEquals(0.0f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
-   }
+    }
 }

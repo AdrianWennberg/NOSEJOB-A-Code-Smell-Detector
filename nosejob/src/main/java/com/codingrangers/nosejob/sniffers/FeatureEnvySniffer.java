@@ -16,11 +16,11 @@ public class FeatureEnvySniffer extends GeneralSniffer {
             for(String className : currentProjectToAnalyse.getClassNames()){
                 if(!className.equals(currentClassToAnalyse.getName())) {
                     ClassData classToCompareWith = currentProjectToAnalyse.getClassData(className);
-                    if(currentClassToAnalyse.getInternalMethodCalls().size() == 0){
-                        callsRatio += (float) currentClassToAnalyse.getMethodCallsTo(classToCompareWith.getFullyQualifiedName()).size() / (currentClassToAnalyse.getInternalMethodCalls().size() + 1);
+                    if(currentClassToAnalyse.countInternalMethodCalls() == 0){
+                        callsRatio += (float) currentClassToAnalyse.countMethodCallsTo(classToCompareWith.getFullyQualifiedName()) / (currentClassToAnalyse.countInternalMethodCalls() + 1);
                     }
                     else {
-                        callsRatio += (float) currentClassToAnalyse.getMethodCallsTo(classToCompareWith.getFullyQualifiedName()).size() / (currentClassToAnalyse.getInternalMethodCalls().size());
+                        callsRatio += (float) currentClassToAnalyse.countMethodCallsTo(classToCompareWith.getFullyQualifiedName()) / (currentClassToAnalyse.countInternalMethodCalls());
                     }
 
                     highestCallRatio = (callsRatio > highestCallRatio) ? callsRatio : highestCallRatio;
@@ -47,7 +47,7 @@ public class FeatureEnvySniffer extends GeneralSniffer {
 
         @Override
         public float getSmellSeverity() {
-             return howManyExternalMethodsItsUsingRatio() > 2f ? 1f
+            return howManyExternalMethodsItsUsingRatio() > 2f ? 1f
                     : howManyExternalMethodsItsUsingRatio() > 1f ? (howManyExternalMethodsItsUsingRatio() - 1f)
                     : 0f;
         }

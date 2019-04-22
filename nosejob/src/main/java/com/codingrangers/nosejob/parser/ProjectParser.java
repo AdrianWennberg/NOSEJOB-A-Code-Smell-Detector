@@ -1,16 +1,18 @@
 package com.codingrangers.nosejob.parser;
 
-import com.codingrangers.nosejob.models.ProjectData;
-import com.github.javaparser.*;
-import com.github.javaparser.ast.*;
-import com.codingrangers.nosejob.models.ProjectData;
-import com.codingrangers.nosejob.parser.visitors.*;
 import com.codingrangers.nosejob.models.CodeParser;
+import com.codingrangers.nosejob.models.ProjectData;
+import com.codingrangers.nosejob.parser.data.ParsedClass;
+import com.codingrangers.nosejob.parser.data.ParsedProject;
+import com.codingrangers.nosejob.parser.visitors.ClassVisitor;
+import com.codingrangers.nosejob.parser.visitors.MethodVisitor;
+import com.codingrangers.nosejob.parser.visitors.VariableVisitor;
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ast.CompilationUnit;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-
-import org.springframework.stereotype.Component;
 
 /**
  * entry point into code parsing system Each instance can parse one project at a
@@ -82,9 +84,8 @@ public class ProjectParser implements CodeParser {
 			e.printStackTrace();
 		}
 
-		ParsedClass parsedClass = new ParsedClass("packageNameGoesHere", file.getName(), file.getPath());
+		ParsedClass parsedClass = parsedProject.createClass("packageNameGoesHere", file.getName(), file.getPath());
 		ClassVisitor.visit(compilationUnit, parsedClass);
-		parsedProject.addClass(parsedClass);
 	}
 
 }

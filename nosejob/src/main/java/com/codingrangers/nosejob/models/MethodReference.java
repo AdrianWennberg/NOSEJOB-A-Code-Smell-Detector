@@ -1,8 +1,9 @@
 package com.codingrangers.nosejob.models;
 
-public interface MethodReference extends CodeData {
-    String getRefferedClassName();
-    String getReferencingClassName();
-    String getRefferedMethodSignature();
-    boolean isInternal();
+public interface MethodReference extends CodeLocation {
+	String getReferredClassName();
+	String getReferencingClassName();
+
+	String getReferredMethodSignature();
+	boolean isInternal();
 }

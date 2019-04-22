@@ -1,8 +1,9 @@
 package com.codingrangers.nosejob.models;
 
-public interface FieldReference extends CodeData {
-    String getRefferedClassName();
-    String getReferencingClassName();
-    String getRefferedFieldName();
-    boolean isInternal();
+public interface FieldReference extends CodeLocation {
+	String getReferredClassName();
+	String getReferencingClassName();
+
+	String getReferredFieldName();
+	boolean isInternal();
 }
