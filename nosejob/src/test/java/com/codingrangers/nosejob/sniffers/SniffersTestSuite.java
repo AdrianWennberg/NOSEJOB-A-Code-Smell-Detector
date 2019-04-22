@@ -7,6 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
         BloatedCodeSnifferTest.class,
         ViolationOfDataPrivacySnifferTest.class,
-        PrimitiveObsessionSnifferTest.class})
+        PrimitiveObsessionSnifferTest.class,
+        InappropriateIntimacySnifferTest.class})
 
 public class SniffersTestSuite {}
