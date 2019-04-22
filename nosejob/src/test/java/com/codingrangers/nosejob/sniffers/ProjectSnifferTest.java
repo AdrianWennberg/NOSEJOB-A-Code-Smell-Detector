@@ -1,4 +1,5 @@
 package com.codingrangers.nosejob.sniffers;
+
 import com.codingrangers.nosejob.parser.data.ParsedProject;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;

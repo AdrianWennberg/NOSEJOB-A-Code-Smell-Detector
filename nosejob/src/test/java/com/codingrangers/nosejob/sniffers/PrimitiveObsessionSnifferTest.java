@@ -320,4 +320,3 @@
 //
 //            assertEquals(0.66f, primitiveObsessionTest.getSmellReport().getTotalSmellSeverity(), 0.01);
 //        }
-//    }

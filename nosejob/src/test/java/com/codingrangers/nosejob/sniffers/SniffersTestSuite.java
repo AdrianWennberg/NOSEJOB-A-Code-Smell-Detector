@@ -15,4 +15,3 @@ import org.junit.runners.Suite.SuiteClasses;
         DataOnlyClassesSnifferTest.class})
 
 public class SniffersTestSuite {}
-
