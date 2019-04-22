@@ -45,9 +45,9 @@ public class GodComplexSniffer extends GeneralSniffer {
 
         @Override
         public float getSmellSeverity() {
-            float severity = 0f;
-            severity = (calculateHowMuchItsUsedRatio() > 2f) ? (severity - 2f) : 0f;
-            return severity;
+            return calculateHowMuchItsUsedRatio() > 6f ? 1f
+                    : calculateHowMuchItsUsedRatio() > 5f ? (calculateHowMuchItsUsedRatio() - 5f)
+                    : 0f;
         }
     }
 
@@ -57,16 +57,20 @@ public class GodComplexSniffer extends GeneralSniffer {
 
         Smell classDiagnosis = new ClassDiagnosis();
         classDiagnosis.setCodeData(currentClassToAnalyse);
-        smells.add(classDiagnosis);
+        if(classDiagnosis.isSmelly()) {
+            smells.add(classDiagnosis);
+        }
     }
 
     public void retrieveSmellsFromClasses() {
         if (currentProjectToAnalyse.equals(null))
             throw new NullPointerException("Cannot analyse a null project.");
 
-        for(String className : currentProjectToAnalyse.getClassNames()){
-            ClassData currentClassToAnalyse = currentProjectToAnalyse.getClassData(className);
-            retrieveSmellFromSingularClass(currentClassToAnalyse);
+        if(currentProjectToAnalyse.getClassNames().size() > 2 ) {
+            for (String className : currentProjectToAnalyse.getClassNames()) {
+                ClassData currentClassToAnalyse = currentProjectToAnalyse.getClassData(className);
+                retrieveSmellFromSingularClass(currentClassToAnalyse);
+            }
         }
     }
 

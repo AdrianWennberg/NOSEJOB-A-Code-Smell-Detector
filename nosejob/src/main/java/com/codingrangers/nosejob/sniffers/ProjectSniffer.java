@@ -8,6 +8,11 @@ public class ProjectSniffer extends SnifferBase {
 		BloatedCodeSniffer bloatedCodeSniffer = new BloatedCodeSniffer();
 		ViolationOfDataPrivacySniffer violationOfDataPrivacySniffer = new ViolationOfDataPrivacySniffer();
 		InappropriateIntimacySniffer inappropriateIntimacySniffer = new InappropriateIntimacySniffer();
-		this.analysers.addAll(Arrays.asList(primitiveObsessionAnalyser, bloatedCodeSniffer, violationOfDataPrivacySniffer, inappropriateIntimacySniffer));
+		FeatureEnvySniffer featureEnvySniffer = new FeatureEnvySniffer();
+		this.analysers.addAll(Arrays.asList(primitiveObsessionAnalyser,
+				bloatedCodeSniffer,
+				violationOfDataPrivacySniffer,
+				inappropriateIntimacySniffer,
+				featureEnvySniffer));
 	}
 }

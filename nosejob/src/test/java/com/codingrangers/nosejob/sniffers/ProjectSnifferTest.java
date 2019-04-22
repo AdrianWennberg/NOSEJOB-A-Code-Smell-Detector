@@ -20,12 +20,17 @@ public class ProjectSnifferTest {
             String bloatedCodeName = "Bloated Code";
             String violationOfDataPrivacyName = "Violation Of Data Privacy";
             String inappropriateIntimacyName = "Inappropriate Intimacy";
+            String featureEnvyName = "Feature Envy";
             ParsedProject testProject = new ParsedProject();
 
             ProjectSniffer globalReport = new ProjectSniffer();
             globalReport.setProjectToAnalyse(testProject);
 
-            assertThat(globalReport.getProjectReport().getSmellNames(), containsInAnyOrder(primitiveObsessionName, bloatedCodeName, violationOfDataPrivacyName, inappropriateIntimacyName));
+            assertThat(globalReport.getProjectReport().getSmellNames(), containsInAnyOrder(primitiveObsessionName,
+                    bloatedCodeName,
+                    violationOfDataPrivacyName,
+                    inappropriateIntimacyName,
+                    featureEnvyName));
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(0).getTotalSmellSeverity(), 0.01);
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(1).getTotalSmellSeverity(), 0.01);
         }

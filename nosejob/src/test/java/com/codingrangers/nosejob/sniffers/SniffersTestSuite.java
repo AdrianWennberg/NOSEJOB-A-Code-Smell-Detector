@@ -5,9 +5,11 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
+        ProjectSnifferTest.class,
         BloatedCodeSnifferTest.class,
         ViolationOfDataPrivacySnifferTest.class,
         PrimitiveObsessionSnifferTest.class,
-        InappropriateIntimacySnifferTest.class})
+        InappropriateIntimacySnifferTest.class,
+        FeatureEnvySnifferTest.class})
 
 public class SniffersTestSuite {}
