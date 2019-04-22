@@ -39,13 +39,21 @@ public class ProjectSnifferTest {
 >>>>>>> God Complex started
 =======
             String inappropriateIntimacyName = "Inappropriate Intimacy";
+<<<<<<< HEAD
 >>>>>>> God Complex Sniffer Tested
+=======
+            String featureEnvyName = "Feature Envy";
+>>>>>>> Data only classes Sniffer Tested
             ParsedProject testProject = new ParsedProject();
 
             ProjectSniffer globalReport = new ProjectSniffer();
             globalReport.setProjectToAnalyse(testProject);
 
-            assertThat(globalReport.getProjectReport().getSmellNames(), containsInAnyOrder(primitiveObsessionName, bloatedCodeName, violationOfDataPrivacyName, inappropriateIntimacyName));
+            assertThat(globalReport.getProjectReport().getSmellNames(), containsInAnyOrder(primitiveObsessionName,
+                    bloatedCodeName,
+                    violationOfDataPrivacyName,
+                    inappropriateIntimacyName,
+                    featureEnvyName));
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(0).getTotalSmellSeverity(), 0.01);
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(1).getTotalSmellSeverity(), 0.01);
         }

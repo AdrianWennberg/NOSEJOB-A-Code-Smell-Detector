@@ -41,11 +41,11 @@ public class BloatedCodeSniffer extends GeneralSniffer {
         @Override
         public float getSmellSeverity() {
             int lineCount = currentMethodToAnalyze.getLineCount();
-            float smellSeverity = lineCount > 40 ? Severity.VERY_HIGH.value()
-                    : lineCount > 30 ? Severity.HIGH.value()
-                    : lineCount > 20 ? Severity.MEDIUM.value()
-                    : lineCount > 15 ? Severity.LOW.value()
-                    : lineCount > 10 ? Severity.VERY_LOW.value()
+            float smellSeverity = lineCount > 45 ? Severity.VERY_HIGH.value()
+                    : lineCount > 35 ? Severity.HIGH.value()
+                    : lineCount > 25 ? Severity.MEDIUM.value()
+                    : lineCount > 20 ? Severity.LOW.value()
+                    : lineCount > 15 ? Severity.VERY_LOW.value()
             : 0f;
            return smellSeverity;
         }
