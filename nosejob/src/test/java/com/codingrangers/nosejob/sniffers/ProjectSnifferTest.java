@@ -47,7 +47,11 @@ public class ProjectSnifferTest {
 >>>>>>> Data only classes Sniffer Tested
 =======
             String godComplexName = "God Complex";
+<<<<<<< HEAD
 >>>>>>> opps
+=======
+            String dataOnlyClassesName = "Data Only Classes";
+>>>>>>> data only classes added to project sniffer
             ParsedProject testProject = new ParsedProject();
 
             ProjectSniffer globalReport = new ProjectSniffer();
@@ -58,7 +62,8 @@ public class ProjectSnifferTest {
                     violationOfDataPrivacyName,
                     inappropriateIntimacyName,
                     featureEnvyName,
-                    godComplexName));
+                    godComplexName,
+                    dataOnlyClassesName));
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(0).getTotalSmellSeverity(), 0.01);
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(1).getTotalSmellSeverity(), 0.01);
         }
