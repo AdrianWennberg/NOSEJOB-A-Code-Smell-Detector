@@ -4,7 +4,6 @@ import com.codingrangers.nosejob.models.*;
 import com.codingrangers.nosejob.reports.SmellReport;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PrimitiveObsessionSniffer extends GeneralSniffer{
 	private static final String NAME = "Primitive Obsession";
@@ -44,7 +43,7 @@ public class PrimitiveObsessionSniffer extends GeneralSniffer{
 			return (countSeverityInMethodsParametersTypes() + countSeverityInMethodsLocalTypes()
 					+ countSeverityInMethodsReturnTypes())
 					/ (currentMethodToAnalyze.getLocalVariables().size() + currentMethodToAnalyze.getParameters().size()
-							+ 1);
+					+ 1);
 		}
 	}
 

@@ -46,8 +46,8 @@ public class BloatedCodeSniffer extends GeneralSniffer {
                     : lineCount > 25 ? Severity.MEDIUM.value()
                     : lineCount > 20 ? Severity.LOW.value()
                     : lineCount > 15 ? Severity.VERY_LOW.value()
-            : 0f;
-           return smellSeverity;
+                    : 0f;
+            return smellSeverity;
         }
     }
 
