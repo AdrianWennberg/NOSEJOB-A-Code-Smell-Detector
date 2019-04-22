@@ -17,7 +17,6 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/**TODO*/
 @RunWith(Enclosed.class)
 public class GodComplexSnifferTest {
     public static class getSmellReportTests{
@@ -26,10 +25,10 @@ public class GodComplexSnifferTest {
         public void retrieveNonNullReport(){
             ParsedProject projectTest = new ParsedProject();
 
-            GodComplexSniffer godComplexSniffer = new GodComplexSniffer();
-            godComplexSniffer.setProjectToSniff(projectTest);
+            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
+            godComplexSnifferTest.setProjectToSniff(projectTest);
 
-            assertThat(godComplexSniffer.getSmellReport(), instanceOf(SmellReport.class));
+            assertThat(godComplexSnifferTest.getSmellReport(), instanceOf(SmellReport.class));
         }
     }
 
@@ -66,10 +65,10 @@ public class GodComplexSnifferTest {
             projectTest.addClass(secondMockedClass);
             projectTest.addClass(thirdMockedClass);
 
-            GodComplexSniffer godComplexSniffer = new GodComplexSniffer();
-            godComplexSniffer.setProjectToSniff(projectTest);
+            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
+            godComplexSnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(1f, godComplexSniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(1f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -110,10 +109,10 @@ public class GodComplexSnifferTest {
             projectTest.addClass(secondMockedClass);
             projectTest.addClass(thirdMockedClass);
 
-            GodComplexSniffer godComplexSniffer = new GodComplexSniffer();
-            godComplexSniffer.setProjectToSniff(projectTest);
+            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
+            godComplexSnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.5f, godComplexSniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -151,10 +150,10 @@ public class GodComplexSnifferTest {
             projectTest.addClass(secondMockedClass);
             projectTest.addClass(thirdMockedClass);
 
-            GodComplexSniffer godComplexSniffer = new GodComplexSniffer();
-            godComplexSniffer.setProjectToSniff(projectTest);
+            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
+            godComplexSnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(1f, godComplexSniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(1f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -187,10 +186,10 @@ public class GodComplexSnifferTest {
             projectTest.addClass(secondMockedClass);
             projectTest.addClass(thirdMockedClass);
 
-            GodComplexSniffer godComplexSniffer = new GodComplexSniffer();
-            godComplexSniffer.setProjectToSniff(projectTest);
+            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
+            godComplexSnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0f, godComplexSniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -220,10 +219,10 @@ public class GodComplexSnifferTest {
             projectTest.addClass(secondMockedClass);
             projectTest.addClass(thirdMockedClass);
 
-            GodComplexSniffer godComplexSniffer = new GodComplexSniffer();
-            godComplexSniffer.setProjectToSniff(projectTest);
+            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
+            godComplexSnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0f, godComplexSniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 
@@ -270,10 +269,10 @@ public class GodComplexSnifferTest {
             projectTest.addClass(secondMockedClass);
             projectTest.addClass(thirdMockedClass);
 
-            GodComplexSniffer godComplexSniffer = new GodComplexSniffer();
-            godComplexSniffer.setProjectToSniff(projectTest);
+            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
+            godComplexSnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(1f, godComplexSniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(1f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
    }
 }

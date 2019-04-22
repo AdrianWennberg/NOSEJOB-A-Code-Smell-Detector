@@ -21,6 +21,7 @@ public class ProjectSnifferTest {
             String violationOfDataPrivacyName = "Violation Of Data Privacy";
             String inappropriateIntimacyName = "Inappropriate Intimacy";
             String featureEnvyName = "Feature Envy";
+            String godComplexName = "God Complex";
             ParsedProject testProject = new ParsedProject();
 
             ProjectSniffer globalReport = new ProjectSniffer();
@@ -30,7 +31,8 @@ public class ProjectSnifferTest {
                     bloatedCodeName,
                     violationOfDataPrivacyName,
                     inappropriateIntimacyName,
-                    featureEnvyName));
+                    featureEnvyName,
+                    godComplexName));
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(0).getTotalSmellSeverity(), 0.01);
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(1).getTotalSmellSeverity(), 0.01);
         }

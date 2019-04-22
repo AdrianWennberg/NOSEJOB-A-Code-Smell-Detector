@@ -25,10 +25,10 @@ public class FeatureEnvySnifferTest {
         public void retrieveNonNullReport(){
             ParsedProject projectTest = new ParsedProject();
 
-            FeatureEnvySniffer featureEnvySniffer = new FeatureEnvySniffer();
-            featureEnvySniffer.setProjectToSniff(projectTest);
+            FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
+            featureEnvySnifferTest.setProjectToSniff(projectTest);
 
-            assertThat(featureEnvySniffer.getSmellReport(), instanceOf(SmellReport.class));
+            assertThat(featureEnvySnifferTest.getSmellReport(), instanceOf(SmellReport.class));
         }
     }
 
@@ -56,10 +56,10 @@ public class FeatureEnvySnifferTest {
             projectTest.addClass(mockedTestClass);
             projectTest.addClass(otherMockedClass);
 
-            FeatureEnvySniffer featureEnvySniffer = new FeatureEnvySniffer();
-            featureEnvySniffer.setProjectToSniff(projectTest);
+            FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
+            featureEnvySnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.5f, featureEnvySniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -86,10 +86,10 @@ public class FeatureEnvySnifferTest {
             projectTest.addClass(mockedTestClass);
             projectTest.addClass(otherMockedClass);
 
-            FeatureEnvySniffer featureEnvySniffer = new FeatureEnvySniffer();
-            featureEnvySniffer.setProjectToSniff(projectTest);
+            FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
+            featureEnvySnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.5f, featureEnvySniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -115,10 +115,10 @@ public class FeatureEnvySnifferTest {
             projectTest.addClass(mockedTestClass);
             projectTest.addClass(otherMockedClass);
 
-            FeatureEnvySniffer featureEnvySniffer = new FeatureEnvySniffer();
-            featureEnvySniffer.setProjectToSniff(projectTest);
+            FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
+            featureEnvySnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.0f, featureEnvySniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.0f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -145,10 +145,10 @@ public class FeatureEnvySnifferTest {
             projectTest.addClass(mockedTestClass);
             projectTest.addClass(otherMockedClass);
 
-            FeatureEnvySniffer featureEnvySniffer = new FeatureEnvySniffer();
-            featureEnvySniffer.setProjectToSniff(projectTest);
+            FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
+            featureEnvySnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.5f, featureEnvySniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -163,10 +163,10 @@ public class FeatureEnvySnifferTest {
 
             projectTest.addClass(mockedTestClass);
 
-            FeatureEnvySniffer featureEnvySniffer = new FeatureEnvySniffer();
-            featureEnvySniffer.setProjectToSniff(projectTest);
+            FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
+            featureEnvySnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0f, featureEnvySniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 
@@ -209,10 +209,10 @@ public class FeatureEnvySnifferTest {
             projectTest.addClass(secondMockedClass);
             projectTest.addClass(thirdMockedClass);
 
-            FeatureEnvySniffer featureEnvySniffer = new FeatureEnvySniffer();
-            featureEnvySniffer.setProjectToSniff(projectTest);
+            FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
+            featureEnvySnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.5f, featureEnvySniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -247,10 +247,10 @@ public class FeatureEnvySnifferTest {
             projectTest.addClass(secondMockedClass);
             projectTest.addClass(thirdMockedClass);
 
-            FeatureEnvySniffer featureEnvySniffer = new FeatureEnvySniffer();
-            featureEnvySniffer.setProjectToSniff(projectTest);
+            FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
+            featureEnvySnifferTest.setProjectToSniff(projectTest);
 
-            assertEquals(0.0f, featureEnvySniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.0f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
    }
 }

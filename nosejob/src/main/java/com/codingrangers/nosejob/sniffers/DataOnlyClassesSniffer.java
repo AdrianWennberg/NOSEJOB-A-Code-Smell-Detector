@@ -46,7 +46,7 @@ public class DataOnlyClassesSniffer extends GeneralSniffer {
 
         @Override
         public float getSmellSeverity() {
-            return (countTotalMethodsDeclaredAndCalled() > 5) ? 1f : 0f;
+            return (countTotalMethodsDeclaredAndCalled() > 4) ? 0f : 0.75f;
         }
     }
 
@@ -63,7 +63,7 @@ public class DataOnlyClassesSniffer extends GeneralSniffer {
         if (currentProjectToAnalyse.equals(null))
             throw new NullPointerException("Cannot analyse a null project.");
 
-        if(currentProjectToAnalyse.getClassNames().size() > 2) {
+        if(currentProjectToAnalyse.getClassNames().size() > 1) {
             for (String className : currentProjectToAnalyse.getClassNames()) {
                 ClassData currentClassToAnalyse = currentProjectToAnalyse.getClassData(className);
                 retrieveSmellFromSingularClass(currentClassToAnalyse);
