@@ -1,13 +1,18 @@
 package com.codingrangers.nosejob.sniffers;
 
 import com.codingrangers.nosejob.models.AccessSpecifier;
-import com.codingrangers.nosejob.parser.ParsedClass;
-import com.codingrangers.nosejob.parser.ParsedProject;
-import com.codingrangers.nosejob.parser.ParsedVariable;
+import com.codingrangers.nosejob.models.ClassData;
+import com.codingrangers.nosejob.models.ProjectData;
+import com.codingrangers.nosejob.models.VariableData;
+import com.codingrangers.nosejob.parser.data.ParsedClass;
+import com.codingrangers.nosejob.parser.data.ParsedProject;
+import com.codingrangers.nosejob.parser.data.ParsedVariable;
 import com.codingrangers.nosejob.reports.SmellReport;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
+
+import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
@@ -33,57 +38,70 @@ public class ViolationOfDataPrivacySnifferTest {
     public static class retrieveSmellsFromMethodTests {
         @Test
         public void retrieveSmellsFromFieldTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
+            String testClass = "testClass";
+            String fieldName = "mockedField";
 
-            ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
+            ClassData mockedTestClass = mock(ClassData.class);
 
-            ParsedVariable mockedTestField = mock(ParsedVariable.class);
-            when(mockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PUBLIC);
-            when(mockedTestField.getName()).thenReturn("mockedField");
-            testClass.addField(mockedTestField);
+            when(mockedTestClass.getName()).thenReturn(testClass);
+            when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
 
-            projectTest.addClass(testClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
+
+            when(mockedTestClass.getFieldsNames()).thenReturn(Arrays.asList(fieldName));
+            when(mockedTestClass.countFields()).thenReturn(1);
+            when(mockedTestClass.countPublicFields()).thenReturn(1);
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
-            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+            violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
 
             assertEquals(1f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromFieldsTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
+            String testClass = "testClass";
+            String fieldName = "field";
+            String otherFieldName = "otherField";
 
-            ParsedClass testClass = new ParsedClass("nosejob", "testClass", "C:\\tests");
+            ClassData mockedTestClass = mock(ClassData.class);
 
-            ParsedVariable firstMockedTestField = mock(ParsedVariable.class);
-            when(firstMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PUBLIC);
-            when(firstMockedTestField.getName()).thenReturn("firstMockedField");
-            testClass.addField(firstMockedTestField);
+            when(mockedTestClass.getName()).thenReturn(testClass);
+            when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
 
-            ParsedVariable secondMockedTestField = mock(ParsedVariable.class);
-            when(secondMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PROTECTED);
-            when(secondMockedTestField.getName()).thenReturn("secondMockedField");
-            testClass.addField(secondMockedTestField);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
 
-            projectTest.addClass(testClass);
+            when(mockedTestClass.getFieldsNames()).thenReturn(Arrays.asList(fieldName, otherFieldName));
+            when(mockedTestClass.countFields()).thenReturn(2);
+            when(mockedTestClass.countPublicFields()).thenReturn(1);
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
-            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+            violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
 
             assertEquals(0.5f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromNoFieldsTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
+            String testClass = "testClass";
 
-            ParsedClass testClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
+            ClassData mockedTestClass = mock(ClassData.class);
 
-            projectTest.addClass(testClass);
+            when(mockedTestClass.getName()).thenReturn(testClass);
+            when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
+
+            when(mockedTestClass.getFieldsNames()).thenReturn(Arrays.asList());
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
-            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+            violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
 
             assertEquals(0f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -92,73 +110,88 @@ public class ViolationOfDataPrivacySnifferTest {
     public static class retrieveSmellsFromClasses {
         @Test
         public void retrieveSmellsFromFieldsOfMultipleClassesTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
+            String testClass = "testClass";
+            String otherTestClass = "otherTestClass";
 
-            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+            ClassData mockedTestClass = mock(ClassData.class);
+            ClassData otherMockedTestClass = mock(ClassData.class);
 
-            ParsedVariable firstMockedTestField = mock(ParsedVariable.class);
-            when(firstMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PUBLIC);
-            when(firstMockedTestField.getName()).thenReturn("firstMockedField");
-            firstTestClass.addField(firstMockedTestField);
+            when(mockedTestClass.getName()).thenReturn(testClass);
+            when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+            when(otherMockedTestClass.getName()).thenReturn(otherTestClass);
+            when(otherMockedTestClass.getFullyQualifiedName()).thenReturn(otherTestClass);
 
-            ParsedVariable secondMockedTestField = mock(ParsedVariable.class);
-            when(secondMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PROTECTED);
-            when(secondMockedTestField.getName()).thenReturn("secondMockedField");
-            secondTestClass.addField(secondMockedTestField);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherTestClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
+            when(mockedProject.getClassData(otherTestClass)).thenReturn(otherMockedTestClass);
 
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
-            firstTestClass.addField(firstMockedTestField);
-            secondTestClass.addField(secondMockedTestField);
+            when(mockedTestClass.getFieldsNames()).thenReturn(Arrays.asList("field"));
+            when(mockedTestClass.countFields()).thenReturn(1);
+            when(mockedTestClass.countPublicFields()).thenReturn(1);
+
+            when(otherMockedTestClass.getFieldsNames()).thenReturn(Arrays.asList("field"));
+            when(otherMockedTestClass.countFields()).thenReturn(1);
+            when(otherMockedTestClass.countPublicFields()).thenReturn(0);
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
-            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+            violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
 
             assertEquals(0.5f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromPrivateFieldsOfMultipleClassesTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
+            String testClass = "testClass";
+            String otherTestClass = "otherTestClass";
 
-            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+            ClassData mockedTestClass = mock(ClassData.class);
+            ClassData otherMockedTestClass = mock(ClassData.class);
 
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
+            when(mockedTestClass.getName()).thenReturn(testClass);
+            when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+            when(otherMockedTestClass.getName()).thenReturn(otherTestClass);
+            when(otherMockedTestClass.getFullyQualifiedName()).thenReturn(otherTestClass);
 
-            ParsedVariable firstMockedTestField = mock(ParsedVariable.class);
-            when(firstMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PRIVATE);
-            when(firstMockedTestField.getName()).thenReturn("firstMockedField");
-            firstTestClass.addField(firstMockedTestField);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherTestClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
+            when(mockedProject.getClassData(otherTestClass)).thenReturn(otherMockedTestClass);
 
-            ParsedVariable secondMockedTestField = mock(ParsedVariable.class);
-            when(secondMockedTestField.getAccessSpecifier()).thenReturn(AccessSpecifier.PROTECTED);
-            when(secondMockedTestField.getName()).thenReturn("secondMockedField");
-            secondTestClass.addField(secondMockedTestField);
+            when(mockedTestClass.getFieldsNames()).thenReturn(Arrays.asList("field"));
+            when(mockedTestClass.countFields()).thenReturn(1);
+            when(mockedTestClass.countPublicFields()).thenReturn(0);
 
-            firstTestClass.addField(firstMockedTestField);
-            secondTestClass.addField(secondMockedTestField);
+            when(otherMockedTestClass.getFieldsNames()).thenReturn(Arrays.asList("field"));
+            when(otherMockedTestClass.countFields()).thenReturn(1);
+            when(otherMockedTestClass.countPublicFields()).thenReturn(0);
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
-            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+            violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
 
-            assertEquals(0f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.0f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
-        public void retrieveSmellsFromMultipleClassesWithNoMethodsTest() {
-            ParsedProject projectTest = new ParsedProject();
+        public void retrieveSmellsFromMultipleClassesWithNoFieldsTest() {
+            ProjectData mockedProject = mock(ProjectData.class);
+            String testClass = "testClass";
+            String otherTestClass = "otherTestClass";
 
-            ParsedClass firstTestClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
-            ParsedClass secondTestClass = new ParsedClass("nosejob", "secondTestClass", "C:\\tests");
+            ClassData mockedTestClass = mock(ClassData.class);
+            ClassData otherMockedTestClass = mock(ClassData.class);
 
-            projectTest.addClass(firstTestClass);
-            projectTest.addClass(secondTestClass);
+            when(mockedTestClass.getName()).thenReturn(testClass);
+            when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+            when(otherMockedTestClass.getName()).thenReturn(otherTestClass);
+            when(otherMockedTestClass.getFullyQualifiedName()).thenReturn(otherTestClass);
+
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherTestClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
+            when(mockedProject.getClassData(otherTestClass)).thenReturn(otherMockedTestClass);
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
-            violationOfDataPrivacyTest.setProjectToSniff(projectTest);
+            violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
 
             assertEquals(0f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }

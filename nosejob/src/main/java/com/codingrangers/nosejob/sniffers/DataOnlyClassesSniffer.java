@@ -18,7 +18,7 @@ public class DataOnlyClassesSniffer extends GeneralSniffer {
             for(String className : currentProjectToAnalyse.getClassNames()){
                 if(!className.equals(currentClassToAnalyse.getName())) {
                     ClassData classToCompareWith = currentProjectToAnalyse.getClassData(className);
-                    calls += currentClassToAnalyse.getMethodCallsTo(classToCompareWith.getFullyQualifiedName()).size();
+                    calls += currentClassToAnalyse.countMethodCallsTo(classToCompareWith.getFullyQualifiedName());
                 }
             }
 
@@ -26,7 +26,7 @@ public class DataOnlyClassesSniffer extends GeneralSniffer {
         }
 
         private int countTotalMethodsDeclaredAndCalled(){
-            return countHowManyExternalMethodsItsUsing() + currentClassToAnalyse.getInternalMethodCalls().size() + currentClassToAnalyse.getMethodSignatures().size();
+            return countHowManyExternalMethodsItsUsing() + currentClassToAnalyse.countInternalMethodCalls() + currentClassToAnalyse.countMethods();
         }
 
         @Override

@@ -16,10 +16,7 @@ public class InappropriateIntimacySniffer extends GeneralSniffer {
             for(String className : currentProjectToAnalyse.getClassNames()){
                 if(!className.equals(currentClassToAnalyse.getName())) {
                     ClassData classToCompareWith = currentProjectToAnalyse.getClassData(className);
-                    List<FieldReference> usedFields = currentClassToAnalyse.getFieldReferencesTo(classToCompareWith.getFullyQualifiedName());
-                    for(FieldReference fieldReference : usedFields){
-                        if(!fieldReference.isInternal()) externalFieldsCounter++;
-                    }
+                    externalFieldsCounter += currentClassToAnalyse.countFieldReferencesTo(classToCompareWith.getFullyQualifiedName());
                 }
             }
 

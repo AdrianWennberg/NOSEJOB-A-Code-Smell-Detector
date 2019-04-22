@@ -2,8 +2,9 @@ package com.codingrangers.nosejob.sniffers;
 
 import com.codingrangers.nosejob.models.ClassData;
 import com.codingrangers.nosejob.models.FieldReference;
-import com.codingrangers.nosejob.parser.ParsedClass;
-import com.codingrangers.nosejob.parser.ParsedProject;
+import com.codingrangers.nosejob.models.ProjectData;
+import com.codingrangers.nosejob.parser.data.ParsedClass;
+import com.codingrangers.nosejob.parser.data.ParsedProject;
 import com.codingrangers.nosejob.reports.SmellReport;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -36,7 +37,7 @@ public class InappropriateIntimacySnifferTest {
     public static class retrieveSmellsFromClassTests {
         @Test
         public void retrieveSmellsFromClassOneReferencedFieldTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -50,23 +51,23 @@ public class InappropriateIntimacySnifferTest {
             when(otherMockedClass.getFullyQualifiedName()).thenReturn(otherClass);
 
             FieldReference firstMockedReference = mock(FieldReference.class);
-            when(firstMockedReference.isInternal()).thenReturn(true);
 
             List<FieldReference> mockedList = Arrays.asList(firstMockedReference);
-            when(mockedTestClass.getFieldReferencesTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedList);
+            when(mockedTestClass.countFieldReferencesTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedList.size());
 
-            projectTest.addClass(mockedTestClass);
-            projectTest.addClass(otherMockedClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
+            when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedClass);
 
             InappropriateIntimacySniffer inappropriateIntimacyTest = new InappropriateIntimacySniffer();
-            inappropriateIntimacyTest.setProjectToSniff(projectTest);
+            inappropriateIntimacyTest.setProjectToSniff(mockedProject);
 
-            assertEquals(0f, inappropriateIntimacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.5f, inappropriateIntimacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromManyReferencedFieldsTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -87,27 +88,31 @@ public class InappropriateIntimacySnifferTest {
             when(thirdMockedReference.isInternal()).thenReturn(true);
 
             List<FieldReference> mockedList = Arrays.asList(firstMockedReference, secondMockedReference, thirdMockedReference);
-            when(mockedTestClass.getFieldReferencesTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedList);
+            when(mockedTestClass.countFieldReferencesTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedList.size());
 
-            projectTest.addClass(mockedTestClass);
-            projectTest.addClass(otherMockedClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
+            when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedClass);
 
             InappropriateIntimacySniffer inappropriateIntimacyTest = new InappropriateIntimacySniffer();
-            inappropriateIntimacyTest.setProjectToSniff(projectTest);
+            inappropriateIntimacyTest.setProjectToSniff(mockedProject);
 
             assertEquals(0.5f, inappropriateIntimacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsNoReferencedFieldsTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
-            ParsedClass testClass = new ParsedClass("nosejob", "firstTestClass", "C:\\tests");
+            String testClass = "testClass";
 
-            projectTest.addClass(testClass);
+            ParsedClass mockedTestClass = mock(ParsedClass.class);
+
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass));
+            when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
 
             InappropriateIntimacySniffer inappropriateIntimacyTest = new InappropriateIntimacySniffer();
-            inappropriateIntimacyTest.setProjectToSniff(projectTest);
+            inappropriateIntimacyTest.setProjectToSniff(mockedProject);
 
             assertEquals(0f, inappropriateIntimacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -116,7 +121,7 @@ public class InappropriateIntimacySnifferTest {
     public static class retrieveSmellsFromClasses {
         @Test
         public void retrieveSmellsFromFieldsOfMultipleClassesTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
             String firstTestClass = "firstTestClass";
             String secondTestClass = "secondTestClass";
@@ -134,32 +139,30 @@ public class InappropriateIntimacySnifferTest {
             when(thirdMockedClass.getFullyQualifiedName()).thenReturn(thirdTestClass);
 
             FieldReference firstMockedReference = mock(FieldReference.class);
-            when(firstMockedReference.isInternal()).thenReturn(true);
             FieldReference secondMockedReference = mock(FieldReference.class);
-            when(secondMockedReference.isInternal()).thenReturn(true);
             FieldReference thirdMockedReference = mock(FieldReference.class);
-            when(thirdMockedReference.isInternal()).thenReturn(false);
 
             List<FieldReference> mockedListFirstTestClass = Arrays.asList(firstMockedReference, secondMockedReference, thirdMockedReference);
             List<FieldReference> mockedListSecondTestClass = Arrays.asList(firstMockedReference, secondMockedReference);
             List<FieldReference> mockedListThirdTestClass = Arrays.asList();
-            when(firstMockedClass.getFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListFirstTestClass);
-            when(secondMockedClass.getFieldReferencesTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedListSecondTestClass);
-            when(thirdMockedClass.getFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListThirdTestClass);
+            when(firstMockedClass.countFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListFirstTestClass.size());
+            when(secondMockedClass.countFieldReferencesTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedListSecondTestClass.size());
+            when(thirdMockedClass.countFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListThirdTestClass.size());
 
-            projectTest.addClass( firstMockedClass );
-            projectTest.addClass( secondMockedClass);
-            projectTest.addClass( thirdMockedClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(firstTestClass, secondTestClass, thirdTestClass));
+            when(mockedProject.getClassData(firstTestClass)).thenReturn(firstMockedClass);
+            when(mockedProject.getClassData(secondTestClass)).thenReturn(secondMockedClass);
+            when(mockedProject.getClassData(thirdTestClass)).thenReturn(thirdMockedClass);
 
             InappropriateIntimacySniffer inappropriateIntimacyTest = new InappropriateIntimacySniffer();
-            inappropriateIntimacyTest.setProjectToSniff(projectTest);
+            inappropriateIntimacyTest.setProjectToSniff(mockedProject);
 
-            assertEquals(0.33f, inappropriateIntimacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.66f, inappropriateIntimacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromMultipleClassesWithNoMethodsTest() {
-            ParsedProject projectTest = new ParsedProject();
+            ProjectData mockedProject = mock(ProjectData.class);
 
             String firstTestClass = "firstTestClass";
             String secondTestClass = "secondTestClass";
@@ -179,16 +182,18 @@ public class InappropriateIntimacySnifferTest {
             List<FieldReference> mockedListFirstTestClass = Arrays.asList();
             List<FieldReference> mockedListSecondTestClass = Arrays.asList();
             List<FieldReference> mockedListThirdTestClass = Arrays.asList();
-            when(firstMockedClass.getFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListFirstTestClass);
-            when(secondMockedClass.getFieldReferencesTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedListSecondTestClass);
-            when(thirdMockedClass.getFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListThirdTestClass);
+            when(firstMockedClass.countFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListFirstTestClass.size());
+            when(secondMockedClass.countFieldReferencesTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedListSecondTestClass.size());
+            when(thirdMockedClass.countFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListThirdTestClass.size());
 
-            projectTest.addClass(firstMockedClass);
-            projectTest.addClass(secondMockedClass);
-            projectTest.addClass(thirdMockedClass);
+            when(mockedProject.getClassNames()).thenReturn(Arrays.asList(firstTestClass, secondTestClass, thirdTestClass));
+            when(mockedProject.getClassData(firstTestClass)).thenReturn(firstMockedClass);
+            when(mockedProject.getClassData(secondTestClass)).thenReturn(secondMockedClass);
+            when(mockedProject.getClassData(thirdTestClass)).thenReturn(thirdMockedClass);
+
 
             InappropriateIntimacySniffer inappropriateIntimacyTest = new InappropriateIntimacySniffer();
-            inappropriateIntimacyTest.setProjectToSniff(projectTest);
+            inappropriateIntimacyTest.setProjectToSniff(mockedProject);
 
             assertEquals(0f, inappropriateIntimacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }

@@ -18,8 +18,8 @@ public class GodComplexSniffer extends GeneralSniffer {
 
             for(String className : currentProjectToAnalyse.getClassNames()){
                 if(!className.equals(currentClassName)) {
-                   ClassData callingClass = currentProjectToAnalyse.getClassData(className);
-                   callsRatio += callingClass.getMethodCallsTo(currentClassName).size();
+                    ClassData callingClass = currentProjectToAnalyse.getClassData(className);
+                    callsRatio += callingClass.countMethodCallsTo(currentClassToAnalyse.getFullyQualifiedName());
                 }
             }
 

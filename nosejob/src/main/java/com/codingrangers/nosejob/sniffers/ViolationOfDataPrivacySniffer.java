@@ -40,7 +40,7 @@ public class ViolationOfDataPrivacySniffer extends GeneralSniffer {
         if (currentClassToAnalyse.equals(null))
             throw new NullPointerException("Cannot analyse fields of a null.");
 
-        if (currentClassToAnalyse.getFieldsNames().size() > 0) {
+        if (currentClassToAnalyse.countFields() > 0) {
             Smell fieldsDiagnosis = new FieldsDiagnosis();
             fieldsDiagnosis.setCodeData(currentClassToAnalyse);
             smells.add(fieldsDiagnosis);
