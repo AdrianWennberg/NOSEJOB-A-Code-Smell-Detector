@@ -9,7 +9,7 @@ public class FeatureEnvySniffer extends GeneralSniffer {
     private class ClassDiagnosis implements Smell {
         private ClassData currentClassToAnalyse;
 
-        private float countHowManyExternalMethodsItsUsing() {
+        private float howManyExternalMethodsItsUsingratio() {
             float callsRatio = 0f;
 
             for(String className : currentProjectToAnalyse.getClassNames()){
@@ -42,7 +42,7 @@ public class FeatureEnvySniffer extends GeneralSniffer {
         @Override
         public float getSmellSeverity() {
             float severity = 0f;
-            severity = (countHowManyExternalMethodsItsUsing() > 1f) ? (severity - 1f) : 0f;
+            severity = (howManyExternalMethodsItsUsingratio() > 1f) ? (severity - 1f) : 0f;
             return severity;
         }
     }
