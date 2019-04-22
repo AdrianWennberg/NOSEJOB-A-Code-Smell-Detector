@@ -35,13 +35,17 @@ public class ProjectSnifferTest {
 >>>>>>> Violation of Data privacy implemented, need testing:nosejob/src/test/java/com/codingrangers/nosejob/sniffers/ProjectSnifferTest.java
 =======
             String violationOfDataPrivacyName = "Violation Of Data Privacy";
+<<<<<<< HEAD
 >>>>>>> God Complex started
+=======
+            String inappropriateIntimacyName = "Inappropriate Intimacy";
+>>>>>>> God Complex Sniffer Tested
             ParsedProject testProject = new ParsedProject();
 
             ProjectSniffer globalReport = new ProjectSniffer();
             globalReport.setProjectToAnalyse(testProject);
 
-            assertThat(globalReport.getProjectReport().getSmellNames(), containsInAnyOrder(primitiveObsessionName, bloatedCodeName, violationOfDataPrivacyName));
+            assertThat(globalReport.getProjectReport().getSmellNames(), containsInAnyOrder(primitiveObsessionName, bloatedCodeName, violationOfDataPrivacyName, inappropriateIntimacyName));
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(0).getTotalSmellSeverity(), 0.01);
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(1).getTotalSmellSeverity(), 0.01);
         }
