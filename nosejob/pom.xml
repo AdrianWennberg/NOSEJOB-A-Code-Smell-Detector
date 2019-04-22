@@ -53,6 +53,12 @@
 			<artifactId>javaparser-symbol-solver-core</artifactId>
 			<version>3.8.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.zeroturnaround</groupId>
+			<artifactId>zt-zip</artifactId>
+			<version>1.13</version>
+			<type>jar</type>
+		</dependency>
 	</dependencies>
 
 	<build>
