@@ -9,7 +9,7 @@
 	top: 50%;
 	transform: translateY(-50%);
 	max-width: 500px;
-	width: 1 00%;
+	width: 100%;
 	margin: 0 auto;
 	left: 0;
 	right: 0;
@@ -134,7 +134,7 @@
 	bottom: 0;
 	left: 0;
 	background: #4AA379;
-	animation: fadeIn 1s;
+	animation: fadeIn 2s;
 }
 
 .wave {
