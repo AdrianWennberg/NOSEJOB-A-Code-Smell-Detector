@@ -1,3 +1,4 @@
+
 package com.codingrangers.nosejob.models;
 
 public enum AccessSpecifier {
@@ -6,4 +7,3 @@ public enum AccessSpecifier {
 	DEFAULT,
 	PRIVATE,
 }
-
