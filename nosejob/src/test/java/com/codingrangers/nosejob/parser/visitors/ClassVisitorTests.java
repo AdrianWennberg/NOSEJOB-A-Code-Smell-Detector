@@ -11,8 +11,11 @@ import org.mockito.Mockito;
 <<<<<<< HEAD
 =======
 import com.codingrangers.nosejob.parser.data.ParsedClass;
+<<<<<<< HEAD
 import com.codingrangers.nosejob.parser.data.ParsedMethod;
 >>>>>>> Solved conflicts
+=======
+>>>>>>> Solved more conflicts
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
@@ -21,6 +24,7 @@ import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeS
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
 public class ClassVisitorTests {
+<<<<<<< HEAD
 	
 	ClassVisitor visitor;
 	ParsedClass ClassData;
@@ -65,6 +69,9 @@ public class ClassVisitorTests {
 		visitor.visit(compUnit[2], ClassData);
 
 <<<<<<< HEAD
+=======
+
+>>>>>>> Solved more conflicts
     ClassVisitor visitor;
     ParsedClass ClassData;
 
@@ -113,6 +120,7 @@ public class ClassVisitorTests {
         verify(ClassData,never()).addReferenceToMethod("referenceTests.ReferenceTest1", "methodToCall()");
         verify(ClassData,never()).addReferenceToField("referenceTests.ReferenceTest1", "field");
     }
+<<<<<<< HEAD
 }
 =======
 		verify(ClassData).addReferenceToMethod("referenceTests.ReferenceTest1", "staticMethodToCall()");
@@ -123,3 +131,6 @@ public class ClassVisitorTests {
 	}
 }
 >>>>>>> Solved conflicts
+=======
+}
+>>>>>>> Solved more conflicts
