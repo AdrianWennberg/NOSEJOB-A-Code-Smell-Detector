@@ -2,12 +2,8 @@ package com.codingrangers.nosejob.sniffers;
 
 import com.codingrangers.nosejob.models.ClassData;
 import com.codingrangers.nosejob.models.MethodReference;
-<<<<<<< HEAD
 import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.parser.data.ParsedProject;
-=======
-import com.codingrangers.nosejob.parser.ParsedProject;
->>>>>>> Data only classes Sniffer Tested
 import com.codingrangers.nosejob.reports.SmellReport;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -22,13 +18,6 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-/**TODO*/
->>>>>>> Data only classes Sniffer Tested
-=======
->>>>>>> opps
 @RunWith(Enclosed.class)
 public class GodComplexSnifferTest {
     public static class getSmellReportTests{
@@ -37,35 +26,17 @@ public class GodComplexSnifferTest {
         public void retrieveNonNullReport(){
             ParsedProject projectTest = new ParsedProject();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
             GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
             godComplexSnifferTest.setProjectToSniff(projectTest);
 
             assertThat(godComplexSnifferTest.getSmellReport(), instanceOf(SmellReport.class));
-=======
-            GodComplexSniffer godComplexSniffer = new GodComplexSniffer();
-            godComplexSniffer.setProjectToSniff(projectTest);
-
-            assertThat(godComplexSniffer.getSmellReport(), instanceOf(SmellReport.class));
->>>>>>> Data only classes Sniffer Tested
-=======
-            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
-            godComplexSnifferTest.setProjectToSniff(projectTest);
-
-            assertThat(godComplexSnifferTest.getSmellReport(), instanceOf(SmellReport.class));
->>>>>>> opps
         }
     }
 
     public static class retrieveSmellsFromClassTests {
         @Test
         public void retrieveSmellsFromSingleBigGodClassTest() {
-<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
-=======
-            ParsedProject projectTest = new ParsedProject();
->>>>>>> Data only classes Sniffer Tested
 
             String firstTestClass = "firstTestClass";
             String secondTestClass = "secondTestClass";
@@ -88,7 +59,6 @@ public class GodComplexSnifferTest {
                     mock(MethodReference.class),
                     mock(MethodReference.class),
                     mock(MethodReference.class));
-<<<<<<< HEAD
             when(secondMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
             when(thirdMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
 
@@ -101,32 +71,11 @@ public class GodComplexSnifferTest {
             godComplexSnifferTest.setProjectToSniff(mockedProject);
 
             assertEquals(1f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-=======
-            when(secondMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-            when(thirdMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-
-            projectTest.addClass(firstMockedClass);
-            projectTest.addClass(secondMockedClass);
-            projectTest.addClass(thirdMockedClass);
-
-            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
-            godComplexSnifferTest.setProjectToSniff(projectTest);
-
-<<<<<<< HEAD
-            assertEquals(1f, godComplexSniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
->>>>>>> Data only classes Sniffer Tested
-=======
-            assertEquals(1f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
->>>>>>> opps
         }
 
         @Test
         public void retrieveSmellsFromSingleGodClassTest() {
-<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
-=======
-            ParsedProject projectTest = new ParsedProject();
->>>>>>> Data only classes Sniffer Tested
 
             String firstTestClass = "firstTestClass";
             String secondTestClass = "secondTestClass";
@@ -148,11 +97,7 @@ public class GodComplexSnifferTest {
                     mock(MethodReference.class),
                     mock(MethodReference.class),
                     mock(MethodReference.class));
-<<<<<<< HEAD
             when(secondMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
-=======
-            when(secondMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
->>>>>>> Data only classes Sniffer Tested
 
             List<MethodReference> secondMockedExternalList = Arrays.asList(mock(MethodReference.class),
                     mock(MethodReference.class),
@@ -160,7 +105,6 @@ public class GodComplexSnifferTest {
                     mock(MethodReference.class),
                     mock(MethodReference.class),
                     mock(MethodReference.class));
-<<<<<<< HEAD
             when(thirdMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(secondMockedExternalList.size());
 
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(firstTestClass, secondTestClass, thirdTestClass));
@@ -172,31 +116,11 @@ public class GodComplexSnifferTest {
             godComplexSnifferTest.setProjectToSniff(mockedProject);
 
             assertEquals(0.5f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-=======
-            when(thirdMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(secondMockedExternalList);
-
-            projectTest.addClass(firstMockedClass);
-            projectTest.addClass(secondMockedClass);
-            projectTest.addClass(thirdMockedClass);
-
-            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
-            godComplexSnifferTest.setProjectToSniff(projectTest);
-
-<<<<<<< HEAD
-            assertEquals(0.5f, godComplexSniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
->>>>>>> Data only classes Sniffer Tested
-=======
-            assertEquals(0.5f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
->>>>>>> opps
         }
 
         @Test
         public void retrieveSmellsFromSingleGiantGodClassTest() {
-<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
-=======
-            ParsedProject projectTest = new ParsedProject();
->>>>>>> Data only classes Sniffer Tested
 
             String firstTestClass = "firstTestClass";
             String secondTestClass = "secondTestClass";
@@ -222,7 +146,6 @@ public class GodComplexSnifferTest {
                     mock(MethodReference.class),
                     mock(MethodReference.class),
                     mock(MethodReference.class));
-<<<<<<< HEAD
             when(secondMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
             when(thirdMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
 
@@ -235,32 +158,11 @@ public class GodComplexSnifferTest {
             godComplexSnifferTest.setProjectToSniff(mockedProject);
 
             assertEquals(1f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-=======
-            when(secondMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-            when(thirdMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-
-            projectTest.addClass(firstMockedClass);
-            projectTest.addClass(secondMockedClass);
-            projectTest.addClass(thirdMockedClass);
-
-            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
-            godComplexSnifferTest.setProjectToSniff(projectTest);
-
-<<<<<<< HEAD
-            assertEquals(1f, godComplexSniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
->>>>>>> Data only classes Sniffer Tested
-=======
-            assertEquals(1f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
->>>>>>> opps
         }
 
         @Test
         public void retrieveSmellsFromNonGodlyClassTest() {
-<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
-=======
-            ParsedProject projectTest = new ParsedProject();
->>>>>>> Data only classes Sniffer Tested
 
             String firstTestClass = "firstTestClass";
             String secondTestClass = "secondTestClass";
@@ -281,7 +183,6 @@ public class GodComplexSnifferTest {
                     mock(MethodReference.class),
                     mock(MethodReference.class),
                     mock(MethodReference.class));
-<<<<<<< HEAD
             when(secondMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
             when(thirdMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
 
@@ -294,32 +195,11 @@ public class GodComplexSnifferTest {
             godComplexSnifferTest.setProjectToSniff(mockedProject);
 
             assertEquals(0f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-=======
-            when(secondMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-            when(thirdMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-
-            projectTest.addClass(firstMockedClass);
-            projectTest.addClass(secondMockedClass);
-            projectTest.addClass(thirdMockedClass);
-
-            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
-            godComplexSnifferTest.setProjectToSniff(projectTest);
-
-<<<<<<< HEAD
-            assertEquals(0f, godComplexSniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
->>>>>>> Data only classes Sniffer Tested
-=======
-            assertEquals(0f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
->>>>>>> opps
         }
 
         @Test
         public void retrieveSmellsEmptyClasses() {
-<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
-=======
-            ParsedProject projectTest = new ParsedProject();
->>>>>>> Data only classes Sniffer Tested
 
             String firstTestClass = "firstTestClass";
             String secondTestClass = "secondTestClass";
@@ -336,7 +216,6 @@ public class GodComplexSnifferTest {
             when(thirdMockedClass.getName()).thenReturn(thirdTestClass);
             when(thirdMockedClass.getFullyQualifiedName()).thenReturn(thirdTestClass);
 
-<<<<<<< HEAD
             when(firstMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList().size());
             when(secondMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList().size());
             when(thirdMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList().size());
@@ -350,35 +229,13 @@ public class GodComplexSnifferTest {
             godComplexSnifferTest.setProjectToSniff(mockedProject);
 
             assertEquals(0f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-=======
-            when(firstMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList());
-            when(secondMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList());
-            when(thirdMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(Arrays.asList());
-
-            projectTest.addClass(firstMockedClass);
-            projectTest.addClass(secondMockedClass);
-            projectTest.addClass(thirdMockedClass);
-
-            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
-            godComplexSnifferTest.setProjectToSniff(projectTest);
-
-<<<<<<< HEAD
-            assertEquals(0f, godComplexSniffer.getSmellReport().getTotalSmellSeverity(), 0.01);
->>>>>>> Data only classes Sniffer Tested
-=======
-            assertEquals(0f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
->>>>>>> opps
         }
     }
 
     public static class retrieveSmellsFromClasses {
         @Test
         public void retrieveSmellsMultipleGodClassesTest() {
-<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
-=======
-            ParsedProject projectTest = new ParsedProject();
->>>>>>> Data only classes Sniffer Tested
 
             String firstTestClass = "firstTestClass";
             String secondTestClass = "secondTestClass";
@@ -408,7 +265,6 @@ public class GodComplexSnifferTest {
                     mock(MethodReference.class),
                     mock(MethodReference.class),
                     mock(MethodReference.class));
-<<<<<<< HEAD
             when(secondMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
             when(thirdMockedClass.countMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
 
@@ -426,22 +282,4 @@ public class GodComplexSnifferTest {
             assertEquals(1f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
-=======
-            when(secondMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-            when(thirdMockedClass.getMethodCallsTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-
-            when(firstMockedClass.getMethodCallsTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-            when(thirdMockedClass.getMethodCallsTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList);
-
-            projectTest.addClass(firstMockedClass);
-            projectTest.addClass(secondMockedClass);
-            projectTest.addClass(thirdMockedClass);
-
-            GodComplexSniffer godComplexSnifferTest = new GodComplexSniffer();
-            godComplexSnifferTest.setProjectToSniff(projectTest);
-
-            assertEquals(1f, godComplexSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
-        }
-   }
->>>>>>> Data only classes Sniffer Tested
 }

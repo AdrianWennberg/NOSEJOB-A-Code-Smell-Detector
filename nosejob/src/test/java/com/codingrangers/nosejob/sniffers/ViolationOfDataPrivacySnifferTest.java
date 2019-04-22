@@ -1,13 +1,19 @@
 package com.codingrangers.nosejob.sniffers;
 
+import com.codingrangers.nosejob.models.AccessSpecifier;
 import com.codingrangers.nosejob.models.ClassData;
 import com.codingrangers.nosejob.models.ProjectData;
+import com.codingrangers.nosejob.models.VariableData;
+import com.codingrangers.nosejob.parser.data.ParsedClass;
 import com.codingrangers.nosejob.parser.data.ParsedProject;
+import com.codingrangers.nosejob.parser.data.ParsedVariable;
 import com.codingrangers.nosejob.reports.SmellReport;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
+
 import java.util.Arrays;
+
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -50,6 +56,7 @@ public class ViolationOfDataPrivacySnifferTest {
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
             violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
+
             assertEquals(1f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
@@ -75,7 +82,6 @@ public class ViolationOfDataPrivacySnifferTest {
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
             violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
 
-
             assertEquals(0.5f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
@@ -96,6 +102,7 @@ public class ViolationOfDataPrivacySnifferTest {
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
             violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
+
             assertEquals(0f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
@@ -129,7 +136,6 @@ public class ViolationOfDataPrivacySnifferTest {
 
             ViolationOfDataPrivacySniffer violationOfDataPrivacyTest = new ViolationOfDataPrivacySniffer();
             violationOfDataPrivacyTest.setProjectToSniff(mockedProject);
-
 
             assertEquals(0.5f, violationOfDataPrivacyTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }

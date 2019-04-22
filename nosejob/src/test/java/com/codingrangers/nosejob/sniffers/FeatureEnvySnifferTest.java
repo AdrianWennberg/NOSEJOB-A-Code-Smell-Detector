@@ -59,11 +59,7 @@ public class FeatureEnvySnifferTest {
             when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-<<<<<<< HEAD
             featureEnvySnifferTest.setProjectToSniff(mockedProject);
-=======
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
->>>>>>> opps
 
             assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -89,18 +85,12 @@ public class FeatureEnvySnifferTest {
             when(mockedTestClass.countMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedExternalList.size());
             when(mockedTestClass.countInternalMethodCalls()).thenReturn(mockedInternalList.size());
 
-<<<<<<< HEAD
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
             when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
             featureEnvySnifferTest.setProjectToSniff(mockedProject);
-=======
-            FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
-
->>>>>>> opps
             assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
@@ -129,11 +119,7 @@ public class FeatureEnvySnifferTest {
             when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-<<<<<<< HEAD
             featureEnvySnifferTest.setProjectToSniff(mockedProject);
-=======
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
->>>>>>> opps
 
             assertEquals(0.0f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -164,11 +150,7 @@ public class FeatureEnvySnifferTest {
             when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-<<<<<<< HEAD
             featureEnvySnifferTest.setProjectToSniff(mockedProject);
-=======
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
->>>>>>> opps
 
             assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -187,11 +169,7 @@ public class FeatureEnvySnifferTest {
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-<<<<<<< HEAD
             featureEnvySnifferTest.setProjectToSniff(mockedProject);
-=======
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
->>>>>>> opps
 
             assertEquals(0f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -238,11 +216,7 @@ public class FeatureEnvySnifferTest {
             when(mockedProject.getClassData(thirdTestClass)).thenReturn(thirdMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-<<<<<<< HEAD
             featureEnvySnifferTest.setProjectToSniff(mockedProject);
-=======
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
->>>>>>> opps
 
             assertEquals(0.5f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -281,11 +255,7 @@ public class FeatureEnvySnifferTest {
             when(mockedProject.getClassData(thirdTestClass)).thenReturn(thirdMockedClass);
 
             FeatureEnvySniffer featureEnvySnifferTest = new FeatureEnvySniffer();
-<<<<<<< HEAD
             featureEnvySnifferTest.setProjectToSniff(mockedProject);
-=======
-            featureEnvySnifferTest.setProjectToSniff(projectTest);
->>>>>>> opps
 
             assertEquals(0.0f, featureEnvySnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }

@@ -5,8 +5,6 @@ import java.util.List;
 public interface ClassData extends CodeData {
 	int countPublicFields();
 
-	int countTotalMehodCalls();
-
 	int countInternalMethodCalls();
 
 	Iterable<MethodReference> getInternalMethodCalls();

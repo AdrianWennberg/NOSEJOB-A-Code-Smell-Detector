@@ -7,5 +7,4 @@ public interface MethodReference extends CodeLocation {
 
 	String getReferredMethodSignature();
 
-	boolean isInternal();
 }

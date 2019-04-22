@@ -15,17 +15,29 @@ import com.github.javaparser.ast.body.VariableDeclarator;
 
 
 public class VariableVisitorTests {
+<<<<<<< HEAD
 
 	VariableVisitor visitor;
 	CompilationUnit compUnit;
 	ParsedVariable variableData;
 
+=======
+	
+	VariableVisitor visitor;
+	CompilationUnit compUnit;
+	ParsedVariable variableData;
+	
+>>>>>>> Solved conflicts
 	@Before
 	public void before() {
 		visitor = new VariableVisitor();
 		variableData = Mockito.mock(ParsedVariable.class);
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> Solved conflicts
 	void setCompUnit(String fileName) {
 		File file = new File(fileName);
 		try {
@@ -34,6 +46,7 @@ public class VariableVisitorTests {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
 
 	@Test
 	public void identificationTest() {
@@ -41,11 +54,26 @@ public class VariableVisitorTests {
 
 		visitor.visit(compUnit, variableData);
 
+=======
+	
+	@Test
+	public void identificationTest() {
+		setCompUnit("src/test/ParserTestTargets/VariableIdentificationTestTarget.java");
+		
+		visitor.visit(compUnit, variableData);
+		
+>>>>>>> Solved conflicts
 		verify(variableData, times(2)).setVariableType("int");
 		verify(variableData).setVariableType("String");
 		verify(variableData).setVariableType("VariableIdentificationTestTarget");
 
 	}
+<<<<<<< HEAD
 
 
 }
+=======
+	
+	
+}
+>>>>>>> Solved conflicts

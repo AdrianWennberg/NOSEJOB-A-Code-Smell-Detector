@@ -1,5 +1,6 @@
 package com.codingrangers.nosejob.parser.visitors;
 
+import com.codingrangers.nosejob.parser.data.ParsedClass;
 import com.codingrangers.nosejob.parser.data.ParsedMethod;
 import com.codingrangers.nosejob.parser.data.ParsedVariable;
 import com.github.javaparser.ast.CompilationUnit;
