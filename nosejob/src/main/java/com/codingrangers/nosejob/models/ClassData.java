@@ -16,7 +16,7 @@ public interface ClassData extends CodeData {
     int countFieldReferencesTo(String fullyQualifiedClassName);
 
     Iterable<FieldReference> getFieldReferencesTo(String fullyQualifiedClassName);
-	
+
 	int countMethods();
 	List<String> getMethodSignatures();
 	MethodData getMethod(String signature);
@@ -25,5 +25,5 @@ public interface ClassData extends CodeData {
 	List<String> getFieldsNames();
 	VariableData getField(String name);
 
-    int countPrimitiveFields();
+	int countPrimitiveFields();
 }

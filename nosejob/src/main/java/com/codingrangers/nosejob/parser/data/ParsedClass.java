@@ -148,4 +148,5 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
     protected ParsedClass clone() {
         return new ParsedClass(getNamePrefix(), getName(), getFilePath());
     }
+
 }
