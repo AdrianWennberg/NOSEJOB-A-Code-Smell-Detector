@@ -43,7 +43,11 @@ public class ProjectSnifferTest {
 >>>>>>> God Complex Sniffer Tested
 =======
             String featureEnvyName = "Feature Envy";
+<<<<<<< HEAD
 >>>>>>> Data only classes Sniffer Tested
+=======
+            String godComplexName = "God Complex";
+>>>>>>> opps
             ParsedProject testProject = new ParsedProject();
 
             ProjectSniffer globalReport = new ProjectSniffer();
@@ -53,7 +57,8 @@ public class ProjectSnifferTest {
                     bloatedCodeName,
                     violationOfDataPrivacyName,
                     inappropriateIntimacyName,
-                    featureEnvyName));
+                    featureEnvyName,
+                    godComplexName));
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(0).getTotalSmellSeverity(), 0.01);
             assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(1).getTotalSmellSeverity(), 0.01);
         }

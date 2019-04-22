@@ -51,6 +51,7 @@ public class ViolationOfDataPrivacySniffer extends GeneralSniffer {
         if (currentProjectToAnalyse.equals(null))
             throw new NullPointerException("Cannot analyse a null project.");
 
+
         for(String className : currentProjectToAnalyse.getClassNames()){
             ClassData currentClassToAnalyse = currentProjectToAnalyse.getClassData(className);
             retrieveSmellFromFields(currentClassToAnalyse);
