@@ -20,17 +20,17 @@ import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeS
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
 public class MethodVisitorTests {
-	
+
 	MethodVisitor visitor;
 	ParsedMethod methodData;
-	
+
 	@Before
 	public void before() {
 		visitor = new MethodVisitor(Mockito.mock(VariableVisitor.class));
 		methodData = Mockito.mock(ParsedMethod.class);
 	}
-	
-	CompilationUnit getCompUnit(String fileName) {	
+
+	CompilationUnit getCompUnit(String fileName) {
 		CompilationUnit compUnit = null;
 
 		File file = new File(fileName);
@@ -39,39 +39,39 @@ public class MethodVisitorTests {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		return compUnit;
 	}
-	
+
 	@Test
 	public void identificationTest() {
 		CompilationUnit compUnit = getCompUnit("src/test/ParserTestTargets/MethodIdentificationTestTarget.java");
-		
+
 		visitor.visit(compUnit, methodData);
-		
+
 		verify(methodData, times(2)).setReturnType("void", false);
 		verify(methodData).setReturnType("int", true);
 		verify(methodData).setReturnType("MethodIdentificationTestTarget", false);
 	}
-	
+
 	@Test
-	public void referenceTests() {		
+	public void referenceTests() {
 		File referenceTestFile = new File("src/test/ParserTestTargets/ReferenceTestTargets");
 		JavaParserTypeSolver javaParserSolver = new JavaParserTypeSolver(referenceTestFile);
 		ReflectionTypeSolver refelctionSolver = new ReflectionTypeSolver();
-		
+
 		CombinedTypeSolver typeSolver = new CombinedTypeSolver(javaParserSolver,refelctionSolver);
-		
+
 		JavaSymbolSolver symbolSolver = new JavaSymbolSolver(typeSolver);
 		JavaParser.getStaticConfiguration().setSymbolResolver(symbolSolver);
-			
-		
+
+
 		CompilationUnit compUnit[] = {getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest1.java")
 				,getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest2.java")
 				,getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest3.java")};
 
-				
-		visitor.visit(compUnit[0], methodData);	
+
+		visitor.visit(compUnit[0], methodData);
 		visitor.visit(compUnit[1], methodData);
 		visitor.visit(compUnit[2], methodData);
 

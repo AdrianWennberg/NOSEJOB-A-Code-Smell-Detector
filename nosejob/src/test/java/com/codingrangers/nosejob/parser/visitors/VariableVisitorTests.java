@@ -15,17 +15,17 @@ import com.github.javaparser.ast.body.VariableDeclarator;
 
 
 public class VariableVisitorTests {
-	
+
 	VariableVisitor visitor;
 	CompilationUnit compUnit;
 	ParsedVariable variableData;
-	
+
 	@Before
 	public void before() {
 		visitor = new VariableVisitor();
 		variableData = Mockito.mock(ParsedVariable.class);
 	}
-	
+
 	void setCompUnit(String fileName) {
 		File file = new File(fileName);
 		try {
@@ -34,18 +34,18 @@ public class VariableVisitorTests {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void identificationTest() {
 		setCompUnit("src/test/ParserTestTargets/VariableIdentificationTestTarget.java");
-		
+
 		visitor.visit(compUnit, variableData);
-		
+
 		verify(variableData, times(2)).setVariableType("int");
 		verify(variableData).setVariableType("String");
 		verify(variableData).setVariableType("VariableIdentificationTestTarget");
 
 	}
-	
-	
+
+
 }
