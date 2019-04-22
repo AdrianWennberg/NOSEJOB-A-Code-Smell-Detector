@@ -3,8 +3,6 @@ package com.codingrangers.nosejob.sniffers;
 import com.codingrangers.nosejob.models.ClassData;
 import com.codingrangers.nosejob.models.MethodData;
 import com.codingrangers.nosejob.models.ProjectData;
-import com.codingrangers.nosejob.parser.data.ParsedClass;
-import com.codingrangers.nosejob.parser.data.ParsedMethod;
 import com.codingrangers.nosejob.parser.data.ParsedProject;
 import com.codingrangers.nosejob.reports.SmellReport;
 import org.junit.Test;
