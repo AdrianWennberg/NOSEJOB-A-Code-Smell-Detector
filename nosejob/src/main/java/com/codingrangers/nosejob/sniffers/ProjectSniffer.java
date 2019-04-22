@@ -10,11 +10,13 @@ public class ProjectSniffer extends SnifferBase {
 		InappropriateIntimacySniffer inappropriateIntimacySniffer = new InappropriateIntimacySniffer();
 		FeatureEnvySniffer featureEnvySniffer = new FeatureEnvySniffer();
 		GodComplexSniffer godComplexSniffer = new GodComplexSniffer();
+		DataOnlyClassesSniffer dataOnlyClassesSniffer = new DataOnlyClassesSniffer();
 		this.analysers.addAll(Arrays.asList(primitiveObsessionAnalyser,
 				bloatedCodeSniffer,
 				violationOfDataPrivacySniffer,
 				inappropriateIntimacySniffer,
 				featureEnvySniffer,
-				godComplexSniffer));
+				godComplexSniffer,
+				dataOnlyClassesSniffer));
 	}
 }
