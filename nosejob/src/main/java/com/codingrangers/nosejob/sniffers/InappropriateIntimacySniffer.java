@@ -23,7 +23,6 @@ public class InappropriateIntimacySniffer extends GeneralSniffer {
                 }
             }
 
-            /**callsRatio /= currentProjectToAnalyse.getClassNames().size() - 1;*/
             return externalFieldsCounter;
         }
 
@@ -50,7 +49,7 @@ public class InappropriateIntimacySniffer extends GeneralSniffer {
 
     private void retrieveSmellFromSingularClass(ClassData currentClassToAnalyse) {
         if (currentClassToAnalyse.equals(null))
-            throw new NullPointerException("Cannot analyse methods of a null.");
+            throw new NullPointerException("Cannot analyse a null class.");
 
         if (currentClassToAnalyse.getFieldsNames().size() > 0) {
             Smell classDiagnosis = new ClassDiagnosis();

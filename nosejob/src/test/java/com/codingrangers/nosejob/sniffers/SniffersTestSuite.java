@@ -1,4 +1,12 @@
 package com.codingrangers.nosejob.sniffers;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-public class SniffersTestSuite {
-}
+@RunWith(Suite.class)
+@SuiteClasses({
+        BloatedCodeSnifferTest.class,
+        ViolationOfDataPrivacySnifferTest.class,
+        PrimitiveObsessionSnifferTest.class})
+
+public class SniffersTestSuite {}
