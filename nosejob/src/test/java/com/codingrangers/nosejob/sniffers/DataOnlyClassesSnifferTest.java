@@ -2,8 +2,12 @@ package com.codingrangers.nosejob.sniffers;
 
 import com.codingrangers.nosejob.models.ClassData;
 import com.codingrangers.nosejob.models.MethodReference;
+<<<<<<< HEAD
 import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.parser.data.ParsedProject;
+=======
+import com.codingrangers.nosejob.parser.ParsedProject;
+>>>>>>> opps
 import com.codingrangers.nosejob.reports.SmellReport;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -36,7 +40,11 @@ public class DataOnlyClassesSnifferTest {
     public static class retrieveSmellsFromClassTests {
         @Test
         public void retrieveSmellsFromClassOnlyDeclaredMethods() {
+<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
+=======
+            ParsedProject projectTest = new ParsedProject();
+>>>>>>> opps
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -51,6 +59,7 @@ public class DataOnlyClassesSnifferTest {
 
             List<String> declaredMethods = Arrays.asList("one", "two", "three", "four", "five");
 
+<<<<<<< HEAD
             when(mockedTestClass.countMethods()).thenReturn(declaredMethods.size());
 
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
@@ -59,13 +68,26 @@ public class DataOnlyClassesSnifferTest {
 
             DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
             dataOnlyClassesSnifferTest.setProjectToSniff(mockedProject);
+=======
+            when(mockedTestClass.getMethodSignatures()).thenReturn(declaredMethods);
+
+            projectTest.addClass(mockedTestClass);
+            projectTest.addClass(otherMockedClass);
+
+            DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
+            dataOnlyClassesSnifferTest.setProjectToSniff(projectTest);
+>>>>>>> opps
 
             assertEquals(0.375f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromClassOnlyExternalMethodCalls() {
+<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
+=======
+            ParsedProject projectTest = new ParsedProject();
+>>>>>>> opps
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -85,6 +107,7 @@ public class DataOnlyClassesSnifferTest {
                     mock(MethodReference.class),
                     mock(MethodReference.class));
 
+<<<<<<< HEAD
             when(mockedTestClass.countMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(externalMethods.size());
 
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
@@ -93,13 +116,26 @@ public class DataOnlyClassesSnifferTest {
 
             DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
             dataOnlyClassesSnifferTest.setProjectToSniff(mockedProject);
+=======
+            when(mockedTestClass.getMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(externalMethods);
+
+            projectTest.addClass(mockedTestClass);
+            projectTest.addClass(otherMockedClass);
+
+            DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
+            dataOnlyClassesSnifferTest.setProjectToSniff(projectTest);
+>>>>>>> opps
 
             assertEquals(0.375f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromClassOnlyInternalMethodCalls() {
+<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
+=======
+            ParsedProject projectTest = new ParsedProject();
+>>>>>>> opps
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -119,6 +155,7 @@ public class DataOnlyClassesSnifferTest {
                     mock(MethodReference.class),
                     mock(MethodReference.class));
 
+<<<<<<< HEAD
             when(mockedTestClass.countInternalMethodCalls()).thenReturn(internalMethodsCalls.size());
 
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
@@ -127,13 +164,26 @@ public class DataOnlyClassesSnifferTest {
 
             DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
             dataOnlyClassesSnifferTest.setProjectToSniff(mockedProject);
+=======
+            when(mockedTestClass.getInternalMethodCalls()).thenReturn(internalMethodsCalls);
+
+            projectTest.addClass(mockedTestClass);
+            projectTest.addClass(otherMockedClass);
+
+            DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
+            dataOnlyClassesSnifferTest.setProjectToSniff(projectTest);
+>>>>>>> opps
 
             assertEquals(0.375f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsFromClass() {
+<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
+=======
+            ParsedProject projectTest = new ParsedProject();
+>>>>>>> opps
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -153,6 +203,7 @@ public class DataOnlyClassesSnifferTest {
             List<MethodReference> internalMethodsCalls = Arrays.asList(mock(MethodReference.class),
                     mock(MethodReference.class));
 
+<<<<<<< HEAD
             when(mockedTestClass.countMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(externalMethods.size());
             when(mockedTestClass.countInternalMethodCalls()).thenReturn(internalMethodsCalls.size());
             when(mockedTestClass.countMethods()).thenReturn(declaredMethods.size());
@@ -163,13 +214,28 @@ public class DataOnlyClassesSnifferTest {
 
             DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
             dataOnlyClassesSnifferTest.setProjectToSniff(mockedProject);
+=======
+            when(mockedTestClass.getMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(externalMethods);
+            when(mockedTestClass.getInternalMethodCalls()).thenReturn(internalMethodsCalls);
+            when(mockedTestClass.getMethodSignatures()).thenReturn(declaredMethods);
+
+            projectTest.addClass(mockedTestClass);
+            projectTest.addClass(otherMockedClass);
+
+            DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
+            dataOnlyClassesSnifferTest.setProjectToSniff(projectTest);
+>>>>>>> opps
 
             assertEquals(0.375f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
         public void retrieveSmellsNoMethods() {
+<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
+=======
+            ParsedProject projectTest = new ParsedProject();
+>>>>>>> opps
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -182,12 +248,20 @@ public class DataOnlyClassesSnifferTest {
             when(otherMockedClass.getName()).thenReturn(otherClass);
             when(otherMockedClass.getFullyQualifiedName()).thenReturn(otherClass);
 
+<<<<<<< HEAD
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
             when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedClass);
 
             DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
             dataOnlyClassesSnifferTest.setProjectToSniff(mockedProject);
+=======
+            projectTest.addClass(mockedTestClass);
+            projectTest.addClass(otherMockedClass);
+
+            DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
+            dataOnlyClassesSnifferTest.setProjectToSniff(projectTest);
+>>>>>>> opps
 
             assertEquals(0.75f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
@@ -196,7 +270,11 @@ public class DataOnlyClassesSnifferTest {
     public static class retrieveSmellsFromClasses {
         @Test
         public void retrieveSmellsFromFieldsOfMultipleClassesTest() {
+<<<<<<< HEAD
             ProjectData mockedProject = mock(ProjectData.class);
+=======
+            ParsedProject projectTest = new ParsedProject();
+>>>>>>> opps
 
             String testClass = "testClass";
             String otherClass = "otherClass";
@@ -220,6 +298,7 @@ public class DataOnlyClassesSnifferTest {
             List<MethodReference> internalMethodsCalls = Arrays.asList(mock(MethodReference.class),
                     mock(MethodReference.class));
 
+<<<<<<< HEAD
             when(mockedTestClass.countMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(externalMethods.size());
             when(mockedTestClass.countInternalMethodCalls()).thenReturn(internalMethodsCalls.size());
             when(mockedTestClass.countMethods()).thenReturn(declaredMethods.size());
@@ -234,8 +313,24 @@ public class DataOnlyClassesSnifferTest {
 
             DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
             dataOnlyClassesSnifferTest.setProjectToSniff(mockedProject);
+=======
+            when(mockedTestClass.getMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(externalMethods);
+            when(mockedTestClass.getInternalMethodCalls()).thenReturn(internalMethodsCalls);
+            when(mockedTestClass.getMethodSignatures()).thenReturn(declaredMethods);
+            when(otherMockedClass.getMethodCallsTo(mockedTestClass.getFullyQualifiedName())).thenReturn(externalMethods);
+            when(otherMockedClass.getInternalMethodCalls()).thenReturn(internalMethodsCalls);
+            when(otherMockedClass.getMethodSignatures()).thenReturn(declaredMethods);
+
+            projectTest.addClass(mockedTestClass);
+            projectTest.addClass(otherMockedClass);
+            projectTest.addClass(emptyMockedClass);
+
+            DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
+            dataOnlyClassesSnifferTest.setProjectToSniff(projectTest);
+>>>>>>> opps
 
             assertEquals(0.25f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 }
+

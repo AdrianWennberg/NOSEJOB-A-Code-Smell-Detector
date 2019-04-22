@@ -20,7 +20,6 @@ public class ProjectSnifferTest {
             String featureEnvyName = "Feature Envy";
             String godComplexName = "God Complex";
             String dataOnlyClassesName = "Data Only Classes";
-
             ParsedProject testProject = new ParsedProject();
 
             ProjectSniffer globalReport = new ProjectSniffer();
