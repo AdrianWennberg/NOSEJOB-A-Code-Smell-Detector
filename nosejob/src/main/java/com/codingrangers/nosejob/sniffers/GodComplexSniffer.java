@@ -55,11 +55,9 @@ public class GodComplexSniffer extends GeneralSniffer {
         if (currentClassToAnalyse.equals(null))
             throw new NullPointerException("Cannot analyse methods of a null.");
 
-        if (currentClassToAnalyse.getFieldsNames().size() > 0) {
-            Smell classDiagnosis = new ClassDiagnosis();
-            classDiagnosis.setCodeData(currentClassToAnalyse);
-            smells.add(classDiagnosis);
-        }
+        Smell classDiagnosis = new ClassDiagnosis();
+        classDiagnosis.setCodeData(currentClassToAnalyse);
+        smells.add(classDiagnosis);
     }
 
     public void retrieveSmellsFromClasses() {
