@@ -63,7 +63,7 @@ public class BloatedCodeSnifferTest {
             projectTest.addClass(testClass);
 
             ParsedMethod mockedTestMethod = mock(ParsedMethod.class);
-            when(mockedTestMethod.getLineCount()).thenReturn(11);
+            when(mockedTestMethod.getLineCount()).thenReturn(16);
             when(mockedTestMethod.getClassName()).thenReturn(testClass.getName());
             when(mockedTestMethod.getFullyQualifiedName()).thenReturn("mockedMethod");
             testClass.addMethod(mockedTestMethod);
@@ -91,7 +91,7 @@ public class BloatedCodeSnifferTest {
             projectTest.addClass(testClass);
 
             ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
-            when(firstMockedTestMethod.getLineCount()).thenReturn(11);
+            when(firstMockedTestMethod.getLineCount()).thenReturn(16);
             when(firstMockedTestMethod.getClassName()).thenReturn(testClass.getName());
             when(firstMockedTestMethod.getName()).thenReturn("firstMockedTestMethod");
             testClass.addMethod(firstMockedTestMethod);
@@ -106,10 +106,18 @@ public class BloatedCodeSnifferTest {
             when(firstMockedTestMethod.getClassName()).thenReturn(testClass);
             when(firstMockedTestMethod.getName()).thenReturn(firstTestMethod);
 
+<<<<<<< HEAD
             MethodData secondMockedTestMethod = mock(MethodData.class);
             when(secondMockedTestMethod.getLineCount()).thenReturn(21);
             when(secondMockedTestMethod.getClassName()).thenReturn(testClass);
             when(secondMockedTestMethod.getName()).thenReturn(secondTestMethod);
+=======
+            ParsedMethod secondMockedTestMethod = mock(ParsedMethod.class);
+            when(secondMockedTestMethod.getLineCount()).thenReturn(21);
+            when(secondMockedTestMethod.getClassName()).thenReturn(testClass.getName());
+            when(secondMockedTestMethod.getName()).thenReturn("secondMockedTestMethod");
+            testClass.addMethod(secondMockedTestMethod);
+>>>>>>> Data only classes Sniffer Tested
 
             when(mockedTestClass.getMethodSignatures()).thenReturn(Arrays.asList(firstTestMethod, secondTestMethod));
             when(mockedTestClass.getMethod(firstTestMethod)).thenReturn(firstMockedTestMethod);
@@ -171,7 +179,7 @@ public class BloatedCodeSnifferTest {
             projectTest.addClass(secondTestClass);
 
             ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
-            when(firstMockedTestMethod.getLineCount()).thenReturn(50);
+            when(firstMockedTestMethod.getLineCount()).thenReturn(55);
             when(firstMockedTestMethod.getClassName()).thenReturn(firstTestClass.getName());
             when(firstMockedTestMethod.getName()).thenReturn("firstMockedTestMethod");
             firstTestClass.addMethod(firstMockedTestMethod);
@@ -197,8 +205,16 @@ public class BloatedCodeSnifferTest {
             when(otherMockedTestClass.getMethodSignatures()).thenReturn(Arrays.asList(secondTestMethod));
             when(otherMockedTestClass.getMethod(secondTestMethod)).thenReturn(secondMockedTestMethod);
 
+<<<<<<< HEAD
             BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
             bloatedCodeTest.setProjectToSniff(mockedProject);
+=======
+            ParsedMethod secondMockedTestMethod = mock(ParsedMethod.class);
+            when(secondMockedTestMethod.getLineCount()).thenReturn(10);
+            when(secondMockedTestMethod.getClassName()).thenReturn(secondTestClass.getName());
+            when(secondMockedTestMethod.getName()).thenReturn("secondMockedTestMethod");
+            secondTestClass.addMethod(secondMockedTestMethod);
+>>>>>>> Data only classes Sniffer Tested
 
 =======
             BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
@@ -227,7 +243,7 @@ public class BloatedCodeSnifferTest {
             projectTest.addClass(secondTestClass);
 
             ParsedMethod firstMockedTestMethod = mock(ParsedMethod.class);
-            when(firstMockedTestMethod.getLineCount()).thenReturn(10);
+            when(firstMockedTestMethod.getLineCount()).thenReturn(15);
             when(firstMockedTestMethod.getClassName()).thenReturn(firstTestClass.getName());
             when(firstMockedTestMethod.getName()).thenReturn("firstMockedTestMethod");
             firstTestClass.addMethod(firstMockedTestMethod);
@@ -237,6 +253,7 @@ public class BloatedCodeSnifferTest {
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
             when(mockedProject.getClassData(otherClass)).thenReturn(otherMockedTestClass);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
             MethodData firstMockedTestMethod = mock(MethodData.class);
             when(firstMockedTestMethod.getLineCount()).thenReturn(15);
@@ -252,6 +269,13 @@ public class BloatedCodeSnifferTest {
             when(mockedTestClass.getMethod(firstTestMethod)).thenReturn(firstMockedTestMethod);
             when(otherMockedTestClass.getMethodSignatures()).thenReturn(Arrays.asList(secondTestMethod));
             when(otherMockedTestClass.getMethod(secondTestMethod)).thenReturn(secondMockedTestMethod);
+=======
+            ParsedMethod secondMockedTestMethod = mock(ParsedMethod.class);
+            when(secondMockedTestMethod.getLineCount()).thenReturn(30);
+            when(secondMockedTestMethod.getClassName()).thenReturn(secondTestClass.getName());
+            when(secondMockedTestMethod.getName()).thenReturn("secondMockedTestMethod");
+            secondTestClass.addMethod(secondMockedTestMethod);
+>>>>>>> Data only classes Sniffer Tested
 
             BloatedCodeSniffer bloatedCodeTest = new BloatedCodeSniffer();
             bloatedCodeTest.setProjectToSniff(mockedProject);
