@@ -25,5 +25,5 @@ public interface ClassData extends CodeData {
 	List<String> getFieldsNames();
 	VariableData getField(String name);
 
-    int countPrimitiveFields();
+	int countPrimitiveFields();
 }
