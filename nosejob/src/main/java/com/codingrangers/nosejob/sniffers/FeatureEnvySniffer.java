@@ -9,19 +9,25 @@ public class FeatureEnvySniffer extends GeneralSniffer {
     private class ClassDiagnosis implements Smell {
         private ClassData currentClassToAnalyse;
 
-        private float howManyExternalMethodsItsUsingratio() {
+        private float howManyExternalMethodsItsUsingRatio() {
             float callsRatio = 0f;
+            float highestCallRatio = 0f;
 
             for(String className : currentProjectToAnalyse.getClassNames()){
                 if(!className.equals(currentClassToAnalyse.getName())) {
                     ClassData classToCompareWith = currentProjectToAnalyse.getClassData(className);
-                    callsRatio += currentClassToAnalyse.getMethodCallsTo(classToCompareWith.getFullyQualifiedName()).size() / currentClassToAnalyse.getInternalMethodCalls().size();
+                    if(currentClassToAnalyse.getInternalMethodCalls().size() == 0){
+                        callsRatio += (float) currentClassToAnalyse.getMethodCallsTo(classToCompareWith.getFullyQualifiedName()).size() / (currentClassToAnalyse.getInternalMethodCalls().size() + 1);
+                    }
+                    else {
+                        callsRatio += (float) currentClassToAnalyse.getMethodCallsTo(classToCompareWith.getFullyQualifiedName()).size() / (currentClassToAnalyse.getInternalMethodCalls().size());
+                    }
+
+                    highestCallRatio = (callsRatio > highestCallRatio) ? callsRatio : highestCallRatio;
                 }
             }
 
-            callsRatio /= currentProjectToAnalyse.getClassNames().size() - 1;
-
-            return callsRatio;
+            return highestCallRatio;
         }
 
         @Override
@@ -41,9 +47,9 @@ public class FeatureEnvySniffer extends GeneralSniffer {
 
         @Override
         public float getSmellSeverity() {
-            float severity = 0f;
-            severity = (howManyExternalMethodsItsUsingratio() > 1f) ? (severity - 1f) : 0f;
-            return severity;
+             return howManyExternalMethodsItsUsingRatio() > 2f ? 1f
+                    : howManyExternalMethodsItsUsingRatio() > 1f ? (howManyExternalMethodsItsUsingRatio() - 1f)
+                    : 0f;
         }
     }
 
