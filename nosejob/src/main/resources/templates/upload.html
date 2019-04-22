@@ -1,0 +1,65 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" class="no-js">
+
+<head>
+	<link href="../static/css/upload.css" th:href="@{/css/upload.css}" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+	<title>NOSEJOB: A Code Smell Detector</title>
+</head>
+
+<body>
+	<div class="app-header">
+		<button class="button--state-transparent" onclick="location.href='/'">
+			<h1>NOSEJOB <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+					<path fill="none" d="M0 0h24v24H0V0z" />
+					<path
+						d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+				</svg></h1>
+		</button>
+	</div>
+	<div class="upload-container">
+		<a onclick="location.href='/'" class="back-link">back</a>
+		<h1>Upload File</h1>
+		<form method="POST" enctype="multipart/form-data" action="/upload">
+			<input type="file" name="file" id="file" data-multiple-caption="{fileCount} files selected" multiple />
+			<label for="file" id="fileLabel"><span>choose a file</span></label>
+			<input type="submit" value="Upload" id="submit" />
+			<label for="submit"><span>upload</span></label>
+			<button class="analyse-button" onclick="location.href='/dashboard'" disabled><span>analyse</span></button>
+	</div>
+	<script>
+		const initialized = false;
+		const fileInput = document.getElementById('file');
+		const label = document.getElementById('fileLabel');
+		const labelValue = label.innerHTML;
+		const analyseButton = document.getElementsByClassName('analyse-button');
+		fileInput.addEventListener('change', (event$) => {
+			let fileName = '';
+			if (this.files && this.files.length > 1) {
+				fileName = (this.getAttribute('data-multiple-caption') || '')
+					.replace('{fileCount}', this.files.length);
+			} else {
+				fileName = event$.target.value.split('\\').pop();
+			}
+
+			if (fileName) {
+				if (fileName.length > 10) {
+					fileName = `${fileName.substring(0, 10)}...`;
+				}
+				label.querySelector('span').innerHTML = fileName;
+			} else {
+				label.innerHTML = labelValue;
+			}
+
+			if (!initialized) {
+				initialized = true;
+				if (this.files) {
+					analyseButton.removeAttribute(disabled);
+				}
+			}
+		});
+
+	</script>
+</body>
+
+</html>
