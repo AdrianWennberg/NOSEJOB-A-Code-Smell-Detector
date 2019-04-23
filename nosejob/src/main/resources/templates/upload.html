@@ -25,7 +25,6 @@
 			<input type="file" name="file" id="file" data-multiple-caption="{fileCount} files selected" multiple />
 			<label for="file" id="fileLabel"><span>choose a file</span></label>
 			<input type="submit" value="Upload" id="submit" />
-
 			<label id="" file="analyse-label" for="submit"><span>analyse</span></label>
 			<div th:if="${!files.isEmpty()}">
 				<span th:text=" 'You uploaded ' + ${files.get(0)}"></span>
@@ -37,14 +36,6 @@
 	<div class="bottom-waves">
 		<div class="wave"></div>
 		<div class="wave"></div>
-		<label for="submit" disabled><span>upload</span></label>
-		<button class="analyse-button" onclick="location.href='/dashboard'" disabled><span>analyse</span></button>
-		<label for="submit"><span>analyse</span></label>
-		<span id="file-upload-text"></span>
-	</div>
-	<div class="bottom-waves">
-		<div class="wave"></div>
-		<div class="wave"></div>
 	</div>
 	<script>
 		let initialized = false;
@@ -52,11 +43,7 @@
 		let label = document.getElementById('fileLabel');
 		let labelValue = label.innerHTML;
 		let uploadInput = document.getElementById('submit');
-
 		uploadInput.setAttribute('diabled', 'disabled');
-
-		let analyseButton = document.getElementsByClassName('analyse-button');
-
 		fileInput.addEventListener('change', (event$) => {
 			let fileName = '';
 			if (this.files && this.files.length > 1) {

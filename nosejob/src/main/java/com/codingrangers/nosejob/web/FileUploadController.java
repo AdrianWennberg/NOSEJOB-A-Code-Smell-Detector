@@ -57,7 +57,7 @@ public class FileUploadController {
 	public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
 			Model model) {
 		if (file.isEmpty()) {
-			model.addAttribute("errorMessage", "You did not upload a file");
+			model.addAttribute("errorMessage", "No file uploaded");
 			return "/error";
 		}
 

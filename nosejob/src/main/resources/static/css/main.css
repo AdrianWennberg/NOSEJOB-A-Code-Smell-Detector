@@ -49,7 +49,6 @@
 
 @-webkit-keyframes fadeUp {
 	from {
-
 		opacity: 0;
 		-webkit-transform: translate3d(0, 100%, 0);
 		transform: translate3d(0, 100%, 0);
@@ -211,7 +210,7 @@ body {
 	height: 100%;
 }
 
-.dashboard-container {
+<<<<<<< HEAD .dashboard-container {
 	animation: fadeUp 300ms;
 }
 
@@ -329,3 +328,5 @@ html,
 body {
 	height: 100%;
 }
+
+=======>>>>>>>07262f73318e2ead1c5b03e25e4f3f1fd7c08a5a

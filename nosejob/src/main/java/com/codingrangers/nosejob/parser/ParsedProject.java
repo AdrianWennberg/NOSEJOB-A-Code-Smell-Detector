@@ -1,6 +1,9 @@
 package com.codingrangers.nosejob.parser;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
 
 import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.models.ClassData;
