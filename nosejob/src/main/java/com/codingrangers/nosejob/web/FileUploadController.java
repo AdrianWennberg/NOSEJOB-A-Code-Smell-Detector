@@ -37,7 +37,7 @@ public class FileUploadController {
 		model.addAttribute("files",
 				storageService.loadAll()
 						.map(path -> MvcUriComponentsBuilder
-								.fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
+								.fromMethodName(FileUploadController.class, "serveFile", path.toFile().getName())
 								.build().toString())
 						.collect(Collectors.toList()));
 
@@ -57,7 +57,7 @@ public class FileUploadController {
 	public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
 			Model model) {
 		if (file.isEmpty()) {
-			model.addAttribute("errorMessage", "No file uploaded");
+			model.addAttribute("errorMessage", "You did not upload a file");
 			return "/error";
 		}
 
