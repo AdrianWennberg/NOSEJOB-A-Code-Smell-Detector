@@ -3,7 +3,7 @@
 
 <head>
 	<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
-	<link href="../static/css/home.css" th:href="@{/css/home.css}" rel="stylesheet" />
+	<link href="../static/css/home.css" th:href="@{/css/error.css}" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<title>NOSEJOB: A Code Smell Detector</title>
 </head>
@@ -19,12 +19,8 @@
 		</button>
 	</div>
 	<div class="app-container">
-		<h1 th:text="${appName}"></h1>
-		<button onclick="location.href='/upload'" class="get-started-button">get started</button>
-	</div>
-	<div class="bottom-waves">
-		<div class="wave"></div>
-		<div class="wave"></div>
+		<h1 th:text="${errorMessage}"></h1>
+		<button onclick="location.href='/'" class="return-home-button">return home</button>
 	</div>
 </body>
 

@@ -1,4 +1,4 @@
-.get-started-button {
+.return-home-button {
 	margin-top: 20px;
 	animation: pulsate 2s infinite;
 	border-radius: 24px;
@@ -13,22 +13,16 @@
 	cursor: pointer;
 }
 
-.get-started-button:hover {
+.return-home-button:hover {
 	filter: brightness(80%);
 	outline: none;
 	animation: none;
 }
 
-.get-started-button:focus {
+.return-home-button:focus {
 	outline: none;
 }
 
-@keyframes pulsate {
-	0% {
-		box-shadow: 0 0 0 0px rgba(211, 211, 211, 0.5);
-	}
-
-	100% {
-		box-shadow: 0 0 0 24px rgba(211, 211, 211, 0);
-	}
+.logo {
+	fill: #FF3D4A !important;
 }

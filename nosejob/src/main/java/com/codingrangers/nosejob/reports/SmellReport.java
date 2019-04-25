@@ -53,20 +53,29 @@ public class SmellReport implements SmellReportBody {
 	}
 
 	@Override
-	// TODO
 	public float getTotalSmellSeverity() {
-		if (smells.size() == 0) {
-			return 0f;
-		}
-
-		// int averageSeverity = smells.stream().reduce(0, (v.getSmellSeverity(), _v) ->
-		// v.getSmellSeverity() + _v.getSmellSeverity()).collect();
 		float averageSeverity = 0;
-		for (Smell smell : smells) {
-			averageSeverity += smell.getSmellSeverity();
+		try {
+			if (smells.size() == 0) {
+				return 0f;
+			}
+
+			// int averageSeverity = smells.stream().reduce(0, (v.getSmellSeverity(), _v) ->
+			// v.getSmellSeverity() + _v.getSmellSeverity()).collect();
+
+			for (Smell smell : smells) {
+				averageSeverity += smell.getSmellSeverity();
+			}
+			averageSeverity /= smells.size();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		averageSeverity /= smells.size();
 
 		return averageSeverity;
+	}
+
+	@Override
+	public String getDisplayTotalSmellSeverity() {
+		return ((int) (this.getTotalSmellSeverity() * 100)) + "%";
 	}
 }

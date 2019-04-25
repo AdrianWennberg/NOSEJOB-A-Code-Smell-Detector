@@ -1,1 +1,49 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 
+<head>
+	<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+	<link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+	<title>NOSEJOB: A Code Smell Detector</title>
+</head>
+
+<body>
+	<div class="app-header">
+		<button class="button--state-transparent" onclick="location.href='/'">
+			<h1>NOSEJOB <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+					<path fill="none" d="M0 0h24v24H0V0z" />
+					<path
+						d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+				</svg></h1>
+		</button>
+	</div>
+	<div class="dashboard-container">
+		<button class="button--state-transparent" onclick="location.href='/upload'">
+			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="back-arrow">
+				<path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
+				<path fill="none" d="M0 0h24v24H0z" />
+			</svg>
+		</button>
+		<h1 class="dashboard-header">Your Project Analysis</h1>
+		<div class="tiles">
+			<div class="tile wide" th:each="smellReport: ${smellReports}">
+				<div class="tile__analysis">
+					<div class="left">
+						<div class="numeric-datum" th:text="${smellReport.getDisplayTotalSmellSeverity()}"></div>
+						<div class="title">Total Severity</div>
+					</div>
+					<div class="right">
+						<div class="numeric-datum">0</div>
+						<div class="title">Files Affected</div>
+					</div>
+				</div>
+				<div class=" tile__base">
+					<div class="title" th:text="${smellReport.getSmellName()}"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

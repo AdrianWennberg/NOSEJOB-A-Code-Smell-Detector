@@ -1,5 +1,6 @@
 package com.codingrangers.nosejob.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.zeroturnaround.zip.ZipUtil;
+
 import com.codingrangers.nosejob.models.StorageService;
 
 @Service
@@ -43,6 +46,12 @@ public class FileSystemStorageService implements StorageService {
 			}
 		} catch (IOException e) {
 			throw new StorageException("Failed to store file " + filename, e);
+		}
+
+		// hacky, find better solution...
+		if (filename.endsWith(".zip")) {
+			ZipUtil.unpack(new File(this.rootLocation.toString() + "/" + filename),
+					new File(this.rootLocation.toString() + "/"));
 		}
 	}
 
