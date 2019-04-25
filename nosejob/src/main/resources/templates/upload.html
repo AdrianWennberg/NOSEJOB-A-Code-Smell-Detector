@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" class="no-js">
 
 <head>
+	<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
 	<link href="../static/css/upload.css" th:href="@{/css/upload.css}" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<title>NOSEJOB: A Code Smell Detector</title>
@@ -17,22 +18,32 @@
 				</svg></h1>
 		</button>
 	</div>
-	<div class="upload-container">
+	<div class="app-container">
 		<a onclick="location.href='/'" class="back-link">back</a>
 		<h1>Upload File</h1>
-		<form method="POST" enctype="multipart/form-data" action="/upload">
+		<form method="POST" enctype="multipart/form-data" action="/upload" id="file-form">
 			<input type="file" name="file" id="file" data-multiple-caption="{fileCount} files selected" multiple />
 			<label for="file" id="fileLabel"><span>choose a file</span></label>
 			<input type="submit" value="Upload" id="submit" />
-			<label for="submit"><span>upload</span></label>
-			<button class="analyse-button" onclick="location.href='/dashboard'" disabled><span>analyse</span></button>
+			<label id="" file="analyse-label" for="submit"><span>analyse</span></label>
+			<div th:if="${!files.isEmpty()}">
+				<span th:text=" 'You uploaded ' + ${files.get(0)}"></span>
+			</div>
+			<div th:if="${files.isEmpty()}">
+				<span th:text="'No files have been uploaded'"></span>
+			</div>
+	</div>
+	<div class="bottom-waves">
+		<div class="wave"></div>
+		<div class="wave"></div>
 	</div>
 	<script>
-		const initialized = false;
-		const fileInput = document.getElementById('file');
-		const label = document.getElementById('fileLabel');
-		const labelValue = label.innerHTML;
-		const analyseButton = document.getElementsByClassName('analyse-button');
+		let initialized = false;
+		let fileInput = document.getElementById('file');
+		let label = document.getElementById('fileLabel');
+		let labelValue = label.innerHTML;
+		let uploadInput = document.getElementById('submit');
+		uploadInput.setAttribute('diabled', 'disabled');
 		fileInput.addEventListener('change', (event$) => {
 			let fileName = '';
 			if (this.files && this.files.length > 1) {
@@ -53,9 +64,6 @@
 
 			if (!initialized) {
 				initialized = true;
-				if (this.files) {
-					analyseButton.removeAttribute(disabled);
-				}
 			}
 		});
 

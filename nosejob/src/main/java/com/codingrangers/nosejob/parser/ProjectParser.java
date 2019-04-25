@@ -9,6 +9,10 @@ import com.codingrangers.nosejob.parser.visitors.MethodVisitor;
 import com.codingrangers.nosejob.parser.visitors.VariableVisitor;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.symbolsolver.JavaSymbolSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -26,13 +30,13 @@ import java.io.FileNotFoundException;
 public class ProjectParser implements CodeParser {
 
 	ParsedProject parsedProject;
-	ClassVisitor ClassVisitor;
+	ClassVisitor classVisitor;
 
 	public ProjectParser() {
 		VariableVisitor variableVisitor = new VariableVisitor();
 		MethodVisitor methodVisitor = new MethodVisitor(variableVisitor);
-		ClassVisitor classVisitor = new ClassVisitor(methodVisitor, variableVisitor);
-		ParsedProject parsedProject = new ParsedProject();
+		classVisitor = new ClassVisitor(methodVisitor, variableVisitor);
+		parsedProject = new ParsedProject();
 	}
 
 	/**
@@ -43,7 +47,7 @@ public class ProjectParser implements CodeParser {
 	 */
 	public ProjectParser(ParsedProject injectedProjectData, ClassVisitor injectedClassVisitor) {
 		parsedProject = injectedProjectData;
-		ClassVisitor = injectedClassVisitor;
+		classVisitor = injectedClassVisitor;
 	}
 
 	/**
@@ -55,6 +59,21 @@ public class ProjectParser implements CodeParser {
 			throw new FileNotFoundException();
 		}
 
+		JavaParserTypeSolver javaParserSolver = null;
+		ReflectionTypeSolver refelctionSolver = new ReflectionTypeSolver();
+		CombinedTypeSolver typeSolver = null;
+		
+		if(root.isFile() == false) {
+			javaParserSolver = new JavaParserTypeSolver(root);
+			typeSolver = new CombinedTypeSolver(javaParserSolver,refelctionSolver);
+		}
+		else
+			typeSolver = new CombinedTypeSolver(refelctionSolver);
+
+		
+		JavaSymbolSolver symbolSolver = new JavaSymbolSolver(typeSolver);
+		JavaParser.getStaticConfiguration().setSymbolResolver(symbolSolver);
+		
 		directoryOrFile(root);
 
 		ParsedProject returnValue = parsedProject;
@@ -85,7 +104,7 @@ public class ProjectParser implements CodeParser {
 		}
 
 		ParsedClass parsedClass = parsedProject.createClass("packageNameGoesHere", file.getName(), file.getPath());
-		ClassVisitor.visit(compilationUnit, parsedClass);
+		classVisitor.visit(compilationUnit, parsedClass);
 	}
 
 }

@@ -14,4 +14,6 @@ public interface SmellReportBody {
 	List<Smell> getSmells();
 
 	float getTotalSmellSeverity();
+
+	String getDisplayTotalSmellSeverity();
 }

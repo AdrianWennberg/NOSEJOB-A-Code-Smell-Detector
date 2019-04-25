@@ -75,7 +75,7 @@ public class PrimitiveObsessionSniffer extends GeneralSniffer{
 
 		@Override
 		public boolean isSmelly() {
-			return (getSmellSeverity() > 0) ? true : false;
+			return getSmellSeverity() > 0;
 		}
 
 		@Override
