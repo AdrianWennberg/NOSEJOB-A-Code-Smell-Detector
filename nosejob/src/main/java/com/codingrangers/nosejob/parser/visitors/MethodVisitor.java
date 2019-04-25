@@ -10,10 +10,10 @@ import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.NameExpr;
 import com.github.javaparser.ast.type.Type;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.declarations.ResolvedFieldDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
-import com.github.javaparser.symbolsolver.javaparsermodel.declarations.JavaParserMethodDeclaration;
 
 /**
  * parser for method level data enters project at MethodDecloration and exits at
@@ -38,9 +38,13 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 	}
 	
 	public void visit(FieldAccessExpr fieldCall, ParsedMethod methodData ) {
-		ResolvedFieldDeclaration resolvedField = (ResolvedFieldDeclaration) fieldCall.resolve();
-						
-		methodData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+		ResolvedValueDeclaration valueDeclaration = fieldCall.resolve();
+
+		if(valueDeclaration.isField()) {
+			ResolvedFieldDeclaration resolvedField = (ResolvedFieldDeclaration) valueDeclaration;
+
+			methodData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+		}
 	}
 	
 	public void visit(NameExpr nameCall, ParsedMethod methodData ) {		
@@ -53,12 +57,17 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 	}
 	
 	public void visit(MethodCallExpr methodCall, ParsedMethod methodData ) {
-		ResolvedMethodDeclaration resolvedMethod = methodCall.resolve();
+		try {
+			ResolvedMethodDeclaration resolvedMethod = methodCall.resolve();
 
-		String fullQualifiedName = resolvedMethod.getQualifiedName();
-		String classQualifedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));		
-		
-		methodData.addReferenceToMethod(classQualifedName, resolvedMethod.getSignature());
+			String fullQualifiedName = resolvedMethod.getQualifiedName();
+			String classQualifedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));
+
+			methodData.addReferenceToMethod(classQualifedName, resolvedMethod.getSignature());
+		}
+		catch (UnsolvedSymbolException e){
+			System.err.println("cannot resolve symbol: " + e.getName());
+		}
 		
 	}
 	

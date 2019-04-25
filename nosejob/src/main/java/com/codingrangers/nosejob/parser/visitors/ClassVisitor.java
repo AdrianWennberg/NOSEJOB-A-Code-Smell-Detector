@@ -12,6 +12,7 @@ import com.github.javaparser.ast.expr.FieldAccessExpr;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.NameExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.declarations.ResolvedFieldDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
@@ -64,12 +65,17 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 		classData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
 	}
 	
-	public void visit(NameExpr nameCall, ParsedClass classData) {		
-		ResolvedValueDeclaration resolvedName = nameCall.resolve();
-		
-		if(resolvedName.isField()) {
-			ResolvedFieldDeclaration resolvedField = resolvedName.asField();
-			classData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+	public void visit(NameExpr nameCall, ParsedClass classData) {
+		try {
+			ResolvedValueDeclaration resolvedName = nameCall.resolve();
+			if(resolvedName.isField()) {
+				ResolvedFieldDeclaration resolvedField = resolvedName.asField();
+				classData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+			}
+
+		} catch (UnsolvedSymbolException e)
+		{
+			System.err.println("cannot resolve symbol: " + e.getName());
 		}
 	}
 

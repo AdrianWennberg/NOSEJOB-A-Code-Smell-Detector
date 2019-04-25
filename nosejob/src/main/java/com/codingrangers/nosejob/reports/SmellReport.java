@@ -76,6 +76,6 @@ public class SmellReport implements SmellReportBody {
 
 	@Override
 	public String getDisplayTotalSmellSeverity() {
-		return Float.toString(this.getTotalSmellSeverity());
+		return ((int) (this.getTotalSmellSeverity() * 100)) + "%";
 	}
 }

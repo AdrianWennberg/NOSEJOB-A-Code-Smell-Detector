@@ -16,10 +16,10 @@ public class GlobalSnifferTest {
             String primitiveObsessionName = "Primitive Obsession";
             ParsedProject testProject = new ParsedProject();
 
-			GlobalSniffer globalReport = new GlobalSniffer();
-			globalReport.setProjectToAnalyse(testProject);
+            GlobalSniffer globalReport = new GlobalSniffer();
+            globalReport.setProjectToAnalyse(testProject);
 
-			assertEquals(primitiveObsessionName, globalReport.getProjectReport().getSmellNames().get(0));
-		}
-	}
+            assertEquals(primitiveObsessionName, globalReport.getProjectReport().getSmellNames().get(0));
+        }
+    }
 }

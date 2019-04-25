@@ -30,6 +30,7 @@ public class ParsedProject implements ProjectData {
 		newClass.setNamePrefix(classNamePrefix);
 		newClass.setName(className);
 		newClass.setFilePath(filePath);
+		newClass.setReferenceStorage(referanceStorage);
 		classes.put(newClass.getName(), newClass);
 		return newClass;
 	}

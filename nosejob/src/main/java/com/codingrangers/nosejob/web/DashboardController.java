@@ -5,14 +5,13 @@ import com.codingrangers.nosejob.models.ProjectReport;
 import com.codingrangers.nosejob.parser.ProjectParser;
 import com.codingrangers.nosejob.sniffers.GlobalSniffer;
 import com.codingrangers.nosejob.storage.StorageProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.ui.Model;
 
 @Controller
 public class DashboardController {
@@ -36,6 +35,7 @@ public class DashboardController {
 			ProjectReport projectReport = globalSniffer.getProjectReport();
 			model.addAttribute("smellReports", projectReport.getSmellReports());
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "error";
 		}
 		return "dashboard";
