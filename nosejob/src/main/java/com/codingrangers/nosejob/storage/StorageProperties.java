@@ -23,8 +23,8 @@ public class StorageProperties {
 			this.location = windowsPath.toString();
 		} else {
 			File codestoreFile = new File("codestore");
-			if(codestoreFile.mkdir()){
-				System.err.println("Failed to load codestore. Creating codestore at: " + codestoreFile.getPath());
+            System.err.println("Failed to load codestore. Creating codestore at: " + codestoreFile.getPath());
+            if (codestoreFile.mkdirs()) {
 				location = codestoreFile.getPath();
 			}
 			else{
