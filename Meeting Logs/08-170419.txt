@@ -1,0 +1,41 @@
+Eighth Official Meeting Log
+17. Apr 2019 11:00
+
+We started discussing the state of the project and came to a few conclusions:
+ - don't bother showing smell instances on the dashboard for now
+ - Methods should generate their own return type 'variable' since 
+	it is not really a variable from the parser's POV. varialbe 'name'
+	can be the same as the method name.
+ - We want to handle it from the Dashboard if no .java 
+	files are found within the project being analyzed
+ - We do not need to add more smells at this point. We should focus
+	on getting things working well instead.
+ - We want to add a short description for each smell found.
+
+Here are some things we have gotten working since we last talked.
+ - Second sprint smells
+ - Error page
+ - Dashboard
+
+
+
+The server is close to working. 
+It is currently down with a 502, but that should be a simple fix.
+
+Here's what we need to get it up and running:
+ - We need the code storage working properly - so we put it in the resources folder.
+ - Update the parser to have all the sprint 2 smells working.
+ - Add Zip upload, this should be the main way to take in files
+ - Launch it on the server.
+
+What we need to do the last week if we get it up and running:
+ - Testing to make sure the server keeps running, and deals with edge cases
+ - Make sure we have a localhost version of the project available
+ - Make the dashboard as good as we can
+ - Make sure it can run on our own project and fix our code to get things working.
+ - Tweak smells to give correct looking results
+
+Final Report
+ - Oh God, we have a week and a half left!
+ - Everyone writes what they can. Just focus on getting it done at this point.
+
