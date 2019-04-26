@@ -3,7 +3,7 @@ package com.codingrangers.nosejob.web;
 import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.models.ProjectReport;
 import com.codingrangers.nosejob.parser.ProjectParser;
-import com.codingrangers.nosejob.sniffers.GlobalSniffer;
+import com.codingrangers.nosejob.sniffers.ProjectSniffer;
 import com.codingrangers.nosejob.storage.StorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ public class DashboardController {
 	public String analyseProject(Model model) {
 		try {
 			ProjectData projectData = this.projectParser.parseProject(this.rootLocation.toString());
-			GlobalSniffer globalSniffer = new GlobalSniffer();
+			ProjectSniffer globalSniffer = new ProjectSniffer();
 			globalSniffer.setProjectToAnalyse(projectData);
 			ProjectReport projectReport = globalSniffer.getProjectReport();
 			model.addAttribute("smellReports", projectReport.getSmellReports());

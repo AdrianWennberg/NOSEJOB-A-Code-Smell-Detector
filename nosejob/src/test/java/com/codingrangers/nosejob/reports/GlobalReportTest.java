@@ -1,6 +1,5 @@
 package com.codingrangers.nosejob.reports;
 
-import com.codingrangers.nosejob.models.SmellReportBody;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
