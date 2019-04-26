@@ -61,6 +61,8 @@ class ReferenceStorage {
     }
 
     private static <T> Iterable<T> intersection(Iterable<T> first, Iterable<T> second) {
+        if (first == null || second == null)
+            return new ArrayList<>();
         Set<T> firstSet = Sets.newHashSet(first);
 
         firstSet.retainAll(Sets.newHashSet(second));
