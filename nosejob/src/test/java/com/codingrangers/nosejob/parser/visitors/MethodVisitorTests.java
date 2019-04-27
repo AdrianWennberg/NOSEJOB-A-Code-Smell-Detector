@@ -1,15 +1,5 @@
 package com.codingrangers.nosejob.parser.visitors;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-
 import com.codingrangers.nosejob.parser.data.ParsedMethod;
 import com.codingrangers.nosejob.parser.data.ParsedVariable;
 import com.github.javaparser.JavaParser;
@@ -18,16 +8,25 @@ import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import static org.mockito.Mockito.*;
 
 public class MethodVisitorTests {
 
+    VariableVisitor varVisitor;
 	MethodVisitor visitor;
 	ParsedMethod methodData;
 
 	@Before
 	public void before() {
-		visitor = new MethodVisitor(Mockito.mock(VariableVisitor.class));
-		methodData = Mockito.mock(ParsedMethod.class);
+        varVisitor = mock(VariableVisitor.class);
+        visitor = new MethodVisitor(varVisitor);
+        methodData = mock(ParsedMethod.class);
 	}
 
 	CompilationUnit getCompUnit(String fileName) {
@@ -47,11 +46,16 @@ public class MethodVisitorTests {
 	public void identificationTest() {
 		CompilationUnit compUnit = getCompUnit("src/test/ParserTestTargets/MethodIdentificationTestTarget.java");
 
+        when(methodData.createParameter(anyString())).thenReturn(mock(ParsedVariable.class));
+
 		visitor.visit(compUnit, methodData);
 
 		verify(methodData, times(2)).setReturnType("void", false);
 		verify(methodData).setReturnType("int", true);
 		verify(methodData).setReturnType("MethodIdentificationTestTarget", false);
+        verify(methodData).createParameter("param1");
+        verify(methodData).createParameter("param2");
+
 	}
 
 	@Test

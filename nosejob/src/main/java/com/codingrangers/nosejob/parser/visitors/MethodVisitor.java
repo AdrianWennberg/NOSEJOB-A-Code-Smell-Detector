@@ -2,6 +2,7 @@ package com.codingrangers.nosejob.parser.visitors;
 
 import com.codingrangers.nosejob.parser.data.ParsedMethod;
 import com.codingrangers.nosejob.parser.data.ParsedVariable;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.VariableDeclarator;
@@ -38,21 +39,33 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 	}
 	
 	public void visit(FieldAccessExpr fieldCall, ParsedMethod methodData ) {
-		ResolvedValueDeclaration valueDeclaration = fieldCall.resolve();
+        try {
+            ResolvedValueDeclaration valueDeclaration = fieldCall.resolve();
 
-		if(valueDeclaration.isField()) {
-			ResolvedFieldDeclaration resolvedField = (ResolvedFieldDeclaration) valueDeclaration;
+            if (valueDeclaration.isField()) {
+                ResolvedFieldDeclaration resolvedField = (ResolvedFieldDeclaration) valueDeclaration;
 
-			methodData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+                methodData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+            }
+        } catch (UnsolvedSymbolException e) {
+            System.err.println("cannot resolve symbol: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Got exception while resolving: " + e.getMessage());
 		}
 	}
-	
-	public void visit(NameExpr nameCall, ParsedMethod methodData ) {		
-		ResolvedValueDeclaration resolvedName = nameCall.resolve();
-		
-		if(resolvedName.isField()) {
-			ResolvedFieldDeclaration resolvedField = resolvedName.asField();
-			methodData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+
+    public void visit(NameExpr nameCall, ParsedMethod methodData) {
+        try {
+            ResolvedValueDeclaration resolvedName = nameCall.resolve();
+
+            if (resolvedName.isField()) {
+                ResolvedFieldDeclaration resolvedField = resolvedName.asField();
+                methodData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+            }
+        } catch (UnsolvedSymbolException e) {
+            System.err.println("cannot resolve symbol: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Got exception while resolving: " + e.getMessage());
 		}
 	}
 	
@@ -64,9 +77,10 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 			String classQualifedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));
 
 			methodData.addReferenceToMethod(classQualifedName, resolvedMethod.getSignature());
-		}
-		catch (UnsolvedSymbolException e){
-			System.err.println("cannot resolve symbol: " + e.getName());
+        } catch (UnsolvedSymbolException e) {
+            System.err.println("cannot resolve symbol: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Got exception while resolving: " + e.getMessage());
 		}
 		
 	}
@@ -80,11 +94,21 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 		methodData.setReturnType(returnType.asString(), returnType.isPrimitiveType());
 		
 		for(Parameter p : method.getParameters()) {
-			ParsedVariable paramaterData = methodData.createParameter(p.getNameAsString());
-			variableVisitor.visit(p, paramaterData);
+            ParsedVariable parameterData = methodData.createParameter(p.getNameAsString());
+            variableVisitor.visit(p, parameterData);
 		}
 		
 		super.visit(method,methodData);
 	}
+
+    @Override
+    public void visit(ConstructorDeclaration constructor, ParsedMethod methodData) {
+        for (Parameter p : constructor.getParameters()) {
+            ParsedVariable parameterData = methodData.createParameter(p.getNameAsString());
+            variableVisitor.visit(p, parameterData);
+        }
+
+        super.visit(constructor, methodData);
+    }
 	
 }

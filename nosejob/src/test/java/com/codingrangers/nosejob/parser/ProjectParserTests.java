@@ -4,7 +4,7 @@ import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.parser.data.ParsedClass;
 import com.codingrangers.nosejob.parser.data.ParsedProject;
 import com.codingrangers.nosejob.parser.visitors.ClassVisitor;
-import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +29,9 @@ public class ProjectParserTests {
 	public void parseProjectTest() {
 		ProjectData result = null;
 
-		when(mockParsedProject.createClass(anyString(), anyString(), anyString())).thenReturn(mock(ParsedClass.class));
+		ParsedClass mockedClass = mock(ParsedClass.class);
+
+		when(mockParsedProject.createClass(anyString(), anyString(), anyString())).thenReturn(mockedClass);
 
 		try {
 			result = target.parseProject("src/test/ParserTestTargets/ProjectParserTestsFolderTarget/dumyClass1.java");
@@ -40,7 +42,7 @@ public class ProjectParserTests {
 
 		assert(result != null);
 		verify(mockParsedProject).createClass(anyString(), anyString(), anyString());
-		verify(mockClassVisitor).visit(any(CompilationUnit.class),any(ParsedClass.class));
+		verify(mockClassVisitor).visit(any(ClassOrInterfaceDeclaration.class), eq(mockedClass));
 	}
 
 	@Test
@@ -55,6 +57,7 @@ public class ProjectParserTests {
 
 	@Test
 	public void DirectoryExplorationTest() {
+		when(mockParsedProject.createClass(anyString(), anyString(), anyString())).thenReturn(mock(ParsedClass.class));
 		try {
 			target.parseProject("src/test/ParserTestTargets/ProjectParserTestsFolderTarget");
 		} catch (FileNotFoundException e) {
@@ -66,9 +69,11 @@ public class ProjectParserTests {
 	}
 
 	@Test
-	public void MultipulRunTest() {
+	public void MultipleRunTest() {
 		ProjectData result1 = null;
 		ProjectData result2 = null;
+
+		when(mockParsedProject.createClass(anyString(), anyString(), anyString())).thenReturn(mock(ParsedClass.class));
 
 		try {
 			result1 = target.parseProject("src/test/ParserTestTargets/ProjectParserTestsFolderTarget");

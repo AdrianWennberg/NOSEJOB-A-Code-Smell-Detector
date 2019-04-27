@@ -4,7 +4,7 @@ import com.codingrangers.nosejob.parser.data.ParsedClass;
 import com.codingrangers.nosejob.parser.data.ParsedMethod;
 import com.codingrangers.nosejob.parser.data.ParsedVariable;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
@@ -49,20 +49,43 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 		ParsedMethod methodData = classData.createMethod(method.getSignature().asString());
 		methodVisitor.visit(method, methodData);
 	}
+
+    @Override
+    public void visit(ConstructorDeclaration constructor, ParsedClass classData) {
+        ParsedMethod methodData = classData.createMethod(constructor.getSignature().asString());
+        methodData.setReturnType(classData.getName(), false);
+        methodVisitor.visit(constructor, methodData);
+    }
 	
 	public void visit(MethodCallExpr methodCall, ParsedClass classData ) {
-		ResolvedMethodDeclaration resolvedMethod = methodCall.resolve();
+        try {
+            ResolvedMethodDeclaration resolvedMethod = methodCall.resolve();
 
-		String fullQualifiedName = resolvedMethod.getQualifiedName();
-		String classQualifedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));		
-		
-		classData.addReferenceToMethod(classQualifedName, resolvedMethod.getSignature());
+            String fullQualifiedName = resolvedMethod.getQualifiedName();
+            String classQualifedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));
+
+            classData.addReferenceToMethod(classQualifedName, resolvedMethod.getSignature());
+        } catch (UnsolvedSymbolException e) {
+            System.err.println("unsolved symbol found: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Got exception while resolving: " + e.getMessage());
+        }
 	}
 	
 	public void visit(FieldAccessExpr fieldCall, ParsedClass classData) {
-		ResolvedFieldDeclaration resolvedField = (ResolvedFieldDeclaration) fieldCall.resolve();
-				
-		classData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+
+        try {
+            ResolvedValueDeclaration resolvedFieldCall = fieldCall.resolve();
+            if (resolvedFieldCall.isField()) {
+                ResolvedFieldDeclaration resolvedField = (ResolvedFieldDeclaration) resolvedFieldCall;
+
+                classData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+            }
+        } catch (UnsolvedSymbolException e) {
+            System.err.println("cannot resolve symbol: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Got exception while resolving: " + e.getMessage());
+        }
 	}
 	
 	public void visit(NameExpr nameCall, ParsedClass classData) {
@@ -73,18 +96,10 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 				classData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
 			}
 
-		} catch (UnsolvedSymbolException e)
-		{
-			System.err.println("cannot resolve symbol: " + e.getName());
-		}
-	}
-
-	@Override
-	public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedClass classData) {
-		if (classOrInterface.isInterface() == false) {
-			classData.setStartLine(classOrInterface.getBegin().get().line);
-			classData.setEndLine(classOrInterface.getEnd().get().line);
-			super.visit(classOrInterface, classData);
+        } catch (UnsolvedSymbolException e) {
+            System.err.println("cannot resolve symbol: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Got exception while resolving: " + e.getMessage());
 		}
 	}
 
