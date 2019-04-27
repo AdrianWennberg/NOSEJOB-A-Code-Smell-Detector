@@ -25,8 +25,10 @@
 				<path fill="none" d="M0 0h24v24H0z" />
 			</svg>
 		</button>
-		<h1 class="dashboard-header" th:text="${headerText}"></h1>
-		</h1>
+		<div>
+			<!-- <h1 class="dashboard-header" th:text="${headerText}"></h1> -->
+			<h1 class="dashboard-header">Showing Anlaysis for Foo.java</h1>
+		</div>
 		<div class="tiles">
 			<div class="tile wide" th:each="smellReport: ${smellReports}">
 				<div class="tile__analysis">
@@ -35,7 +37,7 @@
 						<div class="title">Total Severity</div>
 					</div>
 					<div class="right">
-						<div class="numeric-datum">0</div>
+						<div class="numeric-datum" th:text="${smellReport.getTotalFilesAffected()}"></div>
 						<div class="title">Files Affected</div>
 					</div>
 				</div>
@@ -45,6 +47,20 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+		const tileColors = [
+			"#4392F1",
+			"#61E786",
+			"#FF006E",
+			"#FEC601"
+		];
+		const tiles = document.getElementsByClassName("tile__analysis");
+		for (let i = 0; i < tiles.length; i++) {
+			tiles[i].style['background-color'] = tileColors[Math.floor(Math.random() * tileColors.length)];
+		}
+
+	</script>
 </body>
 
 </html>

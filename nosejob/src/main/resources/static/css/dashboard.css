@@ -1,17 +1,21 @@
 .dashboard-container {
 	animation: fadeIn 1s;
 	overflow: auto !important;
+	padding-left: 10px;
+	padding-right: 10px;
+	overflow: auto !important;
 }
 
 .dashboard-header {
-	margin-left: 70px;
-	margin-top: 50px;
-	padding-left: 3%;
-	color: white;
+	margin-left: 20px;
+	color: white !important;
 }
 
 .tiles {
-	margin: 50px 0 0 100px;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: flex-start;
 }
 
 .tile {
@@ -22,10 +26,15 @@
 	margin-top: 20px;
 	margin-left: 20px;
 	float: left;
+	/* transform: skew(-10deg); */
 }
 
 .tile.wide {
 	width: 340px;
+}
+
+.tile.wide:hover {
+	cursor: pointer;
 }
 
 .tile .tile__analysis {
@@ -46,17 +55,24 @@
 	font-size: 48px;
 	text-align: center;
 	padding: 10px 0 0;
+	opacity: .3;
+	font-weight: 500;
+	color: #1f2d3d !important;
 }
 
 .tile .tile__analysis .title {
 	font-size: 20px;
 	text-align: center;
+	opacity: .3;
+	font-weight: 500;
+	color: #1f2d3d !important;
 }
 
 .tile .tile__base {
 	height: 60px;
 	border-radius: 0 0 4px 4px;
 	background-color: white;
+	color: #1f2d3d !important;
 }
 
 .tile .tile__base .title {
@@ -69,19 +85,10 @@
 	padding: 4%;
 }
 
-.tile .tile__analysis {
-	background-color: #63bc92;
-}
-
 .tile__analysis:hover {
-	filter: brightness(110%);
-	transition: 300ms;
-
+	filter: brightness(80%);
 }
 
-.tile .tile__base {
-	color: #63bc92;
-}
 
 .back-arrow {
 	fill: #63bc92 !important;

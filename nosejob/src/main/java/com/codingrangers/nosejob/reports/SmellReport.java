@@ -3,6 +3,8 @@ package com.codingrangers.nosejob.reports;
 import com.codingrangers.nosejob.models.Smell;
 import com.codingrangers.nosejob.models.SmellReportBody;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,9 +62,6 @@ public class SmellReport implements SmellReportBody {
 				return 0f;
 			}
 
-			// int averageSeverity = smells.stream().reduce(0, (v.getSmellSeverity(), _v) ->
-			// v.getSmellSeverity() + _v.getSmellSeverity()).collect();
-
 			for (Smell smell : smells) {
 				averageSeverity += smell.getSmellSeverity();
 			}
@@ -77,5 +76,18 @@ public class SmellReport implements SmellReportBody {
 	@Override
 	public String getDisplayTotalSmellSeverity() {
 		return ((int) (this.getTotalSmellSeverity() * 100)) + "%";
+	}
+
+	@Override
+	public int getTotalFilesAffected() {
+		ArrayList<String> filenames = new ArrayList<String>();
+		for (Smell smell : smells) {
+			Path path = Paths.get(smell.getLocation().getFilePath());
+			String filename = path.getFileName().toString();
+			if (!filenames.contains(filename)) {
+				filenames.add(filename);
+			}
+		}
+		return filenames.size();
 	}
 }
