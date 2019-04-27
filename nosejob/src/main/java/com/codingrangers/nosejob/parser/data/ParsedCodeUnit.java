@@ -6,11 +6,16 @@ public abstract class ParsedCodeUnit extends ParsedCodeLocation implements CodeD
 
     private String namePrefix;
     private String name;
+    private String separator = ".";
 
     ParsedCodeUnit(String blockNamePrefix, String blockName, String filePath) {
         super(filePath);
         namePrefix = blockNamePrefix;
         name = blockName;
+    }
+
+    public void SetNameSeparator(String symbol) {
+        separator = symbol;
     }
 
     @Override
@@ -20,7 +25,10 @@ public abstract class ParsedCodeUnit extends ParsedCodeLocation implements CodeD
 
     @Override
     public String getFullyQualifiedName() {
-        return namePrefix + "." + name;
+        if ("".equals(namePrefix))
+            return name;
+
+        return namePrefix + separator + name;
     }
 
     String getNamePrefix() {

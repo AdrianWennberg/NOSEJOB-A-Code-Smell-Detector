@@ -2,13 +2,15 @@ package com.codingrangers.nosejob.parser;
 
 import com.codingrangers.nosejob.models.CodeParser;
 import com.codingrangers.nosejob.models.ProjectData;
-import com.codingrangers.nosejob.parser.data.ParsedClass;
+import com.codingrangers.nosejob.parser.data.ParsedFile;
 import com.codingrangers.nosejob.parser.data.ParsedProject;
 import com.codingrangers.nosejob.parser.visitors.ClassVisitor;
+import com.codingrangers.nosejob.parser.visitors.FileVisitor;
 import com.codingrangers.nosejob.parser.visitors.MethodVisitor;
 import com.codingrangers.nosejob.parser.visitors.VariableVisitor;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Optional;
 
 /**
  * entry point into code parsing system Each instance can parse one project at a
@@ -29,14 +32,15 @@ import java.io.FileNotFoundException;
 @Component
 public class ProjectParser implements CodeParser {
 
+    public static final int CODESTORE_FOLDER_OFFSET = 29;
 	ParsedProject parsedProject;
 	ClassVisitor classVisitor;
 
 	public ProjectParser() {
+        parsedProject = new ParsedProject();
 		VariableVisitor variableVisitor = new VariableVisitor();
 		MethodVisitor methodVisitor = new MethodVisitor(variableVisitor);
 		classVisitor = new ClassVisitor(methodVisitor, variableVisitor);
-		parsedProject = new ParsedProject();
 	}
 
 	/**
@@ -103,8 +107,21 @@ public class ProjectParser implements CodeParser {
 			e.printStackTrace();
 		}
 
-		ParsedClass parsedClass = parsedProject.createClass("packageNameGoesHere", file.getName(), file.getPath());
-		classVisitor.visit(compilationUnit, parsedClass);
+        String filePath = file.getPath().substring(CODESTORE_FOLDER_OFFSET);
+        String packageName = getPackageName(compilationUnit);
+
+        ParsedFile fileData = new ParsedFile(parsedProject, packageName, filePath);
+        FileVisitor fileVisitor = new FileVisitor(classVisitor);
+
+        fileVisitor.visit(compilationUnit, fileData);
+    }
+
+    private String getPackageName(CompilationUnit compilationUnit) {
+        Optional<PackageDeclaration> packageDeclaration = compilationUnit.getPackageDeclaration();
+
+        if (packageDeclaration.isPresent())
+            return packageDeclaration.get().getName().asString();
+        return "";
 	}
 
 }

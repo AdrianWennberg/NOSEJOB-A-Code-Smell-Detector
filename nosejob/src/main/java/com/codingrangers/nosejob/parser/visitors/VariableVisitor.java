@@ -4,6 +4,7 @@ import com.codingrangers.nosejob.models.AccessSpecifier;
 import com.codingrangers.nosejob.parser.data.ParsedVariable;
 import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.body.FieldDeclaration;
+import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
@@ -38,6 +39,20 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 			else 
 				variableData.setAccessSpecifier(AccessSpecifier.DEFAULT);
 		}
-	}
-	
+
+        System.out.println("Created variable: " + variableData.getFullyQualifiedName() + " of type: " + variableData.getType());
+    }
+
+    @Override
+    public void visit(Parameter parameter, ParsedVariable variableData) {
+
+        variableData.setStartLine(parameter.getBegin().get().line);
+        variableData.setEndLine(parameter.getEnd().get().line);
+
+
+        variableData.setVariableType(parameter.getTypeAsString());
+        if (parameter.getType().isPrimitiveType())
+            variableData.setIsPrimitive();
+        variableData.setAccessSpecifier(AccessSpecifier.DEFAULT);
+    }
 }
