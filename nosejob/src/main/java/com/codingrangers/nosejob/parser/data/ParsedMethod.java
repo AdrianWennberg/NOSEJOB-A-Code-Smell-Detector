@@ -20,7 +20,7 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneabl
         this.className = className;
         parameters = new ArrayList<>();
         localVariables = new ArrayList<>();
-        variablePrototype = new ParsedVariable(getFullyQualifiedName(), "", filePath);
+        variablePrototype = new ParsedVariable("", "", "");
         setReturnType("void", true);
     }
 
@@ -43,6 +43,8 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneabl
     public ParsedVariable createParameter(String name) {
         ParsedVariable variable = variablePrototype.clone();
         variable.setName(name);
+        variable.setNamePrefix(getFullyQualifiedName());
+        variable.setFilePath(getFilePath());
         parameters.add(variable);
         return variable;
     }
@@ -51,6 +53,8 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneabl
     public ParsedVariable createVariable(String name) {
         ParsedVariable variable = variablePrototype.clone();
         variable.setName(name);
+        variable.setNamePrefix(getFullyQualifiedName());
+        variable.setFilePath(getFilePath());
         localVariables.add(variable);
         return variable;
     }
