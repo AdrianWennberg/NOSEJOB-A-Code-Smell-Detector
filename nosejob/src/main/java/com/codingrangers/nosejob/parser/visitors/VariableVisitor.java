@@ -15,10 +15,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
  *
  */
 public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
-	
-	/**
-	 * entry point for VariableVisitor
-	 */
+
 	@Override
 	public void visit(VariableDeclarator variable, ParsedVariable variableData) {
 		variableData.setStartLine(variable.getBegin().get().line);
@@ -39,8 +36,6 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 			else 
 				variableData.setAccessSpecifier(AccessSpecifier.DEFAULT);
 		}
-
-        System.out.println("Created variable: " + variableData.getFullyQualifiedName() + " of type: " + variableData.getType());
     }
 
     @Override
@@ -48,7 +43,6 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 
         variableData.setStartLine(parameter.getBegin().get().line);
         variableData.setEndLine(parameter.getEnd().get().line);
-
 
         variableData.setVariableType(parameter.getTypeAsString());
         if (parameter.getType().isPrimitiveType())

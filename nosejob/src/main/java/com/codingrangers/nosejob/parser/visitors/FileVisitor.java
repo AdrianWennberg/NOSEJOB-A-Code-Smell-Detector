@@ -23,9 +23,6 @@ public class FileVisitor extends VoidVisitorAdapter<ParsedFile> {
 
             ParsedClass classData = fileData.createClass(className, startLine, endLine);
 
-            System.out.println("Class: " + classData.getFullyQualifiedName() + " Found in file: " + classData.getFilePath());
-
-
             classVisitor.visit(classOrInterface, classData);
             super.visit(classOrInterface, fileData);
         }

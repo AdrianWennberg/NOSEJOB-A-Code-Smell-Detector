@@ -32,6 +32,8 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
     public ParsedMethod createMethod(String name) {
         ParsedMethod method = methodPrototype.clone();
         method.setName(name);
+        method.setNamePrefix(getFullyQualifiedName());
+        method.setFilePath(getFilePath());
         method.setReferenceStorage(referenceStorage);
         classMethods.put(method.getName(), method);
         return method;
@@ -60,6 +62,8 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
     public ParsedVariable createField(String name) {
         ParsedVariable variable = fieldPrototype.clone();
         variable.setName(name);
+        variable.setNamePrefix(getFullyQualifiedName());
+        variable.setFilePath(getFilePath());
         classVariables.put(variable.getName(), variable);
         return variable;
     }
