@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.codingrangers.nosejob.parser.data.ParsedMethod;
-import com.codingrangers.nosejob.parser.data.ParsedVariable;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
@@ -60,23 +59,21 @@ public class MethodVisitorTests {
 		JavaParserTypeSolver javaParserSolver = new JavaParserTypeSolver(referenceTestFile);
 		ReflectionTypeSolver refelctionSolver = new ReflectionTypeSolver();
 
-		CombinedTypeSolver typeSolver = new CombinedTypeSolver(javaParserSolver,refelctionSolver);
+		CombinedTypeSolver typeSolver = new CombinedTypeSolver(javaParserSolver, refelctionSolver);
 
 		JavaSymbolSolver symbolSolver = new JavaSymbolSolver(typeSolver);
 		JavaParser.getStaticConfiguration().setSymbolResolver(symbolSolver);
 
-
-		CompilationUnit compUnit[] = {getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest1.java")
-				,getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest2.java")
-				,getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest3.java")};
-
+		CompilationUnit compUnit[] = {
+				getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest1.java"),
+				getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest2.java"),
+				getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest3.java") };
 
 		visitor.visit(compUnit[0], methodData);
 		visitor.visit(compUnit[1], methodData);
 		visitor.visit(compUnit[2], methodData);
 
-		verify(methodData,times(3)).addReferenceToMethod("referenceTests.ReferenceTest1", "methodToCall()");
-		verify(methodData,times(2)).addReferenceToField("referenceTests.ReferenceTest1", "field");
+		verify(methodData, times(3)).addReferenceToMethod("referenceTests.ReferenceTest1", "methodToCall()");
+		verify(methodData, times(2)).addReferenceToField("referenceTests.ReferenceTest1", "field");
 	}
 }
-

@@ -12,7 +12,14 @@ public class CustomErrorController implements ErrorController {
 
 	@RequestMapping("/error")
 	public String handleError(HttpServletRequest request, Model model) {
-		model.addAttribute("errorMessage", "Oops, something went wrong!");
+		if (!model.containsAttribute("errorMessage")) {
+			model.addAttribute("errorMessage", "Oops, something went wrong!");
+		}
+
+		if (!model.containsAttribute("tip")) {
+			model.addAttribute("tip", "Pleaes return home and try again.");
+		}
+
 		return "error";
 	}
 

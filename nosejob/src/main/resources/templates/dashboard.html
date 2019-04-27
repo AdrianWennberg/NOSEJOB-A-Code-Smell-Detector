@@ -25,7 +25,8 @@
 				<path fill="none" d="M0 0h24v24H0z" />
 			</svg>
 		</button>
-		<h1 class="dashboard-header">Your Project Analysis</h1>
+		<h1 class="dashboard-header" th:text="${headerText}"></h1>
+		</h1>
 		<div class="tiles">
 			<div class="tile wide" th:each="smellReport: ${smellReports}">
 				<div class="tile__analysis">

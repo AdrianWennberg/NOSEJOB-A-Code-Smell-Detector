@@ -1,5 +1,6 @@
 .dashboard-container {
 	animation: fadeIn 1s;
+	overflow: auto !important;
 }
 
 .dashboard-header {

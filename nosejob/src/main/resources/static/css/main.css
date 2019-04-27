@@ -157,7 +157,7 @@
 body {
 	background-color: #39414d;
 	font-family: "Open Sans";
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 h1 {

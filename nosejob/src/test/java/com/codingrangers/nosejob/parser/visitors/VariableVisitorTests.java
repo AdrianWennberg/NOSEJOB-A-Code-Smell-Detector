@@ -10,9 +10,6 @@ import static org.mockito.Mockito.*;
 import com.codingrangers.nosejob.parser.data.ParsedVariable;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.VariableDeclarator;
-
-
 
 public class VariableVisitorTests {
 
@@ -47,6 +44,4 @@ public class VariableVisitorTests {
 
 	}
 
-
 }
-

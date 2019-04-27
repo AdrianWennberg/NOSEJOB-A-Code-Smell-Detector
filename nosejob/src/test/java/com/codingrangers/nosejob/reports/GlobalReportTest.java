@@ -123,7 +123,7 @@ public class GlobalReportTest {
 		}
 	}
 
-	public static class getSmellNamesTest {
+	public static class GetSmellNamesTest {
 		@Test
 		public void getSmellNamesTest() {
 			String firstReportName = "firstTestName";
@@ -145,7 +145,7 @@ public class GlobalReportTest {
 		}
 	}
 
-	public static class getSmellReportsTest {
+	public static class GetSmellReportsTest {
 		@Test
 		public void getSmellReportsTest() {
 			String firstReportName = "firstTestName";
@@ -165,7 +165,7 @@ public class GlobalReportTest {
 		}
 	}
 
-	public static class getReportForSpecifiedSmellTest {
+	public static class GetReportForSpecifiedSmellTest {
 		@Test
 		public void getReportForSpecifiedSmellTest() {
 			String firstReportName = "firstTestName";
