@@ -10,6 +10,7 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -46,6 +47,7 @@ public class DataOnlyClassesSnifferTest {
 
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+            when(mockedTestClass.countFields()).thenReturn(2);
             when(otherMockedClass.getName()).thenReturn(otherClass);
             when(otherMockedClass.getFullyQualifiedName()).thenReturn(otherClass);
 
@@ -75,6 +77,7 @@ public class DataOnlyClassesSnifferTest {
 
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+            when(mockedTestClass.countFields()).thenReturn(2);
             when(otherMockedClass.getName()).thenReturn(otherClass);
             when(otherMockedClass.getFullyQualifiedName()).thenReturn(otherClass);
 
@@ -94,7 +97,7 @@ public class DataOnlyClassesSnifferTest {
             DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
             dataOnlyClassesSnifferTest.setProjectToSniff(mockedProject);
 
-            assertEquals(0.375f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -109,14 +112,11 @@ public class DataOnlyClassesSnifferTest {
 
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+            when(mockedTestClass.countFields()).thenReturn(4);
             when(otherMockedClass.getName()).thenReturn(otherClass);
             when(otherMockedClass.getFullyQualifiedName()).thenReturn(otherClass);
 
             List<MethodReference> internalMethodsCalls = Arrays.asList(mock(MethodReference.class),
-                    mock(MethodReference.class),
-                    mock(MethodReference.class),
-                    mock(MethodReference.class),
-                    mock(MethodReference.class),
                     mock(MethodReference.class));
 
             when(mockedTestClass.countInternalMethodCalls()).thenReturn(internalMethodsCalls.size());
@@ -128,7 +128,7 @@ public class DataOnlyClassesSnifferTest {
             DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
             dataOnlyClassesSnifferTest.setProjectToSniff(mockedProject);
 
-            assertEquals(0.375f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.25f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -143,12 +143,11 @@ public class DataOnlyClassesSnifferTest {
 
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+            when(mockedTestClass.countFields()).thenReturn(4);
             when(otherMockedClass.getName()).thenReturn(otherClass);
             when(otherMockedClass.getFullyQualifiedName()).thenReturn(otherClass);
 
-            List<MethodReference> externalMethods = Arrays.asList(mock(MethodReference.class),
-                    mock(MethodReference.class),
-                    mock(MethodReference.class));
+            List<MethodReference> externalMethods = Arrays.asList(mock(MethodReference.class));
             List<String> declaredMethods = Arrays.asList("one", "two", "three", "four", "five");
             List<MethodReference> internalMethodsCalls = Arrays.asList(mock(MethodReference.class),
                     mock(MethodReference.class));
@@ -164,7 +163,7 @@ public class DataOnlyClassesSnifferTest {
             DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
             dataOnlyClassesSnifferTest.setProjectToSniff(mockedProject);
 
-            assertEquals(0.375f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.125f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
 
         @Test
@@ -179,8 +178,10 @@ public class DataOnlyClassesSnifferTest {
 
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+            when(mockedTestClass.countFields()).thenReturn(2);
             when(otherMockedClass.getName()).thenReturn(otherClass);
             when(otherMockedClass.getFullyQualifiedName()).thenReturn(otherClass);
+            when(otherMockedClass.countFields()).thenReturn(2);
 
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
@@ -189,7 +190,7 @@ public class DataOnlyClassesSnifferTest {
             DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
             dataOnlyClassesSnifferTest.setProjectToSniff(mockedProject);
 
-            assertEquals(0.75f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(1, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 
@@ -208,17 +209,16 @@ public class DataOnlyClassesSnifferTest {
 
             when(mockedTestClass.getName()).thenReturn(testClass);
             when(mockedTestClass.getFullyQualifiedName()).thenReturn(testClass);
+            when(mockedTestClass.countFields()).thenReturn(1);
             when(otherMockedClass.getName()).thenReturn(otherClass);
             when(otherMockedClass.getFullyQualifiedName()).thenReturn(otherClass);
+            when(otherMockedClass.countFields()).thenReturn(2);
             when(emptyMockedClass.getName()).thenReturn(emptyClass);
             when(emptyMockedClass.getFullyQualifiedName()).thenReturn(emptyClass);
 
-            List<MethodReference> externalMethods = Arrays.asList(mock(MethodReference.class),
-                    mock(MethodReference.class),
-                    mock(MethodReference.class));
-            List<String> declaredMethods = Arrays.asList("one", "two", "three", "four", "five");
-            List<MethodReference> internalMethodsCalls = Arrays.asList(mock(MethodReference.class),
-                    mock(MethodReference.class));
+            List<MethodReference> externalMethods = Collections.emptyList();
+            List<String> declaredMethods = Arrays.asList("one", "two", "three", "four");
+            List<MethodReference> internalMethodsCalls = Arrays.asList();
 
             when(mockedTestClass.countMethodCallsTo(otherMockedClass.getFullyQualifiedName())).thenReturn(externalMethods.size());
             when(mockedTestClass.countInternalMethodCalls()).thenReturn(internalMethodsCalls.size());
@@ -235,7 +235,7 @@ public class DataOnlyClassesSnifferTest {
             DataOnlyClassesSniffer dataOnlyClassesSnifferTest = new DataOnlyClassesSniffer();
             dataOnlyClassesSnifferTest.setProjectToSniff(mockedProject);
 
-            assertEquals(0.25f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
+            assertEquals(0.33f, dataOnlyClassesSnifferTest.getSmellReport().getTotalSmellSeverity(), 0.01);
         }
     }
 }

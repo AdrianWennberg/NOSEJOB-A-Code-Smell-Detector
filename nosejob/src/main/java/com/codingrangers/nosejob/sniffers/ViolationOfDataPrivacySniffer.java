@@ -1,5 +1,9 @@
 package com.codingrangers.nosejob.sniffers;
-import com.codingrangers.nosejob.models.*;
+
+import com.codingrangers.nosejob.models.ClassData;
+import com.codingrangers.nosejob.models.CodeData;
+import com.codingrangers.nosejob.models.Smell;
+import com.codingrangers.nosejob.models.SmellReportBody;
 import com.codingrangers.nosejob.reports.SmellReport;
 
 public class ViolationOfDataPrivacySniffer extends GeneralSniffer {
@@ -9,10 +13,11 @@ public class ViolationOfDataPrivacySniffer extends GeneralSniffer {
         private ClassData currentClassToAnalyze;
 
         private float measureSeverityInClassFieldsTypes() {
-            if (currentClassToAnalyze.getFieldsNames().size() == 0)
+            if (currentClassToAnalyze.countFields() - currentClassToAnalyze.countStaticFields() == 0)
                 return 0f;
 
-            return (float) currentClassToAnalyze.countPublicFields() / currentClassToAnalyze.countFields();
+            return (float) (currentClassToAnalyze.countPublicFields() - currentClassToAnalyze.countStaticPublicFields())
+                    / (1.0f * currentClassToAnalyze.countFields() - currentClassToAnalyze.countStaticFields());
         }
 
         @Override
@@ -27,7 +32,7 @@ public class ViolationOfDataPrivacySniffer extends GeneralSniffer {
 
         @Override
         public boolean isSmelly() {
-            return (getSmellSeverity() > 0) ? true : false;
+            return getSmellSeverity() > 0;
         }
 
         @Override
@@ -37,7 +42,7 @@ public class ViolationOfDataPrivacySniffer extends GeneralSniffer {
     }
 
     private void retrieveSmellFromFields(ClassData currentClassToAnalyse) {
-        if (currentClassToAnalyse.equals(null))
+        if (currentClassToAnalyse == null)
             throw new NullPointerException("Cannot analyse fields of a null.");
 
         if (currentClassToAnalyse.countFields() > 0) {
@@ -48,7 +53,7 @@ public class ViolationOfDataPrivacySniffer extends GeneralSniffer {
     }
 
     private void retrieveSmellsFromClasses() {
-        if (currentProjectToAnalyse.equals(null))
+        if (currentProjectToAnalyse == null)
             throw new NullPointerException("Cannot analyse a null project.");
 
 

@@ -15,16 +15,17 @@ public class FileVisitor extends VoidVisitorAdapter<ParsedFile> {
 
     @Override
     public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedFile fileData) {
-        if (classOrInterface.isInterface() == false) {
+        if (classOrInterface.isInterface())
+            return;
 
-            String className = classOrInterface.getName().asString();
-            int startLine = classOrInterface.getBegin().get().line;
-            int endLine = classOrInterface.getEnd().get().line;
 
-            ParsedClass classData = fileData.createClass(className, startLine, endLine);
+        String className = classOrInterface.getName().asString();
+        int startLine = classOrInterface.getBegin().get().line;
+        int endLine = classOrInterface.getEnd().get().line;
 
-            classVisitor.visit(classOrInterface, classData);
-            super.visit(classOrInterface, fileData);
-        }
+        ParsedClass classData = fileData.createClass(className, startLine, endLine);
+
+        classVisitor.visit(classOrInterface, classData);
+        super.visit(classOrInterface, fileData);
     }
 }

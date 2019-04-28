@@ -9,15 +9,13 @@ import java.util.List;
 public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneable {
 
     private VariableData returnType;
-    private final String className;
     private final List<VariableData> parameters;
     private final List<VariableData> localVariables;
     private ParsedVariable variablePrototype;
     private ReferenceStorage referenceStorage;
 
-    ParsedMethod(String blockNamePrefix, String blockName, String filePath, String className) {
+    ParsedMethod(String blockNamePrefix, String blockName, String filePath) {
         super(blockNamePrefix, blockName, filePath);
-        this.className = className;
         parameters = new ArrayList<>();
         localVariables = new ArrayList<>();
         variablePrototype = new ParsedVariable("", "", "");
@@ -61,7 +59,7 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneabl
 
     @Override
     public String getClassName() {
-        return className;
+        return getNamePrefix();
     }
 
     @Override
@@ -99,19 +97,19 @@ public class ParsedMethod extends ParsedCodeUnit implements MethodData, Cloneabl
     }
 
     public ParsedMethodReference addReferenceToMethod(String fullyQualifiedClassName, String methodSignature) {
-        ParsedMethodReference methodRef = new ParsedMethodReference(getFilePath(), getFullyQualifiedName(), fullyQualifiedClassName, methodSignature);
+        ParsedMethodReference methodRef = new ParsedMethodReference(getFilePath(), getClassName(), fullyQualifiedClassName, methodSignature);
         referenceStorage.add(methodRef);
         return methodRef;
     }
 
     public ParsedFieldReference addReferenceToField(String fullyQualifiedClassName, String fieldName) {
-        ParsedFieldReference fieldRef = new ParsedFieldReference(getFilePath(), getFullyQualifiedName(), fullyQualifiedClassName, fieldName);
+        ParsedFieldReference fieldRef = new ParsedFieldReference(getFilePath(), getClassName(), fullyQualifiedClassName, fieldName);
         referenceStorage.add(fieldRef);
         return fieldRef;
     }
 
     @Override
     protected ParsedMethod clone() {
-        return new ParsedMethod(getNamePrefix(), getName(), getFilePath(), getClassName());
+        return new ParsedMethod(getNamePrefix(), getName(), getFilePath());
     }
 }

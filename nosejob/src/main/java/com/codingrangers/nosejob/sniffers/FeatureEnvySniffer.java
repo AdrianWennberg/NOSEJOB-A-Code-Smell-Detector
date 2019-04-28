@@ -1,6 +1,9 @@
 package com.codingrangers.nosejob.sniffers;
 
-import com.codingrangers.nosejob.models.*;
+import com.codingrangers.nosejob.models.ClassData;
+import com.codingrangers.nosejob.models.CodeData;
+import com.codingrangers.nosejob.models.Smell;
+import com.codingrangers.nosejob.models.SmellReportBody;
 import com.codingrangers.nosejob.reports.SmellReport;
 
 public class FeatureEnvySniffer extends GeneralSniffer {
@@ -42,7 +45,7 @@ public class FeatureEnvySniffer extends GeneralSniffer {
 
         @Override
         public boolean isSmelly() {
-            return (getSmellSeverity() > 0) ? true : false;
+            return getSmellSeverity() > 0;
         }
 
         @Override

@@ -7,16 +7,22 @@ public class ParsedVariable extends ParsedCodeUnit implements VariableData, Clon
 
 	private String type;
 	private boolean isPrimitive;
+	private boolean isStatic;
 	private AccessSpecifier accessSpecifier;
 
 	ParsedVariable(String namePrefix, String variableName, String filePath) {
 		super(namePrefix, variableName, filePath);
 		isPrimitive = false;
+		isStatic = false;
 		accessSpecifier = AccessSpecifier.PRIVATE;
 	}
 
 	public void setIsPrimitive() {
 		isPrimitive = true;
+	}
+
+	public void setIsStatic() {
+		isStatic = true;
 	}
 
 	public void setVariableType(String variableType) {
@@ -31,6 +37,11 @@ public class ParsedVariable extends ParsedCodeUnit implements VariableData, Clon
 	@Override
 	public boolean isPrimitive() {
 		return isPrimitive;
+	}
+
+	@Override
+	public boolean isStatic() {
+		return isStatic;
 	}
 
 	public void setAccessSpecifier(AccessSpecifier accessSpecifier) {

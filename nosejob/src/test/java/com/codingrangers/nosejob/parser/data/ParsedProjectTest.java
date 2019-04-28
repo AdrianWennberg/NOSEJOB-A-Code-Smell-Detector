@@ -16,7 +16,7 @@ public class ParsedProjectTest {
     public void canCreateMockedClass() {
         String className = "testClass";
         ParsedClass mockedClass = mock(ParsedClass.class);
-        when(mockedClass.getName()).thenReturn(className);
+        when(mockedClass.getFullyQualifiedName()).thenReturn(className);
 
         ParsedProject parsedProject = new ParsedProject();
 
@@ -37,11 +37,11 @@ public class ParsedProjectTest {
     public void canCreateMultipleClasses() {
         String firstClassName = "testClassOne";
         ParsedClass firstMockedClass = mock(ParsedClass.class);
-        when(firstMockedClass.getName()).thenReturn(firstClassName);
+        when(firstMockedClass.getFullyQualifiedName()).thenReturn(firstClassName);
 
         String secondClassName = "testClassTwo";
         ParsedClass secondMockedClass = mock(ParsedClass.class);
-        when(secondMockedClass.getName()).thenReturn(secondClassName);
+        when(secondMockedClass.getFullyQualifiedName()).thenReturn(secondClassName);
 
 
         ParsedProject parsedProject = new ParsedProject();
@@ -77,9 +77,9 @@ public class ParsedProjectTest {
         List<String> classes = parsedProject.getClassNames();
 
         assertEquals(1, classes.size());
-        assertEquals(className, classes.get(0));
+        assertEquals(fullyQualifiedClassName, classes.get(0));
 
-        assertEquals(createdClassData, parsedProject.getClassData(className));
+        assertEquals(createdClassData, parsedProject.getClassData(fullyQualifiedClassName));
 
         assertEquals(fullyQualifiedClassName, createdClassData.getFullyQualifiedName());
         assertEquals(className, createdClassData.getName());
@@ -107,9 +107,9 @@ public class ParsedProjectTest {
         List<String> classes = parsedProject.getClassNames();
 
         assertEquals(2, classes.size());
-        assertThat(classes, containsInAnyOrder(firstClassName, secondClassName));
-        assertEquals(firstCreatedClassData, parsedProject.getClassData(firstClassName));
-        assertEquals(secondCreatedClassData, parsedProject.getClassData(secondClassName));
+        assertThat(classes, containsInAnyOrder(firstFullyQualifiedClassName, secondFullyQualifiedClassName));
+        assertEquals(firstCreatedClassData, parsedProject.getClassData(firstFullyQualifiedClassName));
+        assertEquals(secondCreatedClassData, parsedProject.getClassData(secondFullyQualifiedClassName));
 
 
         assertEquals(firstFullyQualifiedClassName, firstCreatedClassData.getFullyQualifiedName());

@@ -35,6 +35,9 @@ public class VariableVisitor extends VoidVisitorAdapter<ParsedVariable> {
 				variableData.setAccessSpecifier(AccessSpecifier.PROTECTED);
 			else 
 				variableData.setAccessSpecifier(AccessSpecifier.DEFAULT);
+
+            if (parent.isStatic())
+                variableData.setIsStatic();
 		}
     }
 

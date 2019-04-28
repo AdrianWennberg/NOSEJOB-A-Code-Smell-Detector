@@ -3,14 +3,11 @@ package com.codingrangers.nosejob.parser.visitors;
 import com.codingrangers.nosejob.parser.data.ParsedClass;
 import com.codingrangers.nosejob.parser.data.ParsedMethod;
 import com.codingrangers.nosejob.parser.data.ParsedVariable;
-import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.ConstructorDeclaration;
-import com.github.javaparser.ast.body.FieldDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.expr.FieldAccessExpr;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.NameExpr;
+import com.github.javaparser.ast.type.Type;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.declarations.ResolvedFieldDeclaration;
@@ -27,19 +24,20 @@ import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
 public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 
 	private VoidVisitorAdapter<ParsedMethod> methodVisitor;
-	private VoidVisitorAdapter<ParsedVariable> fieldVisitor;
+	private VoidVisitorAdapter<ParsedVariable> variableVisitor;
 
 	public ClassVisitor(VoidVisitorAdapter<ParsedMethod> methodVisitor,
-						VoidVisitorAdapter<ParsedVariable> fieldVisitor) {
+						VoidVisitorAdapter<ParsedVariable> variableVisitor) {
 		this.methodVisitor = methodVisitor;
-		this.fieldVisitor = fieldVisitor;
+		this.variableVisitor = variableVisitor;
 	}
 
 	@Override
 	public void visit(FieldDeclaration field, ParsedClass classData) {
 		for (VariableDeclarator variable : field.getVariables()) {
+
 			ParsedVariable variableData = classData.createField(variable.getNameAsString());
-			fieldVisitor.visit(variable, variableData);
+			variableVisitor.visit(variable, variableData);
 		}
 		super.visit(field, classData);
 	}
@@ -47,6 +45,18 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 	@Override
 	public void visit(MethodDeclaration method, ParsedClass classData) {
 		ParsedMethod methodData = classData.createMethod(method.getSignature().asString());
+
+		Type returnType = method.getType();
+		methodData.setReturnType(returnType.asString(), returnType.isPrimitiveType());
+
+		for (Parameter p : method.getParameters()) {
+			ParsedVariable parameterData = methodData.createParameter(p.getNameAsString());
+			variableVisitor.visit(p, parameterData);
+		}
+
+		methodData.setStartLine(method.getBegin().get().line);
+		methodData.setEndLine(method.getEnd().get().line);
+
 		methodVisitor.visit(method, methodData);
 	}
 
@@ -54,6 +64,15 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
     public void visit(ConstructorDeclaration constructor, ParsedClass classData) {
         ParsedMethod methodData = classData.createMethod(constructor.getSignature().asString());
         methodData.setReturnType(classData.getName(), false);
+
+		methodData.setStartLine(constructor.getBegin().get().line);
+		methodData.setEndLine(constructor.getEnd().get().line);
+
+		for (Parameter p : constructor.getParameters()) {
+			ParsedVariable parameterData = methodData.createParameter(p.getNameAsString());
+			variableVisitor.visit(p, parameterData);
+		}
+
         methodVisitor.visit(constructor, methodData);
     }
 	
@@ -62,9 +81,9 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
             ResolvedMethodDeclaration resolvedMethod = methodCall.resolve();
 
             String fullQualifiedName = resolvedMethod.getQualifiedName();
-            String classQualifedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));
+			String classQualifiedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));
 
-            classData.addReferenceToMethod(classQualifedName, resolvedMethod.getSignature());
+			classData.addReferenceToMethod(classQualifiedName, resolvedMethod.getSignature());
         } catch (UnsolvedSymbolException e) {
             System.err.println("unsolved symbol found: " + e.getMessage());
         } catch (Exception e) {
@@ -102,13 +121,4 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
             System.err.println("Got exception while resolving: " + e.getMessage());
 		}
 	}
-
-	/**
-	 * Class Visitor entry point
-	 */
-	@Override
-	public void visit(CompilationUnit compilationUnit, ParsedClass classData) {
-		super.visit(compilationUnit, classData);
-	}
-
 }

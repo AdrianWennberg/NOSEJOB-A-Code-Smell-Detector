@@ -12,13 +12,13 @@ public class ParsedProject implements ProjectData {
 
 	private Map<String, ClassData> classes;
 	private ParsedClass classPrototype;
-	private ReferenceStorage referanceStorage;
+    private ReferenceStorage referenceStorage;
 
 	public ParsedProject() {
 		classes = new HashMap<>();
 		classPrototype = new ParsedClass("", "", "");
-		referanceStorage = new ReferenceStorage();
-		classPrototype.setReferenceStorage(referanceStorage);
+        referenceStorage = new ReferenceStorage();
+        classPrototype.setReferenceStorage(referenceStorage);
 	}
 
 	public void setClassPrototype(ParsedClass newPrototype) {
@@ -30,8 +30,8 @@ public class ParsedProject implements ProjectData {
 		newClass.setNamePrefix(classNamePrefix);
 		newClass.setName(className);
 		newClass.setFilePath(filePath);
-		newClass.setReferenceStorage(referanceStorage);
-		classes.put(newClass.getName(), newClass);
+        newClass.setReferenceStorage(referenceStorage);
+        classes.put(newClass.getFullyQualifiedName(), newClass);
 		return newClass;
 	}
 

@@ -1,6 +1,9 @@
 package com.codingrangers.nosejob.sniffers;
 
-import com.codingrangers.nosejob.models.*;
+import com.codingrangers.nosejob.models.ProjectAnalyser;
+import com.codingrangers.nosejob.models.ProjectData;
+import com.codingrangers.nosejob.models.ProjectReport;
+import com.codingrangers.nosejob.models.Sniffer;
 import com.codingrangers.nosejob.reports.GlobalReport;
 
 import java.util.ArrayList;
@@ -22,14 +25,14 @@ public abstract class SnifferBase implements ProjectAnalyser {
 
 	@Override
 	public ProjectReport getProjectReport() {
-		if (projectToAnalyze.equals(null))
+        if (projectToAnalyze == null)
 			throw new NullPointerException("Cannot analyse a null project.");
 
-		ProjectReport result = new GlobalReport();
+        GlobalReport result = new GlobalReport();
 
 		for (Sniffer analyser : analysers) {
 			analyser.setProjectToSniff(projectToAnalyze);
-			((GlobalReport) result).addSmellReportToProjectReport(analyser.getSmellReport());
+            result.addSmellReportToProjectReport(analyser.getSmellReport());
 		}
 
 		return result;

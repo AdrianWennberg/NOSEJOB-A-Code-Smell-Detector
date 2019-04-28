@@ -35,24 +35,23 @@ public class BloatedCodeSniffer extends GeneralSniffer {
 
         @Override
         public boolean isSmelly() {
-            return (getSmellSeverity() > 0) ? true : false;
+            return getSmellSeverity() > 0;
         }
 
         @Override
         public float getSmellSeverity() {
             int lineCount = currentMethodToAnalyze.getLineCount();
-            float smellSeverity = lineCount > 45 ? Severity.VERY_HIGH.value()
+            return lineCount > 45 ? Severity.VERY_HIGH.value()
                     : lineCount > 35 ? Severity.HIGH.value()
                     : lineCount > 25 ? Severity.MEDIUM.value()
                     : lineCount > 20 ? Severity.LOW.value()
                     : lineCount > 15 ? Severity.VERY_LOW.value()
                     : 0f;
-            return smellSeverity;
         }
     }
 
     private void retrieveSmellsFromMethods(ClassData currentClassAnalysed) {
-        if (currentClassAnalysed.equals(null))
+        if (currentClassAnalysed == null)
             throw new NullPointerException("Cannot analyse methods of a null.");
 
         for (String methodSignature : currentClassAnalysed.getMethodSignatures()) {
@@ -63,7 +62,7 @@ public class BloatedCodeSniffer extends GeneralSniffer {
     }
 
     private void retrieveSmellsFromClasses() {
-        if (currentProjectToAnalyse.equals(null))
+        if (currentProjectToAnalyse == null)
             throw new NullPointerException("Cannot analyse a null project.");
 
         for (String className : currentProjectToAnalyse.getClassNames()) {
