@@ -27,7 +27,6 @@ public class ParsedFile {
             String classPackage = createdClasses.peek().getFullyQualifiedName();
 
             newClass = fileProject.createClass(classPackage, className, filePath);
-            newClass.SetNameSeparator("$");
         } else {
             newClass = fileProject.createClass(packageName, className, filePath);
         }

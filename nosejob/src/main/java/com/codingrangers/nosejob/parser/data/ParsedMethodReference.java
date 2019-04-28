@@ -7,12 +7,18 @@ public class ParsedMethodReference extends ParsedCodeLocation implements MethodR
     private String referencingClassName;
     private String referredClassName;
     private String methodSignature;
+    private boolean internal;
 
-    ParsedMethodReference(String filePath, String referencingClassName, String referredClassName, String methodSignature) {
+    ParsedMethodReference(String filePath,
+                          String referencingClassName,
+                          String referredClassName,
+                          String methodSignature,
+                          boolean internal) {
         super(filePath);
         this.referencingClassName = referencingClassName;
         this.referredClassName = referredClassName;
         this.methodSignature = methodSignature;
+        this.internal = internal;
     }
 
     @Override
@@ -32,6 +38,6 @@ public class ParsedMethodReference extends ParsedCodeLocation implements MethodR
 
     @Override
     public boolean isInternal() {
-        return referredClassName.equals(referencingClassName);
+        return internal;
     }
 }

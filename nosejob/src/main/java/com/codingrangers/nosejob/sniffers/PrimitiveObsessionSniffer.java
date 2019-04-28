@@ -1,9 +1,10 @@
 package com.codingrangers.nosejob.sniffers;
 
-import com.codingrangers.nosejob.models.*;
+import com.codingrangers.nosejob.models.ClassData;
+import com.codingrangers.nosejob.models.CodeData;
+import com.codingrangers.nosejob.models.MethodData;
+import com.codingrangers.nosejob.models.Smell;
 import com.codingrangers.nosejob.reports.SmellReport;
-
-import java.util.ArrayList;
 
 public class PrimitiveObsessionSniffer extends GeneralSniffer{
 	private static final String NAME = "Primitive Obsession";
@@ -40,10 +41,20 @@ public class PrimitiveObsessionSniffer extends GeneralSniffer{
 
 		@Override
 		public float getSmellSeverity() {
-			return (countSeverityInMethodsParametersTypes() + countSeverityInMethodsLocalTypes()
-					+ countSeverityInMethodsReturnTypes())
-					/ (currentMethodToAnalyze.getLocalVariables().size() + currentMethodToAnalyze.getParameters().size()
-					+ 1);
+
+			float primitives = countSeverityInMethodsParametersTypes() +
+					countSeverityInMethodsLocalTypes() +
+					countSeverityInMethodsReturnTypes();
+
+
+			int total = currentMethodToAnalyze.getLocalVariables().size() +
+					currentMethodToAnalyze.getParameters().size() +
+					1;
+
+			if (primitives / total < 0.3)
+				return 0f;
+
+			return primitives / total;
 		}
 	}
 
@@ -53,12 +64,6 @@ public class PrimitiveObsessionSniffer extends GeneralSniffer{
 		public float measureSeverityInClassFieldsTypes() {
 			if (currentClassToAnalyze.getFieldsNames().size() == 0)
 				return 0f;
-
-			ArrayList<VariableData> fields = new ArrayList<>();
-
-			for (String fieldName : currentClassToAnalyze.getFieldsNames()) {
-				fields.add(currentClassToAnalyze.getField(fieldName));
-			}
 
 			return (float) currentClassToAnalyze.countPrimitiveFields() / currentClassToAnalyze.getFieldsNames().size();
 		}

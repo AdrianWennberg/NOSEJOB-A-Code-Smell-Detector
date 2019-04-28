@@ -4,6 +4,7 @@ import com.codingrangers.nosejob.parser.data.ParsedClass;
 import com.codingrangers.nosejob.parser.data.ParsedFile;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.javaparser.resolution.UnsolvedSymbolException;
 
 public class FileVisitor extends VoidVisitorAdapter<ParsedFile> {
 
@@ -23,7 +24,16 @@ public class FileVisitor extends VoidVisitorAdapter<ParsedFile> {
         int startLine = classOrInterface.getBegin().get().line;
         int endLine = classOrInterface.getEnd().get().line;
 
+
         ParsedClass classData = fileData.createClass(className, startLine, endLine);
+
+        try {
+            for (var ancestor : classOrInterface.resolve().getAllAncestors()) {
+                classData.addSuperclass(ancestor.getQualifiedName());
+            }
+        } catch (UnsolvedSymbolException e) {
+            System.err.println("Cannot get ancestors of: " + classData.getFullyQualifiedName());
+        }
 
         classVisitor.visit(classOrInterface, classData);
         super.visit(classOrInterface, fileData);

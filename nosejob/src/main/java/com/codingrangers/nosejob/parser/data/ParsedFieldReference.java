@@ -4,15 +4,21 @@ import com.codingrangers.nosejob.models.FieldReference;
 
 public class ParsedFieldReference extends ParsedCodeLocation implements FieldReference {
 
-    private String referencingClassName;
-    private String referredClassName;
-    private String fieldName;
+    private final String referencingClassName;
+    private final String referredClassName;
+    private final String fieldName;
+    private final boolean internal;
 
-    ParsedFieldReference(String filePath, String referencingClassName, String referredClassName, String fieldName) {
+    ParsedFieldReference(String filePath,
+                         String referencingClassName,
+                         String referredClassName,
+                         String fieldName,
+                         boolean internal) {
         super(filePath);
         this.referencingClassName = referencingClassName;
         this.referredClassName = referredClassName;
         this.fieldName = fieldName;
+        this.internal = internal;
     }
 
     @Override
@@ -32,7 +38,7 @@ public class ParsedFieldReference extends ParsedCodeLocation implements FieldRef
 
     @Override
     public boolean isInternal() {
-        return referencingClassName.equals(referredClassName);
+        return internal;
     }
 
 }

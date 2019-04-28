@@ -3,10 +3,7 @@ package com.codingrangers.nosejob.parser.data;
 import com.codingrangers.nosejob.models.*;
 import com.google.common.collect.Iterables;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable {
 
@@ -15,13 +12,15 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
     private ParsedMethod methodPrototype;
     private ParsedVariable fieldPrototype;
     private ReferenceStorage referenceStorage;
+    private Set<String> superclasses;
 
     ParsedClass(String classNamePrefix, String className, String filePath) {
         super(classNamePrefix, className, filePath);
         classMethods = new HashMap<>();
         classVariables = new HashMap<>();
-        methodPrototype = new ParsedMethod(getFullyQualifiedName(), "", filePath);
+        methodPrototype = new ParsedMethod(getFullyQualifiedName(), "", filePath, this);
         fieldPrototype = new ParsedVariable(getFullyQualifiedName(), "", filePath);
+        superclasses = new HashSet<>();
     }
 
 
@@ -123,6 +122,11 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
         return DataStructureHelpers.countPrimitives(classVariables.values());
     }
 
+    @Override
+    public boolean isSubClassOf(String classFullyQualifiedName) {
+        return superclasses.contains(classFullyQualifiedName);
+    }
+
 
     void setReferenceStorage(ReferenceStorage storage) {
         referenceStorage = storage;
@@ -159,21 +163,34 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
     }
 
     public ParsedMethodReference addReferenceToMethod(String fullyQualifiedClassName, String methodSignature) {
+        boolean internal = getFullyQualifiedName().equals(fullyQualifiedClassName) ||
+                isSubClassOf(fullyQualifiedClassName);
+
         ParsedMethodReference methodRef = new ParsedMethodReference(getFilePath(), getFullyQualifiedName(),
-                fullyQualifiedClassName, methodSignature);
+                fullyQualifiedClassName, methodSignature, internal);
         referenceStorage.add(methodRef);
         return methodRef;
     }
 
     public ParsedFieldReference addReferenceToField(String fullyQualifiedClassName, String fieldName) {
+        boolean internal = getFullyQualifiedName().equals(fullyQualifiedClassName) ||
+                isSubClassOf(fullyQualifiedClassName);
+
         ParsedFieldReference fieldRef = new ParsedFieldReference(getFilePath(), getFullyQualifiedName(),
-                fullyQualifiedClassName, fieldName);
+                fullyQualifiedClassName, fieldName, internal);
         referenceStorage.add(fieldRef);
         return fieldRef;
     }
 
     @Override
     protected ParsedClass clone() {
-        return new ParsedClass(getNamePrefix(), getName(), getFilePath());
+
+        ParsedClass parsedClass = new ParsedClass(getNamePrefix(), getName(), getFilePath());
+        parsedClass.superclasses = new HashSet<>();
+        return parsedClass;
+    }
+
+    public void addSuperclass(String qualifiedName) {
+        superclasses.add(qualifiedName);
     }
 }
