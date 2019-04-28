@@ -7,7 +7,6 @@ import com.github.javaparser.ast.expr.FieldAccessExpr;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.NameExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.declarations.ResolvedFieldDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
@@ -46,10 +45,8 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 
                 methodData.addReferenceToField(otherClassName, fieldName);
             }
-        } catch (UnsolvedSymbolException e) {
-        } catch (Exception e) {
-            System.err.println("Got exception while resolving: " + e.getMessage());
-		}
+        } catch (Exception ignored) {
+        }
 	}
 
     public void visit(NameExpr nameCall, ParsedMethod methodData) {
@@ -63,10 +60,8 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
                 String fieldName = resolvedField.getName();
                 methodData.addReferenceToField(className, fieldName);
             }
-        } catch (UnsolvedSymbolException e) {
-        } catch (Exception e) {
-            System.err.println("Got exception while resolving: " + e.getMessage());
-		}
+        } catch (Exception ignored) {
+        }
 	}
 
     public void visit(MethodCallExpr methodCall, ParsedMethod methodData ) {
@@ -77,10 +72,8 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
             String classQualifiedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));
 
             methodData.addReferenceToMethod(classQualifiedName, resolvedMethod.getSignature());
-        } catch (UnsolvedSymbolException e) {
-        } catch (Exception e) {
-            System.err.println("Got exception while resolving: " + e.getMessage());
-		}
+        } catch (Exception ignored) {
+        }
 
     }
 }

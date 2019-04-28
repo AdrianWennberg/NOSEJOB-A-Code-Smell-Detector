@@ -9,7 +9,6 @@ import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.NameExpr;
 import com.github.javaparser.ast.type.Type;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.declarations.ResolvedFieldDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
@@ -84,10 +83,8 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 			String classQualifiedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));
 
 			classData.addReferenceToMethod(classQualifiedName, resolvedMethod.getSignature());
-        } catch (UnsolvedSymbolException e) {
-        } catch (Exception e) {
-            System.err.println("Got exception while resolving: " + e.getMessage());
-        }
+		} catch (Exception ignored) {
+		}
 	}
 	
 	public void visit(FieldAccessExpr fieldCall, ParsedClass classData) {
@@ -99,10 +96,8 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 
                 classData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
             }
-        } catch (UnsolvedSymbolException e) {
-        } catch (Exception e) {
-            System.err.println("Got exception while resolving: " + e.getMessage());
-        }
+		} catch (Exception ignored) {
+		}
 	}
 	
 	public void visit(NameExpr nameCall, ParsedClass classData) {
@@ -112,18 +107,13 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 				ResolvedFieldDeclaration resolvedField = resolvedName.asField();
 				classData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
 			}
-
-        } catch (UnsolvedSymbolException e) {
-        } catch (Exception e) {
-            System.err.println("Got exception while resolving: " + e.getMessage());
+		} catch (Exception ignored) {
 		}
 	}
 
 	@Override
 	public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedClass parsedClass) {
-		System.out.printf("Visiting: %s as: %s%n", classOrInterface.getNameAsString(), parsedClass.getName());
 		if (classOrInterface.getNameAsString().equals(parsedClass.getName())) {
-			System.out.println("Keeps visiting");
 			super.visit(classOrInterface, parsedClass);
 		}
 	}

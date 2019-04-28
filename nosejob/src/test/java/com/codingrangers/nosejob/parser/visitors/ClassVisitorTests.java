@@ -58,8 +58,11 @@ public class ClassVisitorTests {
                 , getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest2.java")
                 , getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest3.java")};
 
+		when(classData.getName()).thenReturn("ReferenceTest1");
         visitor.visit(compUnit[0], classData);
+		when(classData.getName()).thenReturn("ReferenceTest2");
         visitor.visit(compUnit[1], classData);
+		when(classData.getName()).thenReturn("ReferenceTest3");
         visitor.visit(compUnit[2], classData);
 
         verify(classData).addReferenceToMethod("referenceTests.ReferenceTest1", "staticMethodToCall()");

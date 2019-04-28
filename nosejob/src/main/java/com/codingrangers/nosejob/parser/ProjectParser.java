@@ -59,22 +59,20 @@ public class ProjectParser implements CodeParser {
 	 */
 	public ProjectData parseProject(String path) throws FileNotFoundException {
 		File root = new File(path);
-		if (root.exists() == false) {
+		if (!root.exists())
 			throw new FileNotFoundException();
-		}
 
 		JavaParserTypeSolver javaParserSolver = null;
-		ReflectionTypeSolver refelctionSolver = new ReflectionTypeSolver();
+		ReflectionTypeSolver refectionSolver = new ReflectionTypeSolver();
 		CombinedTypeSolver typeSolver = null;
-		
-		if(root.isFile() == false) {
-			javaParserSolver = new JavaParserTypeSolver(root);
-			typeSolver = new CombinedTypeSolver(javaParserSolver,refelctionSolver);
-		}
-		else
-			typeSolver = new CombinedTypeSolver(refelctionSolver);
 
-		
+		if (root.isFile()) {
+			typeSolver = new CombinedTypeSolver(refectionSolver);
+		} else {
+			javaParserSolver = new JavaParserTypeSolver(root);
+			typeSolver = new CombinedTypeSolver(javaParserSolver, refectionSolver);
+		}
+
 		JavaSymbolSolver symbolSolver = new JavaSymbolSolver(typeSolver);
 		JavaParser.getStaticConfiguration().setSymbolResolver(symbolSolver);
 		
