@@ -79,7 +79,7 @@ public class SmellReport implements SmellReportBody {
 	}
 
 	@Override
-	public int getTotalFilesAffected() {
+	public ArrayList<String> getFilesAffected() {
 		ArrayList<String> filenames = new ArrayList<String>();
 		for (Smell smell : smells) {
 			Path path = Paths.get(smell.getLocation().getFilePath());
@@ -88,6 +88,6 @@ public class SmellReport implements SmellReportBody {
 				filenames.add(filename);
 			}
 		}
-		return filenames.size();
+		return filenames;
 	}
 }

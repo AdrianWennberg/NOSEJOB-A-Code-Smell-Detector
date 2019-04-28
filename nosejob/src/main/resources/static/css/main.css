@@ -22,13 +22,14 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: none;
+
 	align-items: center;
 	width: 100%;
 	justify-content: space-between;
 }
 
 .logo {
-	fill: #63bc92 !important;
+	fill: #61E786 !important;
 	width: 32px;
 	height: 32px;
 }

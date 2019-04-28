@@ -1,5 +1,6 @@
 package com.codingrangers.nosejob.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface SmellReportBody {
@@ -15,7 +16,7 @@ public interface SmellReportBody {
 
 	float getTotalSmellSeverity();
 
-	int getTotalFilesAffected();
+	ArrayList<String> getFilesAffected();
 
 	String getDisplayTotalSmellSeverity();
 }

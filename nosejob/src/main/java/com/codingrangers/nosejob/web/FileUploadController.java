@@ -52,13 +52,13 @@ public class FileUploadController {
 			Model model) {
 		if (file.isEmpty()) {
 			redirectAttributes.addFlashAttribute("errorMessage", "No file was uploaded");
-			redirectAttributes.addFlashAttribute("tip",
-					"Multiple java files or a zip file of your project may be uploaded.");
+			redirectAttributes.addFlashAttribute("tip", "A Java file or a zip of your project may be uploaded.");
 			return "redirect:/error";
 		}
 
 		storageService.store(file);
-		redirectAttributes.addFlashAttribute("headerText", "Showing analysis for " + file.getOriginalFilename());
+		redirectAttributes.addFlashAttribute("headerText",
+				"Showing analysis for \'" + file.getOriginalFilename() + "\'");
 		return "redirect:/dashboard";
 	}
 
