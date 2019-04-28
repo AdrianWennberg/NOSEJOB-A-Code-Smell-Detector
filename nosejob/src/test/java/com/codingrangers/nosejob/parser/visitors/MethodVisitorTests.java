@@ -1,6 +1,7 @@
 package com.codingrangers.nosejob.parser.visitors;
 
 import com.codingrangers.nosejob.parser.data.ParsedMethod;
+import com.codingrangers.nosejob.parser.data.ParsedVariable;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
@@ -17,15 +18,15 @@ import static org.mockito.Mockito.*;
 
 public class MethodVisitorTests {
 
-    VariableVisitor varVisitor;
+	VariableVisitor varVisitor;
 	MethodVisitor visitor;
 	ParsedMethod methodData;
 
 	@Before
 	public void before() {
-        varVisitor = mock(VariableVisitor.class);
-        visitor = new MethodVisitor(varVisitor);
-        methodData = mock(ParsedMethod.class);
+		varVisitor = mock(VariableVisitor.class);
+		visitor = new MethodVisitor(varVisitor);
+		methodData = mock(ParsedMethod.class);
 	}
 
 	CompilationUnit getCompUnit(String fileName) {
@@ -45,15 +46,15 @@ public class MethodVisitorTests {
 	public void identificationTest() {
 		CompilationUnit compUnit = getCompUnit("src/test/ParserTestTargets/MethodIdentificationTestTarget.java");
 
-        when(methodData.createParameter(anyString())).thenReturn(mock(ParsedVariable.class));
+		when(methodData.createParameter(anyString())).thenReturn(mock(ParsedVariable.class));
 
 		visitor.visit(compUnit, methodData);
 
 		verify(methodData, times(2)).setReturnType("void", false);
 		verify(methodData).setReturnType("int", true);
 		verify(methodData).setReturnType("MethodIdentificationTestTarget", false);
-        verify(methodData).createParameter("param1");
-        verify(methodData).createParameter("param2");
+		verify(methodData).createParameter("param1");
+		verify(methodData).createParameter("param2");
 
 	}
 
