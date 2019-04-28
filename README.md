@@ -12,11 +12,10 @@ The project will be up and running at <http://thecodingrangers.netsoc.com> for t
 0. Make sure to have Java and maven installed (tested with Java 11 and maven 3.6.1)
 1. Clone the repository
 2. Open a terminal inside the /nosejob/ folder
-3. > mvn spring-boot:run
+3. Use the command: mvn spring-boot:run
 
 This will automatically download all the needed dependencies using maven and then run the project. By default, it will listen on port 4202, so to test it out, open your web browser of choice and go to: <http://localhost:4202>
 
 ## Images
-
-Here's a screen shot of the working program as it now stands. This will probably be updated in the next 24 hours:
-![Image of the work (in progress)](https://i.ibb.co/GWqh5wx/59352536-333931623976870-3800886576234364928-n.png)
+![Image of the start screen](https://i.ibb.co/gMFg015/Start.png)
+![Image of the dashboard)](https://i.ibb.co/JKZhH8j/dashboard.png)
