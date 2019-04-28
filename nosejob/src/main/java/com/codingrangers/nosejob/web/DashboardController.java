@@ -2,6 +2,7 @@ package com.codingrangers.nosejob.web;
 
 import com.codingrangers.nosejob.models.ProjectData;
 import com.codingrangers.nosejob.models.ProjectReport;
+import com.codingrangers.nosejob.models.StorageService;
 import com.codingrangers.nosejob.parser.ProjectParser;
 import com.codingrangers.nosejob.sniffers.ProjectSniffer;
 import com.codingrangers.nosejob.storage.StorageProperties;
@@ -18,12 +19,15 @@ public class DashboardController {
 
 	private final ProjectParser projectParser;
 
+	private final StorageService storageService;
+
 	private final Path rootLocation;
 
 	@Autowired
-	public DashboardController(ProjectParser parser, StorageProperties properties) {
+	public DashboardController(ProjectParser parser, StorageProperties properties, StorageService storageService) {
 		this.projectParser = parser;
 		this.rootLocation = Paths.get(properties.getLocation());
+		this.storageService = storageService;
 	}
 
 	@GetMapping("/dashboard")
@@ -37,6 +41,8 @@ public class DashboardController {
 			model.addAttribute("smellReports", projectReport.getSmellReports());
 		} catch (Exception e) {
 			return "redirect:/error";
+		} finally {
+			this.storageService.deleteAll();
 		}
 		return "dashboard";
 	}
