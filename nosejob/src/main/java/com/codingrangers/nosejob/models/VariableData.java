@@ -5,5 +5,7 @@ public interface VariableData extends CodeData {
 
 	boolean isPrimitive();
 
+    boolean isStatic();
+
 	AccessSpecifier getAccessSpecifier();
 }

@@ -20,7 +20,7 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
         super(classNamePrefix, className, filePath);
         classMethods = new HashMap<>();
         classVariables = new HashMap<>();
-        methodPrototype = new ParsedMethod(getFullyQualifiedName(), "", filePath, className);
+        methodPrototype = new ParsedMethod(getFullyQualifiedName(), "", filePath);
         fieldPrototype = new ParsedVariable(getFullyQualifiedName(), "", filePath);
     }
 
@@ -74,10 +74,34 @@ public class ParsedClass extends ParsedCodeUnit implements ClassData, Cloneable 
     }
 
     @Override
+    public int countStaticFields() {
+        int count = 0;
+        for (String fieldName : getFieldsNames()) {
+            VariableData field = getField(fieldName);
+            if (field.isStatic()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Override
     public int countPublicFields() {
         int count = 0;
         for (String fieldName : getFieldsNames()) {
             if (getField(fieldName).getAccessSpecifier() == AccessSpecifier.PUBLIC) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public int countStaticPublicFields() {
+        int count = 0;
+        for (String fieldName : getFieldsNames()) {
+            VariableData field = getField(fieldName);
+            if (field.getAccessSpecifier() == AccessSpecifier.PUBLIC && field.isStatic()) {
                 count++;
             }
         }

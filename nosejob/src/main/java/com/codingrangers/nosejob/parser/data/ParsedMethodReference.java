@@ -17,12 +17,12 @@ public class ParsedMethodReference extends ParsedCodeLocation implements MethodR
 
     @Override
     public String getReferredClassName() {
-        return referencingClassName;
+        return referredClassName;
     }
 
     @Override
     public String getReferencingClassName() {
-        return referredClassName;
+        return referencingClassName;
     }
 
     @Override

@@ -1,30 +1,32 @@
 package com.codingrangers.nosejob.parser.visitors;
 
-import static org.mockito.Mockito.*;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import org.junit.*;
-import org.mockito.Mockito;
-
 import com.codingrangers.nosejob.parser.data.ParsedClass;
+import com.codingrangers.nosejob.parser.data.ParsedMethod;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import static org.mockito.Mockito.*;
 
 public class ClassVisitorTests {
 
 	ClassVisitor visitor;
-	ParsedClass ClassData;
+    ParsedClass classData;
 
 	@Before
 	public void before() {
-		visitor = new ClassVisitor(Mockito.mock(MethodVisitor.class), Mockito.mock(VariableVisitor.class));
-		ClassData = Mockito.mock(ParsedClass.class);
+        visitor = new ClassVisitor(mock(MethodVisitor.class), mock(VariableVisitor.class));
+        classData = mock(ParsedClass.class);
+
+        when(classData.createMethod(anyString())).thenReturn(mock(ParsedMethod.class));
 	}
 
 	CompilationUnit getCompUnit(String fileName) {
@@ -44,26 +46,26 @@ public class ClassVisitorTests {
 	public void referenceTests() {
 		File referenceTestFile = new File("src/test/ParserTestTargets/ReferenceTestTargets");
 		JavaParserTypeSolver javaParserSolver = new JavaParserTypeSolver(referenceTestFile);
-		ReflectionTypeSolver refelctionSolver = new ReflectionTypeSolver();
+        ReflectionTypeSolver refectionSolver = new ReflectionTypeSolver();
 
-		CombinedTypeSolver typeSolver = new CombinedTypeSolver(javaParserSolver, refelctionSolver);
+        CombinedTypeSolver typeSolver = new CombinedTypeSolver(javaParserSolver, refectionSolver);
 
 		JavaSymbolSolver symbolSolver = new JavaSymbolSolver(typeSolver);
 		JavaParser.getStaticConfiguration().setSymbolResolver(symbolSolver);
 
-		CompilationUnit compUnit[] = {
-				getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest1.java"),
-				getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest2.java"),
-				getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest3.java") };
 
-		visitor.visit(compUnit[0], ClassData);
-		visitor.visit(compUnit[1], ClassData);
-		visitor.visit(compUnit[2], ClassData);
+        CompilationUnit[] compUnit = {getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest1.java")
+                , getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest2.java")
+                , getCompUnit("src/test/ParserTestTargets/ReferenceTestTargets/referenceTests/ReferenceTest3.java")};
 
-		verify(ClassData).addReferenceToMethod("referenceTests.ReferenceTest1", "staticMethodToCall()");
-		verify(ClassData).addReferenceToField("referenceTests.ReferenceTest3", "test");
+        visitor.visit(compUnit[0], classData);
+        visitor.visit(compUnit[1], classData);
+        visitor.visit(compUnit[2], classData);
 
-		verify(ClassData, never()).addReferenceToMethod("referenceTests.ReferenceTest1", "methodToCall()");
-		verify(ClassData, never()).addReferenceToField("referenceTests.ReferenceTest1", "field");
+        verify(classData).addReferenceToMethod("referenceTests.ReferenceTest1", "staticMethodToCall()");
+        verify(classData).addReferenceToField("referenceTests.ReferenceTest3", "test");
+
+        verify(classData, never()).addReferenceToMethod("referenceTests.ReferenceTest1", "methodToCall()");
+        verify(classData, never()).addReferenceToField("referenceTests.ReferenceTest1", "field");
 	}
 }

@@ -17,12 +17,12 @@ public class ParsedFieldReference extends ParsedCodeLocation implements FieldRef
 
     @Override
     public String getReferredClassName() {
-        return referencingClassName;
+        return referredClassName;
     }
 
     @Override
     public String getReferencingClassName() {
-        return referredClassName;
+        return referencingClassName;
     }
 
     @Override

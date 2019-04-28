@@ -339,8 +339,8 @@ public class ParsedClassTest {
 
 		MethodReference reference = parsedClass.addReferenceToMethod(otherClassName, methodSignature);
 
-		assertEquals(fullyQualifiedName, reference.getReferredClassName());
-		assertEquals(otherClassName, reference.getReferencingClassName());
+        assertEquals(fullyQualifiedName, reference.getReferencingClassName());
+        assertEquals(otherClassName, reference.getReferredClassName());
 		assertEquals(methodSignature, reference.getReferredMethodSignature());
 
 		verify(mockedStorage, times(1)).add(reference);
@@ -415,8 +415,8 @@ public class ParsedClassTest {
 
 		FieldReference reference = parsedClass.addReferenceToField(otherClassName, fieldName);
 
-		assertEquals(fullyQualifiedName, reference.getReferredClassName());
-		assertEquals(otherClassName, reference.getReferencingClassName());
+        assertEquals(fullyQualifiedName, reference.getReferencingClassName());
+        assertEquals(otherClassName, reference.getReferredClassName());
 		assertEquals(fieldName, reference.getReferredFieldName());
 
 		verify(mockedStorage, times(1)).add(reference);

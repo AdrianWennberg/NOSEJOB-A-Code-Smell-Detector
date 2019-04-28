@@ -20,7 +20,7 @@ public class ParsedMethodTest {
         String methodSignature = "methodName(int)";
         String fullyQualifiedMethodName = "name.prefix.ClassName.methodName(int)";
 
-        CodeData parsedMethod = new ParsedMethod(fullyQualifiedClassName, methodSignature, "", "");
+        CodeData parsedMethod = new ParsedMethod(fullyQualifiedClassName, methodSignature, "");
 
         assertEquals(methodSignature, parsedMethod.getName());
         assertEquals(fullyQualifiedMethodName, parsedMethod.getFullyQualifiedName());
@@ -30,7 +30,7 @@ public class ParsedMethodTest {
         methodSignature = "otherMethodName(int, float)";
         fullyQualifiedMethodName = "other.name.prefix.OtherClassName.otherMethodName(int, float)";
 
-        parsedMethod = new ParsedMethod(fullyQualifiedClassName, methodSignature, "", "");
+        parsedMethod = new ParsedMethod(fullyQualifiedClassName, methodSignature, "");
 
         assertEquals(methodSignature, parsedMethod.getName());
         assertEquals(fullyQualifiedMethodName, parsedMethod.getFullyQualifiedName());
@@ -39,13 +39,13 @@ public class ParsedMethodTest {
     @Test
     public void pathSetCorrectly() {
         String path = "C:/File/path.java";
-        CodeData parsedMethod = new ParsedMethod("", "", path, "");
+        CodeData parsedMethod = new ParsedMethod("", "", path);
 
         assertEquals(path, parsedMethod.getFilePath());
 
         path = "C:/File/other/path.java";
 
-        parsedMethod = new ParsedMethod("", "", path, "");
+        parsedMethod = new ParsedMethod("", "", path);
 
         assertEquals(path, parsedMethod.getFilePath());
     }
@@ -56,7 +56,7 @@ public class ParsedMethodTest {
         int endLine = 100;
         int lineCount = 96;
 
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
 
         parsedMethod.setStartLine(startLine);
         parsedMethod.setEndLine(endLine);
@@ -69,7 +69,7 @@ public class ParsedMethodTest {
         endLine = 10;
         lineCount = 1;
 
-        parsedMethod = new ParsedMethod("", "", "", "");
+        parsedMethod = new ParsedMethod("", "", "");
         parsedMethod.setStartLine(startLine);
         parsedMethod.setEndLine(endLine);
 
@@ -81,21 +81,21 @@ public class ParsedMethodTest {
     @Test(expected = IllegalArgumentException.class)
     public void negativeStartLine() {
 
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
         parsedMethod.setStartLine(-5);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void negativeEndLine() {
 
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
         parsedMethod.setEndLine(-4);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void startLineGreaterThanEndLine() {
 
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
         parsedMethod.setEndLine(5);
         parsedMethod.setStartLine(6);
     }
@@ -103,7 +103,7 @@ public class ParsedMethodTest {
     @Test(expected = IllegalArgumentException.class)
     public void endLineLessThanStartLine() {
 
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
         parsedMethod.setStartLine(10);
         parsedMethod.setEndLine(9);
     }
@@ -111,7 +111,7 @@ public class ParsedMethodTest {
     @Test(expected = IllegalStateException.class)
     public void startLineAlreadySet() {
 
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
         parsedMethod.setStartLine(10);
         parsedMethod.setStartLine(10);
     }
@@ -119,7 +119,7 @@ public class ParsedMethodTest {
     @Test(expected = IllegalStateException.class)
     public void endLineAlreadySet() {
 
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
         parsedMethod.setEndLine(12);
         parsedMethod.setEndLine(12);
     }
@@ -128,7 +128,7 @@ public class ParsedMethodTest {
     public void canGetClassName() {
         String className = "testClass";
 
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", className);
+        ParsedMethod parsedMethod = new ParsedMethod(className, "", "");
 
         assertEquals(className, parsedMethod.getClassName());
     }
@@ -139,7 +139,7 @@ public class ParsedMethodTest {
         when(mockedReturnType.isPrimitive()).thenReturn(true);
 
 
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
 
         parsedMethod.setReturnType(mockedReturnType);
 
@@ -150,7 +150,7 @@ public class ParsedMethodTest {
         when(mockedReturnType.isPrimitive()).thenReturn(false);
 
 
-        parsedMethod = new ParsedMethod("", "", "", "");
+        parsedMethod = new ParsedMethod("", "", "");
 
         parsedMethod.setReturnType(mockedReturnType);
 
@@ -160,7 +160,7 @@ public class ParsedMethodTest {
 
     @Test
     public void canCreateDefaultParameter() {
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
 
         ParsedVariable parsedVariable = parsedMethod.createParameter("");
         parsedVariable.setIsPrimitive();
@@ -174,7 +174,7 @@ public class ParsedMethodTest {
 
     @Test
     public void canCreateMultipleDefaultParameters() {
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
 
         ParsedVariable firstParsedVariable = parsedMethod.createParameter("");
         ParsedVariable secondParsedVariable = parsedMethod.createParameter("");
@@ -189,7 +189,7 @@ public class ParsedMethodTest {
 
     @Test
     public void canCreateLocalVariable() {
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
 
         ParsedVariable parsedVariable = parsedMethod.createVariable("");
         parsedVariable.setIsPrimitive();
@@ -203,7 +203,7 @@ public class ParsedMethodTest {
 
     @Test
     public void canAddMultipleLocalVariables() {
-        ParsedMethod parsedMethod = new ParsedMethod("", "", "", "");
+        ParsedMethod parsedMethod = new ParsedMethod("", "", "");
 
         ParsedVariable firstParsedVariable = parsedMethod.createVariable("");
         firstParsedVariable.setIsPrimitive();
@@ -220,10 +220,8 @@ public class ParsedMethodTest {
     @Test
     public void canAddMethodReferences() {
         String methodSignature = "foo()";
-        String className = "ClassName";
         String namePrefix = "name.prefix.ClassName";
-        String fullyQualifiedName = "name.prefix.ClassName.foo()";
-        ParsedMethod parsedMethod = new ParsedMethod(namePrefix, methodSignature, "", className);
+        ParsedMethod parsedMethod = new ParsedMethod(namePrefix, methodSignature, "");
 
         ReferenceStorage mockedStorage = mock(ReferenceStorage.class);
         parsedMethod.setReferenceStorage(mockedStorage);
@@ -233,8 +231,8 @@ public class ParsedMethodTest {
 
         MethodReference reference = parsedMethod.addReferenceToMethod(otherClassName, calledMethodSignature);
 
-        assertEquals(fullyQualifiedName, reference.getReferredClassName());
-        assertEquals(otherClassName, reference.getReferencingClassName());
+        assertEquals(namePrefix, reference.getReferencingClassName());
+        assertEquals(otherClassName, reference.getReferredClassName());
         assertEquals(calledMethodSignature, reference.getReferredMethodSignature());
 
         verify(mockedStorage, times(1)).add(reference);
@@ -243,10 +241,8 @@ public class ParsedMethodTest {
     @Test
     public void canAddFieldReferences() {
         String methodSignature = "foo()";
-        String className = "ClassName";
         String namePrefix = "name.prefix.ClassName";
-        String fullyQualifiedName = "name.prefix.ClassName.foo()";
-        ParsedMethod parsedMethod = new ParsedMethod(namePrefix, methodSignature, "", className);
+        ParsedMethod parsedMethod = new ParsedMethod(namePrefix, methodSignature, "");
 
         ReferenceStorage mockedStorage = mock(ReferenceStorage.class);
         parsedMethod.setReferenceStorage(mockedStorage);
@@ -255,8 +251,8 @@ public class ParsedMethodTest {
 
         FieldReference reference = parsedMethod.addReferenceToField(otherClassName, fieldName);
 
-        assertEquals(fullyQualifiedName, reference.getReferredClassName());
-        assertEquals(otherClassName, reference.getReferencingClassName());
+        assertEquals(namePrefix, reference.getReferencingClassName());
+        assertEquals(otherClassName, reference.getReferredClassName());
         assertEquals(fieldName, reference.getReferredFieldName());
 
         verify(mockedStorage, times(1)).add(reference);
@@ -266,21 +262,20 @@ public class ParsedMethodTest {
     public void canClone() {
         String methodSignature = "foo()";
         String namePrefix = "name.prefix.ClassName";
-        String className = "ClassName";
         String fullyQualifiedName = "name.prefix.ClassName.foo()";
         String path = "C:/File/path.java";
-        ParsedMethod parsedMethod = new ParsedMethod(namePrefix, methodSignature, path, className);
+        ParsedMethod parsedMethod = new ParsedMethod(namePrefix, methodSignature, path);
 
         assertEquals(methodSignature, parsedMethod.getName());
         assertEquals(fullyQualifiedName, parsedMethod.getFullyQualifiedName());
         assertEquals(path, parsedMethod.getFilePath());
-        assertEquals(className, parsedMethod.getClassName());
+        assertEquals(namePrefix, parsedMethod.getClassName());
 
         CodeData clonedMethod = parsedMethod.clone();
 
         assertEquals(methodSignature, clonedMethod.getName());
         assertEquals(fullyQualifiedName, clonedMethod.getFullyQualifiedName());
         assertEquals(path, clonedMethod.getFilePath());
-        assertEquals(className, parsedMethod.getClassName());
+        assertEquals(namePrefix, parsedMethod.getClassName());
     }
 }

@@ -8,7 +8,6 @@ import org.junit.runners.Suite.SuiteClasses;
         ProjectSnifferTest.class,
         BloatedCodeSnifferTest.class,
         ViolationOfDataPrivacySnifferTest.class,
-//        PrimitiveObsessionSnifferTest.class,
         InappropriateIntimacySnifferTest.class,
         FeatureEnvySnifferTest.class,
         GodComplexSnifferTest.class,
