@@ -2,11 +2,11 @@ package com.codingrangers.nosejob.models;
 
 public interface CodeLocation {
 
-    int getStartLineNumber();
+	int getStartLineNumber();
 
-    int getEndLineNumber();
+	int getEndLineNumber();
 
-    int getLineCount();
+	int getLineCount();
 
-    String getFilePath();
+	String getFilePath();
 }

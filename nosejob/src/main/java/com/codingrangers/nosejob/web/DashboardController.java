@@ -35,8 +35,7 @@ public class DashboardController {
 			ProjectReport projectReport = globalSniffer.getProjectReport();
 			model.addAttribute("smellReports", projectReport.getSmellReports());
 		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
+			return "redirect:/error";
 		}
 		return "dashboard";
 	}

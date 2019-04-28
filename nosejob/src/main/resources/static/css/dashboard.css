@@ -1,16 +1,21 @@
 .dashboard-container {
 	animation: fadeIn 1s;
+	overflow: auto !important;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .dashboard-header {
-	margin-left: 70px;
-	margin-top: 50px;
-	padding-left: 3%;
-	color: white;
+	margin-left: 20px;
+	color: white !important;
 }
 
 .tiles {
-	margin: 50px 0 0 100px;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: flex-start;
+	overflow: hidden !important;
 }
 
 .tile {
@@ -25,6 +30,10 @@
 
 .tile.wide {
 	width: 340px;
+}
+
+.tile.wide:hover {
+	cursor: pointer;
 }
 
 .tile .tile__analysis {
@@ -45,17 +54,24 @@
 	font-size: 48px;
 	text-align: center;
 	padding: 10px 0 0;
+	opacity: .3;
+	font-weight: 500;
+	color: #1f2d3d !important;
 }
 
 .tile .tile__analysis .title {
 	font-size: 20px;
 	text-align: center;
+	opacity: .3;
+	font-weight: 500;
+	color: #1f2d3d !important;
 }
 
 .tile .tile__base {
 	height: 60px;
 	border-radius: 0 0 4px 4px;
 	background-color: white;
+	color: #1f2d3d !important;
 }
 
 .tile .tile__base .title {
@@ -68,19 +84,10 @@
 	padding: 4%;
 }
 
-.tile .tile__analysis {
-	background-color: #63bc92;
-}
-
 .tile__analysis:hover {
-	filter: brightness(110%);
-	transition: 300ms;
-
+	filter: brightness(80%);
 }
 
-.tile .tile__base {
-	color: #63bc92;
-}
 
 .back-arrow {
 	fill: #63bc92 !important;
@@ -110,4 +117,83 @@
 	to {
 		opacity: 1;
 	}
+}
+
+body {
+	overflow-y: scroll !important;
+}
+
+.tile__modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+
+.tile__modal-content {
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 0;
+	width: 80%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animateTop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animateTop;
+	animation-duration: 0.4s;
+	border-radius: 4px;
+}
+
+@-webkit-keyframes animateTop {
+	from {
+		top: -300px;
+		opacity: 0
+	}
+
+	to {
+		top: 0;
+		opacity: 1
+	}
+}
+
+@keyframes animateTop {
+	from {
+		top: -300px;
+		opacity: 0
+	}
+
+	to {
+		top: 0;
+		opacity: 1
+	}
+}
+
+.close {
+	color: white;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.tile__modal-header {
+	padding: 2px 16px;
+	background-color: #61E786;
+	color: white;
+	border-radius: 4px 4px 0px 0px;
+}
+
+.tile__modal-body {
+	padding: 2px 16px;
 }

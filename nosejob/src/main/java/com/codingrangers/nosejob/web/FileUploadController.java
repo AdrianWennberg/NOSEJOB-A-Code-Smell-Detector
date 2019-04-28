@@ -51,12 +51,14 @@ public class FileUploadController {
 	public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
 			Model model) {
 		if (file.isEmpty()) {
-            model.addAttribute("errorMessage", "No file uploaded");
-			return "/error";
+			redirectAttributes.addFlashAttribute("errorMessage", "No file was uploaded");
+			redirectAttributes.addFlashAttribute("tip", "A Java file or a zip of your project may be uploaded.");
+			return "redirect:/error";
 		}
 
 		storageService.store(file);
-		redirectAttributes.addFlashAttribute("message", "Successfully uploaded " + file.getOriginalFilename() + "!");
+		redirectAttributes.addFlashAttribute("headerText",
+				"Showing analysis for \'" + file.getOriginalFilename() + "\'");
 		return "redirect:/dashboard";
 	}
 

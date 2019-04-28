@@ -25,25 +25,72 @@
 				<path fill="none" d="M0 0h24v24H0z" />
 			</svg>
 		</button>
-		<h1 class="dashboard-header">Your Project Analysis</h1>
+		<div>
+			<h1 class="dashboard-header" th:text="${headerText}"></h1>
+		</div>
 		<div class="tiles">
-			<div class="tile wide" th:each="smellReport: ${smellReports}">
+			<div class="tile wide" th:each="smellReport: ${smellReports}" id="myBtn2">
 				<div class="tile__analysis">
 					<div class="left">
 						<div class="numeric-datum" th:text="${smellReport.getDisplayTotalSmellSeverity()}"></div>
 						<div class="title">Total Severity</div>
 					</div>
 					<div class="right">
-						<div class="numeric-datum">0</div>
+						<div class="numeric-datum" th:text="${smellReport.getFilesAffected().size()}"></div>
 						<div class="title">Files Affected</div>
 					</div>
 				</div>
-				<div class=" tile__base">
+				<div class="tile__base">
 					<div class="title" th:text="${smellReport.getSmellName()}"></div>
+				</div>
+				<div class="tile__modal">
+					<div class="tile__modal-content">
+						<div class="tile__modal-header">
+							<span class="close">&times;</span>
+							<h2>Smell Analytics</h2>
+						</div>
+						<div class="tile__modal-body">
+							<h2 th:text="${smellReport.getSmellName()}"></h2>
+							<h4 th:each="filename: ${smellReport.getFilesAffected()}" th:text="${filename}"></h4>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<script>
+		const tileColors = [
+			"#4392F1",
+			"#61E786",
+			"#FF006E",
+			"#FEC601"
+		];
+		const tiles = document.getElementsByClassName("tile__analysis");
+		const tileModals = document.getElementsByClassName('tile__modal');
+		const spans = document.getElementsByClassName("close");
+
+		for (let i = 0; i < tiles.length; i++) {
+			const selectedColor = tileColors[Math.floor(Math.random() * tileColors.length)];
+			tiles[i].style['background-color'] = selectedColor;
+			tiles[i].addEventListener('click', function (event) {
+				tileModals[i].style.display = "block";
+			});
+			spans[i].addEventListener('click', function (event) {
+				tileModals[i].style.display = "none";
+			});
+		}
+
+		window.onclick = function (event) {
+			for (let i = 0; i < tileModals.length; i++) {
+				if (event.target == tileModals[i]) {
+					tileModals[i].style.display = "none";
+				}
+			}
+		}
+
+	</script>
 </body>
 
 </html>

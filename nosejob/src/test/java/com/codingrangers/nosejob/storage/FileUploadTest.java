@@ -36,7 +36,7 @@ public class FileUploadTest {
 
 	@Test
 	public void shouldUploadFile() throws Exception {
-		ClassPathResource resource = new ClassPathResource("samplefileupload.txt", getClass());
+		ClassPathResource resource = new ClassPathResource("foo.txt", getClass());
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 		map.add("file", resource);
 		ResponseEntity<String> response = this.restTemplate.postForEntity("/upload", map, String.class);
@@ -48,14 +48,13 @@ public class FileUploadTest {
 
 	@Test
 	public void shouldDownloadFile() throws Exception {
-		ClassPathResource resource = new ClassPathResource("samplefileupload.txt", getClass());
-		given(this.storageService.loadAsResource("samplefileupload.txt")).willReturn(resource);
-		ResponseEntity<String> response = this.restTemplate.getForEntity("/files/{filename}", String.class,
-				"samplefileupload.txt");
+		ClassPathResource resource = new ClassPathResource("foo.txt", getClass());
+		given(this.storageService.loadAsResource("foo.txt")).willReturn(resource);
+		ResponseEntity<String> response = this.restTemplate.getForEntity("/files/{filename}", String.class, "foo.txt");
 
 		assertThat(response.getStatusCodeValue()).isEqualTo(200);
 		assertThat(response.getHeaders().getFirst(HttpHeaders.CONTENT_DISPOSITION))
-				.isEqualTo("attachment; filename=\"samplefileupload.txt\"");
+				.isEqualTo("attachment; filename=\"foo.txt\"");
 		assertThat(response.getBody()).startsWith("I am for testing!");
 	}
 

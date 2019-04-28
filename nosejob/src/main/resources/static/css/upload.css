@@ -6,7 +6,7 @@
 
 .back-link:hover {
 	cursor: pointer;
-	color: #63bc92;
+	color: #61E786;
 }
 
 [type="file"],
@@ -23,7 +23,7 @@
 
 [type="file"]+label,
 [type="submit"]+label {
-	background-color: #63bc92;
+	background-color: rgb(93, 213, 127);
 	border-radius: 24px;
 	cursor: pointer;
 	text-transform: uppercase;

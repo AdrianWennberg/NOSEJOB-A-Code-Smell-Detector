@@ -11,30 +11,26 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(Enclosed.class)
 public class ProjectSnifferTest {
-    public static class getProjectReportTest{
-        @Test
-        public void getProjectReportTest(){
-            String primitiveObsessionName = "Primitive Obsession";
-            String bloatedCodeName = "Bloated Code";
-            String violationOfDataPrivacyName = "Violation Of Data Privacy";
-            String inappropriateIntimacyName = "Inappropriate Intimacy";
-            String featureEnvyName = "Feature Envy";
-            String godComplexName = "God Complex";
-            String dataOnlyClassesName = "Data Only Classes";
-            ParsedProject testProject = new ParsedProject();
+	public static class GetProjectReportTest {
+		@Test
+		public void getProjectReportTest() {
+			String primitiveObsessionName = "Primitive Obsession";
+			String bloatedCodeName = "Bloated Code";
+			String violationOfDataPrivacyName = "Violation Of Data Privacy";
+			String inappropriateIntimacyName = "Inappropriate Intimacy";
+			String featureEnvyName = "Feature Envy";
+			String godComplexName = "God Complex";
+			String dataOnlyClassesName = "Data Only Classes";
+			ParsedProject testProject = new ParsedProject();
 
-            ProjectSniffer globalReport = new ProjectSniffer();
-            globalReport.setProjectToAnalyse(testProject);
+			ProjectSniffer globalReport = new ProjectSniffer();
+			globalReport.setProjectToAnalyse(testProject);
 
-            assertThat(globalReport.getProjectReport().getSmellNames(), containsInAnyOrder(primitiveObsessionName,
-                    bloatedCodeName,
-                    violationOfDataPrivacyName,
-                    inappropriateIntimacyName,
-                    featureEnvyName,
-                    godComplexName,
-                    dataOnlyClassesName));
-            assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(0).getTotalSmellSeverity(), 0.01);
-            assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(1).getTotalSmellSeverity(), 0.01);
-        }
-    }
+			assertThat(globalReport.getProjectReport().getSmellNames(),
+					containsInAnyOrder(primitiveObsessionName, bloatedCodeName, violationOfDataPrivacyName,
+							inappropriateIntimacyName, featureEnvyName, godComplexName, dataOnlyClassesName));
+			assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(0).getTotalSmellSeverity(), 0.01);
+			assertEquals(0f, globalReport.getProjectReport().getSmellReports().get(1).getTotalSmellSeverity(), 0.01);
+		}
+	}
 }
