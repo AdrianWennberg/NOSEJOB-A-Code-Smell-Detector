@@ -24,15 +24,20 @@ import com.codingrangers.nosejob.models.StorageService;
 @Service
 public class FileSystemStorageService implements StorageService {
 
-	private final Path rootLocation;
+	private Path rootLocation;
+
+	private final StorageProperties properties;
 
 	@Autowired
 	public FileSystemStorageService(StorageProperties properties) {
+		this.properties = properties;
+		this.properties.resolveLocation();
 		this.rootLocation = Paths.get(properties.getLocation());
 	}
 
 	@Override
 	public void store(MultipartFile file) {
+		this.resolveRootLocation();
 		String filename = StringUtils.cleanPath(file.getOriginalFilename());
 		try {
 			if (file.isEmpty()) {
@@ -57,6 +62,7 @@ public class FileSystemStorageService implements StorageService {
 
 	@Override
 	public Stream<Path> loadAll() {
+		this.resolveRootLocation();
 		try {
 			return Files.walk(this.rootLocation, 1).filter(path -> !path.equals(this.rootLocation))
 					.map(this.rootLocation::relativize);
@@ -68,6 +74,7 @@ public class FileSystemStorageService implements StorageService {
 
 	@Override
 	public Path load(String filename) {
+		this.resolveRootLocation();
 		return rootLocation.resolve(filename);
 	}
 
@@ -89,15 +96,24 @@ public class FileSystemStorageService implements StorageService {
 
 	@Override
 	public void deleteAll() {
+		this.resolveRootLocation();
 		FileSystemUtils.deleteRecursively(rootLocation.toFile());
 	}
 
 	@Override
 	public void init() {
+		this.resolveRootLocation();
 		try {
 			Files.createDirectories(rootLocation);
 		} catch (IOException e) {
 			throw new StorageException("Could not initialize storage", e);
+		}
+	}
+
+	private void resolveRootLocation() {
+		if (!Files.exists(this.rootLocation)) {
+			this.properties.resolveLocation();
+			this.rootLocation = Paths.get(this.properties.getLocation());
 		}
 	}
 }
