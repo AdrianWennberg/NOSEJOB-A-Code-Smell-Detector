@@ -1,5 +1,6 @@
 package com.codingrangers.nosejob.reports;
 
+import com.codingrangers.nosejob.models.CodeData;
 import com.codingrangers.nosejob.models.Smell;
 import com.codingrangers.nosejob.models.SmellReportBody;
 
@@ -79,15 +80,36 @@ public class SmellReport implements SmellReportBody {
 	}
 
 	@Override
-	public ArrayList<String> getFilesAffected() {
-		ArrayList<String> filenames = new ArrayList<String>();
-		for (Smell smell : smells) {
+	public ArrayList<String> getFilesAffectedDatums() {
+		ArrayList<String> datums = new ArrayList<String>();
+
+		for (Smell smell : this.getSmells()) {
 			Path path = Paths.get(smell.getLocation().getFilePath());
 			String filename = path.getFileName().toString();
-			if (!filenames.contains(filename)) {
+			CodeData codeData = smell.getLocation();
+
+			if (filename.length() > 0) {
+				datums.add(filename + " (" + ((int) (smell.getSmellSeverity() * 100)) + "%"
+						+ " severity) - start line: " + codeData.getStartLineNumber() + ", end line: "
+						+ codeData.getEndLineNumber() + ", line count: " + codeData.getLineCount());
+			}
+		}
+		return datums;
+	}
+
+	@Override
+	public int getAffectedFilesCount() {
+		ArrayList<String> filenames = new ArrayList<String>();
+
+		for (Smell smell : this.getSmells()) {
+			Path path = Paths.get(smell.getLocation().getFilePath());
+			String filename = path.getFileName().toString();
+
+			if (!filenames.contains(filename) && filename.length() > 0) {
 				filenames.add(filename);
 			}
 		}
-		return filenames;
+
+		return filenames.size();
 	}
 }

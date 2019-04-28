@@ -27,16 +27,17 @@
 		</button>
 		<div>
 			<h1 class="dashboard-header" th:text="${headerText}"></h1>
+			<h1 class="dashboard-header" th:text="${projectScore}"></h1>
 		</div>
 		<div class="tiles">
-			<div class="tile wide" th:each="smellReport: ${smellReports}" id="myBtn2">
+			<div class="tile wide" th:each="smellReport: ${smellReports}">
 				<div class="tile__analysis">
 					<div class="left">
 						<div class="numeric-datum" th:text="${smellReport.getDisplayTotalSmellSeverity()}"></div>
 						<div class="title">Total Severity</div>
 					</div>
 					<div class="right">
-						<div class="numeric-datum" th:text="${smellReport.getFilesAffected().size()}"></div>
+						<div class="numeric-datum" th:text="${smellReport.getAffectedFilesCount()}"></div>
 						<div class="title">Files Affected</div>
 					</div>
 				</div>
@@ -47,11 +48,11 @@
 					<div class="tile__modal-content">
 						<div class="tile__modal-header">
 							<span class="close">&times;</span>
-							<h2>Smell Analytics</h2>
+							<h2 class="tile__modal-header-text">Smell Analytics</h2>
 						</div>
 						<div class="tile__modal-body">
 							<h2 th:text="${smellReport.getSmellName()}"></h2>
-							<h4 th:each="filename: ${smellReport.getFilesAffected()}" th:text="${filename}"></h4>
+							<h3 th:each="datum: ${smellReport.getFilesAffectedDatums()}" th:text="${datum}"></h3>
 						</div>
 					</div>
 

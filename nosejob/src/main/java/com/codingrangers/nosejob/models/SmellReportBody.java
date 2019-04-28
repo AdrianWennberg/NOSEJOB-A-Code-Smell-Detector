@@ -16,7 +16,9 @@ public interface SmellReportBody {
 
 	float getTotalSmellSeverity();
 
-	ArrayList<String> getFilesAffected();
+	ArrayList<String> getFilesAffectedDatums();
+
+	int getAffectedFilesCount();
 
 	String getDisplayTotalSmellSeverity();
 }
