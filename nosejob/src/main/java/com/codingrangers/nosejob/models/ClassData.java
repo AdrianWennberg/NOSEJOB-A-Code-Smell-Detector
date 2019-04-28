@@ -30,4 +30,6 @@ public interface ClassData extends CodeData {
 	VariableData getField(String name);
 
 	int countPrimitiveFields();
+
+	boolean isSubClassOf(String classFullyQualifiedName);
 }

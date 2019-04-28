@@ -41,10 +41,12 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
             if (valueDeclaration.isField()) {
                 ResolvedFieldDeclaration resolvedField = (ResolvedFieldDeclaration) valueDeclaration;
 
-                methodData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+                String otherClassName = resolvedField.declaringType().getQualifiedName();
+                String fieldName = resolvedField.getName();
+
+                methodData.addReferenceToField(otherClassName, fieldName);
             }
         } catch (UnsolvedSymbolException e) {
-            System.err.println("cannot resolve symbol: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Got exception while resolving: " + e.getMessage());
 		}
@@ -56,10 +58,12 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 
             if (resolvedName.isField()) {
                 ResolvedFieldDeclaration resolvedField = resolvedName.asField();
-                methodData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
+
+                String className = resolvedField.declaringType().getQualifiedName();
+                String fieldName = resolvedField.getName();
+                methodData.addReferenceToField(className, fieldName);
             }
         } catch (UnsolvedSymbolException e) {
-            System.err.println("cannot resolve symbol: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Got exception while resolving: " + e.getMessage());
 		}
@@ -70,11 +74,10 @@ public class MethodVisitor extends VoidVisitorAdapter<ParsedMethod> {
 			ResolvedMethodDeclaration resolvedMethod = methodCall.resolve();
 
 			String fullQualifiedName = resolvedMethod.getQualifiedName();
-			String classQualifedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));
+            String classQualifiedName = fullQualifiedName.substring(0, fullQualifiedName.lastIndexOf('.'));
 
-			methodData.addReferenceToMethod(classQualifedName, resolvedMethod.getSignature());
+            methodData.addReferenceToMethod(classQualifiedName, resolvedMethod.getSignature());
         } catch (UnsolvedSymbolException e) {
-            System.err.println("cannot resolve symbol: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Got exception while resolving: " + e.getMessage());
 		}

@@ -57,7 +57,7 @@ public class FeatureEnvySniffer extends GeneralSniffer {
     }
 
     private void retrieveSmellFromSingularClass(ClassData currentClassToAnalyse) {
-        if (currentClassToAnalyse.equals(null))
+        if (currentClassToAnalyse == null)
             throw new NullPointerException("Cannot analyse methods of a null.");
 
         Smell classDiagnosis = new ClassDiagnosis();
@@ -66,7 +66,7 @@ public class FeatureEnvySniffer extends GeneralSniffer {
     }
 
     private void retrieveSmellsFromClasses() {
-        if (currentProjectToAnalyse.equals(null))
+        if (currentProjectToAnalyse == null)
             throw new NullPointerException("Cannot analyse a null project.");
 
         for(String className : currentProjectToAnalyse.getClassNames()){

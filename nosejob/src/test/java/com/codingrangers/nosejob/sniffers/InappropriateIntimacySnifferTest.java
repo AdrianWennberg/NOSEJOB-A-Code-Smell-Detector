@@ -50,10 +50,13 @@ public class InappropriateIntimacySnifferTest {
             when(otherMockedClass.getName()).thenReturn(otherClass);
             when(otherMockedClass.getFullyQualifiedName()).thenReturn(otherClass);
 
+
             FieldReference firstMockedReference = mock(FieldReference.class);
 
+            when(firstMockedReference.isInternal()).thenReturn(false);
+
             List<FieldReference> mockedList = Arrays.asList(firstMockedReference);
-            when(mockedTestClass.countFieldReferencesTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedList.size());
+            when(mockedTestClass.getFieldReferencesTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedList);
 
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
@@ -88,7 +91,7 @@ public class InappropriateIntimacySnifferTest {
             when(thirdMockedReference.isInternal()).thenReturn(true);
 
             List<FieldReference> mockedList = Arrays.asList(firstMockedReference, secondMockedReference, thirdMockedReference);
-            when(mockedTestClass.countFieldReferencesTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedList.size());
+            when(mockedTestClass.getFieldReferencesTo(otherMockedClass.getFullyQualifiedName())).thenReturn(mockedList);
 
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(testClass, otherClass));
             when(mockedProject.getClassData(testClass)).thenReturn(mockedTestClass);
@@ -142,12 +145,14 @@ public class InappropriateIntimacySnifferTest {
             FieldReference secondMockedReference = mock(FieldReference.class);
             FieldReference thirdMockedReference = mock(FieldReference.class);
 
+            when(secondMockedReference.isInternal()).thenReturn(false);
+
             List<FieldReference> mockedListFirstTestClass = Arrays.asList(firstMockedReference, secondMockedReference, thirdMockedReference);
             List<FieldReference> mockedListSecondTestClass = Arrays.asList(firstMockedReference, secondMockedReference);
             List<FieldReference> mockedListThirdTestClass = Arrays.asList();
-            when(firstMockedClass.countFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListFirstTestClass.size());
-            when(secondMockedClass.countFieldReferencesTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedListSecondTestClass.size());
-            when(thirdMockedClass.countFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListThirdTestClass.size());
+            when(firstMockedClass.getFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListFirstTestClass);
+            when(secondMockedClass.getFieldReferencesTo(firstMockedClass.getFullyQualifiedName())).thenReturn(mockedListSecondTestClass);
+            when(thirdMockedClass.getFieldReferencesTo(secondMockedClass.getFullyQualifiedName())).thenReturn(mockedListThirdTestClass);
 
             when(mockedProject.getClassNames()).thenReturn(Arrays.asList(firstTestClass, secondTestClass, thirdTestClass));
             when(mockedProject.getClassData(firstTestClass)).thenReturn(firstMockedClass);

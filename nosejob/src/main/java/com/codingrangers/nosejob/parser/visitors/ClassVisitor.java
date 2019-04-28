@@ -85,7 +85,6 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 
 			classData.addReferenceToMethod(classQualifiedName, resolvedMethod.getSignature());
         } catch (UnsolvedSymbolException e) {
-            System.err.println("unsolved symbol found: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Got exception while resolving: " + e.getMessage());
         }
@@ -101,7 +100,6 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
                 classData.addReferenceToField(resolvedField.declaringType().getQualifiedName(), resolvedField.getName());
             }
         } catch (UnsolvedSymbolException e) {
-            System.err.println("cannot resolve symbol: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Got exception while resolving: " + e.getMessage());
         }
@@ -116,9 +114,17 @@ public class ClassVisitor extends VoidVisitorAdapter<ParsedClass> {
 			}
 
         } catch (UnsolvedSymbolException e) {
-            System.err.println("cannot resolve symbol: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Got exception while resolving: " + e.getMessage());
+		}
+	}
+
+	@Override
+	public void visit(ClassOrInterfaceDeclaration classOrInterface, ParsedClass parsedClass) {
+		System.out.printf("Visiting: %s as: %s%n", classOrInterface.getNameAsString(), parsedClass.getName());
+		if (classOrInterface.getNameAsString().equals(parsedClass.getName())) {
+			System.out.println("Keeps visiting");
+			super.visit(classOrInterface, parsedClass);
 		}
 	}
 }

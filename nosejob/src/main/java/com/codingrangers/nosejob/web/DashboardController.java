@@ -35,6 +35,7 @@ public class DashboardController {
 			ProjectReport projectReport = globalSniffer.getProjectReport();
 			model.addAttribute("projectScore", "Project Score: " + (int) projectReport.getProjectScore() * 100 + "%");
 			model.addAttribute("smellReports", projectReport.getSmellReports());
+            System.out.println(projectReport.getProjectScore());
 		} catch (Exception e) {
 			return "redirect:/error";
 		}
