@@ -31,8 +31,8 @@ public class FileVisitor extends VoidVisitorAdapter<ParsedFile> {
             for (var ancestor : classOrInterface.resolve().getAllAncestors()) {
                 classData.addSuperclass(ancestor.getQualifiedName());
             }
-        } catch (UnsolvedSymbolException e) {
-            System.err.println("Cannot get ancestors of: " + classData.getFullyQualifiedName());
+        } catch (UnsolvedSymbolException ignored) {
+
         }
 
         classVisitor.visit(classOrInterface, classData);
