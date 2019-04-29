@@ -75,8 +75,7 @@ public class SmellReport implements SmellReportBody {
 				averageSeverity += smell.getSmellSeverity();
 			}
 			averageSeverity /= smells.size();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ignored) {
 		}
 
 		return averageSeverity;
