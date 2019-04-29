@@ -8,12 +8,12 @@
  */
  package com.codingrangers.nosejob.web;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class CustomErrorController implements ErrorController {
@@ -25,7 +25,7 @@ public class CustomErrorController implements ErrorController {
 		}
 
 		if (!model.containsAttribute("tip")) {
-			model.addAttribute("tip", "Pleaes return home and try again.");
+			model.addAttribute("tip", "Please return home and try again.");
 		}
 
 		return "error";

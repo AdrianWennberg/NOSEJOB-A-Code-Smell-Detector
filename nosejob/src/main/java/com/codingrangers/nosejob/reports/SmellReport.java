@@ -37,7 +37,7 @@ public class SmellReport implements SmellReportBody {
 
 	@Override
 	public void addSmell(Smell smell) {
-		if (smell.equals(null))
+		if (smell == null)
 			throw new NullPointerException("Cannot add a null as a smell.");
 
 		smells.add(smell);
@@ -45,7 +45,7 @@ public class SmellReport implements SmellReportBody {
 
 	@Override
 	public void addSmells(List<Smell> retrievedSmells) {
-		if (retrievedSmells.equals(null))
+		if (retrievedSmells == null)
 			throw new NullPointerException("Cannot add a null list of smells.");
 
 		smells.addAll(retrievedSmells);
@@ -106,17 +106,17 @@ public class SmellReport implements SmellReportBody {
 
 	@Override
 	public int getAffectedFilesCount() {
-		ArrayList<String> filenames = new ArrayList<String>();
+		ArrayList<String> fileNames = new ArrayList<String>();
 
 		for (Smell smell : this.getSmells()) {
 			Path path = Paths.get(smell.getLocation().getFilePath());
 			String filename = path.getFileName().toString();
 
-			if (!filenames.contains(filename) && filename.length() > 0) {
-				filenames.add(filename);
+			if (!fileNames.contains(filename) && filename.length() > 0) {
+				fileNames.add(filename);
 			}
 		}
 
-		return filenames.size();
+		return fileNames.size();
 	}
 }

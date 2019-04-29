@@ -27,6 +27,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -40,9 +41,9 @@ import java.util.Optional;
 @Component
 public class ProjectParser implements CodeParser {
 
-    public static final int CODESTORE_FOLDER_OFFSET = 29;
-	ParsedProject parsedProject;
-	ClassVisitor classVisitor;
+	private static final int CODESTORE_FOLDER_OFFSET = 29;
+	private ParsedProject parsedProject;
+	private ClassVisitor classVisitor;
 
 	public ProjectParser() {
         parsedProject = new ParsedProject();
@@ -51,13 +52,7 @@ public class ProjectParser implements CodeParser {
 		classVisitor = new ClassVisitor(methodVisitor, variableVisitor);
 	}
 
-	/**
-	 * constructor for injecting dependencies, needed for testing perposes
-	 *
-	 * @param injectedProjectData
-	 * @param injectedClassVisitor
-	 */
-	public ProjectParser(ParsedProject injectedProjectData, ClassVisitor injectedClassVisitor) {
+	ProjectParser(ParsedProject injectedProjectData, ClassVisitor injectedClassVisitor) {
 		parsedProject = injectedProjectData;
 		classVisitor = injectedClassVisitor;
 	}
@@ -70,9 +65,9 @@ public class ProjectParser implements CodeParser {
 		if (!root.exists())
 			throw new FileNotFoundException();
 
-		JavaParserTypeSolver javaParserSolver = null;
+		JavaParserTypeSolver javaParserSolver;
 		ReflectionTypeSolver refectionSolver = new ReflectionTypeSolver();
-		CombinedTypeSolver typeSolver = null;
+		CombinedTypeSolver typeSolver;
 
 		if (root.isFile()) {
 			typeSolver = new CombinedTypeSolver(refectionSolver);
@@ -99,26 +94,25 @@ public class ProjectParser implements CodeParser {
 			parseFile(file);
 	}
 
-	private void parseDirectory(File Directory) {
-		for (File file : Directory.listFiles())
+	private void parseDirectory(File directory) {
+		for (File file : Objects.requireNonNull(directory.listFiles()))
 			directoryOrFile(file);
 	}
 
 	private void parseFile(File file) {
-		CompilationUnit compilationUnit = null;
-
 		try {
-			compilationUnit = JavaParser.parse(file);
-		} catch (FileNotFoundException e) {
+			CompilationUnit compilationUnit = JavaParser.parse(file);
+
+
+			String filePath = file.getPath().substring(CODESTORE_FOLDER_OFFSET);
+			String packageName = getPackageName(compilationUnit);
+
+			ParsedFile fileData = new ParsedFile(parsedProject, packageName, filePath);
+			FileVisitor fileVisitor = new FileVisitor(classVisitor);
+
+			fileVisitor.visit(compilationUnit, fileData);
+		} catch (FileNotFoundException ignored) {
 		}
-
-        String filePath = file.getPath().substring(CODESTORE_FOLDER_OFFSET);
-        String packageName = getPackageName(compilationUnit);
-
-        ParsedFile fileData = new ParsedFile(parsedProject, packageName, filePath);
-        FileVisitor fileVisitor = new FileVisitor(classVisitor);
-
-        fileVisitor.visit(compilationUnit, fileData);
     }
 
     private String getPackageName(CompilationUnit compilationUnit) {

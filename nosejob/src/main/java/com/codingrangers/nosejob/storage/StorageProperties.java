@@ -35,22 +35,22 @@ public class StorageProperties {
 		Path unixPath = Paths.get("nosejob", "src", "main", "resources", "codestore");
 		Path windowsPath = Paths.get("src", "main", "resources", "codestore");
 		if (Files.exists(unixPath)) {
-			String path = unixPath.toString().concat("/").concat(getRandomString(10));
+			String path = unixPath.toString().concat("/").concat(getRandomString());
 			new File(path).mkdir();
 			this.location = path;
 		} else if (Files.exists(windowsPath)) {
-			String path = windowsPath.toString().concat("/").concat(getRandomString(10));
+			String path = windowsPath.toString().concat("/").concat(getRandomString());
 			new File(path).mkdir();
 			this.location = path;
 		}
 	}
 
-	private String getRandomString(int charCount) {
+	private String getRandomString() {
 		int lowerAsciiBound = 97;
 		int upperAscciBound = 122;
 		Random random = new Random();
-		StringBuilder sb = new StringBuilder(charCount);
-		for (int i = 0; i < charCount; i++) {
+		StringBuilder sb = new StringBuilder(10);
+		for (int i = 0; i < 10; i++) {
 			int randomLimitedInt = lowerAsciiBound
 					+ (int) (random.nextFloat() * (upperAscciBound - lowerAsciiBound + 1));
 			sb.append((char) randomLimitedInt);
