@@ -1,4 +1,12 @@
-package com.codingrangers.nosejob.storage;
+/* NOSEJOB by The Coding Rangers
+ * William Akinsanya
+ * Alessandro Baccin
+ * Peter Major
+ * Adrian Wennberg
+ * For the UCD module:
+ * 	 Software Engineering Project 3
+ */
+ package com.codingrangers.nosejob.storage;
 
 import com.codingrangers.nosejob.models.StorageService;
 import org.junit.Test;

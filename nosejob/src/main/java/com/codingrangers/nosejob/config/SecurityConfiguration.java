@@ -1,4 +1,12 @@
-package com.codingrangers.nosejob.config;
+/* NOSEJOB by The Coding Rangers
+ * William Akinsanya
+ * Alessandro Baccin
+ * Peter Major
+ * Adrian Wennberg
+ * For the UCD module:
+ * 	 Software Engineering Project 3
+ */
+ package com.codingrangers.nosejob.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

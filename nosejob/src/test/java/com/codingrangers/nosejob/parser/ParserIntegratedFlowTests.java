@@ -1,4 +1,12 @@
-package com.codingrangers.nosejob.parser;
+/* NOSEJOB by The Coding Rangers
+ * William Akinsanya
+ * Alessandro Baccin
+ * Peter Major
+ * Adrian Wennberg
+ * For the UCD module:
+ * 	 Software Engineering Project 3
+ */
+ package com.codingrangers.nosejob.parser;
 
 import com.codingrangers.nosejob.parser.data.ParsedProject;
 import com.codingrangers.nosejob.parser.visitors.ClassVisitor;
