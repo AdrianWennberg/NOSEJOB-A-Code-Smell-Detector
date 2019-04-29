@@ -21,25 +21,28 @@ public class DashboardController {
 
 	private final StorageService storageService;
 
-	private final Path rootLocation;
+	private final StorageProperties storageProperties;
 
 	@Autowired
 	public DashboardController(ProjectParser parser, StorageProperties properties, StorageService storageService) {
 		this.projectParser = parser;
-		this.rootLocation = Paths.get(properties.getLocation());
+		this.storageProperties = properties;
 		this.storageService = storageService;
 	}
 
 	@GetMapping("/dashboard")
 	public String analyseProject(Model model) {
 		try {
-			ProjectData projectData = this.projectParser.parseProject(this.rootLocation.toString());
+			Path rootLocation = Paths.get(this.storageProperties.getLocation());
+			ProjectData projectData = this.projectParser.parseProject(rootLocation.toString());
 			ProjectSniffer globalSniffer = new ProjectSniffer();
 			globalSniffer.setProjectToAnalyse(projectData);
 			ProjectReport projectReport = globalSniffer.getProjectReport();
 			model.addAttribute("projectScore", "Project Score: " + (int) projectReport.getProjectScore() * 100 + "%");
 			model.addAttribute("smellReports", projectReport.getSmellReports());
 		} catch (Exception e) {
+			System.out.println("Error happened now");
+			e.printStackTrace();
 			return "redirect:/error";
 		} finally {
 			this.storageService.deleteAll();
