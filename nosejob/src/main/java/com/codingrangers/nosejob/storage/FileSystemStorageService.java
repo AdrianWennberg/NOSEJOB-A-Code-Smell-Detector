@@ -8,16 +8,7 @@
  */
  package com.codingrangers.nosejob.storage;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.stream.Stream;
-
+import com.codingrangers.nosejob.models.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -27,7 +18,15 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.zeroturnaround.zip.ZipUtil;
 
-import com.codingrangers.nosejob.models.StorageService;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.stream.Stream;
 
 @Service
 public class FileSystemStorageService implements StorageService {
@@ -61,7 +60,6 @@ public class FileSystemStorageService implements StorageService {
 			throw new StorageException("Failed to store file " + filename, e);
 		}
 
-		// hacky, find better solution...
 		if (filename.endsWith(".zip")) {
 			ZipUtil.unpack(new File(this.rootLocation.toString() + "/" + filename),
 					new File(this.rootLocation.toString() + "/"));

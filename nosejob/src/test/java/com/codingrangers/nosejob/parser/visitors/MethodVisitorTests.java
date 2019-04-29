@@ -53,9 +53,9 @@ public class MethodVisitorTests {
 	public void referenceTests() {
 		File referenceTestFile = new File("src/test/ParserTestTargets/ReferenceTestTargets");
 		JavaParserTypeSolver javaParserSolver = new JavaParserTypeSolver(referenceTestFile);
-		ReflectionTypeSolver refelctionSolver = new ReflectionTypeSolver();
+		ReflectionTypeSolver refectionSolver = new ReflectionTypeSolver();
 
-		CombinedTypeSolver typeSolver = new CombinedTypeSolver(javaParserSolver,refelctionSolver);
+		CombinedTypeSolver typeSolver = new CombinedTypeSolver(javaParserSolver, refectionSolver);
 
 		JavaSymbolSolver symbolSolver = new JavaSymbolSolver(typeSolver);
 		JavaParser.getStaticConfiguration().setSymbolResolver(symbolSolver);
