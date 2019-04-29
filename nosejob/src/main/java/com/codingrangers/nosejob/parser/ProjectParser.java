@@ -110,7 +110,6 @@ public class ProjectParser implements CodeParser {
 		try {
 			compilationUnit = JavaParser.parse(file);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		}
 
         String filePath = file.getPath().substring(CODESTORE_FOLDER_OFFSET);

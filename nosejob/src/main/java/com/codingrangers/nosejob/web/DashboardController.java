@@ -49,8 +49,6 @@ public class DashboardController {
 			model.addAttribute("projectScore", "Project smelliness: " + (int) (projectReport.getProjectScore() * 100) + "/100");
 			model.addAttribute("smellReports", projectReport.getSmellReports());
 		} catch (Exception e) {
-			System.out.println("Error happened now");
-			e.printStackTrace();
 			return "redirect:/error";
 		} finally {
 			this.storageService.deleteAll();

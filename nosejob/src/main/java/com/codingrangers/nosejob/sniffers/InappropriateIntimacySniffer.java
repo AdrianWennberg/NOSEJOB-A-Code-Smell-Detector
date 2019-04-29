@@ -24,10 +24,6 @@ public class InappropriateIntimacySniffer extends GeneralSniffer {
                 for (FieldReference reference : currentClassToAnalyse.getFieldReferencesTo(className)) {
                     if (!reference.isInternal()) {
                         externalFieldsCounter += 1;
-                        System.out.printf("Reference from: %s to %s.%s%n",
-                                currentClassToAnalyse.getFullyQualifiedName(),
-                                className,
-                                reference.getReferredFieldName());
                     }
                 }
             }
